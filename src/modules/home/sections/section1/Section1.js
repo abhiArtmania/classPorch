@@ -8,19 +8,19 @@ const showSignUp = () => {
 };
 
 const Section1 = () => (
-    <Grid style={{ backgroundImage: 'url(\'https://firebasestorage.googleapis.com/v0/b/classporch-de.appspot.com/o/HomeBAckground.jpg?alt=media&token=c15ae8a4-37a4-4628-b983-25f1b3d29eda\')',
+    <Grid style={{ backgroundImage: 'url(\'back.jpg\')',
       backgroundPosition: 'center center',
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover'}}>
     <Grid.Row centered className='section-one'>
-      <Grid.Column width={10}>
+      <Grid.Column width={12}>
         <p className='home-title'>Student learning. <span className='home-title-bold'>Simplified.</span></p>
         <p className='home-subtitle'>Connecting students with tutors and instructors across the globe.</p>
         <br/>
         <br/>
         <br/>
-        <Button circular color='yellow' size='big' onClick={showSignUp}>SIGN UP</Button>
-        <Button circular basic color='yellow' size='big' onClick={showSignUp} style={{marginLeft: 16}}>FIND MORE</Button>
+        <Button circular color='yellow'  size='big' onClick={showSignUp}>SIGN UP</Button>
+        <Button circular basic color='yellow' className="find-button" size='big' onClick={showSignUp} style={{marginLeft: 16}}>FIND MORE</Button>
       </Grid.Column>
     </Grid.Row>
   </Grid>

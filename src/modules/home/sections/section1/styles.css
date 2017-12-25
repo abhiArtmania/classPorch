@@ -8,11 +8,16 @@
 }
 
 .home-title{
+    text-shadow: -3px -2px 8px rgba(0, 2, 0, 0.68);
     font-size: 64px;
-    font-weight: 200;
+    font-weight: 600;
     color: #FFF
 }
-
+.find-button {
+    text-shadow: none !important;
+    padding: 13px 22px !important;
+    border: 1px solid #FBBD08 !important;
+}
 .home-title-bold{
     font-size: 64px;
     font-weight: 300;
@@ -21,8 +26,8 @@
 }
 
 .home-subtitle{
-    font-size: 18px;
-    font-weight: 200;
+    font-size: 21px;
+    font-weight: 400;
     color: #FFF;
     font-family: 'Open Sans' , 'sans-serif';
 }
