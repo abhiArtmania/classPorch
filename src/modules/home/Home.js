@@ -6,7 +6,8 @@ import {
   Section4,
   Section5,
   Section6,
-  Section7
+  Section7,
+  Pricing
 } from './sections';
 import MenuChangeStore from '../../menu';
 
@@ -42,6 +43,7 @@ export default class Home extends React.Component {
         <Section2/>
         <Section3/>
         <Section4/>
+        <Pricing/>
         <Section6/>
       </div>
     );
