@@ -8,35 +8,21 @@ const showSignUp = () => {
 };
 
 const Section4 = () => (
-  <Grid>
+  <Grid id='how-it-works' centered>
     <Grid.Row
       centered
       stretched
       verticalAlign='middle'
       className='section4-background'>
-      <Grid.Column width={6} className='section-background' floated='right'>
-        <Image
-          src='https://unsplash.com/photos/PJzc7LOt2Ig/download'
-          className='section4-banner-image'/>
-      </Grid.Column>
-      <Grid.Column width={6} textAlign='left' floated='left'>
+      <Grid.Column width={12} textAlign='center'>
         <div className='how-it-works-section'>
           <p className='section4-header' style={{color: '#fcbd08'}}>
             HOW IT WORKS
           </p>
-          <p className='section4-content'>
-            Our wide range of tutoring options enables us to meet the needs of all our students by improving and
-            individualising their learning experience! We use industry standard technology to ensure learners get a
-            great online tutoring experience.
-            To find your own tutor at ClassPorch, fill in the short form, wait for tutors to reply and offer their
-            services and choose the tutoring option that will work best for you! </p>
-          <p className='section4-content'>
-            Tell us a little about yourself, and we’ll introduce you to experts who are the best matches for you.
-          </p>
-          <p className='section4-content'>
-            See instructor qualifications and ratings from other students, choose a price that works for you, and
-            connect with your tutor of choice.
-          </p>
+          <p className='section4-content'>Sign Up: Create your student profile</p>
+          <p className='section4-content'>Find tutors using our Search feature</p>
+          <p className='section4-content'>Select a time available and book the session</p>
+          <p className='section4-content'>Enter the online classroom</p>
           <br/>
           <Button circular size='large' basic color='yellow' className='section4-find-more-button' onClick={showSignUp}>FIND
             MORE</Button>

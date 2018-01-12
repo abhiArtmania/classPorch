@@ -4,26 +4,37 @@ import {history} from '../../../../redux/store';
 import './styles.css';
 
 const showSignUp = () => {
-  history.push('/sign-up');
+    history.push('/sign-up');
 };
-
+const scrollTo = () => {
+    document.getElementById('introduction').scrollIntoView({block: 'end', behavior: 'smooth'});
+};
 const Section1 = () => (
-    <Grid style={{ backgroundImage: 'url(\'back.jpg\')',
-      backgroundPosition: 'center center',
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover'}}>
-    <Grid.Row centered className='section-one'>
-      <Grid.Column width={12}>
-        <p className='home-title'>Student learning. <span className='home-title-bold'>Simplified.</span></p>
-        <p className='home-subtitle'>Connecting students with tutors and instructors across the globe.</p>
-        <br/>
-        <br/>
-        <br/>
-        <Button circular color='yellow'  size='big' onClick={showSignUp}>SIGN UP</Button>
-        <Button circular basic color='yellow' className="find-button" size='big' onClick={showSignUp} style={{marginLeft: 16}}>FIND MORE</Button>
-      </Grid.Column>
-    </Grid.Row>
-  </Grid>
+    <Grid style={{
+        backgroundImage: 'url(\'back.jpg\')',
+        backgroundPosition: 'center center',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover'
+    }}>
+        <Grid.Row centered className='section-one'>
+            <Grid.Column width={12}>
+                <p className='home-title'>Student learning. <span className='home-title-bold'>Simplified.</span></p>
+                <p className='home-subtitle'>Connecting students with tutors and instructors across the globe.</p>
+                <br/>
+                <br/>
+                <br/>
+                <Grid.Row centered>
+                    <Button circular color='yellow' size='big' onClick={showSignUp}>Find Tutors Now</Button>
+                </Grid.Row>
+                <Grid.Row centered>
+                    <div onClick={scrollTo} className="scroll-to">
+                        <i className="fa fa-long-arrow-down fa-5x" aria-hidden="true"/>
+                    </div>
+                </Grid.Row>
+            </Grid.Column>
+        </Grid.Row>
+
+    </Grid>
 );
 
 export default Section1;

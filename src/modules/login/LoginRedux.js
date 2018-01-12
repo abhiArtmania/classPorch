@@ -11,9 +11,10 @@ import {
   Form,
   Modal
 } from 'semantic-ui-react';
-import './styles.css';
+import './styles.scss';
 import compass from '../../assets/login/compass.png';
 import {history} from '../../redux/store';
+import {Link} from "react-router-dom";
 
 
 class LoginRedux extends Component {
@@ -181,6 +182,7 @@ class LoginRedux extends Component {
               </Button>
             </Form>
 
+              <p className={'create-account'}>Don't Have an  <Link to={'/sign-up'}>Account?</Link></p>
           </Grid.Column>
         </Grid.Row>
 
@@ -263,8 +265,6 @@ class LoginRedux extends Component {
             </Modal>
           </Grid.Column>
         </Grid.Row>
-
-
       </Grid>
     )
   }

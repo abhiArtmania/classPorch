@@ -1,0 +1,14 @@
+.footer-intro-list {
+  .intro-items {
+    padding-left: 30px;
+  }
+  .item {
+    line-height: 30px !important;
+    a {
+      color: #FBBD08 !important;
+      &:hover {
+        color: #333333 !important;
+      }
+    }
+  }
+}

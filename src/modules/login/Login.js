@@ -8,7 +8,6 @@ import {
     Form,
     Modal
 } from 'semantic-ui-react';
-import './styles.css';
 
 import compass from '../../assets/login/compass.png';
 import MenuChangeStore from '../../menu';

@@ -7,7 +7,7 @@ import imageThree from '../../../../assets/section3/section3_3.png';
 import imageFour from '../../../../assets/section3/section3_4.png';
 
 const Section3 = () => (
-  <Grid className='section-three'>
+  <Grid className='section-three' id="introduction">
     <Grid.Row centered>
       <Grid.Column width={8}>
         <p className='section3-title'>INTRODUCING <span className='section3-title-semibold'>TOP TUTORS</span>

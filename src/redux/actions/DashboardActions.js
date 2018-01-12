@@ -51,7 +51,7 @@ export const getDashboard = ({userId, authToken}) => {
   return (dispatch) => {
     fetch(`${apiEndpoints.base}/user/${userId}/dashboard`, {
       headers: {
-        'auth_token': authToken
+        'auth-token': authToken
       }
     })
       .then(raw => {
@@ -90,7 +90,7 @@ export const fetchNotifications = (uri, authToken, userId) => {
 
     fetch(`${apiEndpoints.base}/user/${userId}/dashboard`, {
       headers: {
-        'auth_token': authToken
+        'auth-token': authToken
       }
     })
       .then(raw => {
@@ -127,7 +127,7 @@ export const sessionRequested = ({tutorId, skill, authToken, sessionStartTime, s
       let resRaw = await fetch(`${apiEndpoints.base}/session_requests/request/`, {
         method: "POST",
         headers: {
-          'auth_token': authToken,
+          'auth-token': authToken,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(bodyObject),
@@ -150,7 +150,7 @@ export const sessionRequested = ({tutorId, skill, authToken, sessionStartTime, s
       let payRaw = await fetch(`${apiEndpoints.base}/users/${userId}/pay`, {
         method: 'POST',
         headers: {
-          'auth_token': authToken,
+          'auth-token': authToken,
           'Content-type': 'application/json'
         },
         body: JSON.stringify(paymentBody)
@@ -192,7 +192,7 @@ export const acceptSession = ({sessionId, authToken}) => {
 
       let resRaw = await fetch(`${apiEndpoints.base}/session_requests/${sessionId}/accept`, {
         headers: {
-          'auth_token': authToken,
+          'auth-token': authToken,
           'Content-Type': 'application/json'
         },
       })
@@ -230,7 +230,7 @@ export const rejectSession = ({sessionId, authToken}) => {
 
       let resRaw = await fetch(`${apiEndpoints.base}/session_requests/${sessionId}/reject`, {
         headers: {
-          'auth_token': authToken,
+          'auth-token': authToken,
           'Content-Type': 'application/json'
         },
       })
@@ -286,7 +286,7 @@ export const addMoneyToWallet = ({userId, authToken, amountToBeAdded, stripeToke
       let resRaw = await fetch(`${apiEndpoints.base}/users/${userId}/add_money`, {
         method: 'POST',
         headers: {
-          'auth_token': authToken,
+          'auth-token': authToken,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(bodyObject)
@@ -339,11 +339,10 @@ export const requestMoneyAction = ({userId, authToken, availableCredits, entered
       let bodyObject = {
         requested_amount: enteredCredits
       }
-      console.log(bodyObject)
       let resRaw = await fetch(`${apiEndpoints.base}/users/${userId}/transact`, {
         method: 'POST',
         headers: {
-          'auth_token': authToken,
+          'auth-token': authToken,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(bodyObject)
@@ -395,7 +394,7 @@ export const requestLinkAccount = ({userId, authToken, bankName, ifscCode, accou
       let resRaw = await fetch(`${apiEndpoints.base}/users/${userId}/add_bank_details`, {
         method: 'POST',
         headers: {
-          'auth_token': authToken,
+          'auth-token': authToken,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(bodyObject)

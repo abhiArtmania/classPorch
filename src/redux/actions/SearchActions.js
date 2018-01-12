@@ -16,7 +16,7 @@ export const searchRequested = (searchWord,authToken) => {
 
             let rawRes = await fetch(`${apiEndpoints.base}/search?type=tutors&&q=${searchWord}`,{
                 headers:{
-                    'auth_token':authToken
+                    'auth-token':authToken
                 }
             })
             let res = await rawRes.json()

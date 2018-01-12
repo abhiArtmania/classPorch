@@ -1,8 +1,16 @@
+.footer-bottom-background > .centered > .row  {
+    padding: 0px !important;
+    .fourteen {
+        padding-top: 14px;
+    }
+}
 .footer-background{
     background-color: #656656!important;
 }
 
 .footer-bottom-background{
+    /*position: static;*/
+    /*bottom: 0;*/
     background-color: #FBBD08;
 }
 
@@ -15,7 +23,9 @@
     border: 1px solid #FFF;
     margin: 0 15px 0 0 !important;
 } */
-
+.footer-elements {
+    //padding: 10px;
+}
 .subscribe-label{
     color: #FBBD08;
     margin-top: 30px;

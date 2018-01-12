@@ -31,7 +31,7 @@ const epicMiddleWare = createEpicMiddleware(epics, {
 });
 
 const middlewares = [
-  logger(),
+  // logger(),
   ReduxThunk,
   routeMiddleWare,
   epicMiddleWare

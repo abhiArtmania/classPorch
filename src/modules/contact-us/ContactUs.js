@@ -5,14 +5,14 @@ export default class ContactUs extends React.Component {
   
   render() {
     return (
-      <Grid>
+      <Grid container centered stretched columns={2}>
         <Grid.Row centered>
           <Grid.Column textAlign='left' width={12}
                        style={{fontSize: 64, marginTop: 24, marginBottom: 32, fontWeight: 300}}>
             Contact Us
           </Grid.Column>
         </Grid.Row>
-        <Grid.Row centered>
+        <Grid.Row centered stretched>
           <Grid.Column textAlign='left' width={6} style={{marginTop: 16, marginBottom: 16}}>
             <Grid>
               <Grid.Row>

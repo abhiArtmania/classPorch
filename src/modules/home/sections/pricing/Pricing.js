@@ -17,7 +17,7 @@ export default class Pricing extends Component {
   render() {
     var itemStyle = {width: '100%', fontSize: 16, color: '#777', textAlign: 'center'}
     return (
-      <Grid>
+      <Grid id='pricing'>
         <Grid.Row centered style={{fontSize: 32, color: '#4A4A4A', paddingTop: 60, paddingBottom: 60, fontWeight: 300}}>
         Pricing
         </Grid.Row>

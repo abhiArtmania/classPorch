@@ -25,12 +25,14 @@ import {
   PrivacyPolicy,
   ContactUs
 } from './modules';
+import AboutUs from "./modules/AboutUs/AboutUs";
 
 const Routes = () => {
   return (
     <ConnectedRouter history={history}>
       <Switch>
         <Route exact path={'/'} component={Home}/>
+        <Route exact path={'/about-us'} component={AboutUs}/>
         <Route exact path={'/chats'} component={Chat}/>
         <Route exact path={'/messages'} component={Messaging}/>
         <Route exact path='/contact' component={ContactUs}/>
