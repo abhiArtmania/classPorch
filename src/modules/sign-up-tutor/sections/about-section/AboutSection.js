@@ -4,6 +4,10 @@ import moment from 'moment';
 import './styles.css';
 
 export default class AboutSection extends React.Component {
+  constructor() {
+    super()
+    this.changeGender = this.changeGender.bind(this)
+  }
 
   state = {
     gender: 'male'
