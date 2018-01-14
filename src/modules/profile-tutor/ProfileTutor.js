@@ -109,7 +109,7 @@ class ProfileTutor extends React.Component {
 const mapStateToProps = ( {auth,profileState,dashboard} ) => {
 	const { id:userId, authToken, role, firstName, lastName } =  auth;
 	const { presentProfileId, profile, educationalAttributes, averageRating, 
-			reviews, mode, editProfileMessage,profileEditedIndicator } = profileState;
+			reviews, mode } = profileState;
 	const { sessionRequestIndicator,displayMessage } = dashboard;
 	
 
@@ -121,7 +121,6 @@ export default connect(mapStateToProps, {
 	profileRequested,
 	getDashboard, 
 	toggleProfileMode, 
-	onChangeUserInfo,
 	onChangeUserInfo,
 	onChangeSkill,
 	onChangeEducation,

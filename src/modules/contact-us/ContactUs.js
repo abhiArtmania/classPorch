@@ -1,11 +1,11 @@
 import React from 'react';
 import {Grid, Form, TextArea} from 'semantic-ui-react';
-
+import './index.scss';
 export default class ContactUs extends React.Component {
   
   render() {
     return (
-      <Grid container centered stretched columns={2}>
+      <Grid container centered stretched columns={2} className='contact-section'>
         <Grid.Row centered>
           <Grid.Column textAlign='left' width={12}
                        style={{fontSize: 64, marginTop: 24, marginBottom: 32, fontWeight: 300}}>

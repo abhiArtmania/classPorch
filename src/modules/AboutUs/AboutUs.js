@@ -48,7 +48,7 @@ export default class Home extends React.Component {
 
 
         return (
-            <Grid container centered stretched columns={2}>
+            <Grid container centered stretched columns={2} className={'about-section'}>
                 <Grid.Row centered stretched verticalAlign='middle' className=''>
                     <Grid.Column width={12}>
                         <div className='about-us-section'>

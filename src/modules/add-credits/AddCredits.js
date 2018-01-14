@@ -6,8 +6,6 @@ import { Notification } from 'react-notification';
 import { CardForm } from './checkout-sections'
 import  { addMoneyToWallet,getDashboard } from '../../redux/actions'
 
-// import CheckoutForm from './CheckoutForm';
-
 class AddCredits extends React.Component {
 
     constructor() {
@@ -81,7 +79,7 @@ class AddCredits extends React.Component {
 
 const mapStateToProps = ( {dashboard,auth} ) => {
 	let { authToken, id:userId } = auth;
-	let { profile,moneyAddedIndicator,displayMessage,addingMoney } = dashboard;
+	let { moneyAddedIndicator,displayMessage,addingMoney } = dashboard;
 	
 	return {  userId, authToken, moneyAddedIndicator, displayMessage,addingMoney }
 };

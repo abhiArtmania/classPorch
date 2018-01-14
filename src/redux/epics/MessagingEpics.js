@@ -86,6 +86,7 @@ export const uploadFile = (action$, state, {auth, storage}) => action$.ofType(Me
       .catch(error => Rx.Observable.of(MessageActions.showError(error.message)));
   });
 
+// eslint-disable-next-line
 export const shareFile = (action$, state, {}) => action$.ofType(MessageActions.FILE_UPLOADED)
   .switchMap(action => {
     return Rx.Observable.of(MessageActions.sendMessage(action.downloadURL, MessageType.FILE));

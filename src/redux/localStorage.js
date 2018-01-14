@@ -24,6 +24,7 @@ export const loadState = () => {
 
 export const deleteState = () => {
     try{
+        console.log('loooogout')
         localStorage.removeItem('store');
         console.log('logged out')
     }catch(e){

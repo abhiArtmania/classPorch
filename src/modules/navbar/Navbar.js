@@ -212,7 +212,7 @@ class Navbar extends Component {
                 </Menu.Item>
             );
         });
-        return (<Menu.Menu> {menuItems} </Menu.Menu>)
+        return (<Menu.Menu position={'right'}> {menuItems} </Menu.Menu>)
     }
 
     getItems() {
@@ -276,8 +276,8 @@ class Navbar extends Component {
                         <img src={logoDark} className='navBar-logo' role='presentation'/>
                     </a>
                 </Menu.Item>
-                {this.renderCenterItems()}
-                {authToken ? <Menu.Item position='right'> {this.isShowSearchBar()} </Menu.Item> : null}
+                {authToken ?
+                    <Menu.Item position='right'> {this.isShowSearchBar()} </Menu.Item> : this.renderCenterItems()}
                 {menuRight}
             </Menu>
         )

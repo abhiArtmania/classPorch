@@ -2,7 +2,9 @@
     background-color: #656656!important;
     padding: 0!important;
 }
-
+.about-section {
+    padding-top: 60px;
+}
 .banner-image{
     height: auto;
 }

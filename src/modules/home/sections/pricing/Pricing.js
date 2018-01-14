@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Grid, Card, Image, Item, Button} from 'semantic-ui-react';
 import {HeaderGreen, HeaderOrange} from '../../../../assets/pricing';
 import {history} from '../../../../redux/store';
-
+import './index.scss';
 export default class Pricing extends Component {
 
   constructor(props) {
@@ -25,7 +25,11 @@ export default class Pricing extends Component {
           <Grid.Column width={6} textAlign='center'>
             <Card.Group itemsPerRow={2}>
               <Card>
-                <Image src={HeaderOrange} style={{backgroundColor: '#FFF'}} bordered={false} rounded/>
+                  <div className={'color1'}>
+                      <div className="pricing-plan-price">
+                         <span> $4.99/</span><span className={'time-type'}>hr</span>
+                      </div>
+                  </div>
                 <Card.Content>
                   <Item.Group divided relaxed>
                     <Item><div style={{...itemStyle, marginTop: 20}}>No contracts</div></Item>
@@ -40,7 +44,11 @@ export default class Pricing extends Component {
                 </Card.Content>
               </Card>
               <Card>
-              <Image src={HeaderGreen} style={{backgroundColor: '#FFF'}} bordered={false} rounded/>
+                  <div className={'color2'}>
+                      <div className="pricing-plan-price">
+                          <span> $4.99/</span><span className={'time-type'}>hr</span>
+                      </div>
+                  </div>
               <Card.Content>
                 <Item.Group divided relaxed>
                   <Item><div style={{...itemStyle, marginTop: 20}}>No contracts</div></Item>

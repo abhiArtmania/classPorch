@@ -5,3 +5,4 @@ export * from './section5';
 export * from './section6';
 export * from './section7';
 export * from './pricing';
+export * from './TutoringMadeEasy';

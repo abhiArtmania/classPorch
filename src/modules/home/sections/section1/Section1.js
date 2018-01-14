@@ -7,7 +7,7 @@ const showSignUp = () => {
     history.push('/sign-up');
 };
 const scrollTo = () => {
-    document.getElementById('introduction').scrollIntoView({block: 'end', behavior: 'smooth'});
+    document.getElementById('tutoring').scrollIntoView({block: 'end', behavior: 'smooth'});
 };
 const Section1 = () => (
     <Grid style={{

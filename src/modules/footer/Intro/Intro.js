@@ -2,10 +2,12 @@ import React, {Component} from "react";
 import {Button, Grid, List} from "semantic-ui-react";
 import {history} from '../../../redux/store';
 import './_intro.scss';
+
 export default class Intro extends Component {
     goTo(link) {
-        history.push(link)
+        history.replace(link);
     }
+
     render() {
         return (
             <div className='footer-background footer-intro-list' id={'intro'}>
@@ -13,23 +15,23 @@ export default class Intro extends Component {
                     <Grid.Row columns={3}>
                         <Grid.Column>
                             <List link size={'big'} className={'intro-items'}>
-                                <List.Item><a onClick={this.goTo.bind(this,'/')}>HOME</a></List.Item>
-                                <List.Item><a onClick={this.goTo.bind(this,'/about-us')}>ABOUT US</a></List.Item>
-                                <List.Item><a onClick={this.goTo.bind(this,'/contact')}>CONTACT US</a></List.Item>
-                                <List.Item><a onClick={this.goTo.bind(this,'/pricing')}>PRICING</a></List.Item>
-                                <List.Item><a onClick={this.goTo.bind(this,'/faq')}>FAQ (Coming soon)</a></List.Item>
+                                <List.Item><a onClick={this.goTo.bind(this, '/')}>HOME</a></List.Item>
+                                <List.Item><a onClick={this.goTo.bind(this, '/about-us')}>ABOUT US</a></List.Item>
+                                <List.Item><a onClick={this.goTo.bind(this, '/contact')}>CONTACT US</a></List.Item>
+                                <List.Item><a onClick={this.goTo.bind(this, '/pricing')}>PRICING</a></List.Item>
+                                <List.Item><a onClick={this.goTo.bind(this, '/faq')}>FAQ (Coming soon)</a></List.Item>
                             </List>
                         </Grid.Column>
                         <Grid.Column>
                             <List link size={'big'} className={'intro-items'}>
-                                <List.Item><a onClick={this.goTo.bind(this,'/')}>French Tutors</a></List.Item>
-                                <List.Item><a onClick={this.goTo.bind(this,'/')}>English Tutors</a></List.Item>
-                                <List.Item><a onClick={this.goTo.bind(this,'/')}>Math Tutors,</a></List.Item>
-                                <List.Item><a onClick={this.goTo.bind(this,'/')}>Biology Tutors</a></List.Item>
-                                <List.Item><a onClick={this.goTo.bind(this,'/')}>Physics Tutors</a></List.Item>
-                                <List.Item><a onClick={this.goTo.bind(this,'/')}>Science Tutors</a></List.Item>
-                                <List.Item><a onClick={this.goTo.bind(this,'/')}>Adult Education</a></List.Item>
-                                <List.Item><a onClick={this.goTo.bind(this,'/')}>ESL Tutors</a></List.Item>
+                                <List.Item><a onClick={this.goTo.bind(this, '/')}>French Tutors</a></List.Item>
+                                <List.Item><a onClick={this.goTo.bind(this, '/')}>English Tutors</a></List.Item>
+                                <List.Item><a onClick={this.goTo.bind(this, '/')}>Math Tutors,</a></List.Item>
+                                <List.Item><a onClick={this.goTo.bind(this, '/')}>Biology Tutors</a></List.Item>
+                                <List.Item><a onClick={this.goTo.bind(this, '/')}>Physics Tutors</a></List.Item>
+                                <List.Item><a onClick={this.goTo.bind(this, '/')}>Science Tutors</a></List.Item>
+                                <List.Item><a onClick={this.goTo.bind(this, '/')}>Adult Education</a></List.Item>
+                                <List.Item><a onClick={this.goTo.bind(this, '/')}>ESL Tutors</a></List.Item>
                             </List>
                         </Grid.Column>
                         <Grid.Column textAlign={'center'}>
