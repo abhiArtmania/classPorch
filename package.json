@@ -3,9 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "https://classporch.herokuapp.com/api/v1/",
-  "devDependencies": {
-    "redux-logger": "2.10.2"
-  },
   "dependencies": {
     "autoprefixer": "7.1.6",
     "axios": "0.16.2",
