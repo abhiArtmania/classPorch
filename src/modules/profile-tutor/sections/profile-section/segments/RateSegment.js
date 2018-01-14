@@ -8,15 +8,15 @@ class RateSegment extends Component {
 
     onChangeRate = (e,{value}) => {
         this.props.onChangeUserInfo('hourly-rate',value )
-    }
+    };
 
     onClickEdit = () => {
         this.props.toggleProfileMode('edit')
-    }
+    };
 
     render(){
-        const {profile,presentProfileId,userId, toggleProfileMode,mode, onChangeUserInfo} = this.props
-        const name = profile['full-name'] ? profile['full-name'].split(' ')[0].toUpperCase() : null
+        const {profile,presentProfileId,userId, toggleProfileMode,mode, onChangeUserInfo} = this.props;
+        const name = profile['full-name'] ? profile['full-name'].split(' ')[0].toUpperCase() : null;
         
         return(
             <Grid padded centered style={{paddingTop:30}} >
@@ -64,7 +64,7 @@ const styles = {
         fontSize:'2em',
         color:'#ccc'
     }
-}
+};
 
 
 // const mapStateToProps = ({ profileState }) => {

@@ -1,6 +1,6 @@
 
 import React, {Component} from 'react'
-import { Grid,Label, Icon, Input } from 'semantic-ui-react'
+import { Grid,Icon, Input } from 'semantic-ui-react'
 import {connect} from 'react-redux'
 import moment from 'moment'
 import '../../../styles.css'
@@ -10,39 +10,39 @@ class EducationSegment extends Component {
 
     onClickEdit = () => {
         this.props.toggleProfileMode('edit')
-    }
+    };
 
     onClickEdit = () => {
         this.props.toggleProfileMode('edit')
-    }
+    };
 
     onChangeField = (index,action,field,e,{value}) => {
         this.props.onChangeEducation(index,action,this.props.educationalAttributes,field,value)
-    }
+    };
 
     onClickDelete = (index,action) => {
         this.props.onChangeEducation(index,action,this.props.educationalAttributes)
-    }
+    };
 
     onAddEducation = (index,action) => {
         this.props.onChangeEducation(index,action,this.props.educationalAttributes)
-    }
+    };
 
     onFocusChange = (event, data) => {
         if(event.type==='focus'){
-            event.target.type = 'date'
+            event.target.type = 'date';
             event.target.click()
         }else{
             event.target.type = 'text'
         }
-    }
+    };
 
     getEducationBlocks = (educationalAttributes) => {
-        const {profile,toggleProfileMode,mode, onChangeUserInfo,presentProfileId,userId} = this.props
+        const {profile,toggleProfileMode,mode, onChangeUserInfo,presentProfileId,userId} = this.props;
         
         return educationalAttributes.map((education,i) => {
-            let startYear = moment(education['start-education']).format('YYYY')
-            let finishYear = moment(education['finish-education']).format('YYYY')
+            let startYear = moment(education['start-education']).format('YYYY');
+            let finishYear = moment(education['finish-education']).format('YYYY');
             return(
                 <Grid.Row stretched columns={3} centered key={i} >
                     <Grid.Column width={1} >
@@ -87,11 +87,11 @@ class EducationSegment extends Component {
                 </Grid.Row>
             )
         })
-    }
+    };
 
     render(){
-        const educationBlocks  = this.getEducationBlocks(this.props.educationalAttributes)
-        const {profile,toggleProfileMode,mode, onChangeUserInfo,presentProfileId,userId} = this.props
+        const educationBlocks  = this.getEducationBlocks(this.props.educationalAttributes);
+        const {profile,toggleProfileMode,mode, onChangeUserInfo,presentProfileId,userId} = this.props;
         
         return(
             <Grid padded relaxed style={{width:'100%',paddingTop:30}} >
@@ -130,7 +130,7 @@ const styles = {
     text:{
         fontSize:15
     }
-}
+};
 
 // const mapStateToProps = ({ profileState }) => {
 //     const {profile} = profileState

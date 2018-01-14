@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Header, Grid} from 'semantic-ui-react';
+import {Grid} from 'semantic-ui-react';
 import {connect} from 'react-redux';
 
 import './styles.css'
@@ -72,7 +72,7 @@ const styles = {
     fontSize: '40px',
     fontWeight: '300'
   }
-}
+};
 
 // const mapStateToProps = ({auth,profileState}) => {
 //     const role = auth.userObject.user.role

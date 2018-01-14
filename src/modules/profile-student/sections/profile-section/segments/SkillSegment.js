@@ -1,6 +1,6 @@
 
 import React, {Component} from 'react'
-import { Grid,Label,Icon } from 'semantic-ui-react'
+import { Grid,Icon } from 'semantic-ui-react'
 import {connect} from 'react-redux'
 import SkillSelection from './SkillSelection'
 import '../../../styles.css'
@@ -9,16 +9,16 @@ class SkillSegment extends Component {
 
     onClickEdit = () => {
         this.props.toggleProfileMode('edit')
-    }
+    };
 
     onChangeSkillsHandle = (editedSkills) => {
         this.props.onChangeSkill(editedSkills)
-    }
+    };
 
     render(){
-        const { userId, profile, presentProfileId, role, firstName, mode, onChangeSkill } = this.props
-        const skills  = profile['skill-ids']? profile['skill-ids'] : []
-        const name = profile['full-name'] ? profile['full-name'].split(' ')[0].toUpperCase() : null
+        const { userId, profile, presentProfileId, role, firstName, mode, onChangeSkill } = this.props;
+        const skills  = profile['skill-ids']? profile['skill-ids'] : [];
+        const name = profile['full-name'] ? profile['full-name'].split(' ')[0].toUpperCase() : null;
         
         return(
             <Grid padded relaxed style={{width:'100%',paddingTop:30}} >
@@ -56,7 +56,7 @@ const styles = {
     text:{
         fontSize:15
     }
-}
+};
 
 
 // const mapStateToProps = ({ profileState }) => {

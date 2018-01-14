@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {List, Image, Label} from 'semantic-ui-react';
+import {List, Image} from 'semantic-ui-react';
 import moment from 'moment';
 
 class OtherMessage extends Component {

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Grid, Image, Card, Icon, Label} from 'semantic-ui-react';
+import {Grid, Card, Icon, Label} from 'semantic-ui-react';
 import './styles.css';
 import {connect} from 'react-redux';
 import {ProfileTile} from './ProfileTile';
@@ -27,32 +27,32 @@ class SuggestedTutors extends React.Component {
   }
 
   initializeSuggestedTutors = (suggestedTutors) => {
-    console.log(suggestedTutors)
-    const pageStart = this.state.pageStart
-    const pageEnd = pageStart + 1
-    const totalPages = parseInt(suggestedTutors.length / 20)
+    console.log(suggestedTutors);
+    const pageStart = this.state.pageStart;
+    const pageEnd = pageStart + 1;
+    const totalPages = parseInt(suggestedTutors.length / 20);
     this.setState({
       allTutorProfiles: suggestedTutors,
       displayedTutorProfiles: suggestedTutors.slice(pageStart * 20, pageEnd * 20),
       totalPages
     })
-  }
+  };
 
   populateGridColumns(profiles) {
     return profiles.map((profile, i) => ( <ProfileTile profile={profile} key={i}/> ))
   }
 
   goPrevious = () => {
-    let {pageStart, allTutorProfiles} = this.state
-    let pageStartPrev = pageStart - 1
-    let pageEndPrev = pageStart
+    let {pageStart, allTutorProfiles} = this.state;
+    let pageStartPrev = pageStart - 1;
+    let pageEndPrev = pageStart;
 
     this.setState({
       pageStart: pageStartPrev,
       displayedTutorProfiles: allTutorProfiles.slice(pageStartPrev * 20, pageEndPrev * 20)
     })
 
-  }
+  };
 
   goNext = () => {
     let {pageStart, allTutorProfiles} = this.state;
@@ -74,7 +74,7 @@ class SuggestedTutors extends React.Component {
       pageStart: pageStart,
       displayedTutorProfiles: allTutorProfiles.slice(pageStart * 20, pageEnd * 20)
     })
-  }
+  };
 
   renderPageNumbers = (totalPages) => {
     let labels = [];
@@ -91,7 +91,7 @@ class SuggestedTutors extends React.Component {
         {labels}
       </Label.Group>
     )
-  }
+  };
 
   renderCarousels = (pageStart, totalPages) => {
     if (pageStart === 0) {
@@ -135,10 +135,10 @@ class SuggestedTutors extends React.Component {
         </Grid.Row>
       )
     }
-  }
+  };
 
   render() {
-    let {displayedTutorProfiles, pageStart, totalPages} = this.state
+    let {displayedTutorProfiles, pageStart, totalPages} = this.state;
     return (
       <Grid style={{marginBottom: 100}}>
         <Grid.Row centered>

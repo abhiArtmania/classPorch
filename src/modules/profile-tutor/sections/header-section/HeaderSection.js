@@ -4,12 +4,8 @@ import {connect} from 'react-redux'
 import RequestSession from './RequestSession'
 import {
   Grid,
-  List,
   Button,
-  Input,
-  Form,
-  Image
-} from 'semantic-ui-react';
+  Form} from 'semantic-ui-react';
 import './styles.css'
 
 class HeaderSection extends Component {
@@ -24,10 +20,10 @@ class HeaderSection extends Component {
 
   onFocusChange = (e) => {
     if(e.type==='focus'){
-      e.target.type = 'file'
+      e.target.type = 'file';
       e.target.click()
     }
-  }
+  };
 
   redirectToChats = () => {
     const currentUser = {
@@ -45,7 +41,7 @@ class HeaderSection extends Component {
   };
 
   render() {
-    const {userId, presentProfileId, profile, role} = this.props
+    const {userId, presentProfileId, profile, role} = this.props;
     return (
       <Grid padded relaxed style={{width: '100%', paddingTop: '40px'}}>
         <Grid.Row columns={1} centered>

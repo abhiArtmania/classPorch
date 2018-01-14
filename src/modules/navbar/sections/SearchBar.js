@@ -1,6 +1,6 @@
 
-import React, {Component} from 'react'
-import { Grid, Header, Divider, Image, Input } from 'semantic-ui-react'
+import React from 'react'
+import { Input } from 'semantic-ui-react'
 
 // class SearchBar extends Component {
 
@@ -17,6 +17,6 @@ const SearchBar = () => {
         <Input size='large' placeholder='Search for tutors,skills you want to learn...' action='Search'  className='search-input' />
         </div>
     )
-}
+};
 
 export default SearchBar

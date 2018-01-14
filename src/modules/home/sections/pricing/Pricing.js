@@ -6,17 +6,17 @@ import {history} from '../../../../redux/store';
 export default class Pricing extends Component {
 
   constructor(props) {
-    super(props)
+    super(props);
     this.showSignIn = this.showSignIn.bind(this);
   }
 
   showSignIn = () => {
     history.push('/sign-up');
-  }
+  };
 
   render() {
-    var itemStyle = {width: '100%', fontSize: 16, color: '#777', textAlign: 'center'}
-    return (
+      const itemStyle = {width: '100%', fontSize: 16, color: '#777', textAlign: 'center'};
+      return (
       <Grid id='pricing'>
         <Grid.Row centered style={{fontSize: 32, color: '#4A4A4A', paddingTop: 60, paddingBottom: 60, fontWeight: 300}}>
         Pricing

@@ -31,7 +31,7 @@ class Navbar extends Component {
     }
 
     handleItemClick = (e, {name}) => {
-        console.log(history)
+        console.log(history);
         this.setState({activeItem: name});
         const {role, userId} = this.props;
 
@@ -45,11 +45,10 @@ class Navbar extends Component {
                 this.props.logoutUserRequested();
                 this.setState({activeItem: ''});
                 return history.replace('/login');
-                break;
             case 'profile':
                 this.setState({activeItem: 'profile'});
                 this.props.setPresentProfile({userId});
-                return role === 'tutor' ? history.push('/profile/tutor') : history.push('/profile/student')
+                return role === 'tutor' ? history.push('/profile/tutor') : history.push('/profile/student');
             case 'add-credits':
                 return history.push('/add-credits');
             case 'request-money':
@@ -152,7 +151,7 @@ class Navbar extends Component {
             );
         });
 
-        const {firstName, lastName} = this.props
+        const {firstName, lastName} = this.props;
 
         const trigger = (
             <div className='trigger-container'>
@@ -247,7 +246,7 @@ class Navbar extends Component {
     };
 
     onSearch = () => {
-        this.props.toggleSearchMode({mode: 'search'})
+        this.props.toggleSearchMode({mode: 'search'});
         this.props.searchRequested(this.state.searchWord, this.props.authToken)
     };
 

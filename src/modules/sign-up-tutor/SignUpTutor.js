@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {
   AboutSection,
   BottomSection,
@@ -9,7 +9,6 @@ import {
   TopSection
 } from './sections';
 import {Form} from 'semantic-ui-react';
-import {apiEndpoints} from '../../ApiEndpoints';
 import {connect} from 'react-redux';
 import {signupUser} from '../../redux/actions';
 
@@ -107,7 +106,7 @@ class SignUpTutor extends React.Component {
   };
 
   render() {
-    console.log(this.state)
+    console.log(this.state);
     return (
       <Form encType='application/json' onSubmit={this.onFormSubmitted}>
         <TopSection/>

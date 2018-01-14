@@ -37,14 +37,14 @@ export const passwordChanged = (text) => {
     type: PASSWORD_CHANGED,
     payload: text
   }
-}
+};
 
 export const passwordDialogClosed = (boolValue) => {
   return {
     type: CLOSE_PASSWORD_DIALOG,
     payload: boolValue
   }
-}
+};
 
 export const statePersisted = () => {
   return {
@@ -53,13 +53,13 @@ export const statePersisted = () => {
 };
 
 export const loginUser = (userReqObject) => {
-  console.log(JSON.stringify(userReqObject, null, 4))
+  console.log(JSON.stringify(userReqObject, null, 4));
   return async (dispatch) => {
     try {
-      dispatch({type: LOGIN_USER})
+      dispatch({type: LOGIN_USER});
 
-      const res = await axios.post(apiEndpoints.auth.signIn, userReqObject)
-      console.log(res)
+      const res = await axios.post(apiEndpoints.auth.signIn, userReqObject);
+      console.log(res);
       if (res.status !== 200) {
         throw('Please check your internet connection. A mouse may be chewing the wire.')
       }
@@ -68,34 +68,34 @@ export const loginUser = (userReqObject) => {
         throw('Please enter correct username or password. We know you can do it. ')
       }
 
-      const userResObject = {...res.data.user, ...res.data.session}
+      const userResObject = {...res.data.user, ...res.data.session};
       if (res.data.user.role === 'tutor') {
-        dispatch({type: LOGIN_USER_SUCCESS, payload: {userResObject}})
+        dispatch({type: LOGIN_USER_SUCCESS, payload: {userResObject}});
         return history.push('/dashboard/tutor')
 
       } else if (res.data.user.role === 'student') {
-        dispatch({type: LOGIN_USER_SUCCESS, payload: {userResObject}})
+        dispatch({type: LOGIN_USER_SUCCESS, payload: {userResObject}});
         return history.push('/dashboard/student')
 
       } else {
         throw('Looks like the our intern slept while working. Please try again.')
       }
     } catch (e) {
-      dispatch({type: LOGIN_USER_FAIL, payload: {errorMessage: e.message}})
+      dispatch({type: LOGIN_USER_FAIL, payload: {errorMessage: e.message}});
       return history.push('/login')
     }
   }
-}
+};
 
 
 export const signupUser = (parsedForm) => {
-  console.log(JSON.stringify(parsedForm, null, 4))
+  console.log(JSON.stringify(parsedForm, null, 4));
   return async (dispatch) => {
     try {
-      dispatch({type: SIGNUP_USER})
+      dispatch({type: SIGNUP_USER});
 
-      const res = await axios.post(apiEndpoints.auth.signUp, parsedForm)
-      console.log(res)
+      const res = await axios.post(apiEndpoints.auth.signUp, parsedForm);
+      console.log(res);
       if (res.status !== 200) {
         throw('Please check your internet connection. A mouse may be chewing the wire.')
       }
@@ -104,13 +104,13 @@ export const signupUser = (parsedForm) => {
         throw("We couldn't sign you up this time. We'd be grateful if you'd try just once more" )
       }
 
-      const userResObject = {...res.data.user, ...res.data.session}
+      const userResObject = {...res.data.user, ...res.data.session};
 
       if (res.data.user.role === 'tutor') {
-        dispatch({type: SIGNUP_SUCCESS, payload: {userResObject}})
+        dispatch({type: SIGNUP_SUCCESS, payload: {userResObject}});
         return history.push('/dashboard/tutor')
       } else if (res.data.user.role === 'student') {
-        dispatch({type: SIGNUP_SUCCESS, payload: {userResObject}})
+        dispatch({type: SIGNUP_SUCCESS, payload: {userResObject}});
         return history.push('/dashboard/student')
       } else {
         throw('Looks like the our intern slept while working. Please try again.')
@@ -119,12 +119,12 @@ export const signupUser = (parsedForm) => {
       return dispatch({type: SIGNUP_FAIL, payload: {errorMessage: e.message}})
     }
   }
-}
+};
 
 export const logoutUserRequested = () => {
-  deleteState()
+  deleteState();
   return {
     type: LOGOUT_USER_SUCCESS,
     payload: ''
   }
-}
+};

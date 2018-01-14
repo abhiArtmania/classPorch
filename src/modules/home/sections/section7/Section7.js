@@ -1,5 +1,5 @@
 import React from 'react';
-import {Grid, Image, Button} from 'semantic-ui-react';
+import {Grid, Button} from 'semantic-ui-react';
 const Section3 = () => (
     <Grid className='section-three'>
         <Grid.Row centered>

@@ -1,11 +1,10 @@
 import React from 'react';
 import {Grid, Input, Radio} from 'semantic-ui-react';
-import moment from 'moment';
 import './styles.css';
 
 export default class AboutSection extends React.Component {
   constructor() {
-    super()
+    super();
     this.changeGender = this.changeGender.bind(this)
   }
 

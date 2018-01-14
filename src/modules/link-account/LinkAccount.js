@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { Grid, Header, Divider, Image,Button, Segment,Loader, Form, Input } from 'semantic-ui-react'
+import { Grid, Header, Button, Form, Input } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { Notification } from 'react-notification';
 import './styles.css'
@@ -15,13 +15,13 @@ class LinkAccount extends React.Component {
         accountHolderName:'',
         isNotificationActive:false
         
-    }
+    };
 
     componentWillReceiveProps(nextProps){
-		const { userId, authToken } = this.props
+		const { userId, authToken } = this.props;
 		
 		if(this.props.accountLinkIndicator !== nextProps.accountLinkIndicator){
-            this.setState({ isNotificationActive:true })
+            this.setState({ isNotificationActive:true });
             this.props.getDashboard({ userId,authToken })			            
 		}
 	}
@@ -30,19 +30,19 @@ class LinkAccount extends React.Component {
     onChangeValue = (key,e,{value}) => this.setState({
         ...this.state,
         [key]: value
-    })
+    });
 
     onFormSubmit = (e) => {
-        e.preventDefault()
-        const { bankName,ifscCode,accountHolderName,accountNumber } = this.state
-        const { userId, authToken } = this.props
-        this.props.requestLinkAccount({ userId, authToken, bankName,ifscCode,accountHolderName,accountNumber })
+        e.preventDefault();
+        const { bankName,ifscCode,accountHolderName,accountNumber } = this.state;
+        const { userId, authToken } = this.props;
+        this.props.requestLinkAccount({ userId, authToken, bankName,ifscCode,accountHolderName,accountNumber });
         this.setState({ bankName:'',accountHolderName:'',accountNumber:'',ifscCode:'' })
-    }
+    };
 
     dismissNotification = () => {
 		this.setState({ isNotificationActive :false })
-	}
+	};
 
     render(){
         return(
@@ -117,11 +117,11 @@ class LinkAccount extends React.Component {
 }
 
 const mapStateToProps = ( {auth,dashboard} ) => {
-    const { authToken, id:userId, role,firstName, lastName, loggedIn } =  auth
-    const { profile, displayMessage, accountLinkIndicator } = dashboard
+    const { authToken, id:userId, role,firstName, lastName, loggedIn } =  auth;
+    const { profile, displayMessage, accountLinkIndicator } = dashboard;
 
 	return { authToken, userId, role,firstName, lastName, loggedIn, profile, displayMessage, accountLinkIndicator }
-}
+};
 
 
 export default connect(mapStateToProps, { requestLinkAccount,

@@ -9,13 +9,13 @@ import {setPresentProfile} from '../../../redux/actions';
 class SearchSection extends React.Component {
 
   onClick = (e) => {
-    const userId = this.props.result.id
-    this.props.setPresentProfile({userId})
+    const userId = this.props.result.id;
+    this.props.setPresentProfile({userId});
     history.push('/profile/tutor')
-  }
+  };
 
   render() {
-    const {result} = this.props
+    const {result} = this.props;
     return (
       <Grid.Row textAlign='center' key={result.id} style={{height: '140px'}}>
         <Grid.Column width={2}>

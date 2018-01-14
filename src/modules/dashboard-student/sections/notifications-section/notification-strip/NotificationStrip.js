@@ -5,7 +5,6 @@ import {messageIconUnread} from '../../../../../assets/dashboard';
 import moment from 'moment'
 import {history} from '../../../../../redux/store';
 import faker from 'faker'
-import {SingleDatePicker} from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import {connect} from 'react-redux'
 import {acceptSession, fetchNotifications, ChatActions} from '../../../../../redux/actions'

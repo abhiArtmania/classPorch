@@ -29,17 +29,17 @@ class AddCredits extends React.Component {
       }
     
     componentWillReceiveProps(nextProps){
-		const { userId, authToken } = this.props
+		const { userId, authToken } = this.props;
 		
 		if(this.props.moneyAddedIndicator !== nextProps.moneyAddedIndicator){
-			this.setState({ isNotificationActive:true })
+			this.setState({ isNotificationActive:true });
 			this.props.getDashboard({ userId,authToken })	
 		}
 	}
 
 	dismissNotification = () => {
 		this.setState({ isNotificationActive :false })
-	}
+	};
 
     
     render() {
@@ -80,10 +80,10 @@ class AddCredits extends React.Component {
 }
 
 const mapStateToProps = ( {dashboard,auth} ) => {
-	let { authToken, id:userId } = auth
-	let { profile,moneyAddedIndicator,displayMessage,addingMoney } = dashboard
+	let { authToken, id:userId } = auth;
+	let { profile,moneyAddedIndicator,displayMessage,addingMoney } = dashboard;
 	
 	return {  userId, authToken, moneyAddedIndicator, displayMessage,addingMoney }
-}
+};
 
 export default connect(mapStateToProps, { addMoneyToWallet,getDashboard })(AddCredits);

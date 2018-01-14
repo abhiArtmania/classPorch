@@ -23,7 +23,7 @@ class LoginRedux extends Component {
     isEmailFacebook: true,
     emailAfterFbLogin: '',
     fbResponseWithoutEmail: {}
-  }
+  };
 
   componentWillUnmount() {
     this.setState({isEmailFacebook: true, emailAfterFbLogin: '', fbResponseWithoutEmail: {}})
@@ -60,7 +60,7 @@ class LoginRedux extends Component {
 
   onEmailAfterFbSubmit(event) {
     event.preventDefault();
-    this.setState({isEmailFacebook: true})
+    this.setState({isEmailFacebook: true});
     const {emailAfterFbLogin, fbResponseWithoutEmail} = this.state;
     this.props.loginUser(this.makeLoginApiRequestBody(emailAfterFbLogin, null, "facebook", fbResponseWithoutEmail.accessToken, null))
   }
@@ -75,14 +75,14 @@ class LoginRedux extends Component {
     if (!response.accessToken) {
       history.push('/login');
     } else if (response.accessToken && response.email === undefined) {
-      this.setState({isEmailFacebook: false})
+      this.setState({isEmailFacebook: false});
       this.setState({fbResponseWithoutEmail: response})
       // prompt user to enter email
     } else {
       this.props.loginUser(this.makeLoginApiRequestBody(response.email, null, "facebook", response.accessToken, null))
     }
 
-  }
+  };
 
   makeLoginApiRequestBody(email, password = "", provider = "", access_token = "", secret = "") {
     return {
@@ -106,7 +106,7 @@ class LoginRedux extends Component {
   render() {
     // console.log(this.props.errorMessage)
     const {email, password, loading, error, errorMessage} = this.props;
-    const errorFlag = error === '' ? false : true;
+    const errorFlag = error !== '';
     return (
       <Grid className='login-body'>
         <Grid.Row centered>
@@ -271,10 +271,10 @@ class LoginRedux extends Component {
 }
 
 const mapStateToProps = ({auth}) => {
-  const {email, password, showPasswordModal, userObject, errorObject, loading, errorMessage} = auth
+  const {email, password, showPasswordModal, userObject, errorObject, loading, errorMessage} = auth;
 
   return {email, password, showPasswordModal, userObject, errorObject, loading, errorMessage}
-}
+};
 
 
 export default connect(mapStateToProps, {

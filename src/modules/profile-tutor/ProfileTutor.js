@@ -15,16 +15,16 @@ class ProfileTutor extends React.Component {
 	};
 
 	componentDidMount(){
-		const {presentProfileId,authToken} = this.props
-		this.props.profileRequested(presentProfileId,authToken)
+		const {presentProfileId,authToken} = this.props;
+		this.props.profileRequested(presentProfileId,authToken);
 		this.props.toggleProfileMode('normal')
 	}
 
 	componentWillReceiveProps(nextProps){
-		const { userId, authToken } = this.props
+		const { userId, authToken } = this.props;
 		
 		if(this.props.sessionRequestIndicator !== nextProps.sessionRequestIndicator){
-			this.setState({ isNotificationActive:true })
+			this.setState({ isNotificationActive:true });
 			this.props.getDashboard({ userId,authToken })			
 		}
 		if(this.props.profileEditedIndicator !== nextProps.profileEditedIndicator){
@@ -39,21 +39,21 @@ class ProfileTutor extends React.Component {
 
 	dismissNotification = () => {
 		this.setState({ isNotificationActive :false })
-	}
+	};
 
 	dismissNotificationEdit = () => {
 		this.setState({ isProfileEditedNotificationActive :false })
-	}
+	};
 
 	onClickSave = () =>  {
-		const { userId, profile, authToken, educationalAttributes } = this.props
-		this.props.toggleProfileMode('normal')
+		const { userId, profile, authToken, educationalAttributes } = this.props;
+		this.props.toggleProfileMode('normal');
 		this.props.updateProfile({ profile,userId,educationalAttributes,authToken })
-	}
+	};
 
     render(){
 		const { userId,authToken,presentProfileId,role,firstName, profile, educationalAttributes, lastName ,
-			averageRating, reviews,mode, onChangeEducation, onChangeSkill } = this.props
+			averageRating, reviews,mode, onChangeEducation, onChangeSkill } = this.props;
         return (
         	<div style={{width:'100%',display:'flex',flexDirection:'column', alignItems:'center' }} >
 				<HeaderSection userId={userId} authToken={authToken} profile={profile} presentProfileId={presentProfileId}
@@ -107,15 +107,15 @@ class ProfileTutor extends React.Component {
 }
 
 const mapStateToProps = ( {auth,profileState,dashboard} ) => {
-	const { id:userId, authToken, role, firstName, lastName } =  auth
+	const { id:userId, authToken, role, firstName, lastName } =  auth;
 	const { presentProfileId, profile, educationalAttributes, averageRating, 
-			reviews, mode, editProfileMessage,profileEditedIndicator } = profileState
-	const { sessionRequestIndicator,displayMessage } = dashboard
+			reviews, mode, editProfileMessage,profileEditedIndicator } = profileState;
+	const { sessionRequestIndicator,displayMessage } = dashboard;
 	
 
 	return { userId, authToken,role,firstName, lastName, presentProfileId, profile, educationalAttributes, averageRating, reviews, mode,
 		sessionRequestIndicator, displayMessage  }
-}
+};
 
 export default connect(mapStateToProps, { 
 	profileRequested,

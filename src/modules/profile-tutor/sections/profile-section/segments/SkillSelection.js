@@ -2,13 +2,13 @@
 
 
 import React from 'react'
-import {Grid, Dropdown, Icon, Label} from 'semantic-ui-react';
+import {Dropdown} from 'semantic-ui-react';
 
 class SkillsSelection extends React.Component{
 
     state={
         skills:[],
-    }
+    };
 
     componentDidMount = async() => {
         try{
@@ -26,36 +26,36 @@ class SkillsSelection extends React.Component{
         }catch(e){
             console.log(e)
         }
-    }
+    };
     
 
     handleAddition = (e, { value }) => {
         this.setState({
           skills: [{ text: value, value }, ...this.state.skills],
         })
-    }
+    };
 
     handleChange = (e, { value }) => {
         const skillsNormalized = value.map(x => {
-            const skillObject = this.state.skills.filter(y => y.key === x)[0]
-            console.log(skillObject)
+            const skillObject = this.state.skills.filter(y => y.key === x)[0];
+            console.log(skillObject);
             return { id: skillObject.key , name: skillObject.text }
             // return skillObject
-        })
+        });
         this.props.onChangeSkills(skillsNormalized)
-    }
+    };
     
     renderLabel = label => ({
         color: 'yellow',
         content: `${label.text}`,
-    })
+    });
       
     render(){
-        const { skills } = this.state
-        const { selectedSkills,mode } = this.props
-        const displayableSkills = selectedSkills.map(x => x.id)
+        const { skills } = this.state;
+        const { selectedSkills,mode } = this.props;
+        const displayableSkills = selectedSkills.map(x => x.id);
 
-        console.log(selectedSkills)
+        console.log(selectedSkills);
 
         return (
                         <Dropdown
@@ -81,7 +81,7 @@ class SkillsSelection extends React.Component{
 export default SkillsSelection
 
 function capitalize(str=''){
-    if(!str) return
+    if(!str) return;
     return str.trim().split('')
           .map((char,i) => i === 0 ? char.toUpperCase() : char )
           .reduce((final,char)=> final += char, '' )
@@ -158,4 +158,4 @@ let seededSkills = [
         "created_at": "2017-06-14T11:19:16.550Z",
         "updated_at": "2017-06-14T11:19:16.550Z"
     },
-]
+];

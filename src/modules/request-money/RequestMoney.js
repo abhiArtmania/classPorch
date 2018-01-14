@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { Grid, Header, Divider, Image,Button, Segment,Loader, Form, Input } from 'semantic-ui-react'
+import { Grid, Header, Button, Form, Input } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { Notification } from 'react-notification';
 import { requestMoneyAction,getDashboard } from '../../redux/actions';
@@ -11,31 +11,31 @@ class RequestMoney extends React.Component {
         enteredAmount:'',
         isNotificationActive:false
         
-    }
+    };
 
     componentWillReceiveProps(nextProps){
-		const { userId, authToken } = this.props
+		const { userId, authToken } = this.props;
 		
 		if(this.props.requestMoneyIndicator !== nextProps.requestMoneyIndicator){
-            this.setState({ isNotificationActive:true })
+            this.setState({ isNotificationActive:true });
             this.props.getDashboard({ userId,authToken })			            
 		}
 	}
 
 
-    onChangeValue = (e,{value}) => this.setState({ enteredAmount:value })
+    onChangeValue = (e,{value}) => this.setState({ enteredAmount:value });
 
     onFormSubmit = (e) => {
-        e.preventDefault()
-        const availableCredits = parseFloat(this.props.profile.credits)
-        const enteredCredits = parseFloat(this.state.enteredAmount)
-        const { userId, authToken } = this.props
+        e.preventDefault();
+        const availableCredits = parseFloat(this.props.profile.credits);
+        const enteredCredits = parseFloat(this.state.enteredAmount);
+        const { userId, authToken } = this.props;
         this.props.requestMoneyAction({ userId, authToken, availableCredits, enteredCredits })
-    }
+    };
 
     dismissNotification = () => {
 		this.setState({ isNotificationActive :false })
-	}
+	};
 
     render(){
         return(
@@ -89,11 +89,11 @@ class RequestMoney extends React.Component {
 }
 
 const mapStateToProps = ( {auth,dashboard} ) => {
-    const { authToken, id:userId, role,firstName, lastName, loggedIn } =  auth
-    const { profile, displayMessage, requestMoneyIndicator } = dashboard
+    const { authToken, id:userId, role,firstName, lastName, loggedIn } =  auth;
+    const { profile, displayMessage, requestMoneyIndicator } = dashboard;
 
 	return { authToken, userId, role,firstName, lastName, loggedIn, profile, displayMessage, requestMoneyIndicator }
-}
+};
 
 
 export default connect(mapStateToProps, { requestMoneyAction,

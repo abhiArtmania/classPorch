@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import {Grid, Image, Button, Card, Modal, Header, Dropdown, Input} from 'semantic-ui-react';
+import {Grid, Image, Button, Modal, Dropdown, Input} from 'semantic-ui-react';
 import './styles.css';
 import faker from 'faker'
 import moment from 'moment'
 import {history} from '../../../../redux/store';
-import {SingleDatePicker, DayPickerRangeController} from 'react-dates';
+import {SingleDatePicker} from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import TimeKeeper from 'react-timekeeper';
 
@@ -27,7 +27,7 @@ class RequestSession extends Component {
     message: '',
     showMessage: false,
     isAmountLess: false
-  }
+  };
 
   componentWillUnmount() {
     this.initializeState()
@@ -46,92 +46,92 @@ class RequestSession extends Component {
       showMessage: false,
       isAmountLess: false
     })
-  }
+  };
 
   bookSession(tutorId, skill, authToken, sessionStartTime, sessionEndTime, amountPaid, userId) {
-    this.props.sessionRequested({tutorId, skill, authToken, sessionStartTime, sessionEndTime, amountPaid, userId})
+    this.props.sessionRequested({tutorId, skill, authToken, sessionStartTime, sessionEndTime, amountPaid, userId});
     this.setState({selectedSkillId: null, date: null})
   }
 
   proceed = (e) => {
-    const {profile, authToken, userId} = this.props
+    const {profile, authToken, userId} = this.props;
 
-    let {selectedSkillId, date, startTime, duration, billedAmount: amountPaid} = this.state
+    let {selectedSkillId, date, startTime, duration, billedAmount: amountPaid} = this.state;
     if (selectedSkillId === null || date === null) {
-      this.setState({message: 'Please enter the required fields.', showMessage: true})
+      this.setState({message: 'Please enter the required fields.', showMessage: true});
       return
     }
     if (parseFloat(this.props.dashboard.profile.credits) < this.state.billedAmount) {
-      this.setState({message: 'Not enough credits in your wallet.', showMessage: true, isAmountLess: true})
+      this.setState({message: 'Not enough credits in your wallet.', showMessage: true, isAmountLess: true});
       return
     }
-    this.close()
-    const tutorId = profile.id
-    const skill = {"id": selectedSkillId, "name": "RoR"}
-    const {sessionStartTime, sessionEndTime} = this.getSessionStartTime(date, startTime, duration)
+    this.close();
+    const tutorId = profile.id;
+    const skill = {"id": selectedSkillId, "name": "RoR"};
+    const {sessionStartTime, sessionEndTime} = this.getSessionStartTime(date, startTime, duration);
     this.bookSession(tutorId, skill, authToken, sessionStartTime, sessionEndTime, amountPaid, userId)
-  }
+  };
 
   addMoney = () => {
     history.push('/add-credits')
-  }
+  };
 
 
   getSessionStartTime = (date, startTime, duration) => {
-    duration = parseInt(duration)
-    let dateNormalized = moment(date).add(-12, 'hours')
+    duration = parseInt(duration);
+    let dateNormalized = moment(date).add(-12, 'hours');
 
-    let hrs = parseInt(startTime.split(':')[0])
-    let mins = parseInt(startTime.split(':')[1].split(' ')[0])
-    let ampm = startTime.split(':')[1].split(' ')[1]
-    let ampmHrs = ampm === 'am' ? 0 : 12
-    let addHrs = hrs + ampmHrs
+    let hrs = parseInt(startTime.split(':')[0]);
+    let mins = parseInt(startTime.split(':')[1].split(' ')[0]);
+    let ampm = startTime.split(':')[1].split(' ')[1];
+    let ampmHrs = ampm === 'am' ? 0 : 12;
+    let addHrs = hrs + ampmHrs;
 
     let sessionStartTime = moment(dateNormalized)
       .add(addHrs, 'hours')
       .add(mins, 'minutes')
-      .valueOf()
+      .valueOf();
 
     let sessionEndTime = moment(sessionStartTime)
       .add(duration, 'hours')
-      .valueOf()
+      .valueOf();
 
-    console.log(moment(sessionStartTime).format('MMMM DD YYYY HH mm ss A'))
-    console.log(moment(sessionEndTime).format('MMMM DD YYYY HH mm ss A'))
+    console.log(moment(sessionStartTime).format('MMMM DD YYYY HH mm ss A'));
+    console.log(moment(sessionEndTime).format('MMMM DD YYYY HH mm ss A'));
 
     return {sessionStartTime, sessionEndTime}
 
-  }
+  };
 
-  onSelectSkill = (e, {value}) => this.setState({selectedSkillId: value})
+  onSelectSkill = (e, {value}) => this.setState({selectedSkillId: value});
   onChangeDuration = (e, {value}) => {
-    const amount = parseFloat(value) * parseFloat(this.props.profile["hourly-rate"])
+    const amount = parseFloat(value) * parseFloat(this.props.profile["hourly-rate"]);
     this.setState({
       duration: value,
       billedAmount: amount.toFixed(2)
     })
-  }
+  };
 
   getDurations = (maxDuration) => {
-    let arrayDuration = []
+    let arrayDuration = [];
     for (let i = 0; i < maxDuration; i++) {
-      let inHrs = (i + 1).toString()
+      let inHrs = (i + 1).toString();
       arrayDuration.push({key: inHrs, value: inHrs, text: inHrs})
     }
     return arrayDuration
-  }
+  };
 
-  showModal = () => this.setState({modalVisible: true})
-  close = () => this.setState({modalVisible: false})
+  showModal = () => this.setState({modalVisible: true});
+  close = () => this.setState({modalVisible: false});
 
   render() {
     let {profile, dashboard, authToken} = this.props;
-    let {dimmer, modalVisible} = this.state
+    let {dimmer, modalVisible} = this.state;
     // let skills = profile["skills-ids"].map(skillId => {
     // 	return { key: skillId, value: skillId.toString(), text:skillId.toString() }
     // })
-    let skills = [{key: 1, value: "1", text: "1"}]
-    let durations = this.getDurations(5)
+    let skills = [{key: 1, value: "1", text: "1"}];
+    let durations = this.getDurations(5);
 
     return (
 
@@ -212,9 +212,9 @@ class RequestSession extends Component {
 }
 
 const mapStateToProps = ({dashboard, auth}) => {
-  const {authToken, id: userId} = auth
+  const {authToken, id: userId} = auth;
   return {dashboard, authToken, userId}
-}
+};
 
 
 export default connect(mapStateToProps, {sessionRequested})(RequestSession)

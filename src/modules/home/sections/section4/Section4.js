@@ -1,5 +1,5 @@
 import React from 'react';
-import {Grid, Image, Button} from 'semantic-ui-react';
+import {Grid, Button} from 'semantic-ui-react';
 import {history} from "../../../../redux/store";
 import './styles.css';
 

@@ -1,14 +1,13 @@
 
 import React, {Component} from 'react'
-import { Header, Grid } from 'semantic-ui-react'
-import {connect} from 'react-redux'
+import { Grid } from 'semantic-ui-react'
 import ReactStars from 'react-stars'
 
 
 class RatingSection extends Component {
     render(){
-        const { userId, presentProfileId, profile } = this.props
-        const name = profile['full-name'] ? profile['full-name'].split(' ')[0]+"'s " : null
+        const { userId, presentProfileId, profile } = this.props;
+        const name = profile['full-name'] ? profile['full-name'].split(' ')[0]+"'s " : null;
         
         return(
             <Grid padded relaxed style={{width:'100%'}} >
@@ -40,7 +39,7 @@ const styles = {
         fontSize:'15px',
         marginTop:'20px'
     }
-}
+};
 
 export default RatingSection
 

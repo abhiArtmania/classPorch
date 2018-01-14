@@ -4,7 +4,6 @@ import './styles.css';
 import {messageIconUnread} from '../../../../../assets/dashboard';
 import moment from 'moment'
 import faker from 'faker'
-import { SingleDatePicker } from 'react-dates';
 import {history} from '../../../../../redux/store';
 import 'react-dates/lib/css/_datepicker.css';
 import { connect } from 'react-redux'
@@ -15,28 +14,28 @@ class NotificationStrip extends Component {
 	state = {
 		modalVisible:false,
 		dimmer:'blurring',
-	}
+	};
 
 	onNotificationClick = (e,data) => {
 		this.setState({ modalVisible:true })			
-	}
+	};
 
 	rejectSession = () => {
-		this.close()		
-		const sessionId = this.props.notification.session.id
-		const { authToken, userId } = this.props
-		this.props.rejectSession({ sessionId,authToken })
+		this.close();		
+		const sessionId = this.props.notification.session.id;
+		const { authToken, userId } = this.props;
+		this.props.rejectSession({ sessionId,authToken });
 		this.props.fetchNotifications( null,authToken,userId )
-	}
+	};
 
 	proceed = () => {
-		this.close()		
-		const sessionId = this.props.notification.session.id
-		const { authToken, userId } = this.props
-		this.props.acceptSession({ sessionId,authToken })
+		this.close();		
+		const sessionId = this.props.notification.session.id;
+		const { authToken, userId } = this.props;
+		this.props.acceptSession({ sessionId,authToken });
 		this.props.fetchNotifications( null,authToken,userId )
 		// accept or reject
-	}
+	};
 
 
 	onClickMessageIcon = () => {
@@ -45,38 +44,38 @@ class NotificationStrip extends Component {
 			lastName:this.props.lastName, 
 			role:this.props.role, 
 			id:this.props.userId 
-		}
+		};
 		const otherUser = { 
 			firstName: this.props.notification.user["full-name"].split(' ')[0] , 
 			lastName: this.props.notification.user["full-name"].split(' ')[1] , 
 			role: 'student', 
 			id: this.props.notification.user["id"] 
-		}
-		console.log(otherUser)
-		console.log(currentUser)
-		this.props.showMessages(currentUser,otherUser,null)
+		};
+		console.log(otherUser);
+		console.log(currentUser);
+		this.props.showMessages(currentUser,otherUser,null);
 		history.push('/messages')
 		
-	}
+	};
 
-	close = () => this.setState({ modalVisible:false })
+	close = () => this.setState({ modalVisible:false });
 
 	render(){
-		const {modalVisible,dimmer} = this.state
-		const {notification} = this.props
-		const sessionEndTime = notification.session['end-time']
-		const sessionStartTime = notification.session['start-time']
+		const {modalVisible,dimmer} = this.state;
+		const {notification} = this.props;
+		const sessionEndTime = notification.session['end-time'];
+		const sessionStartTime = notification.session['start-time'];
 		
-		const durationHrs = parseInt((sessionEndTime - sessionStartTime) / (1000*60*60))
-		const date = moment(sessionStartTime).format('MMMM DD YYYY')
-		const startTime = moment(sessionStartTime).format('HH mm A')
+		const durationHrs = parseInt((sessionEndTime - sessionStartTime) / (1000*60*60));
+		const date = moment(sessionStartTime).format('MMMM DD YYYY');
+		const startTime = moment(sessionStartTime).format('HH mm A');
 
 		const notificationText = (notification) => {
 			if( notification["notif-type"].toLowerCase() === "requested" ){
 				return notification.user["full-name"] + " requested a session for " + notification.skill.name
 			}
 			return "You " + notification["notif-type"] + " a " + notification.skill.name + " session from " + notification.user["full-name"]
-		}
+		};
 
 		return (
 			<div>

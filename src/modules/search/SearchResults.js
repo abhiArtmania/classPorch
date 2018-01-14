@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
-import { Grid, Header, Divider, Image,Button, Segment,Loader } from 'semantic-ui-react'
-import faker from 'faker'
+import { Grid, Header, Segment,Loader } from 'semantic-ui-react'
 import { SearchSection } from './sections'
 import { connect } from 'react-redux'
 import { searchRequested } from '../../redux/actions'
@@ -13,7 +12,7 @@ class SearchResults extends Component {
 
     onClickResult = (e,data) => {
         console.log(e)
-    }
+    };
 
     renderSearchResults = (results,authToken) => {
         if(!results.length || !results){
@@ -26,7 +25,7 @@ class SearchResults extends Component {
         return results.map(result => {
             return <SearchSection result = {result} authToken={authToken} key={result.id} />
         })
-    }
+    };
 
     renderLoader = () => {
         return(
@@ -35,10 +34,10 @@ class SearchResults extends Component {
 
             </Segment>
         )
-    }
+    };
 
     render(){
-        const { loadingSearch,searchResults,authToken } = this.props
+        const { loadingSearch,searchResults,authToken } = this.props;
         return(
             <div style={{display:'flex',justifyContent:'center',marginBottom:'40px',minHeight:'700px'}}>
                 <Grid  style={{width:'60%'}} >
@@ -53,10 +52,10 @@ class SearchResults extends Component {
 }
 
 const mapStateToProps = ({search,auth}) => {
-    const { searchResults,loadingSearch } = search
-    const {authToken} = auth
+    const { searchResults,loadingSearch } = search;
+    const {authToken} = auth;
 
     return { searchResults,loadingSearch,authToken }
-}
+};
 
 export default connect(mapStateToProps,{ searchRequested })(SearchResults)

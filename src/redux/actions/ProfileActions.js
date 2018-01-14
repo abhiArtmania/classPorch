@@ -42,31 +42,31 @@ export const setPresentProfile = ({userId}) => {
 };
 
 export const profileRequested = (userId, authToken) => {
-    console.log(authToken)
+    console.log(authToken);
     return async (dispatch) => {
         try {
-            dispatch({type: GET_PROFILE_START})
+            dispatch({type: GET_PROFILE_START});
             let rawRes = await fetch(`${apiEndpoints.base}/user/${userId}/profile`, {
                 headers: {
                     'auth-token': authToken
                 }
-            })
-            let res = await rawRes.json()
-            const averageRating = res.data.attributes['average-rating']
-            const educationalAttributes = res.data.attributes['educations-attributes']
-            const profile = res.data.attributes['profile']
-            const reviews = res.data.attributes['reviews']
+            });
+            let res = await rawRes.json();
+            const averageRating = res.data.attributes['average-rating'];
+            const educationalAttributes = res.data.attributes['educations-attributes'];
+            const profile = res.data.attributes['profile'];
+            const reviews = res.data.attributes['reviews'];
 
             return dispatch({
                 type: GET_PROFILE_SUCCESS,
                 payload: {averageRating, educationalAttributes, profile, reviews}
             })
         } catch (e) {
-            console.log('adada',e)
+            console.log('adada',e);
             return dispatch({type: GET_PROFILE_FAIL, payload: e})
         }
     }
-}
+};
 
 
 export const toggleProfileMode = (mode) => {
@@ -74,84 +74,84 @@ export const toggleProfileMode = (mode) => {
         type: TOGGLE_PROFILE_MODE,
         payload: mode
     }
-}
+};
 
 export const onChangeUserInfo = (field, value) => {
-    console.log(field)
-    console.log(value)
+    console.log(field);
+    console.log(value);
     return {
         type: CHANGE_FIELD,
         payload: {field, value}
     }
-}
+};
 
 export const onChangeEducation = (index, action, educationalAttributes, field, value) => {
     if (action === 'edit') {
         const updatedEducation = educationalAttributes.map((ed, i) => {
             if (i === index) {
-                ed[field] = value
+                ed[field] = value;
                 return ed
             }
             return ed
-        })
+        });
         return {
             type: CHANGE_EDUCATION,
             payload: updatedEducation
         }
     } else if (action === 'delete') {
         const updatedEducation = educationalAttributes.filter((ed, i) => {
-            if (i === index) {
-                return false
-            }
-            return true
-        })
+            return i !== index;
+            
+        });
         return {
             type: CHANGE_EDUCATION,
             payload: updatedEducation
         }
-    } else if (action = 'add') {
-        let updatedEducation = educationalAttributes
-        if (index > educationalAttributes.length) {
-            const newEducation = {
-                'start-education': '',
-                'finish-education': '',
-                'university-name': ''
+    } else { // noinspection JSUnusedAssignment
+        if (action = 'add') {
+                let updatedEducation = educationalAttributes;
+                if (index > educationalAttributes.length) {
+                    const newEducation = {
+                        'start-education': '',
+                        'finish-education': '',
+                        'university-name': ''
+                    };
+                    updatedEducation = [...updatedEducation, newEducation]
+                }
+        
+                return {
+                    type: CHANGE_EDUCATION,
+                    payload: updatedEducation
+                }
+            } else {
+                return {
+                    type: CHANGE_EDUCATION,
+                    payload: educationalAttributes
+                }
             }
-            updatedEducation = [...updatedEducation, newEducation]
-        }
-
-        return {
-            type: CHANGE_EDUCATION,
-            payload: updatedEducation
-        }
-    } else {
-        return {
-            type: CHANGE_EDUCATION,
-            payload: educationalAttributes
-        }
     }
-}
+};
 
 export const onChangeSkill = (editedSkills) => {
     return {
         type: CHANGE_SKILLS,
         payload: editedSkills
     }
-}
+};
 
 export const updateProfilePicture = (picturePath) => {
     return {
         type: CHANGE_PICTURE,
         payload: picturePath
     }
-}
+};
 
 export const updateProfile = ({profile, userId, educationalAttributes, authToken}) => {
     return async (dispatch) => {
         try {
-            dispatch({type: EDIT_PROFILE_START})
+            dispatch({type: EDIT_PROFILE_START});
 
-            console.log(authToken)
+            console.log(authToken);
 
             let bodyObject = {
                 "user": {
@@ -168,9 +168,9 @@ export const updateProfile = ({profile, userId, educationalAttributes, authToken
                     "skills": profile['skill-ids'],
                 },
                 "educations_attributes": educationalAttributes,
-            }
+            };
 
-            console.log(JSON.stringify(bodyObject, null, 4))
+            console.log(JSON.stringify(bodyObject, null, 4));
 
             let resRaw = await fetch(`${apiEndpoints.base}/user/${userId}`, {
                 method: 'PUT',
@@ -179,12 +179,12 @@ export const updateProfile = ({profile, userId, educationalAttributes, authToken
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(bodyObject)
-            })
+            });
             if (resRaw.status !== 200) {
                 throw('failed request')
             }
-            const res = await resRaw.json()
-            const id = uuidv1()
+            const res = await resRaw.json();
+            const id = uuidv1();
 
             return dispatch({
                 type: EDIT_PROFILE_SUCCESS,
@@ -194,8 +194,8 @@ export const updateProfile = ({profile, userId, educationalAttributes, authToken
                 }
             })
         } catch (e) {
-            console.log(e)
-            const id = uuidv1()
+            console.log(e);
+            const id = uuidv1();
             return dispatch({
                 type: EDIT_PROFILE_FAIL,
                 payload: {
@@ -205,4 +205,4 @@ export const updateProfile = ({profile, userId, educationalAttributes, authToken
             })
         }
     }
-}
+};

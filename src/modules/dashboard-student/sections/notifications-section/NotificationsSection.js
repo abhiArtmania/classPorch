@@ -1,5 +1,5 @@
 import React from 'react';
-import {Grid, Image, Label,Segment, Loader,Dimmer } from 'semantic-ui-react';
+import {Grid, Label,Loader,Dimmer } from 'semantic-ui-react';
 import './styles.css';
 import {NotificationStrip} from './notification-strip';
 import { connect } from 'react-redux';
@@ -12,16 +12,16 @@ class NotificationsSection extends React.Component{
 		allNotifications:[],
 		// displayMoreSegment:true,
 		displayClickCount:1
-	}
+	};
 
 	componentWillMount(){
-		const {notifications} = this.props
+		const {notifications} = this.props;
 		this.setState({ allNotifications: notifications, displayNotifications: notifications.slice(0,3) })
 	}
 
 	componentWillReceiveProps(nextProps){
 		if(nextProps.notifications.length !== this.props.notifications.length){
-			const {displayClickCount} = this.state
+			const {displayClickCount} = this.state;
 			this.setState({
 				allNotifications:nextProps.notifications, 
 				displayNotifications: nextProps.notifications.slice(0,3),
@@ -32,20 +32,20 @@ class NotificationsSection extends React.Component{
 	
 	
 	populateNotificationStrips = (notifications) => {
-		const {userId, firstName, lastName, role} = this.props
+		const {userId, firstName, lastName, role} = this.props;
 		return notifications.map( (notification,i) => {
-			console.log(notification)
+			console.log(notification);
 			return <NotificationStrip notification = {notification} 
 						userId={userId} firstName={firstName} lastName={lastName} role={role}
 			 key = {i} />
 		})
-	}
+	};
 
 	getMoreNotifications = () => {
 		// fire an action to populate more notifications
-		const { notificationsNextUrl, userId, authToken } = this.props
-		let { displayNotifications, allNotifications, displayClickCount } = this.state
-		const incrementedCount = 1 + displayClickCount
+		const { notificationsNextUrl, userId, authToken } = this.props;
+		let { displayNotifications, allNotifications, displayClickCount } = this.state;
+		const incrementedCount = 1 + displayClickCount;
 
 		if(displayNotifications.length < allNotifications.length){
 			return this.setState({
@@ -54,7 +54,7 @@ class NotificationsSection extends React.Component{
 			})
 		}
 		this.props.fetchNotifications( notificationsNextUrl,authToken,userId )
-	}
+	};
 
 	displayMoreNotifications = (loading) => {
 		if(loading){
@@ -70,11 +70,11 @@ class NotificationsSection extends React.Component{
 		 		</Label>
 			)
 		}
-	}
+	};
 
 	render(){
-		const { loading, notificationsNextUrl, userId, authToken } = this.props
-		const { displayNotifications, allNotifications } = this.state
+		const { loading, notificationsNextUrl, userId, authToken } = this.props;
+		const { displayNotifications, allNotifications } = this.state;
 		return (
 			<Grid className='tutor-notification-section'>
 				<Grid.Row centered textAlign='left'>
@@ -99,12 +99,12 @@ class NotificationsSection extends React.Component{
 
 
 const mapStateToProps = ( {dashboard,auth} ) => {
-	let { authToken, id:userId, firstName, lastName, role } = auth
-	let { loading, notificationsNextUrl, notifications, profile } = dashboard
+	let { authToken, id:userId, firstName, lastName, role } = auth;
+	let { loading, notificationsNextUrl, notifications, profile } = dashboard;
 	
-	notifications = notifications.reverse()
+	notifications = notifications.reverse();
 
 	return { notifications, loading, notificationsNextUrl, userId, firstName, lastName, role, authToken }
-}
+};
 
 export default connect(mapStateToProps, { fetchNotifications })(NotificationsSection);

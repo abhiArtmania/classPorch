@@ -8,17 +8,17 @@ class ContactSegment extends Component {
 
     onChangeField = (field,e,{value}) => {
         this.props.onChangeUserInfo(field,value)
-    }
+    };
 
     onClickEdit = () => {
         this.props.toggleProfileMode('edit')
-    }
+    };
 
     render(){
-        const {profile} = this.props
-        const phone = profile['phone']
-        const email = profile['email']
-        const {toggleProfileMode,mode, onChangeUserInfo, presentProfileId, userId} = this.props
+        const {profile} = this.props;
+        const phone = profile['phone'];
+        const email = profile['email'];
+        const {toggleProfileMode,mode, onChangeUserInfo, presentProfileId, userId} = this.props;
         return(
             <Grid padded relaxed style={{width:'100%',paddingTop:30}} >
                 <Grid.Row stretched columns={1} centered >
@@ -75,7 +75,7 @@ const styles = {
     text:{
         fontSize:15
     }
-}
+};
 
 
 // const mapStateToProps = ({ profileState }) => {

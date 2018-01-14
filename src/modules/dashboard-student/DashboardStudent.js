@@ -1,7 +1,7 @@
 import React from 'react';
 import {NotificationsSection, StatsSection, SuggestedTutors} from './sections';
 import {connect} from 'react-redux';
-import { Image,Button, Icon } from 'semantic-ui-react'
+import { Icon } from 'semantic-ui-react'
 
 import {Notification} from 'react-notification';
 import {getDashboard, getUnreadMessagesCount,toggleSearchMode} from '../../redux/actions';
@@ -43,7 +43,7 @@ class DashboardStudent extends React.Component {
 
   onCancelSearch = () => {
     this.props.toggleSearchMode('normal')
-  }
+  };
 
 
   render() {

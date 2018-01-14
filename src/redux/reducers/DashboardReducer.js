@@ -14,7 +14,6 @@ import {
   SESSION_REJECT_SUCCESS,
   SESSION_REJECT_FAIL,
   LOGOUT_USER_SUCCESS,
-  ADD_PAYMENT_FIELDS,
   ADD_MONEY_START,
   ADD_MONEY_SUCCESS,
   ADD_MONEY_FAIL,
@@ -64,19 +63,19 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case GET_DASHBOARD_SUCCESS: {
-      const {profile, notifications, notificationsNextUrl, suggestedTutors, weekSchedule, nextWeekUrl} = action.payload
+      const {profile, notifications, notificationsNextUrl, suggestedTutors, weekSchedule, nextWeekUrl} = action.payload;
       return {...state, profile, notifications, notificationsNextUrl, suggestedTutors, weekSchedule, nextWeekUrl}
     }
 
     case GET_DASHBOARD_FAIL:
-      return {...state, dashboardErrors: action.payload}
+      return {...state, dashboardErrors: action.payload};
 
     case FETCH_NOTIFICATIONS:
       // console.log(action.payload)
-      return {...state, loading: true}
+      return {...state, loading: true};
 
     case FETCH_NOTIFICATIONS_SUCCESS:
-      return {...state, loading: false, notifications: [...action.payload.attributes.notifications]}
+      return {...state, loading: false, notifications: [...action.payload.attributes.notifications]};
 
     case FETCH_NOTIFICATIONS_FAIL: {
       return {...state, loading: false, dashboardErrors: action.payload}
@@ -87,37 +86,37 @@ export default (state = INITIAL_STATE, action) => {
     }
 
     case TUTOR_SESSION_REQUEST_SENT: {
-      const {sessionRequestIndicator, message} = action.payload
+      const {sessionRequestIndicator, message} = action.payload;
       return {...state, sessionRequestIndicator, displayMessage: message}
     }
     case TUTOR_SESSION_REQUEST_FAILED: {
-      const {sessionRequestIndicator, message} = action.payload
+      const {sessionRequestIndicator, message} = action.payload;
       return {...state, sessionRequestIndicator, displayMessage: message}
     }
 
     case SESSION_ACCEPT_START:
-      return {...state}
+      return {...state};
 
     case SESSION_ACCEPT_SUCCESS: {
-      const {sessionRequestIndicator, message} = action.payload
+      const {sessionRequestIndicator, message} = action.payload;
       return {...state, sessionRequestIndicator, displayMessage: message}
     }
 
     case SESSION_ACCEPT_FAIL: {
-      const {sessionRequestIndicator, message} = action.payload
+      const {sessionRequestIndicator, message} = action.payload;
       return {...state, sessionRequestIndicator, displayMessage: message}
     }
 
     case SESSION_REJECT_START:
-      return {...state}
+      return {...state};
 
     case SESSION_REJECT_SUCCESS: {
-      const {sessionRequestIndicator, message} = action.payload
+      const {sessionRequestIndicator, message} = action.payload;
       return {...state, sessionRequestIndicator, displayMessage: message}
     }
 
     case SESSION_REJECT_FAIL: {
-      const {sessionRequestIndicator, message} = action.payload
+      const {sessionRequestIndicator, message} = action.payload;
       return {...state, sessionRequestIndicator, displayMessage: message}
     }
     // case ADD_PAYMENT_FIELDS:{
@@ -130,29 +129,29 @@ export default (state = INITIAL_STATE, action) => {
     }
 
     case ADD_MONEY_SUCCESS: {
-      const {moneyAddedIndicator, message} = action.payload
+      const {moneyAddedIndicator, message} = action.payload;
       return {...state, moneyAddedIndicator, displayMessage: message, addingMoney: false}
     }
 
     case ADD_MONEY_FAIL: {
-      const {moneyAddedIndicator, message} = action.payload
+      const {moneyAddedIndicator, message} = action.payload;
       return {...state, moneyAddedIndicator, displayMessage: message, addingMoney: false}
     }
 
     case LOGOUT_USER_SUCCESS:
-      return {...state = INITIAL_STATE}
+      return {...state = INITIAL_STATE};
 
     case REQUEST_MONEY_START: {
       return {...state, requestingMoney: true}
     }
 
     case REQUEST_MONEY_SUCCESS: {
-      const {requestMoneyIndicator, message} = action.payload
+      const {requestMoneyIndicator, message} = action.payload;
       return {...state, requestMoneyIndicator, displayMessage: message, requestingMoney: false}
     }
 
     case REQUEST_MONEY_FAILED: {
-      const {requestMoneyIndicator, message} = action.payload
+      const {requestMoneyIndicator, message} = action.payload;
       return {...state, requestMoneyIndicator, displayMessage: message, requestingMoney: false}
     }
 
@@ -161,12 +160,12 @@ export default (state = INITIAL_STATE, action) => {
     }
 
     case REQUEST_ACCOUNT_LINK_SUCCESS: {
-      const {accountLinkIndicator, message} = action.payload
+      const {accountLinkIndicator, message} = action.payload;
       return {...state, accountLinkIndicator, displayMessage: message, linkingAccount: false}
     }
 
     case REQUEST_ACCOUNT_LINK_FAILED: {
-      const {accountLinkIndicator, message} = action.payload
+      const {accountLinkIndicator, message} = action.payload;
       return {...state, accountLinkIndicator, displayMessage: message, linkingAccount: false}
     }
 

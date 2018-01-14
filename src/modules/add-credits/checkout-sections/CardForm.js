@@ -6,7 +6,6 @@ import '../styles.css'
 
 import {
   CardElement,
-  Elements,
   injectStripe,
 } from 'react-stripe-elements';
 
@@ -50,15 +49,15 @@ class _CardForm extends React.Component {
   state={
     amount:'',
     paymentType:'wallet add'
-  }
+  };
 
   onFocusAmount = (e) => {
     e.target.click()
-  }
+  };
 
   onAmountChange = (e,{value}) => {
     this.setState({ amount:value })
-  }
+  };
 
   handleSubmit = ev => {
     ev.preventDefault();
@@ -66,14 +65,14 @@ class _CardForm extends React.Component {
       return
     }
     this.props.stripe.createToken().then(resToken => {
-      console.log(JSON.stringify(resToken,null,4))
+      console.log(JSON.stringify(resToken,null,4));
       this.props.addMoneyToWallet({ 
         userId : this.props.userId,
         authToken: this.props.authToken,
         amountToBeAdded : parseFloat(this.state.amount),
         stripeToken: resToken.token.id, 
         paymentType : this.state.paymentType
-      })
+      });
       this.setState({ amount:'' })
     })
   };

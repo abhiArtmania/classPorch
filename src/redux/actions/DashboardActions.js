@@ -1,6 +1,5 @@
 import {apiEndpoints} from '../../ApiEndpoints';
 import {browserHistory} from 'react-router';
-import queryString from 'query-string'
 
 import {
   GET_UNREAD_MESSAGES_COUNT,
@@ -19,7 +18,6 @@ import {
   SESSION_REJECT_START,
   SESSION_REJECT_SUCCESS,
   SESSION_REJECT_FAIL,
-  ADD_PAYMENT_FIELDS,
   ADD_MONEY_START,
   ADD_MONEY_SUCCESS,
   ADD_MONEY_FAIL,
@@ -29,9 +27,7 @@ import {
   REQUEST_ACCOUNT_LINK_START,
   REQUEST_ACCOUNT_LINK_SUCCESS,
   REQUEST_ACCOUNT_LINK_FAILED,
-  UNSUBSCRIBE_DASHBOARD,
-  TOGGLE_SEARCH_MODE
-} from './types';
+  UNSUBSCRIBE_DASHBOARD} from './types';
 const uuidv1 = require('uuid/v1');
 
 export const getUnreadMessagesCount = () => ({
@@ -61,32 +57,32 @@ export const getDashboard = ({userId, authToken}) => {
         return raw.json()
       })
       .then(res => {
-        console.log(res)
-        const {profile, notifications} = res.data.attributes
-        const notificationsNextUrl = res.data.attributes['notifications-next-url']
-        const suggestedTutors = res.data.attributes['suggested-tutors']
-        const weekSchedule = res.data.attributes['week-schedule']
-        const nextWeekUrl = res.data.attributes['next-week-url']
+        console.log(res);
+        const {profile, notifications} = res.data.attributes;
+        const notificationsNextUrl = res.data.attributes['notifications-next-url'];
+        const suggestedTutors = res.data.attributes['suggested-tutors'];
+        const weekSchedule = res.data.attributes['week-schedule'];
+        const nextWeekUrl = res.data.attributes['next-week-url'];
         return dispatch({
           type: GET_DASHBOARD_SUCCESS,
           payload: {profile, notifications, notificationsNextUrl, suggestedTutors, weekSchedule, nextWeekUrl}
         })
       })
       .catch(err => {
-        console.log(err)
+        console.log(err);
         return dispatch({
           type: GET_DASHBOARD_FAIL,
           payload: err
         })
       })
   }
-}
+};
 
 export const fetchNotifications = (uri, authToken, userId) => {
-  console.log(authToken)
-  console.log(userId)
+  console.log(authToken);
+  console.log(userId);
   return (dispatch) => {
-    dispatch({type: FETCH_NOTIFICATIONS, payload: true})
+    dispatch({type: FETCH_NOTIFICATIONS, payload: true});
 
     fetch(`${apiEndpoints.base}/user/${userId}/dashboard`, {
       headers: {
@@ -94,36 +90,36 @@ export const fetchNotifications = (uri, authToken, userId) => {
       }
     })
       .then(raw => {
-        console.log(raw)
+        console.log(raw);
         if (raw.status !== 200) {
           throw('Request failed. Please try again.')
         }
         return raw.json()
       })
       .then(res => {
-        console.log(res.data)
+        console.log(res.data);
         return dispatch({type: FETCH_NOTIFICATIONS_SUCCESS, payload: res.data})
       })
       .catch(err => {
         return dispatch({type: FETCH_NOTIFICATIONS_FAIL, payload: 'error extra'})
       })
   }
-}
+};
 
 export const sessionRequested = ({tutorId, skill, authToken, sessionStartTime, sessionEndTime, amountPaid, userId}) => {
   return async (dispatch) => {
     try {
-      dispatch({type: TUTOR_SESSION_REQUESTED})
+      dispatch({type: TUTOR_SESSION_REQUESTED});
 
       let bodyObject = {
         "tutor_id": tutorId,
         "skill": skill,
         "start_time": sessionStartTime.toString(),
         "end_time": sessionEndTime.toString()
-      }
-      console.log(bodyObject)
-      console.log(authToken)
-      console.log(JSON.stringify(bodyObject))
+      };
+      console.log(bodyObject);
+      console.log(authToken);
+      console.log(JSON.stringify(bodyObject));
       let resRaw = await fetch(`${apiEndpoints.base}/session_requests/request/`, {
         method: "POST",
         headers: {
@@ -132,21 +128,22 @@ export const sessionRequested = ({tutorId, skill, authToken, sessionStartTime, s
         },
         body: JSON.stringify(bodyObject),
 
-      })
-      console.log(resRaw.status)
+      });
+      console.log(resRaw.status);
       if (resRaw.status !== 200) {
-        throw('failed request')
+        // noinspection ExceptionCaughtLocallyJS
+          throw('failed request')
       }
-      let res = await resRaw.json()
-      console.log(res)
+      let res = await resRaw.json();
+      console.log(res);
 
-      const {id: sessionId, profile} = res
+      const {id: sessionId, profile} = res;
       const paymentBody = {
         "tutor_id": profile.id,
         "amount": parseFloat(amountPaid),
         "session_id": sessionId
-      }
-      console.log(paymentBody)
+      };
+      console.log(paymentBody);
       let payRaw = await fetch(`${apiEndpoints.base}/users/${userId}/pay`, {
         method: 'POST',
         headers: {
@@ -154,16 +151,16 @@ export const sessionRequested = ({tutorId, skill, authToken, sessionStartTime, s
           'Content-type': 'application/json'
         },
         body: JSON.stringify(paymentBody)
-      })
-      console.log(payRaw.status)
+      });
+      console.log(payRaw.status);
       if (payRaw.status !== 200) {
         throw('failed request')
       }
-      let payRes = await payRaw.json()
-      console.log(payRes)
+      let payRes = await payRaw.json();
+      console.log(payRes);
 
 
-      const id = uuidv1()
+      const id = uuidv1();
       return dispatch({
         type: TUTOR_SESSION_REQUEST_SENT,
         payload: {
@@ -172,8 +169,8 @@ export const sessionRequested = ({tutorId, skill, authToken, sessionStartTime, s
         }
       })
     } catch (e) {
-      console.log(e)
-      const id = uuidv1()
+      console.log(e);
+      const id = uuidv1();
       return dispatch({
         type: TUTOR_SESSION_REQUEST_FAILED,
         payload: {
@@ -183,25 +180,25 @@ export const sessionRequested = ({tutorId, skill, authToken, sessionStartTime, s
       })
     }
   }
-}
+};
 
 export const acceptSession = ({sessionId, authToken}) => {
   return async (dispatch) => {
     try {
-      dispatch({type: SESSION_ACCEPT_START})
+      dispatch({type: SESSION_ACCEPT_START});
 
       let resRaw = await fetch(`${apiEndpoints.base}/session_requests/${sessionId}/accept`, {
         headers: {
           'auth-token': authToken,
           'Content-Type': 'application/json'
         },
-      })
+      });
       if (resRaw.status !== 200) {
         throw('failed request')
       }
-      const res = await resRaw.json()
-      const id = uuidv1()
-      console.log(res.data)
+      const res = await resRaw.json();
+      const id = uuidv1();
+      console.log(res.data);
       return dispatch({
         type: SESSION_ACCEPT_SUCCESS,
         payload: {
@@ -210,8 +207,8 @@ export const acceptSession = ({sessionId, authToken}) => {
         }
       })
     } catch (e) {
-      console.log(e)
-      const id = uuidv1()
+      console.log(e);
+      const id = uuidv1();
       return dispatch({
         type: SESSION_ACCEPT_FAIL,
         payload: {
@@ -221,25 +218,25 @@ export const acceptSession = ({sessionId, authToken}) => {
       })
     }
   }
-}
+};
 
 export const rejectSession = ({sessionId, authToken}) => {
   return async (dispatch) => {
     try {
-      dispatch({type: SESSION_REJECT_START})
+      dispatch({type: SESSION_REJECT_START});
 
       let resRaw = await fetch(`${apiEndpoints.base}/session_requests/${sessionId}/reject`, {
         headers: {
           'auth-token': authToken,
           'Content-Type': 'application/json'
         },
-      })
+      });
       if (resRaw.status !== 200) {
         throw('failed request')
       }
-      const res = await resRaw.json()
-      const id = uuidv1()
-      console.log(res.data)
+      const res = await resRaw.json();
+      const id = uuidv1();
+      console.log(res.data);
       return dispatch({
         type: SESSION_REJECT_SUCCESS,
         payload: {
@@ -248,8 +245,8 @@ export const rejectSession = ({sessionId, authToken}) => {
         }
       })
     } catch (e) {
-      console.log(e)
-      const id = uuidv1()
+      console.log(e);
+      const id = uuidv1();
       return dispatch({
         type: SESSION_REJECT_FAIL,
         payload: {
@@ -259,7 +256,7 @@ export const rejectSession = ({sessionId, authToken}) => {
       })
     }
   }
-}
+};
 
 
 // export const addPaymentFields = ({ amountToBeAdded, stripeToken }) => {
@@ -275,14 +272,14 @@ export const rejectSession = ({sessionId, authToken}) => {
 export const addMoneyToWallet = ({userId, authToken, amountToBeAdded, stripeToken, paymentType}) => {
   return async (dispatch) => {
     try {
-      dispatch({type: ADD_MONEY_START})
+      dispatch({type: ADD_MONEY_START});
 
       let bodyObject = {
         amount: amountToBeAdded,
         stripe_token: stripeToken,
         payment_type: paymentType
-      }
-      console.log(bodyObject)
+      };
+      console.log(bodyObject);
       let resRaw = await fetch(`${apiEndpoints.base}/users/${userId}/add_money`, {
         method: 'POST',
         headers: {
@@ -290,12 +287,12 @@ export const addMoneyToWallet = ({userId, authToken, amountToBeAdded, stripeToke
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(bodyObject)
-      })
+      });
       if (resRaw.status !== 200) {
         throw('failed request')
       }
-      const res = await resRaw.json()
-      const id = uuidv1()
+      const res = await resRaw.json();
+      const id = uuidv1();
 
       return dispatch({
         type: ADD_MONEY_SUCCESS,
@@ -306,8 +303,8 @@ export const addMoneyToWallet = ({userId, authToken, amountToBeAdded, stripeToke
       })
 
     } catch (e) {
-      console.log(e)
-      const id = uuidv1()
+      console.log(e);
+      const id = uuidv1();
       return dispatch({
         type: ADD_MONEY_FAIL,
         payload: {
@@ -317,14 +314,14 @@ export const addMoneyToWallet = ({userId, authToken, amountToBeAdded, stripeToke
       })
     }
   }
-}
+};
 
 export const requestMoneyAction = ({userId, authToken, availableCredits, enteredCredits}) => {
   return async (dispatch) => {
     try {
-      dispatch({type: REQUEST_MONEY_START})
+      dispatch({type: REQUEST_MONEY_START});
 
-      const id = uuidv1()
+      const id = uuidv1();
 
       if (availableCredits < enteredCredits) {
         return dispatch({
@@ -338,7 +335,7 @@ export const requestMoneyAction = ({userId, authToken, availableCredits, entered
 
       let bodyObject = {
         requested_amount: enteredCredits
-      }
+      };
       let resRaw = await fetch(`${apiEndpoints.base}/users/${userId}/transact`, {
         method: 'POST',
         headers: {
@@ -346,14 +343,14 @@ export const requestMoneyAction = ({userId, authToken, availableCredits, entered
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(bodyObject)
-      })
+      });
 
       if (resRaw.status !== 200) {
         throw('failed request')
       }
-      console.log(resRaw)
-      const res = await resRaw.json()
-      console.log(res)
+      console.log(resRaw);
+      const res = await resRaw.json();
+      console.log(res);
       return dispatch({
         type: REQUEST_MONEY_SUCCESS,
         payload: {
@@ -362,8 +359,8 @@ export const requestMoneyAction = ({userId, authToken, availableCredits, entered
         }
       })
     } catch (e) {
-      console.log(e)
-      const id = uuidv1()
+      console.log(e);
+      const id = uuidv1();
       return dispatch({
         type: REQUEST_MONEY_FAILED,
         payload: {
@@ -373,24 +370,24 @@ export const requestMoneyAction = ({userId, authToken, availableCredits, entered
       })
     }
   }
-}
+};
 
 
 export const requestLinkAccount = ({userId, authToken, bankName, ifscCode, accountHolderName, accountNumber}) => {
   return async (dispatch) => {
     try {
-      dispatch({type: REQUEST_ACCOUNT_LINK_START})
+      dispatch({type: REQUEST_ACCOUNT_LINK_START});
 
-      const id = uuidv1()
+      const id = uuidv1();
 
       let bodyObject = {
         "bank_name": bankName,
         "ifsc_code": ifscCode,
         "account_number": accountNumber,
         "account_holder_name": accountHolderName
-      }
+      };
       // user/56/add_bank_details
-      console.log(bodyObject)
+      console.log(bodyObject);
       let resRaw = await fetch(`${apiEndpoints.base}/users/${userId}/add_bank_details`, {
         method: 'POST',
         headers: {
@@ -398,14 +395,14 @@ export const requestLinkAccount = ({userId, authToken, bankName, ifscCode, accou
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(bodyObject)
-      })
+      });
 
       if (resRaw.status !== 200) {
         throw('failed request')
       }
-      console.log(resRaw)
-      const res = await resRaw.json()
-      console.log(res)
+      console.log(resRaw);
+      const res = await resRaw.json();
+      console.log(res);
       return dispatch({
         type: REQUEST_ACCOUNT_LINK_SUCCESS,
         payload: {
@@ -414,8 +411,8 @@ export const requestLinkAccount = ({userId, authToken, bankName, ifscCode, accou
         }
       })
     } catch (e) {
-      console.log(e)
-      const id = uuidv1()
+      console.log(e);
+      const id = uuidv1();
       return dispatch({
         type: REQUEST_ACCOUNT_LINK_FAILED,
         payload: {
@@ -425,5 +422,5 @@ export const requestLinkAccount = ({userId, authToken, bankName, ifscCode, accou
       })
     }
   }
-}
+};
 

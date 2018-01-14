@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Grid, Input, Icon} from 'semantic-ui-react';
+import React from 'react';
+import {Grid, Input} from 'semantic-ui-react';
 import moment from 'moment';
 import './styles.css';
 
@@ -9,22 +9,22 @@ export default class EducationSection extends React.Component {
         startDate: moment().subtract(4, 'years').format('D-mm-Y'),
         endDate: moment().format('D-mm-Y'),
         numberOfEducationFields: 1
-    }
+    };
 
     onFocusChange = (event, data) => {
         if(event.type==='focus'){
-            event.target.type = 'date'
+            event.target.type = 'date';
             event.target.click()
         }else{
             event.target.type = 'text'
         }
-    }
+    };
 
     getEducations = () => {
-        const {startDate, endDate, numberOfEducationFields} = this.state
-        var Educations = [];
+        const {startDate, endDate, numberOfEducationFields} = this.state;
+        const Educations = [];
 
-        for(var i=0; i< numberOfEducationFields; i++){
+        for(let i=0; i< numberOfEducationFields; i++){
             Educations.push(
                 <Grid>
                 
@@ -32,7 +32,7 @@ export default class EducationSection extends React.Component {
             )
         }
         return Educations;
-    }
+    };
 
     render(){
         return(

@@ -26,7 +26,7 @@ class Login extends Component {
         showPasswordModal: false,
         email: '',
         isSigningIn: false
-    }
+    };
 
     componentWillMount() {
         this.items = [
@@ -47,10 +47,10 @@ class Login extends Component {
         e.preventDefault();
         if (formData.email !== '') {
             this.setState({isLoading: true});
-            var that = this;
-            var params = {
+            const that = this;
+            const params = {
                 user: formData
-            }
+            };
             fetch(apiEndpoints.auth.signIn, {
                 method: 'POST',
                 headers: {
@@ -80,17 +80,17 @@ class Login extends Component {
             console.log("Email is empty!! ", formData);
             this.setState({noEmailError: true});
         }
-    }
+    };
 
     signIn = (e, {formData}) => {
         e.preventDefault();
         const {email, isSigningIn} = this.state;
-        var params = {
+        const params = {
             user: {
                 email: email,
                 password: formData.password
             }
-        }
+        };
         if (!isSigningIn) {
             const that = this;
             fetch(apiEndpoints.auth.signIn, {
@@ -118,12 +118,12 @@ class Login extends Component {
                     alert('You\'ve entered a wrong password');
                 });
         }
-    }
+    };
 
     closePsswordDialog = (e) => {
         e.preventDefault();
         this.setState({showPasswordModal: false});
-    }
+    };
 
     render() {
         const {isLoading, noEmailError, showPasswordModal, isSigningIn} = this.state;

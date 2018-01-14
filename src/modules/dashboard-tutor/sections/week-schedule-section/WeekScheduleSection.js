@@ -12,7 +12,7 @@ class WeekScheduleSection extends React.Component {
   state = {
     schedules:[],
     displayedScheduleSequence:0
-  }
+  };
 
   componentDidMount(){
     const weekSchedule = this.props.weekSchedule.data;
@@ -22,86 +22,86 @@ class WeekScheduleSection extends React.Component {
         { key: 'morning',sequence:-1, value : <MorningSchedule data={organizedData} /> },
         { key: 'afternoon',sequence:0,value: <AfternoonSchedule data={organizedData} /> },
         { key:'evening',sequence:1,value: <EveningSchedule data={organizedData} /> },
-      ]
+      ];
       this.setState({ schedules })
     }
   }
 
   onFetchPreviousWeek = () => {
 
-  }
+  };
 
   onFetchNextWeek = () => {
 
-  }
+  };
 
   getDayStartDayTime = (anyTime) => {
     // let anyTime = Date.now()
-    let hrs = moment(anyTime).format('HH')
-    let mins = moment(anyTime).format('mm')
-    let secs = moment(anyTime).format('ss')
+    let hrs = moment(anyTime).format('HH');
+    let mins = moment(anyTime).format('mm');
+    let secs = moment(anyTime).format('ss');
 
-    let subHrs = parseInt(hrs)
-    let subMins = parseInt(mins)
-    let subSecs = parseInt(secs)
+    let subHrs = parseInt(hrs);
+    let subMins = parseInt(mins);
+    let subSecs = parseInt(secs);
 
     let startDayTimeStamp = moment(anyTime)
       .add(-subHrs,'hours')
       .add(-subMins,'minutes')
       .add(-secs,'seconds')
-      .valueOf()
+      .valueOf();
     return startDayTimeStamp
-  }
+  };
 
 
   getParticularDayData = (dayFullSchedule,day) => {
     if(!dayFullSchedule.length || !dayFullSchedule){
       return { morningData:[], afternoonData:[], eveningData:[]  }
     }
-	  const startTime = this.getDayStartDayTime(dayFullSchedule[0]['start-time'])
+	  const startTime = this.getDayStartDayTime(dayFullSchedule[0]['start-time']);
     if(!dayFullSchedule[0]['start-time']){
       return { morningData:[], afternoonData:[], eveningData:[]  }
     }
-    const timestamp8AM = moment(startTime).add(8,'hours').valueOf()
-    const timestamp4PM = moment(timestamp8AM).add(8,'hours').valueOf()
-    const timestamp12AM = moment(timestamp4PM).add(8,'hours').valueOf()
+    const timestamp8AM = moment(startTime).add(8,'hours').valueOf();
+    const timestamp4PM = moment(timestamp8AM).add(8,'hours').valueOf();
+    const timestamp12AM = moment(timestamp4PM).add(8,'hours').valueOf();
 
-    const morningData = dayFullSchedule.filter(time => time['end-time'] > startTime && time['end-time'] <= timestamp8AM )
-    const afternoonData = dayFullSchedule.filter(time => time['end-time'] > timestamp8AM && time['end-time'] <= timestamp4PM )
-    const eveningData = dayFullSchedule.filter(time => time['end-time'] > timestamp4PM && time['end-time'] <= timestamp12AM )
+    const morningData = dayFullSchedule.filter(time => time['end-time'] > startTime && time['end-time'] <= timestamp8AM );
+    const afternoonData = dayFullSchedule.filter(time => time['end-time'] > timestamp8AM && time['end-time'] <= timestamp4PM );
+    const eveningData = dayFullSchedule.filter(time => time['end-time'] > timestamp4PM && time['end-time'] <= timestamp12AM );
 
     return { morningData,afternoonData,eveningData }
-  }
+  };
 
   sortSchedule = (weekSchedule) => {
-    const sunData = this.getParticularDayData(weekSchedule.sun,'sun')
-    const monData = this.getParticularDayData(weekSchedule.mon,'mon')
-    const tueData = this.getParticularDayData(weekSchedule.tue,'tue')
-    const wedData = this.getParticularDayData(weekSchedule.wed,'wed')
-    const thursData = this.getParticularDayData(weekSchedule.thu,'thu')
-    const friData = this.getParticularDayData(weekSchedule.fri,'fri')
-    const satData = this.getParticularDayData(weekSchedule.sat,'sat')
+    const sunData = this.getParticularDayData(weekSchedule.sun,'sun');
+    const monData = this.getParticularDayData(weekSchedule.mon,'mon');
+    const tueData = this.getParticularDayData(weekSchedule.tue,'tue');
+    const wedData = this.getParticularDayData(weekSchedule.wed,'wed');
+    const thursData = this.getParticularDayData(weekSchedule.thu,'thu');
+    const friData = this.getParticularDayData(weekSchedule.fri,'fri');
+    const satData = this.getParticularDayData(weekSchedule.sat,'sat');
 
     return { sunData,monData,tueData,wedData,thursData,friData,satData }
-  }
+  };
 
   onIncreseSequence = () => {
     if(this.state.displayedScheduleSequence === 1){
       return
     }
     this.setState({ displayedScheduleSequence: this.state.displayedScheduleSequence + 1 })
-  }
+  };
 
   onDecreaseSequence = () => {
     if(this.state.displayedScheduleSequence === -1){
       return
     }
     this.setState({ displayedScheduleSequence: this.state.displayedScheduleSequence - 1 })
-  }
+  };
 
   render() {
-    const activeSchedule = this.state.schedules.filter(x => x.sequence === this.state.displayedScheduleSequence )[0]
-    console.log(activeSchedule)
+    const activeSchedule = this.state.schedules.filter(x => x.sequence === this.state.displayedScheduleSequence )[0];
+    console.log(activeSchedule);
 
     return (
       <Grid>
@@ -136,8 +136,8 @@ class WeekScheduleSection extends React.Component {
 }
 
 const mapStateToProps = ( {dashboard} ) => {
-  let { weekSchedule } = dashboard
+  let { weekSchedule } = dashboard;
   return { weekSchedule }
-}
+};
 
 export default connect(mapStateToProps, {  })(WeekScheduleSection);

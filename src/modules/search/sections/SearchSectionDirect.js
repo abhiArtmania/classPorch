@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Grid, Image, Button, Card ,Modal, Header, Dropdown, Input } from 'semantic-ui-react';
+import { Grid, Image, Button, Modal, Dropdown, Input } from 'semantic-ui-react';
 // import './styles.css';
 import faker from 'faker'
 import moment from 'moment'
-import { SingleDatePicker, DayPickerRangeController } from 'react-dates';
+import { SingleDatePicker} from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import TimeKeeper from 'react-timekeeper';
 
@@ -22,10 +22,10 @@ class SearchSectionDirect extends Component {
 		startTime:'10:00 am',
 		displayClock:false,
 		duration:'1'
-	}
+	};
 
 	bookSession(tutorId,skill,authToken,sessionStartTime,sessionEndTime){
-		this.props.sessionRequested({tutorId,skill,authToken,sessionStartTime,sessionEndTime})
+		this.props.sessionRequested({tutorId,skill,authToken,sessionStartTime,sessionEndTime});
 		this.setState({ selectedSkillId:null, date:null })
 	}
 	
@@ -38,59 +38,59 @@ class SearchSectionDirect extends Component {
 		this.close();
 		const tutorId = result.id;
 		const skill = { "id":selectedSkillId, "name":"RoR" };
-		const {sessionStartTime, sessionEndTime} = this.getSessionStartTime(date,startTime,duration)
+		const {sessionStartTime, sessionEndTime} = this.getSessionStartTime(date,startTime,duration);
 		this.bookSession(tutorId,skill,authToken,sessionStartTime,sessionEndTime)
 	};
 
 	getSessionStartTime = (date,startTime,duration) => {
-		duration = parseInt(duration)
-		let dateNormalized = moment(date).add(-12,'hours')
+		duration = parseInt(duration);
+		let dateNormalized = moment(date).add(-12,'hours');
 
-		let hrs = parseInt(startTime.split(':')[0])
-		let mins = parseInt(startTime.split(':')[1].split(' ')[0])
-		let ampm = startTime.split(':')[1].split(' ')[1]
-		let ampmHrs = ampm === 'am' ? 0 : 12
-		let addHrs = hrs + ampmHrs
+		let hrs = parseInt(startTime.split(':')[0]);
+		let mins = parseInt(startTime.split(':')[1].split(' ')[0]);
+		let ampm = startTime.split(':')[1].split(' ')[1];
+		let ampmHrs = ampm === 'am' ? 0 : 12;
+		let addHrs = hrs + ampmHrs;
 
 		let sessionStartTime = moment(dateNormalized)
 							.add(addHrs,'hours')
 							.add(mins,'minutes')
-							.valueOf()
+							.valueOf();
 
 		let sessionEndTime = moment(sessionStartTime)
 							.add(duration,'hours')
-							.valueOf()
+							.valueOf();
 
-		console.log(moment(sessionStartTime).format('MMMM DD YYYY HH mm ss A'))
-		console.log(moment(sessionEndTime).format('MMMM DD YYYY HH mm ss A'))
+		console.log(moment(sessionStartTime).format('MMMM DD YYYY HH mm ss A'));
+		console.log(moment(sessionEndTime).format('MMMM DD YYYY HH mm ss A'));
 
 		return { sessionStartTime, sessionEndTime }
 		
-	}
+	};
 
-	onSelectSkill = (e,{value}) => this.setState({ selectedSkillId:value })
-	onChangeDuration = (e,{value}) => this.setState({ duration:value })
+	onSelectSkill = (e,{value}) => this.setState({ selectedSkillId:value });
+	onChangeDuration = (e,{value}) => this.setState({ duration:value });
 
 	getDurations = (maxDuration) => {
-		let arrayDuration = []
+		let arrayDuration = [];
 		for(let i=0;i<maxDuration;i++){
-			let inHrs = (i+1).toString()
+			let inHrs = (i+1).toString();
 			arrayDuration.push({ key: inHrs, value: inHrs, text: inHrs })
 		}
 		return arrayDuration
-	}
+	};
 	
-	showModal = () => this.setState({ modalVisible:true })
-	close = () => this.setState({ modalVisible:false })
+	showModal = () => this.setState({ modalVisible:true });
+	close = () => this.setState({ modalVisible:false });
 
 	render(){
 		let { result, dashboard, authToken } = this.props;
-		let { dimmer,modalVisible } = this.state
+		let { dimmer,modalVisible } = this.state;
 		// let skills = result["skills-ids"].map(skillId => {
 		// 	return { key: skillId, value: skillId.toString(), text:skillId.toString() }
         // })
-        let skills = [ { key: 1, value: "1", text:"1" } ]
-		let durations = this.getDurations(5)
+        let skills = [ { key: 1, value: "1", text:"1" } ];
+		let durations = this.getDurations(5);
 
 		return(
 
@@ -165,8 +165,8 @@ class SearchSectionDirect extends Component {
 } 
 
 const mapStateToProps = ({dashboard,auth}) => {
-	const authToken = auth.userObject.session.auth_token
+	const authToken = auth.userObject.session.auth_token;
 	return { dashboard, authToken }
-}
+};
 
 export default connect( mapStateToProps, { sessionRequested  } )(SearchSectionDirect)

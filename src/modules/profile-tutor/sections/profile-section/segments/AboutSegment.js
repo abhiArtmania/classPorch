@@ -1,7 +1,6 @@
 
 import React, {Component} from 'react'
 import { Grid, Icon, Input, Dropdown } from 'semantic-ui-react'
-import {connect} from 'react-redux'
 import '../../../styles.css'
 
 
@@ -9,28 +8,28 @@ class AboutSegment extends Component {
 
     onChangeField = (field,e,{value}) => {
         this.props.onChangeUserInfo(field,value)
-    }
+    };
 
     onClickEdit = () => {
         this.props.toggleProfileMode('edit')
-    }
+    };
 
 
     onFocusChange = (event, data) => {
         if(event.type==='focus'){
-            event.target.type = 'date'
+            event.target.type = 'date';
             event.target.click()
         }else{
             event.target.type = 'text'
         }
-    }
+    };
 
     render(){
-        const {profile,toggleProfileMode,mode, onChangeUserInfo,presentProfileId,userId} = this.props
+        const {profile,toggleProfileMode,mode, onChangeUserInfo,presentProfileId,userId} = this.props;
         
-        const fullName = profile['full-name']
-        const birthdayDate = profile['birthday date']
-        const gender = profile['gender']
+        const fullName = profile['full-name'];
+        const birthdayDate = profile['birthday date'];
+        const gender = profile['gender'];
         return(
             <Grid padded relaxed style={{width:'100%',paddingTop:30}} >
                 <Grid.Row stretched columns={1} centered >
@@ -114,7 +113,7 @@ const styles = {
     text:{
         fontSize:15
     }
-}
+};
 
 // const mapStateToProps = ({ profileState }) => {
 //     const {profile} = profileState

@@ -1,27 +1,20 @@
 import React from 'react';
-import {Grid, Checkbox, Label, Button} from 'semantic-ui-react';
+import {Grid, Checkbox, Button} from 'semantic-ui-react';
 import './styles.css';
-import moment from 'moment';
 
 export default class BottomSection extends React.Component {
-    state = { isAgreedToTerms: false }
+    state = { isAgreedToTerms: false };
 
     onFormSubmitted = (e,{formData}) => {
         e.preventDefault();
-        const {isAgreedToTerms} = this.state;
-        if(isAgreedToTerms){
-            //Code to submit
-        }else{
-            //Show the modal
-        }
-    }
+    };
 
     agreedToTerms = (e) => {
-        var {isAgreedToTerms} = this.state;
+        const {isAgreedToTerms} = this.state;
         this.setState({
             isAgreedToTerms: !isAgreedToTerms
         });
-    }
+    };
 
     render() {
         const {isAgreedToTerms} = this.state;

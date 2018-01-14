@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { VictoryChart,VictoryBar, VictoryTheme, VictoryAxis, VictoryLabel, VictoryCandlestick } from 'victory'
+import { VictoryChart,VictoryAxis, VictoryLabel, VictoryCandlestick } from 'victory'
 import moment from 'moment'
 
 class MorningSchedule extends Component {
@@ -7,10 +7,10 @@ class MorningSchedule extends Component {
     getData = (data) => {
 
 		const allMornings = Object.entries(data).reduce((allMorningsData,day)=>{
-			allMorningsData[day[0]] ? allMorningsData[day[0]] = day[1].morningData : allMorningsData[day[0]] = day[1].morningData
+			allMorningsData[day[0]] ? allMorningsData[day[0]] = day[1].morningData : allMorningsData[day[0]] = day[1].morningData;
 			return allMorningsData
-		},{})
-		console.log(allMornings)
+		},{});
+		console.log(allMornings);
 
 		const candleStickData = Object.entries(allMornings).reduce((finalDataArray,day)=>{
 			let x = 0,
@@ -22,59 +22,59 @@ class MorningSchedule extends Component {
 				
 			switch(day[0]){
 				case 'sunData':
-					 x = 1
-					 break
+					 x = 1;
+					 break;
 				case 'monData':
-					 x = 2
-					 break
+					 x = 2;
+					 break;
 				case 'tueData':
-					 x = 3
-					 break
+					 x = 3;
+					 break;
 				case 'wedData':
-					 x = 4
-					 break
+					 x = 4;
+					 break;
 				case 'thursData':
-					 x = 5
-					 break
+					 x = 5;
+					 break;
 				case'friData':
-					 x = 6
-					 break
+					 x = 6;
+					 break;
 				case 'satData':
-					 x = 7
-					 break
+					 x = 7;
+					 break;
 				default:
 					 x =1
 			}
 
 			let dataForADay = day[1].map(time => {
-				const startTimeHour = moment(time['start-time']).format('HH')
-				const startTimeMinute = moment(time['start-time']).format('mm')
-				const startTotal = parseFloat(startTimeHour) + parseFloat(startTimeMinute/60)
-				const startTime = startTotal.toFixed(2) - 0.00
+				const startTimeHour = moment(time['start-time']).format('HH');
+				const startTimeMinute = moment(time['start-time']).format('mm');
+				const startTotal = parseFloat(startTimeHour) + parseFloat(startTimeMinute/60);
+				const startTime = startTotal.toFixed(2) - 0.00;
 				// console.log(startTime)
 	
-				const endTimeHour = moment(time['end-time']).format('HH')
-				const endTimeMinute = moment(time['end-time']).format('mm')
-				const endTotal = parseFloat(endTimeHour) + parseFloat(endTimeMinute/60)
-				const endTime = endTotal.toFixed(2) - 0.00
+				const endTimeHour = moment(time['end-time']).format('HH');
+				const endTimeMinute = moment(time['end-time']).format('mm');
+				const endTotal = parseFloat(endTimeHour) + parseFloat(endTimeMinute/60);
+				const endTime = endTotal.toFixed(2) - 0.00;
 				// console.log(endTime)
 
 				return { x, open: startTime, close:endTime, high, low }
 	
-			})
+			});
 
-			dataForADay = dataForADay.length ? dataForADay : [{ x,open:0,close:0,high,low }]
+			dataForADay = dataForADay.length ? dataForADay : [{ x,open:0,close:0,high,low }];
 
 			return [ ...finalDataArray, ...dataForADay ]
 
-		},[])
-		console.log(candleStickData)
+		},[]);
+		console.log(candleStickData);
 		return candleStickData
 
-    }
+    };
 
     render(){
-		const chartData = this.getData(this.props.data)
+		const chartData = this.getData(this.props.data);
 
         return(
 			<div style={{ height:'80%' }}>

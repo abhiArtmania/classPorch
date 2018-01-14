@@ -1,14 +1,12 @@
 
 import React, {Component} from 'react'
-import { Header, Grid, Icon, Divider, Label } from 'semantic-ui-react'
-import {connect} from 'react-redux'
 import { AboutSegment, EducationSegment, ContactSegment, SkillSegment, RateSegment } from './segments'
 
 class ProfileSection extends Component {
 
     render(){
         const { profile,educationalAttributes,userId, role, authToken, firstName, presentProfileId, mode,
-                onChangeEducation, onChangeSkill, toggleProfileMode } = this.props
+                onChangeEducation, onChangeSkill, toggleProfileMode } = this.props;
         return(
             <div style={{width:'100%',paddingBottom:'5em'}} >
 

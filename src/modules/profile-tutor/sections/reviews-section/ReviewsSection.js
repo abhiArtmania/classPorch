@@ -1,10 +1,9 @@
 
 import React, {Component} from 'react'
-import { Header, Grid, Segment, Image } from 'semantic-ui-react'
+import { Grid, Segment, Image } from 'semantic-ui-react'
 import {connect} from 'react-redux'
 import '../../styles.css'
 import ReactStars from 'react-stars'
-import faker from 'faker'
 
 
 class ReviewsSegment extends Component {
@@ -13,7 +12,7 @@ class ReviewsSegment extends Component {
         allReviews:[],
         displayReviews:[],
         hiddenReviews:true
-    }
+    };
 
     componentWillMount(){
         this.setState({ 
@@ -51,17 +50,17 @@ class ReviewsSegment extends Component {
                 </Grid.Row>
             )
         })
-    }
+    };
 
     onExpandReviews = () => {
         if(this.state.allReviews.length){
            return this.setState({ displayReviews: this.state.allReviews, hiddenReviews:false })
         }
-    }
+    };
 
     render(){
-        const {allReviews,displayReviews,hiddenReviews} = this.state
-        const segmentMessage = allReviews.length? `+${allReviews.length-2} more` : 'No reviews yet'
+        const {allReviews,displayReviews,hiddenReviews} = this.state;
+        const segmentMessage = allReviews.length? `+${allReviews.length-2} more` : 'No reviews yet';
 
         return(
             <Grid padded relaxed style={{width:'100%'}} >
@@ -118,10 +117,10 @@ const styles = {
         color:'#555',
         height:45,
     }
-}
+};
 
 const mapStateToProps = ({profileState}) => {
-    let {reviews} = profileState
+    let {reviews} = profileState;
     // reviews = {
     //     "0":{
     //             "reviewer_name":"Phil Stevens",
@@ -143,6 +142,6 @@ const mapStateToProps = ({profileState}) => {
     //         }
     //     }
     return  {reviews}
-}
+};
 
 export default connect(mapStateToProps,{})(ReviewsSegment)

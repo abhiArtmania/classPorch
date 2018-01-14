@@ -26,31 +26,31 @@ const INITIAL_STATE = {
     editingProfile:false,
     editProfileMessage:'',
     profileEditedIndicator:null
-}
+};
 
 export default (state=INITIAL_STATE,action) => {
     switch(action.type){
         case GET_PROFILE_START:
-            return { ...state, loadingProfile:true }
+            return { ...state, loadingProfile:true };
             
         case GET_PROFILE_SUCCESS:{
-            const { profile,averageRating,educationalAttributes,reviews } = action.payload
+            const { profile,averageRating,educationalAttributes,reviews } = action.payload;
             return { ...state, profile, averageRating, educationalAttributes, reviews, loadingProfile:false }
         }
         case GET_PROFILE_FAIL:
-            return { ...state, errorProfile:action.payload, loadingProfile:false }
+            return { ...state, errorProfile:action.payload, loadingProfile:false };
 
         case SET_PROFILE_ID:
-            return { ...state, presentProfileId: action.payload }
+            return { ...state, presentProfileId: action.payload };
 
         case LOGOUT_USER_SUCCESS:
-            return { ...state = INITIAL_STATE }
+            return { ...state = INITIAL_STATE };
 
         case TOGGLE_PROFILE_MODE:
-            return { ...state, mode:action.payload  }
+            return { ...state, mode:action.payload  };
         
         case CHANGE_FIELD : {
-            const { field,value } = action.payload
+            const { field,value } = action.payload;
             return { 
                 ...state, 
                 profile:{
@@ -61,10 +61,10 @@ export default (state=INITIAL_STATE,action) => {
         }
 
         case EDIT_PROFILE_START : 
-            return { ...state, editingProfile:true }
+            return { ...state, editingProfile:true };
         
         case EDIT_PROFILE_SUCCESS : 
-            return { ...state, editingProfile:false, editProfileMessage:action.payload.message, profileEditedIndicator:action.payload.profileEditedIndicator  }
+            return { ...state, editingProfile:false, editProfileMessage:action.payload.message, profileEditedIndicator:action.payload.profileEditedIndicator  };
 
         case EDIT_PROFILE_FAIL:{
             return { ...state, editingProfile:false, editProfileMessage:action.payload.message, profileEditedIndicator:action.payload.profileEditedIndicator  }            

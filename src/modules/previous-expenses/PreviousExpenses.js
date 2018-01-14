@@ -23,12 +23,12 @@ class PreviousExpenses extends React.Component {
           'auth_token': this.props.authToken,
           'Content-Type': 'application/json'
         },
-      })
+      });
       if (resRaw.status !== 200) {
         throw 'error'
       }
-      const res = await resRaw.json()
-      console.log(JSON.stringify(res.invoices, null, 4))
+      const res = await resRaw.json();
+      console.log(JSON.stringify(res.invoices, null, 4));
       this.setState({
         invoices: res.invoices
       })
@@ -40,7 +40,7 @@ class PreviousExpenses extends React.Component {
   getInvoices = () => {
     const {invoices} = this.state;
     return invoices.map((invoice, i) => {
-      const name = capitalize(invoice.reciever.first_name) + ' ' + capitalize(invoice.reciever.last_name)
+      const name = capitalize(invoice.reciever.first_name) + ' ' + capitalize(invoice.reciever.last_name);
       return (
         <List.Item key={i}>
           <Grid verticalAlign='middle'>
@@ -73,11 +73,11 @@ class PreviousExpenses extends React.Component {
 }
 
 const mapStateToProps = ({auth, dashboard}) => {
-  const {authToken, id: userId, role, firstName, lastName, loggedIn} = auth
-  const {profile} = dashboard
+  const {authToken, id: userId, role, firstName, lastName, loggedIn} = auth;
+  const {profile} = dashboard;
 
   return {authToken, userId, role, firstName, lastName, loggedIn, profile}
-}
+};
 
 
 export default connect(mapStateToProps, {

@@ -1,6 +1,6 @@
 
 .cardify {
-	margin:0px 20px 0px 20px;
+	margin:0 20px 0 20px;
 	border:1px #aaa solid;
 	border-radius:10px;
 }
@@ -18,12 +18,12 @@
 }
 
 .price {
-	padding:5px 0px 8px 0px;
+	padding:5px 0 8px 0;
 	
 }
 
 .card-style{
-	margin:0em 5em 3em 0em;
+	margin:0 5em 3em 0;
 	padding:1.5em;
 	display: flex;
 	flex-direction: column;
@@ -53,14 +53,14 @@
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
-	margin:10px 0px;
+	margin:10px 0;
 }
 
 .field{
 	flex: 0 1 40% !important;
 	font-family: 'Open Sans' !important;
 	font-size: 16px;
-	margin-right: 20 !important;
+	margin-right: 20px !important;
 }
 
 .value{
@@ -91,13 +91,12 @@
 	height: 30px;
 	cursor: default;
 	background-color: #fff;
-	padding:0;
 	margin:0;
-	box-shadow: 0;
+	box-shadow: none;
 	border-radius: 0;
-	border-width: 0px;
+	border-width: 0;
 	text-align: left;
-	padding-right: 150px;
+	padding: 0 150px 0 0;
 	color:rgb(202, 130, 14);
 }
 
