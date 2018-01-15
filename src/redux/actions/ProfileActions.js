@@ -42,7 +42,6 @@ export const setPresentProfile = ({userId}) => {
 };
 
 export const profileRequested = (userId, authToken) => {
-    console.log(authToken);
     return async (dispatch) => {
         try {
             dispatch({type: GET_PROFILE_START});
@@ -62,7 +61,6 @@ export const profileRequested = (userId, authToken) => {
                 payload: {averageRating, educationalAttributes, profile, reviews}
             })
         } catch (e) {
-            console.log('adada',e);
             return dispatch({type: GET_PROFILE_FAIL, payload: e})
         }
     }
@@ -77,8 +75,6 @@ export const toggleProfileMode = (mode) => {
 };
 
 export const onChangeUserInfo = (field, value) => {
-    console.log(field);
-    console.log(value);
     return {
         type: CHANGE_FIELD,
         payload: {field, value}
@@ -151,10 +147,9 @@ export const updateProfile = ({profile, userId, educationalAttributes, authToken
         try {
             dispatch({type: EDIT_PROFILE_START});
 
-            console.log(authToken);
-
             let bodyObject = {
                 "user": {
+                    "educations_attributes": educationalAttributes,
                     "role": profile.type,
                     "first_name": profile['full-name'].split(' ')[0],
                     "last_name": profile['full-name'].split(' ')[1],
@@ -166,8 +161,7 @@ export const updateProfile = ({profile, userId, educationalAttributes, authToken
                     "number": profile.phone,
                     "email": profile.email,
                     "skills": profile['skill-ids'],
-                },
-                "educations_attributes": educationalAttributes,
+                }
             };
 
             let resRaw = await fetch(`${apiEndpoints.base}/user/${userId}`, {
@@ -192,7 +186,6 @@ export const updateProfile = ({profile, userId, educationalAttributes, authToken
                 }
             })
         } catch (e) {
-            console.log(e);
             const id = uuidv1();
             return dispatch({
                 type: EDIT_PROFILE_FAIL,

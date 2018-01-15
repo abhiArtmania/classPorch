@@ -276,8 +276,9 @@ class Navbar extends Component {
                         <img src={logoDark} className='navBar-logo' role='presentation'/>
                     </a>
                 </Menu.Item>
+                {this.renderCenterItems()}
                 {authToken ?
-                    <Menu.Item position='right'> {this.isShowSearchBar()} </Menu.Item> : this.renderCenterItems()}
+                    <Menu.Item position='right'> {this.isShowSearchBar()} </Menu.Item> : null}
                 {menuRight}
             </Menu>
         )
