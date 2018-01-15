@@ -170,8 +170,6 @@ export const updateProfile = ({profile, userId, educationalAttributes, authToken
                 "educations_attributes": educationalAttributes,
             };
 
-            console.log(JSON.stringify(bodyObject, null, 4));
-
             let resRaw = await fetch(`${apiEndpoints.base}/user/${userId}`, {
                 method: 'PUT',
                 headers: {

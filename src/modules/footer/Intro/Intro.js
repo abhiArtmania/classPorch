@@ -4,8 +4,28 @@ import {history} from '../../../redux/store';
 import './_intro.scss';
 
 export default class Intro extends Component {
+    constructor() {
+        super();
+        this.state = {
+            introLinks: [{key: 'about-us', value: 'ABOUT US'}, {key: 'contact', value: 'CONTACT'}, {
+                key: 'pricing',
+                value: 'PRICING'
+            }, {key: 'faq', value: 'FAQ (Coming soon)'}],
+            tutorLinks: [{key: '/', value: 'French Tutors'}, {key: '/', value: 'English Tutors'}, {
+                key: '/',
+                value: 'Math Tutors,'
+            }, {key: '/', value: 'Biology Tutors'},{key: '/', value: 'Physics Tutors'},{key: '/', value: 'Science Tutors'},{key: '/', value: 'Adult Education'},{key: '/', value: 'ESL Tutors'}]
+        };
+        this.renderLinks = this.renderLinks.bind(this)
+    }
+
     goTo(link) {
+        window.scrollTo(0, 0);
         history.replace(link);
+    }
+
+    renderLinks(param) {
+        return this.state[param].map((item,key) => <List.Item key={key}><a onClick={this.goTo.bind(this, '/' + item.key)}>{item.value}</a></List.Item>);
     }
 
     render() {
@@ -15,23 +35,12 @@ export default class Intro extends Component {
                     <Grid.Row columns={3}>
                         <Grid.Column>
                             <List link size={'big'} className={'intro-items'}>
-                                <List.Item><a onClick={this.goTo.bind(this, '/')}>HOME</a></List.Item>
-                                <List.Item><a onClick={this.goTo.bind(this, '/about-us')}>ABOUT US</a></List.Item>
-                                <List.Item><a onClick={this.goTo.bind(this, '/contact')}>CONTACT US</a></List.Item>
-                                <List.Item><a onClick={this.goTo.bind(this, '/pricing')}>PRICING</a></List.Item>
-                                <List.Item><a onClick={this.goTo.bind(this, '/faq')}>FAQ (Coming soon)</a></List.Item>
+                                {this.renderLinks('introLinks')}
                             </List>
                         </Grid.Column>
                         <Grid.Column>
                             <List link size={'big'} className={'intro-items'}>
-                                <List.Item><a onClick={this.goTo.bind(this, '/')}>French Tutors</a></List.Item>
-                                <List.Item><a onClick={this.goTo.bind(this, '/')}>English Tutors</a></List.Item>
-                                <List.Item><a onClick={this.goTo.bind(this, '/')}>Math Tutors,</a></List.Item>
-                                <List.Item><a onClick={this.goTo.bind(this, '/')}>Biology Tutors</a></List.Item>
-                                <List.Item><a onClick={this.goTo.bind(this, '/')}>Physics Tutors</a></List.Item>
-                                <List.Item><a onClick={this.goTo.bind(this, '/')}>Science Tutors</a></List.Item>
-                                <List.Item><a onClick={this.goTo.bind(this, '/')}>Adult Education</a></List.Item>
-                                <List.Item><a onClick={this.goTo.bind(this, '/')}>ESL Tutors</a></List.Item>
+                                {this.renderLinks('tutorLinks')}
                             </List>
                         </Grid.Column>
                         <Grid.Column textAlign={'center'}>
