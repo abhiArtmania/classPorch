@@ -269,6 +269,9 @@ class Navbar extends Component {
         let dashboardLink = role === "student" ? '/dashboard/student' : '/dashboard/tutor';
         let isDashboardAccessible = authToken ? dashboardLink : '/';
 
+        if(authToken) {
+
+        }
         return (
             <Menu stackable borderless className='menubar' fixed={'top'}>
                 <Menu.Item>
@@ -276,9 +279,8 @@ class Navbar extends Component {
                         <img src={logoDark} className='navBar-logo' role='presentation'/>
                     </a>
                 </Menu.Item>
-                {this.renderCenterItems()}
                 {authToken ?
-                    <Menu.Item position='right'> {this.isShowSearchBar()} </Menu.Item> : null}
+                    <Menu.Item position='right'> {this.isShowSearchBar()} </Menu.Item> : this.renderCenterItems()}
                 {menuRight}
             </Menu>
         )
