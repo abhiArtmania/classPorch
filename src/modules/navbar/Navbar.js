@@ -265,13 +265,16 @@ class Navbar extends Component {
 
     render() {
         const {authToken, role} = this.props;
-        console.log(this.props)
+        let menuBar,searchbar;
         let menuRight = (authToken && window.location.pathname !== '/login' && window.location.pathname !== '/' && !window.location.pathname.includes('sign-up')) ? this.getLoggedInMenuItems() : this.getItems();
         let dashboardLink = role === "student" ? '/dashboard/student' : '/dashboard/tutor';
         let isDashboardAccessible = authToken ? dashboardLink : '/';
 
+        if(!authToken) {
+            menuBar = this.renderCenterItems()
+        }
         if(authToken) {
-
+            searchbar = <Menu.Item position='right'> {this.isShowSearchBar()} </Menu.Item>
         }
         return (
             <Menu stackable borderless className='menubar' fixed={'top'}>
@@ -280,8 +283,8 @@ class Navbar extends Component {
                         <img src={logoDark} className='navBar-logo' role='presentation'/>
                     </a>
                 </Menu.Item>
-                {!authToken ?
-                    <Menu.Item position='right'> {this.isShowSearchBar()} </Menu.Item> : this.renderCenterItems()}
+                {menuBar}
+                {searchbar}
                 {menuRight}
             </Menu>
         )

@@ -41,8 +41,8 @@ class EducationSegment extends Component {
         const {profile,toggleProfileMode,mode, onChangeUserInfo,presentProfileId,userId} = this.props;
         
         return educationalAttributes.map((education,i) => {
-            let startYear = moment(education['start-education']).format('YYYY');
-            let finishYear = moment(education['finish-education']).format('YYYY');
+            let startYear = moment(education['start_education']).format('YYYY');
+            let finishYear = moment(education['finish_education']).format('YYYY');
             return(
                 <Grid.Row stretched columns={3} centered key={i} >
                     <Grid.Column width={1} >
@@ -51,23 +51,23 @@ class EducationSegment extends Component {
                     <Grid.Column width={6} textAlign='left'>
                     {
                         mode==='edit'?
-                        <Input className='profile-text' value={education['university-name']} 
+                        <Input className='profile-text' value={education['university_name']}
                         placeholder='college/university name'
-                        onChange={this.onChangeField.bind(this,i,'edit','university-name')} /> 
+                        onChange={this.onChangeField.bind(this,i,'edit','university_name')} />
                         :
-                        <div className='profile-text' > {education['university-name']} </div>
+                        <div className='profile-text' > {education['university_name']} </div>
                     }
                     <br/>
                     {
                         mode==='edit'?
                         <div>
-                        <Input className='profile-text' value={education['start-education']} 
-                                onChange={this.onChangeField.bind(this,i,'edit','start-education')}
+                        <Input className='profile-text' value={education['start_education']}
+                                onChange={this.onChangeField.bind(this,i,'edit','start_education')}
                                 placeholder='start date'
                                 onFocus={this.onFocusChange} onBlur={this.onFocusChange}  /> 
 
-                        <Input className='profile-text' value={education['finish-education']} 
-                                onChange={this.onChangeField.bind(this,i,'edit','finish-education')}
+                        <Input className='profile-text' value={education['finish_education']}
+                                onChange={this.onChangeField.bind(this,i,'edit','finish_education')}
                                 placeholder='finish date'
                                 onFocus={this.onFocusChange} onBlur={this.onFocusChange}  /> 
                         </div>
