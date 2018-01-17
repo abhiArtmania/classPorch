@@ -265,6 +265,7 @@ class Navbar extends Component {
 
     render() {
         const {authToken, role} = this.props;
+        console.log(this.props)
         let menuRight = (authToken && window.location.pathname !== '/login' && window.location.pathname !== '/' && !window.location.pathname.includes('sign-up')) ? this.getLoggedInMenuItems() : this.getItems();
         let dashboardLink = role === "student" ? '/dashboard/student' : '/dashboard/tutor';
         let isDashboardAccessible = authToken ? dashboardLink : '/';
@@ -279,7 +280,7 @@ class Navbar extends Component {
                         <img src={logoDark} className='navBar-logo' role='presentation'/>
                     </a>
                 </Menu.Item>
-                {authToken ?
+                {!authToken ?
                     <Menu.Item position='right'> {this.isShowSearchBar()} </Menu.Item> : this.renderCenterItems()}
                 {menuRight}
             </Menu>

@@ -160,7 +160,10 @@ export const updateProfile = ({profile, userId, educationalAttributes, authToken
                     "city": profile.city,
                     "number": profile.phone,
                     "email": profile.email,
-                    "skills": profile['skill-ids'],
+                    "skills": [{
+                        "id": 1,
+                        "name": "RoR"
+                    }],
                 }
             };
 
