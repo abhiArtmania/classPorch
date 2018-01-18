@@ -34,12 +34,12 @@ export default class Intro extends Component {
                 <Grid padded={'horizontally'}>
                     <Grid.Row columns={3}>
                         <Grid.Column>
-                            <List link size={'big'} className={'intro-items'}>
+                            <List link size={'tiny'} className={'intro-items'}>
                                 {this.renderLinks('introLinks')}
                             </List>
                         </Grid.Column>
                         <Grid.Column>
-                            <List link size={'big'} className={'intro-items'}>
+                            <List link size={'tiny'} className={'intro-items'}>
                                 {this.renderLinks('tutorLinks')}
                             </List>
                         </Grid.Column>
