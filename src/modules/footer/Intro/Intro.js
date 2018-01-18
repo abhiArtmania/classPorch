@@ -57,12 +57,12 @@ export default class Intro extends Component {
                             </p>
                             <br/>
                             <div>
-                                <Button style={{marginLeft: 10, marginRight: 10}} inverted as={'a'} size='large'
+                                <Button style={{marginLeft: 10, marginRight: 10,color: '#494E50'}} as={'a'} size='large'
                                         circular icon='facebook f'
                                         href={'https://www.facebook.com/ClassPorch-1715528735411313'}/>
-                                <Button style={{marginLeft: 10, marginRight: 10}} inverted as={'a'} size='large'
+                                <Button style={{marginLeft: 10, marginRight: 10,color: '#494E50'}} as={'a'} size='large'
                                         circular icon='twitter' href={'https://twitter.com/classporch'}/>
-                                <Button style={{marginLeft: 10, marginRight: 10}} inverted as={'a'} size='large'
+                                <Button style={{marginLeft: 10, marginRight: 10,color: '#494E50'}} as={'a'} size='large'
                                         circular icon='instagram' href={'https://www.instagram.com/classporch/'}/>
                             </div>
                         </Grid.Column>

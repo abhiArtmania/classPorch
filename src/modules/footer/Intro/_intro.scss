@@ -1,11 +1,13 @@
 .footer-intro-list {
+  background: #f4f4f4 !important;
+  color: #494E50 !important;
   .intro-items {
     padding-left: 30px;
   }
   .item {
     line-height: 30px !important;
     a {
-      color: #FBBD08 !important;
+      color: #494E50 !important;
       &:hover {
         color: #333333 !important;
       }
