@@ -6,13 +6,11 @@ import './assets/_etc.scss'
 export default class App extends React.Component {
   render() {
     return (
-      <div>
+      <section style={{paddingTop: '80px'}}>
         <Navbar/>
-          <div style={{paddingTop:'80px'}}>
-          </div>
         <Routes history={history}/>
         <Footer/>
-      </div>
+      </section>
     )
   }
 }

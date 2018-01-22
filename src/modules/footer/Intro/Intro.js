@@ -44,19 +44,7 @@ export default class Intro extends Component {
                             </List>
                         </Grid.Column>
                         <Grid.Column textAlign={'center'}>
-                            <div className='subscribe-label'>
-                                INTRODUCING TOP TUTORS
-                            </div>
-                            <p className='subscribe-subtitle'>
-                                At ClassPorch, we have experienced and certified tutors as new tutors are carefully
-                                interviewed to
-                                ensure they are well qualified before they acquire a tutoring position. With this, we
-                                can be sure that
-                                our students feel comfortable working with a particular tutor and get the best help
-                                possible!
-                            </p>
-                            <br/>
-                            <div>
+                                {/*<Button size={'large'}>Contact Us</Button>*/}
                                 <Button style={{marginLeft: 10, marginRight: 10,color: '#494E50'}} as={'a'} size='large'
                                         circular icon='facebook f'
                                         href={'https://www.facebook.com/ClassPorch-1715528735411313'}/>
@@ -64,7 +52,6 @@ export default class Intro extends Component {
                                         circular icon='twitter' href={'https://twitter.com/classporch'}/>
                                 <Button style={{marginLeft: 10, marginRight: 10,color: '#494E50'}} as={'a'} size='large'
                                         circular icon='instagram' href={'https://www.instagram.com/classporch/'}/>
-                            </div>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row/>

@@ -32,7 +32,7 @@ class Footer extends Component {
                 break;
             case 'pricing':
                 history.push('/');
-                setTimeout(() => document.getElementById('pricing').scrollIntoView({block: 'end', behavior: 'smooth'}));
+                setTimeout(() => document.getElementById('pricing').scrollIntoView({block: 'start', behavior: 'smooth'}));
                 break;
             default:
                 console.error('Pages not available');

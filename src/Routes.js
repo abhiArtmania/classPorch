@@ -26,6 +26,8 @@ import {
   ContactUs
 } from './modules';
 import AboutUs from "./modules/AboutUs/AboutUs";
+import {iWant} from "./modules/IWant/IWant";
+import {Faq} from "./modules/Faq/Faq";
 
 const Routes = () => {
   return (
@@ -33,12 +35,14 @@ const Routes = () => {
       <Switch>
         <Route exact path={'/'} component={Home}/>
         <Route exact path={'/about-us'} component={AboutUs}/>
+        <Route exact path={'/i-want'} component={iWant}/>
         <Route exact path={'/chats'} component={Chat}/>
         <Route exact path={'/messages'} component={Messaging}/>
         <Route exact path='/contact' component={ContactUs}/>
         <Route exact path='/privacy-policy' component={PrivacyPolicy}/>
         <Route exact path='/login' component={LoginRedux}/>
         <Route exact path='/search' component={SearchResults}/>
+        <Route exact path='/faq' component={Faq}/>
         <Route exact path='/add-credits' component={AddCredits}/>
         <Route exact path='/link-account' component={LinkAccount}/>
         <Route exact path='/request-money' component={RequestMoney}/>

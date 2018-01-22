@@ -1,11 +1,13 @@
 import React from 'react';
 import {Grid, Form, TextArea} from 'semantic-ui-react';
+import logoDark from '../../assets/logo_dark.png';
+
 import './index.scss';
 export default class ContactUs extends React.Component {
   
   render() {
     return (
-      <Grid container centered stretched columns={2} className='contact-section'>
+      <Grid container centered stretched columns={2} className='contact-section' id={'contact-us'}>
         <Grid.Row centered>
           <Grid.Column textAlign='left' width={12}
                        style={{fontSize: 64, marginTop: 24, marginBottom: 32, fontWeight: 300}}>
@@ -28,12 +30,9 @@ export default class ContactUs extends React.Component {
           <Grid.Column textAlign='left' width={6} style={{fontSize: 14, marginTop: 16, marginBottom: 16}}>
             <Grid>
               <Grid.Row>
-                <div style={{marginLeft: 32}}>
-                  <p style={{fontSize: 20}}><b>Get in Touch</b></p>
-                  <p>Your Complete Staffing Solution</p>
-                  <p><b>Phone:</b> 647-201-1576<br/><b>Phone:</b> 416-648-9945</p>
-                  <p><b>Email:</b> onestaffagency@gmail.com</p>
-                  <p><b>Address:</b> 8887 The Gore Road Unit 41, Brampton, Ontario L6P 2K9</p>
+                <div style={{marginLeft: 32, marginTop: 23}}>
+                    <img src={logoDark} className='navBar-logo' role='presentation'/>
+                  {/*<Image href={}></Image>*/}
                 </div>
               </Grid.Row>
             </Grid>

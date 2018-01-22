@@ -7,6 +7,8 @@ import {Dropdown, Image, Input, Button} from 'semantic-ui-react';
 import faker from 'faker'
 import {connect} from 'react-redux';
 import {logoutUserRequested, searchRequested, setPresentProfile, toggleSearchMode} from '../../redux/actions';
+import $ from "jquery";
+
 
 class Navbar extends Component {
 
@@ -30,6 +32,7 @@ class Navbar extends Component {
         this.setState({activeItem: ''})
     }
 
+
     handleItemClick = (e, {name}) => {
         console.log(history);
         this.setState({activeItem: name});
@@ -39,7 +42,8 @@ class Navbar extends Component {
             case 'messages':
                 history.push('/chats');
                 return;
-            case 'sign-in':
+            case 'log-in':
+                this.scrollTo();
                 return history.push('/login');
             case 'logout':
                 this.props.logoutUserRequested();
@@ -48,6 +52,7 @@ class Navbar extends Component {
             case 'profile':
                 this.setState({activeItem: 'profile'});
                 this.props.setPresentProfile({userId});
+                this.scrollTo();
                 return role === 'tutor' ? history.push('/profile/tutor') : history.push('/profile/student');
             case 'add-credits':
                 return history.push('/add-credits');
@@ -58,11 +63,12 @@ class Navbar extends Component {
             case 'previous-expenses':
                 return history.push('/previous-expenses');
             case 'search-tutors':
+                this.scrollTo();
                 this.setState({activeItem: 'search-tutors'});
                 return history.push('/login');
             case 'i-want':
-                this.setState({activeItem: 'i-want'});
-                return history.push('/login');
+                this.scrollTo();
+                return history.push('/i-want');
             case 'pricing':
                 this.setState({activeItem: 'pricing'});
                 history.push('/');
@@ -82,8 +88,12 @@ class Navbar extends Component {
 
     scrollTo(selector) {
         setTimeout(() => {
-            document.getElementById(selector).scrollIntoView({block: 'end', behavior: 'smooth'});
-        });
+            if (selector) {
+                $("html, body").animate({scrollTop: $(`#${selector}`).position().top - 65}, 1000);
+            } else {
+                $("html, body").animate({scrollTop: 0}, 1000);
+            }
+        })
     }
 
     capitalize(str = '') {
@@ -184,21 +194,22 @@ class Navbar extends Component {
     renderCenterItems() {
         const items = [
             {
-                key: 'pricing',
-                name: 'pricing',
-                buttonTitle: 'PRICING'
-            }, {
                 key: 'search-tutors',
                 name: 'search-tutors',
-                buttonTitle: 'SEARCH TUTORS'
-            }, {
-                key: 'i-want',
-                name: 'i-want',
-                buttonTitle: 'I WANT TO TUTOR'
+                buttonTitle: 'Search Tutors'
             }, {
                 key: 'how-works',
                 name: 'how-works',
-                buttonTitle: 'HOW IT WORKS'
+                buttonTitle: 'How It Works'
+            },
+            {
+                key: 'pricing',
+                name: 'pricing',
+                buttonTitle: 'Pricing'
+            }, {
+                key: 'i-want',
+                name: 'i-want',
+                buttonTitle: 'I Want To Tutor'
             }
         ];
         let menuItems = items.map((item) => {
@@ -218,13 +229,13 @@ class Navbar extends Component {
     getItems() {
         const items = [
             {
-                key: 'sign-in',
-                name: 'sign-in',
-                buttonTitle: 'SIGN IN'
+                key: 'log-in',
+                name: 'log-in',
+                buttonTitle: 'Log In'
             }, {
                 key: 'sign-up',
                 name: 'sign-up',
-                buttonTitle: 'SIGN UP'
+                buttonTitle: 'Sign Up'
             }
         ];
         let menuItems = items.map((item) => {
@@ -265,19 +276,19 @@ class Navbar extends Component {
 
     render() {
         const {authToken, role} = this.props;
-        let menuBar,searchbar;
+        let menuBar, searchbar;
         let menuRight = (authToken && window.location.pathname !== '/login' && window.location.pathname !== '/' && !window.location.pathname.includes('sign-up')) ? this.getLoggedInMenuItems() : this.getItems();
         let dashboardLink = role === "student" ? '/dashboard/student' : '/dashboard/tutor';
         let isDashboardAccessible = authToken ? dashboardLink : '/';
 
-        if(!authToken) {
+        if (!authToken) {
             menuBar = this.renderCenterItems()
         }
-        if(authToken) {
+        if (authToken) {
             searchbar = <Menu.Item position='right'> {this.isShowSearchBar()} </Menu.Item>
         }
         return (
-            <Menu stackable borderless className='menubar' fixed={'top'}>
+            <Menu stackable borderless className='menubar' size={'large'} fixed={'top'}>
                 <Menu.Item>
                     <a href={isDashboardAccessible} className='navBar-logo'>
                         <img src={logoDark} className='navBar-logo' role='presentation'/>

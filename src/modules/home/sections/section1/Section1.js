@@ -2,13 +2,15 @@ import React from 'react';
 import {Grid, Button} from 'semantic-ui-react';
 import {history} from '../../../../redux/store';
 import './styles.css';
+import $ from "jquery";
 
 const showSignUp = () => {
     history.push('/sign-up');
+    setTimeout(() => {
+        $("html, body").animate({scrollTop: $('#sign-up').position().top - 60}, 1000);
+    })
 };
-const scrollTo = () => {
-    document.getElementById('tutoring').scrollIntoView({block: 'end', behavior: 'smooth'});
-};
+
 const Section1 = () => (
     <Grid style={{
         backgroundImage: 'url(\'back.jpg\')',
@@ -26,11 +28,11 @@ const Section1 = () => (
                 <Grid.Row centered>
                     <Button circular color='yellow' size='big' onClick={showSignUp}>Find Tutors Now</Button>
                 </Grid.Row>
-                <Grid.Row centered>
-                    <div onClick={scrollTo} className="scroll-to">
-                        <i className="fa fa-long-arrow-down fa-5x" aria-hidden="true"/>
-                    </div>
-                </Grid.Row>
+                {/*<Grid.Row centered>*/}
+                    {/*<div onClick={scrollTo} className="scroll-to">*/}
+                        {/*<i className="fa fa-long-arrow-down fa-5x" aria-hidden="true"/>*/}
+                    {/*</div>*/}
+                {/*</Grid.Row>*/}
             </Grid.Column>
         </Grid.Row>
 

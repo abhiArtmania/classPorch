@@ -32,7 +32,7 @@ class SignUpMethods extends Component {
 
   render() {
     return (
-      <Grid className='sign-up-methods-body'>
+      <Grid className='sign-up-methods-body' id={'sign-up'}>
         <Grid.Row centered>
           <p className='sign-up-methods-header'>How would you like to Sign Up?</p>
         </Grid.Row>

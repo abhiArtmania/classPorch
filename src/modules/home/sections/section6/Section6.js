@@ -2,16 +2,21 @@ import React from 'react';
 import {Grid, Button} from 'semantic-ui-react';
 import {history} from "../../../../redux/store";
 import './styles.css'
+import $ from "jquery";
 
 const showContactUs = () => {
-  history.push('/contact');
+    history.push('/contact');
+    setTimeout(() => {
+        $("html, body").animate({scrollTop: $('#contact-us').position().top - 65}, 1000);
+    })
 };
 
 const Section6 = () => (
     <Grid className='section-six'>
         <Grid.Row centered>
             <Grid.Column width={8}>
-                <p className='section6-title'>WE WOULD LOVE TO HEAR FROM <span className='section6-title-semibold'>YOU</span>
+                <p className='section6-title'>WE WOULD LOVE TO HEAR FROM <span
+                    className='section6-title-semibold'>YOU</span>
                 </p>
             </Grid.Column>
         </Grid.Row>
@@ -21,7 +26,10 @@ const Section6 = () => (
         <Grid.Row centered>
             <Grid.Column width={10}>
                 <p className='section6-content'>
-                    Our online teachers hold a wealth of knowledge, academic degrees and experience. Students will find homework tutors, college-readiness tutors, academic tutors and career tutors. Hiring a tutor who is actually specialist about what they are teaching will assist you become passionate and enthusiastic about learning.
+                    Our online teachers hold a wealth of knowledge, academic degrees and experience. Students will find
+                    homework tutors, college-readiness tutors, academic tutors and career tutors. Hiring a tutor who is
+                    actually specialist about what they are teaching will assist you become passionate and enthusiastic
+                    about learning.
                 </p>
             </Grid.Column>
         </Grid.Row>
