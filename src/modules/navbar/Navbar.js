@@ -45,6 +45,9 @@ class Navbar extends Component {
             case 'log-in':
                 this.scrollTo();
                 return history.push('/login');
+            case 'sign-up':
+                this.scrollTo();
+                return history.push('/sign-up');
             case 'logout':
                 this.props.logoutUserRequested();
                 this.setState({activeItem: ''});
