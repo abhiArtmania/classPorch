@@ -45,6 +45,12 @@ export default class Intro extends Component {
                             </List>
                         </Grid.Column>
                         <Grid.Column textAlign={'center'}>
+
+                                <Grid.Row>
+                                    <div className="contact-us-button">
+                                        <Button size={'large'} onClick={this.goTo.bind(this,'contact')}>Contact Us</Button>
+                                    </div>
+                                </Grid.Row>
                                 {/*<Button size={'large'}>Contact Us</Button>*/}
                                 <Button style={{marginLeft: 10, marginRight: 10,color: '#494E50'}} as={'a'} size='large'
                                         circular icon='facebook f'

@@ -13,4 +13,16 @@
       }
     }
   }
+  .contact-us-button {
+    padding: 10px;
+    button {
+      padding: 15px 45px;
+      background: orange;
+      transition: all ease .3s;
+      &:hover {
+        background: orange;
+        color: white;
+      }
+    }
+  }
 }
