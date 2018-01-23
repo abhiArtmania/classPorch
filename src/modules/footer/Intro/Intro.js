@@ -2,25 +2,26 @@ import React, {Component} from "react";
 import {Button, Grid, List} from "semantic-ui-react";
 import {history} from '../../../redux/store';
 import './_intro.scss';
+import $ from "jquery";
 
 export default class Intro extends Component {
     constructor() {
         super();
         this.state = {
-            introLinks: [{key: 'about-us', value: 'ABOUT US'}, {key: 'contact', value: 'CONTACT'}, {
+            introLinks: [{key: 'about-us', value: 'About Us'}, {key: 'contact', value: 'Contact Us'}, {
                 key: 'pricing',
-                value: 'PRICING'
+                value: 'Pricing'
             }, {key: 'faq', value: 'FAQ (Coming soon)'}],
             tutorLinks: [{key: '/', value: 'French Tutors'}, {key: '/', value: 'English Tutors'}, {
                 key: '/',
-                value: 'Math Tutors,'
+                value: 'Math Tutors'
             }, {key: '/', value: 'Biology Tutors'},{key: '/', value: 'Physics Tutors'},{key: '/', value: 'Science Tutors'},{key: '/', value: 'Adult Education'},{key: '/', value: 'ESL Tutors'}]
         };
         this.renderLinks = this.renderLinks.bind(this)
     }
 
     goTo(link) {
-        window.scrollTo(0, 0);
+        $("html, body").animate({scrollTop: 0}, 1000);
         history.replace(link);
     }
 
