@@ -5,7 +5,12 @@ import './styles.css';
 import $ from "jquery";
 
 const showSignUp = () => {
-    history.push('/sign-up');
+    history.push({
+        pathname: '/sign-up',
+        state: {
+            from:'student'
+        }
+    });
     setTimeout(() => {
         $("html, body").animate({scrollTop: $('#sign-up').position().top - 60}, 1000);
     })
