@@ -97,13 +97,12 @@ class SignUpStudent extends React.Component {
   };
 
   render() {
-    console.log(this.state);
     return (
       <Form encType='application/json' onSubmit={this.onFormSubmitted}>
         <TopSection/>
         <AboutSection onChange={this.onChange}/>
+          <ContactSection onChange={this.onChange}/>
         <EducationSection onChange={this.onChange}/>
-        <ContactSection onChange={this.onChange}/>
         <SkillsSection onChangeSkills={this.onChangeSkills} selectedSkills={this.state.selectedSkills}/>
         <BottomSection/>
       </Form>

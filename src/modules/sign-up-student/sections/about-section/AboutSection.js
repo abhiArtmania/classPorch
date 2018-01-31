@@ -1,24 +1,33 @@
 import React from 'react';
-import {Grid, Input, Radio} from 'semantic-ui-react';
+import {Grid, Input, Radio, Select} from 'semantic-ui-react';
+import * as moment from 'moment';
 import './styles.css';
+import {CountryList} from "../../../../helpers/utils";
 
 export default class AboutSection extends React.Component {
 
     constructor() {
         super();
+        this.changeDob = this.changeDob.bind(this);
         this.changeGender = this.changeGender.bind(this);
         this.state = {
             gender: 'male'
         };
     }
 
-    changeGender = function (e, {name, value}) {
+    changeDob(e, {name, value}) {
+        const age = moment(value).month(0).from(moment().month(0));
+        this.setState(Object.assign(this.state, {dob: value, needParent: Number(age.match(/\d+/g)) <= 16}));
+        this.props.onChange(e, {name, value})
+    }
+
+    changeGender(e, {name, value}) {
         this.setState({gender: value});
         this.props.onChange(e, {name, value})
 
     };
 
-    onFocusChange = function (event, data) {
+    onFocusChange(event, data) {
         if (event.type === 'focus') {
             event.target.type = 'date';
             event.target.click();
@@ -28,7 +37,20 @@ export default class AboutSection extends React.Component {
     };
 
     render() {
+        let renderParentInfo;
         const {gender} = this.state;
+        if (this.state.needParent) {
+            renderParentInfo = <Grid.Row centered>
+                <Grid.Column width={6} textAlign='left'>
+                    <Input fluid name='parent_email' label="Parent Email" placeholder='Parent Email' required
+                           onChange={this.props.onChange}/>
+                </Grid.Column>
+                <Grid.Column width={6} textAlign='left'>
+                    <Input fluid name='parent_name' placeholder='Parent Name' label="Parent Name" required
+                           onChange={this.props.onChange}/>
+                </Grid.Column>
+            </Grid.Row>
+        }
         return (
             <Grid className='sign-up-about-section-body'>
                 <Grid.Row centered>
@@ -38,28 +60,30 @@ export default class AboutSection extends React.Component {
                 </Grid.Row>
                 <Grid.Row centered>
                     <Grid.Column width={6} textAlign='left'>
-                        <Input fluid name='first_name' placeholder='First Name *' required
+                        <Input fluid name='first_name' label="First Name" placeholder='First Name *' required
                                onChange={this.props.onChange}/>
                     </Grid.Column>
                     <Grid.Column width={6} textAlign='left'>
-                        <Input fluid name='last_name' placeholder='Last Name *' required
+                        <Input fluid name='last_name' placeholder='Last Name *' label="Last Name" required
                                onChange={this.props.onChange}/>
                     </Grid.Column>
                 </Grid.Row>
                 <Grid.Row centered>
                     <Grid.Column width={12} textAlign='left'>
-                        <Input fluid name='dob' type='text' placeholder='Date of birth* (dd/mm/yyyy)'
+                        <Input fluid name='dob' type='text' label="Date of birthday" placeholder='Date of birth* (mm/dd/yyyy)'
                                onFocus={this.onFocusChange}
-                               onBlur={this.onFocusChange} required onChange={this.props.onChange}/>
+                               onBlur={this.onFocusChange} required onChange={this.changeDob}/>
                     </Grid.Column>
                 </Grid.Row>
+                {renderParentInfo}
                 <Grid.Row centered>
                     <Grid.Column width={6} textAlign='left'>
-                        <Input fluid name='city' type='text' placeholder='City' required
-                               onChange={this.props.onChange}/>
+                        <Select  label={'Country'} labeled={true} fluid name='country' onChange={this.props.onChange} placeholder='Select your country' options={CountryList} required/>
+                        {/*<Input fluid name='country' type='text' placeholder='Country' required*/}
+                        {/*onChange={this.props.onChange}/>*/}
                     </Grid.Column>
                     <Grid.Column width={6} textAlign='left'>
-                        <Input fluid name='country' type='text' placeholder='Country' required
+                        <Input fluid name='city' type='text' placeholder='City' label="City" required
                                onChange={this.props.onChange}/>
                     </Grid.Column>
                 </Grid.Row>
@@ -84,11 +108,11 @@ export default class AboutSection extends React.Component {
                 </Grid.Row>
                 <Grid.Row centered>
                     <Grid.Column width={6} textAlign='left'>
-                        <Input fluid name='password' type='password' placeholder='Password *' required
+                        <Input fluid name='password' label="Password" type='password' placeholder='Password *' required
                                onChange={this.props.onChange}/>
                     </Grid.Column>
                     <Grid.Column width={6} textAlign='left'>
-                        <Input fluid name='password_confirmation' type='password' placeholder='Password Confirmation *'
+                        <Input fluid name='password_confirmation' label="Confirm Password" type='password' placeholder='Password Confirmation *'
                                required
                                onChange={this.props.onChange}/>
                     </Grid.Column>

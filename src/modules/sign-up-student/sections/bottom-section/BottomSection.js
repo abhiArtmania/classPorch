@@ -1,19 +1,10 @@
 import React from 'react';
 import {Grid, Checkbox, Button} from 'semantic-ui-react';
 import './styles.css';
+import {Link} from "react-router-dom";
 
 export default class BottomSection extends React.Component {
     state = { isAgreedToTerms: false };
-
-    onFormSubmitted = (e,{formData}) => {
-        e.preventDefault();
-        const {isAgreedToTerms} = this.state;
-        if(isAgreedToTerms){
-            //Code to submit
-        }else{
-            //Show the modal
-        }
-    };
 
     agreedToTerms = (e) => {
         const {isAgreedToTerms} = this.state;
@@ -31,9 +22,9 @@ export default class BottomSection extends React.Component {
                         <Checkbox name='terms_agreed_check' className='terms-agreed-check' checked={isAgreedToTerms} onClick={this.agreedToTerms} required/>
                         <span>
                             I have read and agree to the
-                            <a className='sign-up-bottom-span-links'> Privacy Policy </a>
+                            <Link to={'/privacy-policy'} className='sign-up-bottom-span-links'> Privacy Policy </Link>
                             and
-                            <a className='sign-up-bottom-span-links'> Terms of Service </a>
+                            <Link  to = {'/terms-of-service/student'} className='sign-up-bottom-span-links'> Terms of Service </Link>
                             documents of ClassPorch.
                         </span>
                     </Grid.Column>
@@ -44,7 +35,7 @@ export default class BottomSection extends React.Component {
                         <br/>
                         <br/>
                         <br/>
-                        <Button circular size='large' color='yellow' type='submit'>CONTINUE</Button>
+                        <Button circular size='large' color='yellow' type='submit' disabled={!this.state.isAgreedToTerms}>CONTINUE</Button>
                     </Grid.Column>
                 </Grid.Row>
             </Grid>

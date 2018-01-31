@@ -11,10 +11,10 @@ const ContactSection = (props) => (
                 </Grid.Row>
                 <Grid.Row centered>
                     <Grid.Column width={6} textAlign='left'>
-                        <Input fluid name='email' placeholder='Email' type='email' onChange={props.onChange}/>
+                        <Input label="Email" fluid name='email' placeholder='Email' type='email' onChange={props.onChange}/>
                     </Grid.Column>
                     <Grid.Column width={6} textAlign='left'>
-                        <Input fluid name='mobile' placeholder='Phone *' required type='phone' onChange={props.onChange}/>
+                        <Input fluid name='mobile' label="Phone" placeholder='Phone *' required type='phone' onChange={props.onChange}/>
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
