@@ -31,11 +31,7 @@ import {Faq} from "./modules/Faq/Faq";
 
 const Routes = () => {
     const token = localStorage.getItem('store');
-    let authed = false;
-    if (token && JSON.parse(token) && JSON.parse(token).auth.authToken) {
-        authed = true;
-    }
-    console.log(authed)
+    const authed = token && JSON.parse(token) && JSON.parse(token).auth.authToken;
     return (
         <ConnectedRouter history={history}>
             <Switch>
@@ -55,39 +51,39 @@ const Routes = () => {
                 <Route exact path={'/sign-up/tutor'} component={SignUpTutor}/>
                 <Route exact path={'/sign-up/student'} component={SignUpStudent}/>
                 <Route exact path={'/sign-up'} component={SignUpMethods}/>
-                <Route exact render={(props) => authed === true
+                <Route exact render={(props) => authed || history.isAuth
                     ? <LinkAccount />
                     : <Redirect to={{pathname: '/login', state: {from: props.location}}}/>} path='/link-account'/>
-                <Route exact path='/add-credits' render={(props) => authed === true
+                <Route exact path='/add-credits' render={(props) => authed || history.isAuth
                     ? <AddCredits />
                     : <Redirect to={{pathname: '/login', state: {from: props.location}}}/>}/>,
 
-                <Route exact path='/request-money' render={(props) => authed === true
+                <Route exact path='/request-money' render={(props) => authed || history.isAuth
                     ? <RequestMoney />
                     : <Redirect to={{pathname: '/login', state: {from: props.location}}}/>}/>,
 
 
-                <Route exact path='/previous-expenses' render={(props) => authed === true
+                <Route exact path='/previous-expenses' render={(props) => authed || history.isAuth
                     ? <PreviousExpenses />
                     : <Redirect to={{pathname: '/login', state: {from: props.location}}}/>}/>,
 
 
-                <Route exact path={'/dashboard/student'} render={(props) => authed === true
+                <Route exact path={'/dashboard/student'} render={(props) => authed || history.isAuth
                     ? <DashboardStudent />
                     : <Redirect to={{pathname: '/login', state: {from: props.location}}}/>}/>,
 
 
-                <Route exact path={'/dashboard/tutor'} render={(props) => authed === true
+                <Route exact path={'/dashboard/tutor'} render={(props) => authed || history.isAuth
                     ? <DashboardTutor />
                     : <Redirect to={{pathname: '/login', state: {from: props.location}}}/>}/>,
 
 
-                <Route exact path={'/profile/student'} render={(props) => authed === true
+                <Route exact path={'/profile/student'} render={(props) => authed || history.isAuth
                     ? <ProfileStudent />
                     : <Redirect to={{pathname: '/login', state: {from: props.location}}}/>}/>,
 
 
-                <Route exact path={'/profile/tutor'} render={(props) => authed === true
+                <Route exact path={'/profile/tutor'} render={(props) => authed || history.isAuth
                     ? <ProfileTutor />
                     : <Redirect to={{pathname: '/login', state: {from: props.location}}}/>}/>
                 <Redirect to={'/'}/>
