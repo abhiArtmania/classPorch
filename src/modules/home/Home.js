@@ -12,14 +12,11 @@ import {history} from '../../redux/store';
 
 export default class Home extends React.Component {
     componentWillMount() {
-        // if (localStorage.getItem('store')) {
-        //     const store = JSON.parse(localStorage.getItem('store'));
-        //     if (store.auth.role === "tutor") {
-        //         history.push('/profile/tutor')
-        //     } else {
-        //         history.push('/profile/student')
-        //     }
-        // } else {
+        const token = localStorage.getItem('store');
+        if (token && JSON.parse(token) && JSON.parse(token).auth.authToken) {
+                    history.push('/dashboard/' + JSON.parse(token).auth.role)
+
+        } else {
             this.items = [
                 {
                     key: 'sign-in',
@@ -36,6 +33,16 @@ export default class Home extends React.Component {
                 }
             ];
             MenuChangeStore.changeMenu(this.items);
+        }
+            // if (localStorage.getItem('store')) {
+        //     const store = JSON.parse(localStorage.getItem('store'));
+        //     if (store.auth.role === "tutor") {
+        //         history.push('/profile/tutor')
+        //     } else {
+        //         history.push('/profile/student')
+        //     }
+        // } else {
+
         // }
     }
 

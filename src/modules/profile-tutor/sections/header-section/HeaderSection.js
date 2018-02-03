@@ -53,43 +53,31 @@ class HeaderSection extends Component {
             </div>
           </Grid.Column>
           <Grid.Column width={6} textAlign='right'>
-            <div>
-              {userId === presentProfileId ?
+            {/*<div>*/}
+              {/*{userId === presentProfileId ?*/}
 
-                <Form loading={false} className='profile-picture-form' >
-                    <Form.Field 
-                      control={'input'} 
-                      type='file' 
-                      onFocus={this.onFocusChange}
-                      onBlur={this.onFocusChange}
-                      accept={'.jpg, .jpeg'} 
-                      placeholder='Change profile picture'
-                      className='image-input'
-                      onChange={this.startUploading}/>
-                </Form>
-                :
-                <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-                  <RequestSession profile={profile}/>
-                  <Button
-                    onClick={this.redirectToChats}
-                    color='yellow'
-                    style={{marginLeft: '15px'}}
-                    content='MESSAGE'/>
-                </div>
-              }
-            </div>
-          </Grid.Column>
-
-        </Grid.Row>
-        <Grid.Row centered>
-          <Grid.Column width={12} textAlign='left'>
-
-            {userId === presentProfileId ?
-              <div style={styles.text}>
-                You have registered as a
-                <span style={styles.roleText}> {' ' + role} </span>
-              </div> : null
-            }
+                {/*<Form loading={false} className='profile-picture-form' >*/}
+                    {/*<Form.Field */}
+                      {/*control={'input'} */}
+                      {/*type='file' */}
+                      {/*onFocus={this.onFocusChange}*/}
+                      {/*onBlur={this.onFocusChange}*/}
+                      {/*accept={'.jpg, .jpeg'} */}
+                      {/*placeholder='Change profile picture'*/}
+                      {/*className='image-input'*/}
+                      {/*onChange={this.startUploading}/>*/}
+                {/*</Form>*/}
+                {/*:*/}
+                {/*<div style={{display: 'flex', justifyContent: 'flex-end'}}>*/}
+                  {/*<RequestSession profile={profile}/>*/}
+                  {/*<Button*/}
+                    {/*onClick={this.redirectToChats}*/}
+                    {/*color='yellow'*/}
+                    {/*style={{marginLeft: '15px'}}*/}
+                    {/*content='MESSAGE'/>*/}
+                {/*</div>*/}
+              {/*}*/}
+            {/*</div>*/}
           </Grid.Column>
         </Grid.Row>
       </Grid>
