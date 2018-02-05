@@ -18,11 +18,13 @@ class SignUpTutor extends React.Component {
         super(props);
         this.onChangeSkills = this.onChangeSkills.bind(this);
         this.onFormSubmitted = this.onFormSubmitted.bind(this);
+        this.onChangeEducation = this.onChangeEducation.bind(this);
         this.onChange = this.onChange.bind(this);
     }
 
     state = {
-        selectedSkills: []
+        selectedSkills: [],
+        educations:[]
     };
 
     onChangeSkills = (selectedSkills) => {
@@ -31,11 +33,13 @@ class SignUpTutor extends React.Component {
 
     onFormSubmitted = (event, {formData}) => {
         event.preventDefault();
-
         const formSkills = this.state.selectedSkills.map(x => {
             return {id: x.key, name: x.text}
         });
-
+        let edu = {};
+        this.state.educations.map((item, key) => {
+            Object.assign(edu, {[key]: item})
+        });
         const {
             email,
             password,
@@ -47,23 +51,13 @@ class SignUpTutor extends React.Component {
             country,
             city,
             mobile,
-            start_education,
-            finish_education,
-            college_name,
             rate,
             experience
         } = this.state;
-
         //Modify form data for actual use:
         let parsedForm = {
             user: {
-                educations_attributes: {
-                    '0': {
-                        start_education,
-                        finish_education,
-                        university_name: college_name
-                    }
-                },
+                education_attributes: edu,
                 tutor_experience_attributes: {
                     rate,
                     experience,
@@ -105,13 +99,17 @@ class SignUpTutor extends React.Component {
         this.setState({[name]: value});
     };
 
+    onChangeEducation(data) {
+        this.setState({educations: data})
+    }
+
     render() {
         return (
-            <Form encType='application/json' onSubmit={this.onFormSubmitted}>
+            <Form encType='application/json' onSubmit={this.onFormSubmitted.bind(this)}>
                 <TopSection/>
                 <AboutSection onChange={this.onChange}/>
                 <ContactSection onChange={this.onChange}/>
-                <EducationSection onChange={this.onChange}/>
+                <EducationSection onChange={this.onChange} onChangeEdu={this.onChangeEducation}/>
                 <SkillsSection onChangeSkills={this.onChangeSkills} selectedSkills={this.state.selectedSkills}/>
                 <HourlyRateSection onChange={this.onChange}/>
                 <BottomSection/>

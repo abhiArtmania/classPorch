@@ -44,11 +44,10 @@ export default class EducationSection extends React.Component {
     }
 
     onEducationChange(key, e, {name, value}) {
-        console.log(e)
         let educations = [...this.state.listOfEducation];
         educations[key][name] = value;  //new value
         this.setState({listOfEducation: educations});
-        this.props.onChange()
+        this.props.onChangeEdu(this.state.listOfEducation)
     }
 
     startUploading() {
@@ -58,7 +57,7 @@ export default class EducationSection extends React.Component {
         return this.state.listOfEducation.map((edu, key) => {
             return <Grid.Row columns={12} centered key={key}>
                 <Grid.Column width={12} textAlign='left' style={{paddingBottom: '20px'}}>
-                    <Input label="School Name" type='text' name={'college_name'} fluid placeholder='Name of School'
+                    <Input label="School Name" type='text' name={'university_name'} fluid placeholder='Name of School'
                            onChange={this.onEducationChange.bind(this, key)}/>
                 </Grid.Column>
                 <Grid.Column width={6} textAlign='left'>

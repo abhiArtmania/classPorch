@@ -3,6 +3,7 @@ import {Form, Grid, Header, Input, Radio, Select} from 'semantic-ui-react';
 import './styles.css';
 import * as moment from "moment/moment";
 import {CountryList} from "../../../../helpers/utils";
+import * as $ from 'jquery';
 
 export default class AboutSection extends React.Component {
     constructor() {
@@ -17,13 +18,14 @@ export default class AboutSection extends React.Component {
     };
 
 
+
     changeDob(e, {name, value}) {
         const age = moment(value).month(0).from(moment().month(0));
         const ageInYears = Number(age.match(/\d+/g));
         this.setState(Object.assign(this.state, {
             dob: value,
             needParent: ageInYears < 18,
-            dobError: ageInYears < 18 ? "bla bla bla" : ""
+            dobError: ageInYears < 18 ? "You must be 18 years old minimum" : ""
         }));
         this.props.onChange(e, {name, value})
     }
@@ -70,7 +72,7 @@ export default class AboutSection extends React.Component {
                 </Grid.Row>
                 <Grid.Row centered>
                     <Grid.Column width={12} textAlign='left'>
-                        <Input label="Date of Birthday" fluid name='dob' type='text' placeholder='Date of birth* (dd/mm/yyyy)'
+                        <Input label="Date of Birthday" id="datepicker" fluid name='dob'  type='date' placeholder='Date of birth* (dd/mm/yyyy)'
                                onFocus={this.onFocusChange}
                                onBlur={this.onFocusChange} required onChange={this.changeDob}/>
                         <p style={{color: 'red', fontSize: '15px'}}>{this.state.dobError}</p>

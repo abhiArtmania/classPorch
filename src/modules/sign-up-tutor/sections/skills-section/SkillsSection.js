@@ -84,7 +84,6 @@ class SkillsSection extends React.Component{
                     <Grid.Column width={12} textAlign='left' style={{paddingTop: '30px'}}>
                         <Input name='last_name' placeholder='Custom Skills'
                                action={{content: "Add Skill", onClick: this.onSkillSubmit}} label="Custom Skills"
-                               required
                                value={this.state.customSkill}
                                onChange={this.onCustomSkillsChange}/>
                     </Grid.Column>
