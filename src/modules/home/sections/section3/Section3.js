@@ -23,12 +23,23 @@ const Section3 = () => (
         </Grid.Row>
         <Grid.Row centered>
             <Grid.Column width={10}>
-                <p className='section3-subtitle'>At ClassPorch tutors we have experienced and certified tutors as new
-                    tutors are
-                    carefully interview to ensure they are well qualified before they acquire a tutoring position. With
-                    this, we
-                    can be sure that our students feel comfortable working with a particular tutor and get the best help
-                    possible!</p>
+                <p className='section3-subtitle'>At ClassPorch, we take ample time to interview all our tutors to ensure they
+                 are well qualified before they are granted a tutoring position. <br />
+<b>24-7 Availability</b>
+<br />
+Our tutors are available 24-7 enabling students to reach out for help at their convenience.
+<br />
+<b>Variety of Subjects</b>
+<br />
+We offer tutoring services for a wide variety of subjects ranging from K-5, middle & high school and college subjects. 
+<br />
+<b>Homework made Easy</b>
+<br />
+Our tutors are qualified and readily available to help you with homework and assignments.
+<br />
+<b>Whiteboard + Audio/Video Compatibility</b>
+<br />
+Our highly interactive technology makes the learning process more effective and fun for both tutors and students.</p>
             </Grid.Column>
         </Grid.Row>
         <Grid.Row className='section-three-features'>

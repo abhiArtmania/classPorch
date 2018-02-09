@@ -1,9 +1,9 @@
 import React from 'react';
-import {Grid, Button} from 'semantic-ui-react';
+import {Grid, Button, Image} from 'semantic-ui-react';
 import {history} from "../../../../redux/store";
 import './styles.css';
 import $ from "jquery";
-
+import steps from '../../../../assets/howitworks/steps.png';
 const showSignUp = () => {
     history.push('/sign-up');
     setTimeout(() => {
@@ -19,18 +19,13 @@ const Section4 = () => (
             </Grid.Row>
             <Grid.Row centered>
                 <Grid>
-                    <Grid.Row centered columns={4}>
-                        <Grid.Column width={3}>
-                            <p className='section4-content'>Sign Up: Create your student profile</p><i className="fa fa-long-arrow-right icon-arrow" aria-hidden="true"/>
-                        </Grid.Column>
-                        <Grid.Column width={3}>
-                            <p className='section4-content'>Find tutors using our Search feature</p><i className="fa fa-long-arrow-right icon-arrow" aria-hidden="true"/>
-                        </Grid.Column>
-                        <Grid.Column width={3}>
-                            <p className='section4-content'>Select a time available and book the session</p><i className="fa fa-long-arrow-right icon-arrow icon-arrow-last" aria-hidden="true"/>
-                        </Grid.Column>
-                        <Grid.Column width={3}>
-                            <p className='section4-content'>Enter the online classroom</p>
+                    <Grid.Row centered>
+                        <Grid.Column width={5}>
+                        At ClassPorch we make everything easy. You can easily sign up
+                        by creating your profile, search for the tutors you need and schedule
+                         the available sessions in advance. You can also request for an immediate session
+                          if the tutor you need is online.
+                         <Image centered src={steps} className='how_it_works-steps'></Image>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
