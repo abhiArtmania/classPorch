@@ -27,9 +27,7 @@ const Section1 = () => (
             <Grid.Column width={12}>
                 <p className='home-title'>Student learning. <span className='home-title-bold'>Simplified.</span></p>
                 <p className='home-subtitle'>Connecting students with tutors and instructors across the globe.</p>
-                <br/>
-                <br/>
-                <br/>
+                
                 <Grid.Row centered>
                     <Button circular color='yellow' size='big' onClick={showSignUp}>Find Tutors Now</Button>
                 </Grid.Row>

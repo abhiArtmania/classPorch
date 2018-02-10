@@ -1,0 +1,75 @@
+.menubar2
+{
+display:none!important;
+}
+.menubar button
+{
+display:none!important;
+}
+ @media only screen and (max-width: 767px)
+ {
+ .menubar button
+{
+display:flex!important;
+margin:10px 0!important;
+margin-left: auto!important;
+
+}
+.ui.column.grid>[class*="three wide"].column, .ui.grid>.column.row>[class*="three wide"].column, .ui.grid>.row>[class*="three wide"].column, .ui.grid>[class*="three wide"].column {
+    width: 100%!important;
+    padding: 0 40px;
+}
+.ui.column.grid>[class*="six wide"].column, .ui.grid>.column.row>[class*="six wide"].column, .ui.grid>.row>[class*="six wide"].column, .ui.grid>[class*="six wide"].column {
+    width: 100%!important;
+    
+}
+.ui.celled.grid>.row, .ui.celled.grid>.row>.column
+{
+box-shadow: none;
+}
+.footer-intro-list .contact-us-button button {
+    padding: 5px 15px!important;
+    
+}
+
+.menubar2
+{
+display:flex!important;
+top:80px!important;
+}
+.menubar2 .item
+{
+justify-content:space-around;
+}
+.menubar2 .right
+{
+flex-wrap:wrap;
+justify-content: center;
+}
+.menubar .right:nth-child(2)
+{
+display:none!important;
+}
+.ui.column.grid > [class*="five wide"].column, .ui.grid > .column.row > [class*="five wide"].column, .ui.grid > .row > [class*="five wide"].column, .ui.grid > [class*="five wide"].column {
+    width: 84.25% !important;
+}
+.footer-bottom-background .right
+{
+flex-wrap:wrap;
+} 
+.home-title, .home-subtitle, .home-title-bold
+{
+font-size: 15px!important;
+
+}
+}
+ @media only screen and (max-width: 425px)
+ {
+.navBar-logo {
+    height: 15px!important;
+}
+.pricing-plan-price span
+{
+font-size: 33px;
+}
+}

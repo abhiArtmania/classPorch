@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import logoDark from '../../assets/logo_dark.png';
-import {Menu} from 'semantic-ui-react';
+
 import {history} from '../../redux/store';
 import './styles.css';
-import {Dropdown, Image, Input, Button} from 'semantic-ui-react';
+import {Menu, Dropdown, Image, Input, Button} from 'semantic-ui-react';
 import faker from 'faker'
 import {connect} from 'react-redux';
 import {logoutUserRequested, searchRequested, setPresentProfile, toggleSearchMode} from '../../redux/actions';
 import $ from "jquery";
-
+import { findDOMNode } from 'react-dom';
 
 class Navbar extends Component {
 
@@ -26,6 +26,8 @@ class Navbar extends Component {
         this.onSearchWordChange = this.onSearchWordChange.bind(this);
         this.onSearch = this.onSearch.bind(this);
         this.isShowSearchBar = this.isShowSearchBar.bind(this);
+        this.menuToggle = this.menuToggle.bind(this);
+        
     }
 
     componentWillMount() {
@@ -276,7 +278,12 @@ class Navbar extends Component {
         }
         return null
     };
-
+	menuToggle()
+	{
+	//const menu = findDOMNode(this.refs.slideMenu);
+	
+	$(".menu-container").slideToggle();
+	}
     render() {
         const {authToken, role} = this.props;
         let menuBar, searchbar;
@@ -291,16 +298,26 @@ class Navbar extends Component {
             searchbar = <Menu.Item position='right'> {this.isShowSearchBar()} </Menu.Item>
         }
         return (
-            <Menu stackable borderless className='menubar' size={'large'} fixed={'top'}>
+        <div>
+            <Menu borderless className='menubar' size={'large'} fixed={'top'}>
                 <Menu.Item>
                     <a href={isDashboardAccessible} className='navBar-logo'>
                         <img src={logoDark} className='navBar-logo' role='presentation'/>
                     </a>
                 </Menu.Item>
                 {menuBar}
+                <Button size={'medium'} basic="true" onClick={this.menuToggle}>menu</Button>
                 {searchbar}
                 {menuRight}
+                
             </Menu>
+            <div className="menu-container">
+            <Menu stackable borderless className='menubar2' size={'large'} fixed={'top'} ref="slideMenu">
+               {menuBar}
+                
+            </Menu>
+            </div>
+            </div>
         )
     }
 }
