@@ -34,25 +34,21 @@ class HeaderSection extends Component {
             </div>
           </Grid.Column>
           <Grid.Column width={6} textAlign='right'>
-            <form className='profile-picture-form'>
-              {/*<FileInput name="myImage"*/}
-                         {/*accept=".jpg, .jpeg"*/}
-                         {/*placeholder={changeProfilePicturePlaceholder}*/}
-                         {/*className='image-input'*/}
-                         {/*onChange={this.handleChange}/>*/}
-            </form>
-          </Grid.Column>
-
-        </Grid.Row>
-        <Grid.Row centered>
-          <Grid.Column width={12} textAlign='left'>
-
-            {userId === presentProfileId ?
-              <div style={styles.text}>
-                You have registered as a
-                <span style={styles.roleText}> {role} </span>
-              </div> : null
-            }
+                  <form className='profile-picture-form'>
+                  <Grid.Row columns={2} centered>
+                    <Grid.Column width={12}>
+                      <label htmlFor="myImage" className="ui button large profile-picture-form-label">{changeProfilePicturePlaceholder}</label>
+                    </Grid.Column>
+                    <Grid.Column width={12}>
+                      <input name="myImage"
+                                id="myImage"
+                                type="file"
+                                accept=".jpg, .jpeg, .png"
+                                className='image-input'
+                                onChange={this.handleChange}/>
+                    </Grid.Column>
+                  </Grid.Row>
+                  </form>
           </Grid.Column>
         </Grid.Row>
       </Grid>

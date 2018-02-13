@@ -122,7 +122,7 @@ class LoginRedux extends Component {
                 <Grid.Row centered>
                     <Grid.Column>
                         <div style={{color: '#4542f4'}}>
-                            {errorMessage ? errorMessage : null}
+                            {errorMessage ? null : null}
                         </div>
                     </Grid.Column>
                 </Grid.Row>

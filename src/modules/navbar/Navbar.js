@@ -14,7 +14,8 @@ class Navbar extends Component {
 
     state = {
         activeItem: '',
-        searchWord: ''
+        searchWord: '',
+        avatar: faker.internet.avatar()
     };
 
     constructor(props) {
@@ -199,7 +200,7 @@ class Navbar extends Component {
         const trigger = (
             <div className='trigger-container'>
                 {/* User here */}
-                <Image avatar src={faker.internet.avatar()}/>
+                <Image avatar src={this.state.avatar}/>
                 <div className='trigger-content'>
                     <div className='username-text'> {this.capitalize(firstName)} {this.capitalize(lastName)} </div>
                     <div className='user-credits'> {`${this.props.profile.credits} credits`} </div>

@@ -53,7 +53,7 @@ export default class EducationSection extends React.Component {
                     <Grid.Column width={12} textAlign='left'>
 
                         <Form.Select size={'large'} label="Graduation" name='education' onChange={this.props.onChange} placeholder='Select your graduation'
-                                options={this.state.gradList} required/>
+                                options={this.state.gradList} />
                     </Grid.Column>
                     {/*<Grid.Column width={6} textAlign='left'>*/}
                     {/*<Input fluid name={'start_education'} type='text' placeholder='Start Date * (dd/mm/yyyy)' onFocus={this.onFocusChange} min='1970-01-01' max={moment().format('Y-mm-D')} onBlur={this.onFocusChange} required onChange={this.props.onChange}/>*/}
