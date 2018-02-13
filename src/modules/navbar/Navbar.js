@@ -34,9 +34,30 @@ class Navbar extends Component {
         this.setState({activeItem: ''})
     }
 
+    componentDidMount() {
+        $(window).on('scroll', () => {
+            let scrollPos = $(document).scrollTop()
+
+            if (scrollPos < 2077) {
+                this.setState({activeItem: ''});
+            }
+            if (scrollPos > 2077 && scrollPos < 2473) {
+                this.setState({activeItem: 'how-works'});
+            }
+
+            if (scrollPos > 2473 && scrollPos < 2700) {
+                this.setState({activeItem: 'pricing'});
+            }
+
+            if (scrollPos > 3230) {
+                this.setState({activeItem: ''})
+            }
+        })
+    }
 
     handleItemClick = (e, {name}) => {
         console.log(history);
+        console.log($(document).scrollTop())
         this.setState({activeItem: name});
         const {role, userId} = this.props;
 
