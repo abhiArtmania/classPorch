@@ -1,5 +1,5 @@
 import React from 'react';
-import {Grid, Form, TextArea} from 'semantic-ui-react';
+import {Grid, Form, TextArea, Button} from 'semantic-ui-react';
 import logoDark from '../../assets/logo_dark.png';
 
 import './index.scss';
@@ -23,6 +23,7 @@ export default class ContactUs extends React.Component {
                   <Form.Input name={'email'} label='Email' placeholder='johndoe@classporch.com'/>
                   <Form.Input name={'mobile'} label='Mobile Number' placeholder='Please enter with your country code'/>
                   <Form.Field name={'message'} label='Your message' control={TextArea} rows='6'/>
+                  <Button type='submit' style={{float: 'right', marginRight: '20px'}}>Submit</Button>
                 </Form>
               </Grid.Row>
             </Grid>

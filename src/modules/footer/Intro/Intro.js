@@ -8,14 +8,21 @@ export default class Intro extends Component {
     constructor() {
         super();
         this.state = {
-            introLinks: [{key: 'about-us', value: 'About Us'}, {key: 'contact', value: 'Contact Us'}, {
-                key: 'pricing',
-                value: 'Pricing'
-            }, {key: 'faq', value: 'FAQ (Coming soon)'}],
-            tutorLinks: [{key: '/', value: 'French Tutors'}, {key: '/', value: 'English Tutors'}, {
-                key: '/',
-                value: 'Math Tutors'
-            }, {key: '/', value: 'Biology Tutors'},{key: '/', value: 'Physics Tutors'},{key: '/', value: 'Science Tutors'},{key: '/', value: 'Adult Education'},{key: '/', value: 'ESL Tutors'}]
+            introLinks: [
+                {key: 'about-us', value: 'About Us'},
+                {key: 'contact', value: 'Contact Us'}, 
+                {key: 'pricing', value: 'Pricing'}, 
+            ],
+            tutorLinks: [
+                {key: '/', value: 'French Tutors'},
+                {key: '/', value: 'English Tutors'}, 
+                {key: '/', value: 'Math Tutors'}, 
+                {key: '/', value: 'Biology Tutors'},
+                {key: '/', value: 'Physics Tutors'},
+                {key: '/', value: 'Science Tutors'},
+                {key: '/', value: 'Adult Education'},
+                {key: '/', value: 'ESL Tutors'}
+            ]
         };
         this.renderLinks = this.renderLinks.bind(this)
     }
@@ -26,7 +33,7 @@ export default class Intro extends Component {
     }
 
     renderLinks(param) {
-        return this.state[param].map((item,key) => <List.Item key={key}><a onClick={this.goTo.bind(this, '/' + item.key)}>{item.value}</a></List.Item>);
+        return this.state[param].map((item,key) => <List.Item key={key}><a onClick={this.goTo.bind(this, item.key)}>{item.value}</a></List.Item>);
     }
 
     render() {
@@ -35,12 +42,12 @@ export default class Intro extends Component {
                 <Grid padded={'horizontally'}>
                     <Grid.Row columns={3}>
                         <Grid.Column>
-                            <List link size={'tiny'} className={'intro-items'}>
+                            <List link size={'big'} className={'intro-items'}>
                                 {this.renderLinks('introLinks')}
                             </List>
                         </Grid.Column>
                         <Grid.Column>
-                            <List link size={'tiny'} className={'intro-items'}>
+                            <List link size={'big'} className={'intro-items'}>
                                 {this.renderLinks('tutorLinks')}
                             </List>
                         </Grid.Column>

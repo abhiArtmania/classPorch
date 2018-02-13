@@ -23,26 +23,7 @@ export default class Pricing extends Component {
         </Grid.Row>
         <Grid.Row centered style={{paddingBottom: 80}}>
           <Grid.Column width={6} textAlign='center'>
-            <Card.Group itemsPerRow={2}>
-              <Card>
-                  <div className={'color1'}>
-                      <div className="pricing-plan-price">
-                         <span> $4.99/</span><span className={'time-type'}>hr</span>
-                      </div>
-                  </div>
-                <Card.Content>
-                  <Item.Group divided relaxed>
-                    <Item><div style={{...itemStyle, marginTop: 20}}>No contracts</div></Item>
-                    <Item><div style={itemStyle}>No subscriptions needed</div></Item>
-                    <Item><div style={itemStyle}>Pay for the time you need</div></Item>
-                    <Item>
-                      <div style={{...itemStyle, paddingBottom: 30, paddingTop: 20}}>
-                        <Button onClick={this.showSignIn} primary>GET STARTED</Button>
-                      </div>
-                    </Item>
-                  </Item.Group>
-                </Card.Content>
-              </Card>
+            <Card.Group itemsPerRow={1}>
               <Card>
                   <div className={'color2'}>
                       <div className="pricing-plan-price">
@@ -56,7 +37,7 @@ export default class Pricing extends Component {
                   <Item><div style={itemStyle}>Pay for the time you need</div></Item>
                   <Item>
                     <div style={{...itemStyle, paddingBottom: 30, paddingTop: 20}}>
-                      <Button onClick={this.showSignIn} primary>GET STARTED</Button>
+                      <Button onClick={this.showSignIn} primary size='large'>GET STARTED</Button>
                     </div>
                   </Item>
                 </Item.Group>

@@ -23,7 +23,7 @@ const Section3 = () => (
         </Grid.Row>
         <Grid.Row centered>
             <Grid.Column width={10}>
-                <p className='section3-subtitle'>At ClassPorch, we take ample time to interview all our tutors to ensure they
+                <p className='section3-subtitle' style={{fontSize: '18px'}}>At ClassPorch, we take ample time to interview all our tutors to ensure they
                  are well qualified before they are granted a tutoring position.</p>
             </Grid.Column>
         </Grid.Row>

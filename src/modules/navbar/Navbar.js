@@ -36,20 +36,24 @@ class Navbar extends Component {
 
     componentDidMount() {
         $(window).on('scroll', () => {
-            let scrollPos = $(document).scrollTop()
+            let scrollTop = $(document).scrollTop()
 
-            if (scrollPos < 2077) {
+            if (scrollTop < 2077) { 
                 this.setState({activeItem: ''});
             }
-            if (scrollPos > 2077 && scrollPos < 2473) {
+            if (scrollTop > 2077 && scrollTop < 2473) { // how-works position
                 this.setState({activeItem: 'how-works'});
             }
 
-            if (scrollPos > 2473 && scrollPos < 2700) {
-                this.setState({activeItem: 'pricing'});
+            if (scrollTop > 2473 && scrollTop < 3313) { // pricing position
+                this.setState({activeItem: 'pricing'}); 
             }
 
-            if (scrollPos > 3230) {
+            if (scrollTop > 3313 && scrollTop < 3700) { // write-us position
+                this.setState({activeItem: 'write-us'}); 
+            }
+
+            if (scrollTop > 3700) {
                 this.setState({activeItem: ''})
             }
         })
@@ -57,7 +61,6 @@ class Navbar extends Component {
 
     handleItemClick = (e, {name}) => {
         console.log(history);
-        console.log($(document).scrollTop())
         this.setState({activeItem: name});
         const {role, userId} = this.props;
 
@@ -103,6 +106,10 @@ class Navbar extends Component {
                 this.setState({activeItem: 'how-works'});
                 history.push('/');
                 return this.scrollTo('how-it-works');
+            case 'write-us':
+                this.setState({activeItem: 'write-us'});
+                history.push('/');
+                return this.scrollTo('write-us');
             case 'contact-us':
                 history.push('/contact');
                 break;
@@ -223,7 +230,8 @@ class Navbar extends Component {
                 key: 'search-tutors',
                 name: 'search-tutors',
                 buttonTitle: 'Search Tutors'
-            }, {
+            }, 
+            {
                 key: 'how-works',
                 name: 'how-works',
                 buttonTitle: 'How It Works'
@@ -232,7 +240,13 @@ class Navbar extends Component {
                 key: 'pricing',
                 name: 'pricing',
                 buttonTitle: 'Pricing'
-            }, {
+            }, 
+            {
+                key: 'write-us',
+                name: 'write-us',
+                buttonTitle: 'Write To Us'
+            },
+            {
                 key: 'i-want',
                 name: 'i-want',
                 buttonTitle: 'I Want To Tutor'
