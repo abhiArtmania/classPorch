@@ -29,6 +29,7 @@ const INITIAL_STATE = {
 };
 
 export default (state=INITIAL_STATE,action) => {
+    console.log(state.educationalAttributes)
     switch(action.type){
         case GET_PROFILE_START:
             return { ...state, loadingProfile:true };

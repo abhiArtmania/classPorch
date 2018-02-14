@@ -42,11 +42,11 @@ export default class AboutSection extends React.Component {
         if (this.state.needParent) {
             renderParentInfo = <Grid.Row centered>
                 <Grid.Column width={6} textAlign='left'>
-                    <Input fluid name='parent_email' label="Parent Email" placeholder='Parent Email' required
+                    <Input fluid name='parent_email' error label="Parent Email" placeholder='Parent Email' required
                            onChange={this.props.onChange}/>
                 </Grid.Column>
                 <Grid.Column width={6} textAlign='left'>
-                    <Input fluid name='parent_name' placeholder='Parent Name' label="Parent Name" required
+                    <Input fluid name='parent_name' placeholder='Parent Name' error label="Parent Name" required
                            onChange={this.props.onChange}/>
                 </Grid.Column>
             </Grid.Row>
@@ -60,17 +60,17 @@ export default class AboutSection extends React.Component {
                 </Grid.Row>
                 <Grid.Row centered>
                     <Grid.Column width={6} textAlign='left'>
-                        <Input fluid name='first_name' label="First Name" placeholder='First Name *' required
+                        <Input fluid name='first_name' label="First Name" error placeholder='First Name *' required
                                onChange={this.props.onChange}/>
                     </Grid.Column>
                     <Grid.Column width={6} textAlign='left'>
-                        <Input fluid name='last_name' placeholder='Last Name *' label="Last Name" required
+                        <Input fluid name='last_name' placeholder='Last Name *' error label="Last Name" required
                                onChange={this.props.onChange}/>
                     </Grid.Column>
                 </Grid.Row>
                 <Grid.Row centered>
                     <Grid.Column width={12} textAlign='left'>
-                        <Input fluid name='dob' type='text' label="Date of birthday" placeholder='Date of birth* (mm/dd/yyyy)'
+                        <Input fluid name='dob' type='text' error label="Date of birthday" placeholder='Date of birth* (mm/dd/yyyy)'
                                onFocus={this.onFocusChange}
                                onBlur={this.onFocusChange} required onChange={this.changeDob}/>
                     </Grid.Column>
@@ -83,7 +83,7 @@ export default class AboutSection extends React.Component {
                         {/*onChange={this.props.onChange}/>*/}
                     </Grid.Column>
                     <Grid.Column width={6} textAlign='left'>
-                        <Input fluid name='city' type='text' placeholder='City' label="City" required
+                        <Input fluid name='city' type='text' placeholder='City' error label="City" required
                                onChange={this.props.onChange}/>
                     </Grid.Column>
                 </Grid.Row>
@@ -108,11 +108,11 @@ export default class AboutSection extends React.Component {
                 </Grid.Row>
                 <Grid.Row centered>
                     <Grid.Column width={6} textAlign='left'>
-                        <Input fluid name='password' label="Password" type='password' placeholder='Password *' required
+                        <Input fluid name='password' label="Password" error type='password' placeholder='Password *' required
                                onChange={this.props.onChange}/>
                     </Grid.Column>
                     <Grid.Column width={6} textAlign='left'>
-                        <Input fluid name='password_confirmation' label="Confirm Password" type='password' placeholder='Password Confirmation *'
+                        <Input fluid name='password_confirmation' error label="Confirm Password" type='password' placeholder='Password Confirmation *'
                                required
                                onChange={this.props.onChange}/>
                     </Grid.Column>

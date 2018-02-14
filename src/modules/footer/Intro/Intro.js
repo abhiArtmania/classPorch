@@ -27,6 +27,13 @@ export default class Intro extends Component {
         this.renderLinks = this.renderLinks.bind(this)
     }
 
+    componentDidMount() {
+        const token = localStorage.getItem('store');
+        if (token && JSON.parse(token) && JSON.parse(token).auth.authToken) {
+            // user is authenticated here, change tutorLink keys towards search
+        }
+    }
+
     goTo(link) {
         $("html, body").animate({scrollTop: 0}, 1000);
         history.replace(link);

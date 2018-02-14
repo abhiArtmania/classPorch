@@ -53,7 +53,7 @@ class SkillsSelection extends React.Component{
         const { skills } = this.state;
         const { selectedSkills,mode } = this.props;
         const displayableSkills = selectedSkills.map(x => x.id);
-
+        console.log(displayableSkills)
         console.log(selectedSkills);
 
         return (

@@ -45,6 +45,7 @@ class SignUpStudent extends React.Component {
       country,
       city,
       mobile,
+      grade,
       start_education,
       finish_education,
       college_name,
@@ -57,7 +58,8 @@ class SignUpStudent extends React.Component {
           '0': {
             start_education,
             finish_education,
-            university_name: college_name
+            university_name: college_name,
+            grade
           }
         },
         role: 'student',

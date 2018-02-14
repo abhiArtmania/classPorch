@@ -29,7 +29,7 @@ class AboutSegment extends Component {
         
         const fullName = profile['full-name'];
         const birthdayDate = profile['birthday date'];
-        const gender = profile['gender'];
+        const gender = profile['gender'] || 'N/A';
         return(
             <Grid padded relaxed style={{width:'100%',paddingTop:30}} >
                 <Grid.Row stretched columns={1} centered >
@@ -44,7 +44,7 @@ class AboutSegment extends Component {
                     <Grid.Column width={3} textAlign='left'>
                     {
                         mode==='edit'?
-                        <Input className='profile-text' value={profile['full-name']} onChange={this.onChangeField.bind(this,'full-name')} /> 
+                        <Input className='profile-text' disabled value={profile['full-name']} onChange={this.onChangeField.bind(this,'full-name')} /> 
                         :
                         <div className='profile-text' > {fullName} </div>
                     }
@@ -62,7 +62,7 @@ class AboutSegment extends Component {
                     <Grid.Column width={3} textAlign='left' >
                     {
                         mode==='edit'?
-                        <Input type='text' onFocus={this.onFocusChange} onBlur={this.onFocusChange} 
+                        <Input type='text' disabled onFocus={this.onFocusChange} onBlur={this.onFocusChange} 
                                 onChange={this.onChangeField.bind(this,'birthday date')} 
                                 className='profile-text' value={profile['birthday date']} required/>
 
@@ -83,12 +83,12 @@ class AboutSegment extends Component {
                     <Grid.Column width={3} textAlign='left' >
                     {
                         mode==='edit'?
-                        <Dropdown placeholder='Select Gender' fluid search selection className='profile-text' 
-                                    style={{height:'50px',borderRadius:0, fontSize:'1.2em'}}
-                                    onChange={this.onChangeField.bind(this,'gender')} value={profile['gender']}
-                                    options={[{key:'male',value:'male',text:'Male'},{key:'female',value:'female',text:'Female'},
-                                                {key:'other',value:'other',text:'Other'}]} />
-
+                        // <Dropdown placeholder='Select Gender' disabled fluid search selection className='profile-text' 
+                        //             style={{height:'50px',borderRadius:0, fontSize:'1.2em'}}
+                        //             onChange={this.onChangeField.bind(this,'gender')} value={profile['gender']}
+                        //             options={[{key:'male',value:'male',text:'Male'},{key:'female',value:'female',text:'Female'},
+                        //                         {key:'other',value:'other',text:'Other'}]} />
+                        <Input type='text' disabled className='profile-text' style={{textTransform:"capitalize, height:'50px',borderRadius:0, fontSize:'1.2em"}} > {gender}</Input>
                         :
                         <div className='profile-text' style={{textTransform:"capitalize"}} > {gender} </div>
                     }

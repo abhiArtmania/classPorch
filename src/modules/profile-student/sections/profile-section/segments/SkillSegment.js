@@ -17,7 +17,7 @@ class SkillSegment extends Component {
 
     render(){
         const { userId, profile, presentProfileId, role, firstName, mode, onChangeSkill } = this.props;
-        const skills  = profile['skill-ids']? profile['skill-ids'] : [];
+        const skills  = profile['skill-ids'] ? profile['skill-ids'] : [];
         const name = profile['full-name'] ? profile['full-name'].split(' ')[0].toUpperCase() : null;
         
         return(
@@ -26,7 +26,7 @@ class SkillSegment extends Component {
                     <Grid.Column width={12} textAlign='left' >
                         <div className='sub-heading' > 
                         { userId === presentProfileId ? 
-                            "SKILLS YOU TEACH" : "SKILLS " + name + " TEACHES" }
+                            "SKILLS YOU WANT TO LEARN" : "SKILLS " + name + "WANTS TO LEARN" }
                         </div>
                     </Grid.Column>
                 </Grid.Row>

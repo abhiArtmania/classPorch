@@ -342,7 +342,7 @@ class Navbar extends Component {
                     </a>
                 </Menu.Item>
                 {menuBar}
-                <Button size={'medium'} basic="true" onClick={this.menuToggle}>menu</Button>
+                <Button size={'medium'} basic={true} onClick={this.menuToggle}>menu</Button>
                 {searchbar}
                 {menuRight}
                 
