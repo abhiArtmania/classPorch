@@ -1,3 +1,4 @@
+
 .menubar2
 {
 display:none!important;
@@ -11,7 +12,39 @@ display:none!important;
 font-size: 41px!important;
 
 }
- @media only screen and (max-width: 767px)
+ @media only screen and (max-width: 1300px)
+ {
+ 
+  .ui[class*="internally celled"].grid[style]
+ {
+ margin-left: 10px!important;
+ margin-right: 10px!important;
+ }
+ .ui.celled.grid>.column:not(.row), .ui.celled.grid>.row>.column
+ {
+ box-shadow:none!important;
+ }
+.ui.column.grid > [class*="five wide"].column, .ui.grid > .column.row > [class*="five wide"].column, .ui.grid > .row > [class*="five wide"].column, .ui.grid > [class*="five wide"].column {
+    width: 75.25% !important;
+    }
+    .home-title, .home-subtitle, .home-title-bold
+{
+font-size: 35px!important;
+
+}
+.ui.column.grid>[class*="three wide"].column[style], .ui.grid>.column.row>[class*="three wide"].column[style], .ui.grid>.row>[class*="three wide"].column[style], .ui.grid>[class*="three wide"].column[style] {
+    width: 45%!important;
+    padding: 0 10px!important;
+}
+}
+@media only screen and (max-width: 1100px)
+{
+.color1 .pricing-plan-price, .color2 .pricing-plan-price
+ {
+ font-size: 33px!important;
+ }
+}
+ @media only screen and (max-width: 820px)
  {
  .ui.column.grid>[class*="ten wide"].column, .ui.grid>.column.row>[class*="ten wide"].column, .ui.grid>.row>[class*="ten wide"].column, .ui.grid>[class*="ten wide"].column {
     width: 97%!important;
