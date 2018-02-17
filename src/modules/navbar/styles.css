@@ -16,6 +16,11 @@ display:none;
     width:40em !important;
 }
 
+.search-form{
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
 .menubar-container{
     width:230px;
     display: flex;
