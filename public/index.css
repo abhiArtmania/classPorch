@@ -108,15 +108,28 @@ flex-wrap:wrap;
 } 
 .home-title, .home-subtitle, .home-title-bold
 {
-font-size: 15px!important;
+transform: translateY(-75px);
+font-size: 35px!important;
 
 }
+.ui.yellow.button, .ui.yellow.buttons .button {
+    transform: translateY(-75px);
+    
 }
- @media only screen and (max-width: 550px)
+ @media only screen and (max-width: 570px)
  {
- 
+ .home-title, .home-subtitle, .home-title-bold
+{
+transform: translateY(-145px);
+font-size: 29px!important;
+
+}
+.ui.yellow.button, .ui.yellow.buttons .button {
+    transform: translateY(-165px);
+    
+}
  .ui.big.list {
-    font-size: 1.1em;
+ font-size: 1.1em;
     border-bottom: 1px solid
 }
  .ui.link.list .item, .ui.link.list .item a:not(.ui), .ui.link.list a.item {
