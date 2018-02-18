@@ -114,6 +114,9 @@ class Navbar extends Component {
             case 'contact-us':
                 history.push('/contact');
                 break;
+            case 'search':
+                this.onSearch();
+                break;
             default:
                 return history.push('/')
 
@@ -297,7 +300,8 @@ class Navbar extends Component {
         this.setState({searchWord: value})
     };
 
-    onSearch = () => {
+    onSearch = (e) => {
+        e && e.preventDefault();
         this.props.toggleSearchMode({mode: 'search'});
         this.props.searchRequested(this.state.searchWord, this.props.authToken)
     };
@@ -307,10 +311,14 @@ class Navbar extends Component {
             return null
         }
         if (window.location.pathname === '/search' || window.location.pathname === '/dashboard/student') {
-            return <Input size='large' placeholder='Search for tutors,skills you want to learn...'
-                          className='search-input'
-                          action={<Button type='submit' onClick={this.onSearch}> Search </Button>}
-                          onChange={this.onSearchWordChange}/>
+            return (
+                <form className='search-form' onSubmit={this.onSearch}>
+                    <Input size='large' placeholder='Search for tutors,skills you want to learn...'
+                           className='search-input'
+                           action={<Button type="submit"> Search </Button>}
+                           onChange={this.onSearchWordChange}/>
+                </form>
+            )
         }
         return null
     };
