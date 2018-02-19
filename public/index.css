@@ -17,7 +17,10 @@ flex-wrap:wrap;
 }
  @media only screen and (max-width: 1300px)
  {
- 
+ .home-title, .home-subtitle, .home-title-bold
+{
+transform: translateY(-75px);
+}
   .ui[class*="internally celled"].grid[style]
  {
  margin-left: 10px!important;
@@ -108,13 +111,15 @@ flex-wrap:wrap;
 } 
 .home-title, .home-subtitle, .home-title-bold
 {
-font-size: 15px!important;
+
+font-size:	 24px!important;
 
 }
-}
- @media only screen and (max-width: 550px)
+
+ @media only screen and (max-width: 570px)
  {
- 
+
+
  .ui.big.list {
     font-size: 1.1em;
     border-bottom: 1px solid
@@ -133,5 +138,12 @@ width:100%!important;
 .pricing-plan-price span
 {
 font-size: 33px;
+}
+}
+ @media only screen and (max-width: 320px)
+ {
+
+.navBar-logo {
+    height: 25px !important;
 }
 }
