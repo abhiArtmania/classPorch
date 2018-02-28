@@ -25,7 +25,7 @@ class EducationSegment extends Component {
 
     onFocusChange = (event, data) => {
         if (event.type === 'focus') {
-            event.target.type = 'age';
+            event.target.type = 'date';
             event.target.click()
         } else {
             event.target.type = 'text'
