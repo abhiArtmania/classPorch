@@ -361,6 +361,7 @@ class Navbar extends Component {
                 
             </Menu>
             </div>
+            <span className="mobile-search">{searchbar}</span>
             </div>
         )
     }
