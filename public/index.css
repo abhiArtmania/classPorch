@@ -1,3 +1,4 @@
+
 .menubar2
 {
 display:none!important;
@@ -36,7 +37,7 @@ flex-wrap:wrap;
  }
  .home-title, .home-subtitle, .home-title-bold
 {
-margin-bottom: 0!important;
+margin-bottom: 3vh!important;
 line-height: 1.4!important;
 }
 .menubar sea
@@ -97,7 +98,7 @@ font-size: 35px!important;
  @media only screen and (max-width: 767px)
  {
  .section-one {
-    height: auto!important;
+    height: 81vh!important;
     margin-top: 12vh!important;
 }
  .ui.column.grid>[class*="three wide"].column[style], .ui.grid>.column.row>[class*="three wide"].column[style], .ui.grid>.row>[class*="three wide"].column[style], .ui.grid>[class*="three wide"].column[style] {
@@ -204,6 +205,15 @@ width:100%!important;
 font-size: 33px;
 }
 }
+ @media only screen and (max-width: 450px)
+ {
+  .home-title, .home-subtitle, .home-title-bold
+{
+margin-top: 7vh!important;
+margin-bottom: 7vh!important;
+line-height: 1.4!important;
+}
+ }
  @media only screen and (max-width: 320px)
  {
 .mobile-search .search-input input
@@ -219,4 +229,3 @@ font-size: 12px;
     height: 25px !important;
 }
 }
-
