@@ -322,7 +322,7 @@ class Navbar extends Component {
         }
         return null
     };
-	menuToggle()
+	menuToggle(e)
 	{
 	//const menu = findDOMNode(this.refs.slideMenu);
 	if(e.target.innerText=="menu▼") e.target.innerText="menu▲";
