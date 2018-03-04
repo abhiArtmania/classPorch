@@ -35,6 +35,7 @@ class Chat extends Component {
 
   createChatsFromResponse = (chats) => {
     let chatRows = chats.map(chat => {
+    
       return <ChatRow
         onClick={() => {
           this.onChatSelected(chat)
@@ -42,7 +43,7 @@ class Chat extends Component {
         key={chat.key}
         chat={{updatedAt: chat.updatedAt, lastMessage: chat.lastMessage}}
         user={{name: chat.user.name, pictureUrl: chat.user.profilePictureUrl}}/>
-    });
+    }); 
     this.setState({chats: chatRows});
   };
 

@@ -18,6 +18,7 @@ import {
   AddCredits,
   SearchResults,
   Chat,
+  Notification,
   Messaging,
   TermsOfService,
   TosStudent,
@@ -40,6 +41,7 @@ const Routes = () => {
         <Route exact path={"/i-want"} component={iWant} />
         <Route exact path={"/chats"} component={Chat} />
         <Route exact path={"/messages"} component={Messaging} />
+        <Route exact path={"/notification"} component={Notification} />
         <Route exact path="/contact" component={ContactUs} />
         <Route exact path="/privacy-policy" component={PrivacyPolicy} />
         <Route exact path="/login" component={LoginRedux} />
@@ -57,8 +59,8 @@ const Routes = () => {
             authed || history.isAuth ? (
               <LinkAccount />
             ) : (
-              <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
-            )
+                <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+              )
           }
           path="/link-account"
         />
@@ -69,8 +71,8 @@ const Routes = () => {
             authed || history.isAuth ? (
               <AddCredits />
             ) : (
-              <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
-            )
+                <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+              )
           }
         />,
         <Route
@@ -80,8 +82,8 @@ const Routes = () => {
             authed || history.isAuth ? (
               <RequestMoney />
             ) : (
-              <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
-            )
+                <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+              )
           }
         />,
         <Route
@@ -91,8 +93,8 @@ const Routes = () => {
             authed || history.isAuth ? (
               <PreviousExpenses />
             ) : (
-              <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
-            )
+                <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+              )
           }
         />,
         <Route
@@ -102,8 +104,8 @@ const Routes = () => {
             authed || history.isAuth ? (
               <DashboardStudent />
             ) : (
-              <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
-            )
+                <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+              )
           }
         />,
         <Route
@@ -113,8 +115,8 @@ const Routes = () => {
             authed || history.isAuth ? (
               <DashboardTutor />
             ) : (
-              <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
-            )
+                <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+              )
           }
         />,
         <Route
@@ -124,8 +126,8 @@ const Routes = () => {
             authed || history.isAuth ? (
               <ProfileStudent />
             ) : (
-              <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
-            )
+                <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+              )
           }
         />,
         <Route
@@ -135,8 +137,8 @@ const Routes = () => {
             authed || history.isAuth ? (
               <ProfileTutor />
             ) : (
-              <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
-            )
+                <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+              )
           }
         />
         <Redirect to={"/"} />

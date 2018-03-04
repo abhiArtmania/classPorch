@@ -1,15 +1,15 @@
-import React, {Component} from 'react';
-import {Grid, Image, Button, Modal, Dropdown, Input} from 'semantic-ui-react';
+import React, { Component } from 'react';
+import { Grid, Image, Button, Modal, Dropdown, Input } from 'semantic-ui-react';
 import './styles.css';
 import faker from 'faker'
-import {history} from '../../../../../redux/store';
+import { history } from '../../../../../redux/store';
 import moment from 'moment'
-import {SingleDatePicker} from 'react-dates';
+import { SingleDatePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import TimeKeeper from 'react-timekeeper';
 
-import {connect} from 'react-redux';
-import {sessionRequested} from '../../../../../redux/actions';
+import { connect } from 'react-redux';
+import { sessionRequested } from '../../../../../redux/actions';
 
 
 class ProfileTile extends Component {
@@ -49,26 +49,26 @@ class ProfileTile extends Component {
   };
 
   bookSession(tutorId, skill, authToken, sessionStartTime, sessionEndTime, amountPaid, userId) {
-    this.props.sessionRequested({tutorId, skill, authToken, sessionStartTime, sessionEndTime, amountPaid, userId});
-    this.setState({selectedSkillId: null, date: null})
+    this.props.sessionRequested({ tutorId, skill, authToken, sessionStartTime, sessionEndTime, amountPaid, userId });
+    this.setState({ selectedSkillId: null, date: null })
   }
 
   proceed = (e) => {
-    const {profile, authToken, userId} = this.props;
+    const { profile, authToken, userId } = this.props;
 
-    let {selectedSkillId, date, startTime, duration, billedAmount: amountPaid} = this.state;
+    let { selectedSkillId, date, startTime, duration, billedAmount: amountPaid } = this.state;
     if (selectedSkillId === null || date === null) {
-      this.setState({message: 'Please enter the required fields.', showMessage: true});
+      this.setState({ message: 'Please enter the required fields.', showMessage: true });
       return
     }
     if (parseFloat(this.props.dashboard.profile.credits) < this.state.billedAmount) {
-      this.setState({message: 'Not enough credits in your wallet.', showMessage: true, isAmountLess: true});
+      this.setState({ message: 'Not enough credits in your wallet.', showMessage: true, isAmountLess: true });
       return
     }
     this.close();
     const tutorId = profile.id;
-    const skill = {"id": selectedSkillId, "name": "RoR"};
-    const {sessionStartTime, sessionEndTime} = this.getSessionStartTime(date, startTime, duration);
+    const skill = { "id": selectedSkillId, "name": "RoR" };
+    const { sessionStartTime, sessionEndTime } = this.getSessionStartTime(date, startTime, duration);
     this.bookSession(tutorId, skill, authToken, sessionStartTime, sessionEndTime, amountPaid, userId)
   };
 
@@ -98,12 +98,12 @@ class ProfileTile extends Component {
     console.log(moment(sessionStartTime).format('MMMM DD YYYY HH mm ss A'));
     console.log(moment(sessionEndTime).format('MMMM DD YYYY HH mm ss A'));
 
-    return {sessionStartTime, sessionEndTime}
+    return { sessionStartTime, sessionEndTime }
 
   };
 
-  onSelectSkill = (e, {value}) => this.setState({selectedSkillId: value});
-  onChangeDuration = (e, {value}) => {
+  onSelectSkill = (e, { value }) => this.setState({ selectedSkillId: value });
+  onChangeDuration = (e, { value }) => {
     const amount = parseFloat(value) * parseFloat(this.props.profile["hourly-rate"]);
     this.setState({
       duration: value,
@@ -115,53 +115,54 @@ class ProfileTile extends Component {
     let arrayDuration = [];
     for (let i = 0; i < maxDuration; i++) {
       let inHrs = (i + 1).toString();
-      arrayDuration.push({key: inHrs, value: inHrs, text: inHrs})
+      arrayDuration.push({ key: inHrs, value: inHrs, text: inHrs })
     }
     return arrayDuration
   };
 
-  showModal = () => this.setState({modalVisible: true});
-  close = () => this.setState({modalVisible: false});
+  showModal = () => this.setState({ modalVisible: true });
+  close = () => this.setState({ modalVisible: false });
 
   render() {
-    let {profile, dashboard, authToken} = this.props;
-    let {dimmer, modalVisible} = this.state;
+    let { profile, dashboard, authToken } = this.props;
+    let { dimmer, modalVisible } = this.state;
     let skills = profile["skills-ids"].map(skillId => {
-      return {key: skillId, value: skillId.toString(), text: skillId.toString()}
+      return { key: skillId, value: skillId.name, text: skillId.name }
     });
+
     let durations = this.getDurations(5);
 
     return (
       <Grid.Column width={3} textAlign='center' className='card-style'>
         <Image src={profile['profile-picture'] ? profile['profile-picture'] : faker.internet.avatar()}
-               size='tiny' verticalAlign='middle' shape='circular'/>
+          size='tiny' verticalAlign='middle' shape='circular' />
         <div className='name'> {profile['full-name']} </div>
         <div className='subjects'> {profile["skills-ids"]} </div>
         <div className='price'> $ {profile["hourly-rate"]} </div>
         <Button
           onClick={this.showModal}
           color='yellow'
-          content='BOOK A SESSION'/>
+          content='BOOK A SESSION' />
 
         <Modal size={'small'} dimmer={dimmer} open={modalVisible} onClose={this.close}>
           <Modal.Header> Request {profile['full-name']} for a session ? </Modal.Header>
           <Modal.Content className='modal-layout'>
             <Image wrapped size='medium'
-                   src={profile['profile-picture'] ? profile['profile-picture'] : faker.internet.avatar()}
-                   shape='circular'/>
+              src={profile['profile-picture'] ? profile['profile-picture'] : faker.internet.avatar()}
+              shape='circular' />
             <div className='request-form'>
               <div className='request-section'>
                 <div className='field'>Skill</div>
                 <Dropdown placeholder='Select a skill' fluid selection options={skills}
-                          onChange={this.onSelectSkill} className='value' required/>
+                  onChange={this.onSelectSkill} className='value' required />
               </div>
               <div className='request-section'>
                 <div className='field'>Start Date</div>
                 <SingleDatePicker
                   date={this.state.date} // momentPropTypes.momentObj or null
-                  onDateChange={date => this.setState({date})} // PropTypes.func.isRequired
+                  onDateChange={date => this.setState({ date })} // PropTypes.func.isRequired
                   focused={this.state.focusedDate} // PropTypes.bool
-                  onFocusChange={({focused}) => this.setState({focusedDate: focused})}
+                  onFocusChange={({ focused }) => this.setState({ focusedDate: focused })}
                   required={true}
                   numberOfMonths={1}
                   className='value' // PropTypes.func.isRequired
@@ -171,19 +172,26 @@ class ProfileTile extends Component {
                 <div className='field'>Start Time</div>
                 {this.state.displayClock ?
                   <TimeKeeper time={this.state.startTime}
-                              onChange={(time) => this.setState({startTime: time.formatted})}
-                              onDoneClick={() => this.setState({displayClock: false})}
-                              switchToMinuteOnHourSelect={true}/> :
-                  <div onClick={() => this.setState({displayClock: true})} className='value'>
-                    <Input defaultValue={this.state.startTime} className='time-input'/>
+                    onChange={(time) => this.setState({ startTime: time.formatted })}
+                    onDoneClick={() => this.setState({ displayClock: false })}
+                    switchToMinuteOnHourSelect={true} /> :
+                  <div onClick={() => this.setState({ displayClock: true })} className='value'>
+                    <Input defaultValue={this.state.startTime} className='time-input' />
                   </div>
                 }
               </div>
               <div className='request-section'>
                 <div className='field'>Session Duration</div>
                 <Dropdown placeholder='duration in hrs' fluid selection options={durations} required
-                          onChange={this.onChangeDuration} className='value'/>
+                  onChange={this.onChangeDuration} className='value' />
               </div>
+
+              <div className='request-section'>
+                <div className='field'>Message</div>
+                <textarea placeholder='Message for client' fluid
+                  onChange={this.state.props} />
+              </div>
+
             </div>
 
           </Modal.Content>
@@ -195,14 +203,17 @@ class ProfileTile extends Component {
               Cancel
             </Button>
             {
-              this.state.isAmountLess ?
-                <Button positive onClick={this.addMoney}>
-                  Add <span className='money-text'>${this.state.billedAmount} </span> to wallet
-                </Button>
-                :
-                <Button positive onClick={this.proceed}>
-                  Proceed & Pay <span className='money-text'>${this.state.billedAmount} </span>
-                </Button>
+               <Button color='black' onClick={this.close}>
+               Send
+             </Button>
+              // this.state.isAmountLess ?
+              //   <Button positive onClick={this.addMoney}>
+              //     Add <span className='money-text'>${this.state.billedAmount} </span> to wallet
+              //   </Button>
+              //   :
+                // <Button positive onClick={this.proceed}>
+                //   Send <span className='money-text'>${this.state.billedAmount} </span>
+                // </Button>
             }
           </Modal.Actions>
         </Modal>
@@ -212,9 +223,9 @@ class ProfileTile extends Component {
 
 }
 
-const mapStateToProps = ({dashboard, auth}) => {
-  const {authToken, id: userId} = auth;
-  return {dashboard, authToken, userId}
+const mapStateToProps = ({ dashboard, auth }) => {
+  const { authToken, id: userId } = auth;
+  return { dashboard, authToken, userId }
 };
 
-export default connect(mapStateToProps, {sessionRequested})(ProfileTile)
+export default connect(mapStateToProps, { sessionRequested })(ProfileTile)

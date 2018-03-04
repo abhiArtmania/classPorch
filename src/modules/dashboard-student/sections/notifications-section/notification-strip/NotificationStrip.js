@@ -28,6 +28,7 @@ class NotificationStrip extends Component {
       role: this.props.role,
       id: this.props.userId
     };
+    
     const otherUser = {
       name: this.props.notification.user["full-name"],
       role: 'tutor',

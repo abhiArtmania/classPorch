@@ -42,6 +42,7 @@ class SkillsSection extends React.Component {
     }
 
     handleAddition = (e, {value}) => {
+       
         if (value.length <= 20) {
             this.setState({
                 skills: [{text: value, value}, ...this.state.skills],
@@ -50,10 +51,25 @@ class SkillsSection extends React.Component {
 
     };
 
-    handleChange = (e, {value}) => {
+    handleChange = (e, {value}) => {    
+ 
+     
         const skillsNormalized = value.map(x => this.state.skills.filter(y => y.key === x)[0]);
         this.props.onChangeSkills(skillsNormalized)
-    };
+         debugger
+        var select = document.querySelector('.selectpicker');
+        var inner = select.querySelectorAll('.search');
+
+        var ta = document.getElementsByClassName("search")[1];
+        var r=ta.value
+        ta.value=''
+
+        var res1= document.querySelector( ".sizer" );
+        var resm1= document.querySelector( ".sizer" ).innerHTML;
+        document.querySelector( ".sizer" ).innerHTML=''
+        var resm11= document.querySelector( ".sizer" ).innerHTML;
+     
+        };
 
     renderLabel = label => ({
         color: 'yellow',
@@ -68,7 +84,7 @@ class SkillsSection extends React.Component {
             <Grid stackable className='sign-up-about-education-body'>
                 <Grid.Row centered>
                     <Grid.Column width={12} textAlign='left'>
-                        <p className='sign-up-label'>SKILLS YOU WANT TO LEARN</p>
+                        <p className='sign-up-label'>SUBJECTS/SKILLS YOU WANT TO LEARN</p>
                     </Grid.Column>
                 </Grid.Row>
                 <Grid.Row centered>
@@ -81,6 +97,7 @@ class SkillsSection extends React.Component {
                             selection
                             fluid
                             multiple
+                            className="selectpicker"
                             value={displayableSkills}
                             onAddItem={this.handleAddition}
                             onChange={this.handleChange}

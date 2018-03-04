@@ -19,6 +19,7 @@ export * from './previous-expenses';
 export * from './search';
 export * from './chat';
 export * from './messaging';
+export * from './notification';
 
 export * from './privacy-policy';
 export * from './terms-of-service';

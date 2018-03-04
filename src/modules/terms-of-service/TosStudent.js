@@ -2,12 +2,15 @@ import React from 'react'
 import { Grid } from 'semantic-ui-react'
 
 class TosStudent extends React.Component {
+    componentDidMount () {
+        window.scrollTo(0, 0)
+      }
     render(){
         return(
             <Grid >
                 <Grid.Row stretched columns={1} centered>
                     <Grid.Column width={10} textAlign='left'>
-            <div>
+            <div class='margin-top20'>
             <h1 ><span><span lang="en-CA">1. General Statements</span></span></h1>
             <p><span lang="en-CA">Dear Student, welcome to </span><span lang="en-CA"><strong>Class Porch</strong></span><span lang="en-CA">! (a.k.a. "</span><span lang="en-CA"><strong>we</strong></span><span lang="en-CA">" or "</span><span lang="en-CA"><strong>us</strong></span><span lang="en-CA">" or the "</span><span lang="en-CA"><strong>Company</strong></span><span lang="en-CA">"). The following terms and conditions (collectively, these "</span><span lang="en-CA"><strong>Student </strong></span><span lang="en-CA"><strong>Terms of Service</strong></span><span lang="en-CA">") apply to your use of classporch.com, including any content, functionality and services offered on or via classporch.com (following denoted as the "</span><span lang="en-CA"><strong>Website</strong></span><span lang="en-CA">"). The Terms of Service also include our </span><span lang="en-CA"><strong>Privacy Policy</strong></span><span lang="en-CA">, that you can review our website.</span></p>
             <p><span lang="en-CA">We want to keep our relationship with you (&ldquo;The Student&rdquo;) as lean and informal as possible, but please read the Terms of Service carefully before you start using Class Porch, because </span><span lang="en-CA"><strong>by using the Website you accept and agree to be bound and abide by these Terms of Service</strong></span><span lang="en-CA">.</span></p>

@@ -82,6 +82,7 @@ export const loginUser = (userReqObject) => {
 
 
 export const signupUser = (parsedForm) => {
+    console.log(parsedForm);
     console.log(JSON.stringify(parsedForm, null, 4));
     return async (dispatch) => {
         try {

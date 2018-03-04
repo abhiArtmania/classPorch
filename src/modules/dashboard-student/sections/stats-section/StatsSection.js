@@ -17,6 +17,7 @@ class StatsSection extends React.Component {
   };
 
   render() {
+   
     const {profile, unreadMessageCount} = this.props.dashboard;
 
     return (
@@ -58,7 +59,7 @@ class StatsSection extends React.Component {
           <Grid.Column width={3}>
             <a className='dashboard-stats-container'>
               <p className='dashboard-stats-text'>
-                {profile['unread-messages-count']} <br/>
+                {profile['requested-sessions-count']} <br/>
                 Requested <br/>
                 Sessions
               </p>

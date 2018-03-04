@@ -17,16 +17,19 @@ class SuggestedTutors extends React.Component {
     if (!this.props.suggestedTutors || !this.props.suggestedTutors.length) {
       return
     }
+   
     this.initializeSuggestedTutors(this.props.suggestedTutors)
   }
 
   componentWillReceiveProps(nextProps) {
+ 
     if (this.props.suggestedTutors !== nextProps.suggestedTutors) {
       this.initializeSuggestedTutors(nextProps.suggestedTutors)
     }
   }
 
   initializeSuggestedTutors = (suggestedTutors) => {
+
     console.log(suggestedTutors);
     const pageStart = this.state.pageStart;
     const pageEnd = pageStart + 1;
@@ -39,6 +42,7 @@ class SuggestedTutors extends React.Component {
   };
 
   populateGridColumns(profiles) {
+   
     return profiles.map((profile, i) => ( <ProfileTile profile={profile} key={i}/> ))
   }
 

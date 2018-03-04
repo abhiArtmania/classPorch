@@ -6,6 +6,7 @@ import {history} from '../../redux/store';
 import {connect} from "react-redux";
 import FacebookLogin from "react-facebook-login";
 import {loginUser} from "../../redux/actions";
+import {Link} from "react-router-dom";
 
 class SignUpMethods extends Component {
 
@@ -40,18 +41,24 @@ class SignUpMethods extends Component {
   render() {
     return (
       <Grid className='sign-up-methods-body' id={'sign-up'}>
-        <Grid.Row centered>
+        <Grid.Row centered className='text-center'>
           <p className='sign-up-methods-header'>How would you like to Sign Up?</p>
+         
+        </Grid.Row>
+              
+        <Grid.Row centered>
+         
+        <Button size='massive' color='olive' circular center-btn onClick={this.openStudentSignUp.bind(this)}>Student</Button>
+          
+        {/* <p className={'create-account'}>Would you like to sign up as a <Link to={'/sign-up/tutor'}>Tutor?</Link></p> */}
+
         </Grid.Row>
         <Grid.Row centered>
-          <Grid.Column width={4}>
-            <Button size='massive' color='orange' circular onClick={this.openTutorSignUp.bind(this)}>Tutor</Button>
-          </Grid.Column>
-          <Grid.Column width={1}>
-          </Grid.Column>
-          <Grid.Column width={4}>
-            <Button size='massive' color='olive' circular onClick={this.openStudentSignUp.bind(this)}>Student</Button>
-          </Grid.Column>
+         
+        {/* <Button size='massive' color='olive' circular center-btn onClick={this.openStudentSignUp.bind(this)}>Student</Button> */}
+          
+        <p className={'create-account'}>Would you like to sign up as a <Link to={'/sign-up/tutor'}>Tutor?</Link></p>
+            
         </Grid.Row>
       </Grid>
     );

@@ -1,14 +1,15 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import logoDark from '../../assets/logo_dark.png';
 
-import {history} from '../../redux/store';
+import { history } from '../../redux/store';
 import './styles.css';
-import {Menu, Dropdown, Image, Input, Button} from 'semantic-ui-react';
+import { Menu, Dropdown, Image, Input, Button,Grid } from 'semantic-ui-react';
 import faker from 'faker'
-import {connect} from 'react-redux';
-import {logoutUserRequested, searchRequested, setPresentProfile, toggleSearchMode} from '../../redux/actions';
+import { connect } from 'react-redux';
+import { logoutUserRequested, searchRequested, setPresentProfile, toggleSearchMode } from '../../redux/actions';
 import $ from "jquery";
 import { findDOMNode } from 'react-dom';
+import compass from '../../assets/n.png';
 
 class Navbar extends Component {
 
@@ -28,42 +29,57 @@ class Navbar extends Component {
         this.onSearch = this.onSearch.bind(this);
         this.isShowSearchBar = this.isShowSearchBar.bind(this);
         this.menuToggle = this.menuToggle.bind(this);
-        
+        this.state={
+            NotificationList:[
+                {Date:'1-3-2018',Notification:'Hello this is first notification'},
+                {Date:'2-3-2018',Notification:'Hello this is second notification'},
+                {Date:'2-3-2018',Notification:'Hello this is third notification'},
+                {Date:'3-3-2018',Notification:'Hello this is forth notification'},
+                {Date:'3-3-2018',Notification:'Hello this is five notification'},
+                {Date:'1-3-2018',Notification:'Hello this is first notification'},
+                {Date:'2-3-2018',Notification:'Hello this is second notification'},
+                {Date:'2-3-2018',Notification:'Hello this is third notification'},
+                {Date:'3-3-2018',Notification:'Hello this is forth notification'},
+                {Date:'3-3-2018',Notification:'Hello this is five notification'},
+            ],
+            showReply: false
+        }
+
     }
 
     componentWillMount() {
-        this.setState({activeItem: ''})
+        this.setState({ activeItem: '' })
     }
 
     componentDidMount() {
         $(window).on('scroll', () => {
             let scrollTop = $(document).scrollTop()
 
-            if (scrollTop < 2077) { 
-                this.setState({activeItem: ''});
+            if (scrollTop < 2077) {
+                this.setState({ activeItem: '' });
             }
             if (scrollTop > 2077 && scrollTop < 2473) { // how-works position
-                this.setState({activeItem: 'how-works'});
+                this.setState({ activeItem: 'how-works' });
             }
 
             if (scrollTop > 2473 && scrollTop < 3313) { // pricing position
-                this.setState({activeItem: 'pricing'}); 
+                this.setState({ activeItem: 'pricing' });
             }
 
             if (scrollTop > 3313 && scrollTop < 3700) { // write-us position
-                this.setState({activeItem: 'write-us'}); 
+                this.setState({ activeItem: 'write-us' });
             }
 
             if (scrollTop > 3700) {
-                this.setState({activeItem: ''})
+                this.setState({ activeItem: '' })
             }
         })
     }
 
-    handleItemClick = (e, {name}) => {
+    handleItemClick = (e, { name }) => {
         console.log(history);
-        this.setState({activeItem: name});
-        const {role, userId} = this.props;
+        this.setState({ activeItem: name });
+        const { role, userId } = this.props;
 
         switch (name) {
             case 'messages':
@@ -77,13 +93,17 @@ class Navbar extends Component {
                 return history.push('/sign-up');
             case 'logout':
                 this.props.logoutUserRequested();
-                this.setState({activeItem: ''});
+                this.setState({ activeItem: '' });
                 return history.replace('/login');
             case 'profile':
-                this.setState({activeItem: 'profile'});
-                this.props.setPresentProfile({userId});
+                this.setState({ activeItem: 'profile' });
+                this.props.setPresentProfile({ userId });
                 this.scrollTo();
                 return role === 'tutor' ? history.push('/profile/tutor') : history.push('/profile/student');
+            case 'notification':
+                history.push('/notification');
+                return;
+
             case 'add-credits':
                 return history.push('/add-credits');
             case 'request-money':
@@ -94,21 +114,21 @@ class Navbar extends Component {
                 return history.push('/previous-expenses');
             case 'search-tutors':
                 this.scrollTo();
-                this.setState({activeItem: 'search-tutors'});
+                this.setState({ activeItem: 'search-tutors' });
                 return history.push('/login');
             case 'i-want':
                 this.scrollTo();
                 return history.push('/i-want');
             case 'pricing':
-                this.setState({activeItem: 'pricing'});
+                this.setState({ activeItem: 'pricing' });
                 history.push('/');
                 return this.scrollTo('pricing');
             case 'how-works':
-                this.setState({activeItem: 'how-works'});
+                this.setState({ activeItem: 'how-works' });
                 history.push('/');
                 return this.scrollTo('how-it-works');
             case 'write-us':
-                this.setState({activeItem: 'write-us'});
+                this.setState({ activeItem: 'write-us' });
                 history.push('/');
                 return this.scrollTo('write-us');
             case 'contact-us':
@@ -123,12 +143,19 @@ class Navbar extends Component {
         }
     };
 
+
+    onClick(e){
+        e.preventDefault();
+        console.log(this.state.showReply)
+        this.setState({showReply: !this.state.showReply})
+      }
+
     scrollTo(selector) {
         setTimeout(() => {
             if (selector) {
-                $("html, body").animate({scrollTop: $(`#${selector}`).position().top - 65}, 1000);
+                $("html, body").animate({ scrollTop: $(`#${selector}`).position().top - 65 }, 1000);
             } else {
-                $("html, body").animate({scrollTop: 0}, 1000);
+                $("html, body").animate({ scrollTop: 0 }, 1000);
             }
         })
     }
@@ -141,6 +168,11 @@ class Navbar extends Component {
 
     getLoggedInMenuItems() {
         const loggedInMenuItems = [
+            {
+                key: 'profile',
+                name: 'profile',
+                buttonTitle: 'Profile'
+            },
             {
                 key: 'previous-expenses',
                 name: 'previous-expenses',
@@ -187,6 +219,7 @@ class Navbar extends Component {
             }, loggedInMenuItems)
         }
         let menuItems = filteredMenuItems.map((item, i) => {
+         
             return (
                 <Dropdown.Item
                     key={item.key}
@@ -198,12 +231,31 @@ class Navbar extends Component {
             );
         });
 
-        const {firstName, lastName} = this.props;
+       
+        let notificationiteam=this.state.NotificationList.map((item,j) =>{
+
+            console.log('item',item);
+            return
+             (
+                 <div>
+                {item.Date}
+                {item.Notification}
+                 </div>
+            //     <Dropdown.Item
+            //     key={item.Date}
+            //     name={item.Notification}
+            //     onClick={this.handleItemClick}
+            //     active={this.state.activeItem === ''}>
+            //     {item.Date}
+            //  </Dropdown.Item>
+            )
+        })
+
+        const { firstName, lastName } = this.props;
 
         const trigger = (
             <div className='trigger-container'>
-                {/* User here */}
-                <Image avatar src={this.state.avatar}/>
+
                 <div className='trigger-content'>
                     <div className='username-text'> {this.capitalize(firstName)} {this.capitalize(lastName)} </div>
                     <div className='user-credits'> {`${this.props.profile.credits} credits`} </div>
@@ -211,16 +263,31 @@ class Navbar extends Component {
             </div>
         );
 
+        const Notificationtrigger = (
+            <Menu.Item name={'notification'} active={this.state.activeItem === 'notification'}
+                onClick={this.handleItemClick}><Image centered src={compass}  ></Image></Menu.Item>
+        );
+
+       let notificationbar=this.renderNotificationtems()
+
         return (<Menu.Menu position='right'>
-            {this.props.role === 'student' &&
-            <Menu.Item name={'search'} active={this.state.activeItem === 'search'} onClick={this.handleItemClick}>Search
-                Tutors</Menu.Item>}
-            <Menu.Item name={'profile'} active={this.state.activeItem === 'profile'}
-                       onClick={this.handleItemClick}>Profile</Menu.Item>
             <Menu.Item name={'messages'} active={this.state.activeItem === 'messages'}
-                       onClick={this.handleItemClick}>Messages</Menu.Item>
+                onClick={this.handleItemClick}>Messages</Menu.Item>
+            {this.props.role === 'student' &&
+                <Menu.Item name={'search'} active={this.state.activeItem === 'search'} onClick={this.handleItemClick}>Search
+                Tutors</Menu.Item>}
+
+         
+          
+        
+           
+            <Menu.Item name={'notification'} active={this.state.activeItem === 'notification'}
+                 onClick={this.onClick.bind(this)}><Image centered src={compass}  ></Image></Menu.Item>
+       
+             { this.state.showReply ?   <div id="notificationDiv" className="NotificationDiv">  {notificationbar}   </div>: null }  
+          
             <Dropdown item trigger={trigger} pointing='top left' value={this.state.activeItem}
-                      className='menubar-container'>
+                className='menubar-container'>
                 <Dropdown.Menu>
                     {menuItems}
                 </Dropdown.Menu>
@@ -234,7 +301,7 @@ class Navbar extends Component {
                 key: 'search-tutors',
                 name: 'search-tutors',
                 buttonTitle: 'Search Tutors'
-            }, 
+            },
             {
                 key: 'how-works',
                 name: 'how-works',
@@ -244,7 +311,7 @@ class Navbar extends Component {
                 key: 'pricing',
                 name: 'pricing',
                 buttonTitle: 'Pricing'
-            }, 
+            },
             {
                 key: 'write-us',
                 name: 'write-us',
@@ -269,6 +336,21 @@ class Navbar extends Component {
         });
         return (<Menu.Menu position={'right'}> {menuItems} </Menu.Menu>)
     }
+
+    renderNotificationtems() {
+    
+        let menuItems = this.state.NotificationList.map((item) => {
+            return (
+           
+                 <div >
+                {item.Date}
+                {item.Notification}
+                </div>
+            );
+        });
+        return (<div position={'right'}> {menuItems} </div>)
+    }
+    
 
     getItems() {
         const items = [
@@ -296,13 +378,15 @@ class Navbar extends Component {
         return (<Menu.Menu position='right'> {menuItems} </Menu.Menu>)
     }
 
-    onSearchWordChange = (e, {value}) => {
-        this.setState({searchWord: value})
+    onSearchWordChange = (e, { value }) => {
+
+        console.log('value', value);
+        this.setState({ searchWord: value })
     };
 
     onSearch = (e) => {
         e && e.preventDefault();
-        this.props.toggleSearchMode({mode: 'search'});
+        this.props.toggleSearchMode({ mode: 'search' });
         this.props.searchRequested(this.state.searchWord, this.props.authToken)
     };
 
@@ -312,66 +396,67 @@ class Navbar extends Component {
         }
         if (window.location.pathname === '/search' || window.location.pathname === '/dashboard/student') {
             return (
-                <form className='search-form' onSubmit={this.onSearch}>
-                    <Input size='large' placeholder='Search for tutors,skills you want to learn...'
-                           className='search-input'
-                           action={<Button type="submit"> Search </Button>}
-                           onChange={this.onSearchWordChange}/>
+                <form className='search-form None-border' onSubmit={this.onSearch}>
+                    <Input size='large' placeholder='Search for tutors, skills you want to learn...'
+                        className='search-input' action='Search'
+                        // action={<Button type="submit"> Search </Button>}
+                        onChange={this.onSearchWordChange} />
                 </form>
             )
         }
         return null
     };
-	menuToggle(e)
-	{
-	//const menu = findDOMNode(this.refs.slideMenu);
-	if(e.target.innerText=="menu▼") e.target.innerText="menu▲";
-	else e.target.innerText="menu▼";
-	$(".menu-container").slideToggle();
-	}
+    menuToggle() {
+        //const menu = findDOMNode(this.refs.slideMenu);
+
+        $(".menu-container").slideToggle();
+    }
+
+ 
+
     render() {
-        const {authToken, role} = this.props;
-        let menuBar, searchbar;
+        const { authToken, role } = this.props;
+        let menuBar, searchbar,notificationbar;
         let menuRight = (authToken && window.location.pathname !== '/login' && window.location.pathname !== '/' && !window.location.pathname.includes('sign-up')) ? this.getLoggedInMenuItems() : this.getItems();
         let dashboardLink = role === "student" ? '/dashboard/student' : '/dashboard/tutor';
         let isDashboardAccessible = authToken ? dashboardLink : '/';
 
         if (!authToken) {
             menuBar = this.renderCenterItems()
+           
         }
         if (authToken) {
             searchbar = <Menu.Item position='right'> {this.isShowSearchBar()} </Menu.Item>
         }
         return (
-        <div>
-            <Menu borderless className='menubar' size={'large'} fixed={'top'}>
-                <Menu.Item>
-                    <a href={isDashboardAccessible} className='navBar-logo'>
-                        <img src={logoDark} className='navBar-logo' role='presentation'/>
-                    </a>
-                </Menu.Item>
-                {menuBar}
-                <Button size={'medium'} basic={true} onClick={this.menuToggle}>menu▼</Button>
-                {searchbar}
-                {menuRight}
-                
-            </Menu>
-            <div className="menu-container">
-            <Menu stackable borderless className='menubar2' size={'large'} fixed={'top'} ref="slideMenu">
-               {menuBar}
-                
-            </Menu>
-            </div>
-            <span className="mobile-search">{searchbar}</span>
+            <div>
+                <Menu borderless className='menubar' size={'large'} fixed={'top'}>
+                    <Menu.Item>
+                        <a href={isDashboardAccessible} className='navBar-logo'>
+                            <img src={logoDark} className='navBar-logo' role='presentation' />
+                        </a>
+                    </Menu.Item>
+                    {menuBar}
+                    <Button size={'medium'} basic={true} onClick={this.menuToggle}>menu</Button>
+                    {searchbar}
+                    {menuRight}
+
+                </Menu>
+                <div className="menu-container">
+                    <Menu stackable borderless className='menubar2' size={'large'} fixed={'top'} ref="slideMenu">
+                        {menuBar}
+
+                    </Menu>
+                </div>
             </div>
         )
     }
 }
 
-const mapStateToProps = ({auth, dashboard}) => {
-    const {authToken, id: userId, role, firstName, lastName, loggedIn} = auth;
-    const {profile} = dashboard;
-    return {authToken, userId, role, firstName, lastName, loggedIn, profile}
+const mapStateToProps = ({ auth, dashboard }) => {
+    const { authToken, id: userId, role, firstName, lastName, loggedIn } = auth;
+    const { profile } = dashboard;
+    return { authToken, userId, role, firstName, lastName, loggedIn, profile }
 };
 
 export default connect(mapStateToProps, {

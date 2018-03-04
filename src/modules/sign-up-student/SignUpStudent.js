@@ -7,17 +7,22 @@ import {
   SkillsSection,
   TopSection
 } from './sections';
-import {Form} from 'semantic-ui-react';
+import {Form,Grid, Checkbox, Button} from 'semantic-ui-react';
 import {connect} from 'react-redux';
 import {signupUser} from '../../redux/actions';
+
 
 class SignUpStudent extends React.Component {
 
   constructor(props) {
     super(props);
+
+    
     this.onChangeSkills = this.onChangeSkills.bind(this);
     this.onFormSubmitted = this.onFormSubmitted.bind(this);
   }
+  
+ 
 
   state = {
     selectedSkills: []
@@ -77,6 +82,8 @@ class SignUpStudent extends React.Component {
       }
     };
 
+   
+
     if (this.props.errorObject) {
       const { provider, access_token, secret } = this.props.errorObject;
       parsedForm = {
@@ -107,6 +114,12 @@ class SignUpStudent extends React.Component {
         <EducationSection onChange={this.onChange}/>
         <SkillsSection onChangeSkills={this.onChangeSkills} selectedSkills={this.state.selectedSkills}/>
         <BottomSection/>
+        {/* <Grid.Column width={12}>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <Button circular size='large' color='yellow' type='submit' onClick={this.Formvalidation}>CONTINUE</Button>
+                    </Grid.Column> */}
       </Form>
     )
   }
@@ -116,6 +129,8 @@ const mapStateToProps = ({auth}) => {
   const {email, errorObject, loading} = auth;
   return {email, errorObject, loading}
 };
+
+
 
 export default connect(mapStateToProps, {signupUser})(SignUpStudent);
 
