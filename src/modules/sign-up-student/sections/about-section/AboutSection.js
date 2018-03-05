@@ -32,7 +32,7 @@ export default class AboutSection extends React.Component {
                 { key: 'Year 3', value: '15', text: 'Year 3' },
                 { key: 'Year 4', value: '16', text: 'Year 4' },
             ],
-          
+            showParents:false
         }; 
         
     
@@ -45,8 +45,8 @@ export default class AboutSection extends React.Component {
      
     
      handleLoad() {      
-         document.getElementById("ParentfName").style.display = 'none';
-         document.getElementById("ParentlName").style.display = 'none';
+         //document.getElementById("ParentfName").style.display = 'none';
+         //document.getElementById("ParentlName").style.display = 'none';
      }
 
     Confrmpassword(e, { name, value }) {
@@ -60,27 +60,18 @@ export default class AboutSection extends React.Component {
 
     };
     onchangeGrade = (event, data) => {
-       // alert(data.value);
+      
         if (data.value < 12) {
            
-            // if(document.getElementById("ParentName").value ){
-            // document.getElementById("ParentfName").removeAttribute("hidden");
-            // document.getElementById("ParentlName").removeAttribute("hidden");
-            // document.getElementById("ParentfName").style.display = 'block';
-            // document.getElementById("ParentlName").style.display = 'block';
-            document.getElementById("ParentfName").type = 'text';
-            document.getElementById("ParentlName").type = 'text';
+        
+            this.setState({'showParents':true})
         }
         else {
            
-            document.getElementById("ParentfName").style.display = 'none';
-            document.getElementById("ParentlName").style.display = 'none';
-            document.getElementById("ParentfName").type = 'hidden';
-            document.getElementById("ParentlName").type = 'hidden';
+            this.setState({'showParents':false})
 
         }
-        // document.getElementById("ParentName").visiblity="visible";
-        // }
+        
     };
     render() {
         let renderParentInfo;       
@@ -98,7 +89,19 @@ export default class AboutSection extends React.Component {
                 </Grid.Column>
             </Grid.Row>
         }
-        return (
+        const parents=<Grid.Row centered id="ParentDetails">
+                    <Grid.Column width={6} textAlign='left'>
+
+                        <Input label="Parent/Guardian first Name" type="hidden" id="ParentfName" name='ParentfName' fluid hidden placeholder="Parent/Guardian First Name" />
+                    </Grid.Column>
+                    <Grid.Column width={6} textAlign='left'>
+                        <Input label="Parent/Guardian last Name" type="hidden" id="ParentlName" name='ParentlName' fluid hidden placeholder="Parent/Guardian Last Name" />
+                    </Grid.Column>
+
+                </Grid.Row>
+               
+                
+                        return (
             <Grid className='sign-up-about-section-body'>
                 <Grid.Row centered>
                     <Grid.Column width={12} textAlign='left'>
@@ -124,16 +127,8 @@ export default class AboutSection extends React.Component {
                     </Grid.Column>
 
                 </Grid.Row>
-                <Grid.Row centered id="ParentDetails">
-                    <Grid.Column width={6} textAlign='left'>
 
-                        <Input label="Parent/Guardian first Name" type="hidden" id="ParentfName" name='ParentfName' fluid hidden placeholder="Parent/Guardian First Name" />
-                    </Grid.Column>
-                    <Grid.Column width={6} textAlign='left'>
-                        <Input label="Parent/Guardian last Name" type="hidden" id="ParentlName" name='ParentlName' fluid hidden placeholder="Parent/Guardian Last Name" />
-                    </Grid.Column>
-
-                </Grid.Row>
+                {this.state.showParents && parents}
                 {renderParentInfo}
                 <Grid.Row centered>
                     <Grid.Column width={6} textAlign='left'>
