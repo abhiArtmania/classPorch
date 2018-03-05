@@ -406,11 +406,14 @@ class Navbar extends Component {
         }
         return null
     };
-    menuToggle() {
-        //const menu = findDOMNode(this.refs.slideMenu);
-
-        $(".menu-container").slideToggle();
-    }
+  	menuToggle(e)
+	{
+		
+	if(e.target.innerText=="menu▼") e.target.innerText="menu▲";
+	else e.target.innerText="menu▼";
+	
+	$(".menu-container").slideToggle();
+	}
 
  
 
