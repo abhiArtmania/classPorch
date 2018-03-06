@@ -15,10 +15,13 @@ class SkillsSection extends React.Component {
                     text: item,
                     value: key
                 }
-            })
+            }),
+            searchQuery:''
+            
         };
         this.onCustomSkillsChange = this.onCustomSkillsChange.bind(this);
         this.onSkillSubmit = this.onSkillSubmit.bind(this);
+        this.searchInputHandle=this.searchInputHandle.bind(this);
     }
 
     componentDidMount() {
@@ -28,7 +31,8 @@ class SkillsSection extends React.Component {
         this.setState({customSkill: value})
     }
 
-    onSkillSubmit() {
+    onSkillSubmit(e) {
+		e.preventDefault();
         const newSkills = {
             key: this.state.skills.length,
             value: this.state.skills.length,
@@ -40,6 +44,10 @@ class SkillsSection extends React.Component {
         });
         console.log(this.state)
     }
+    searchInputHandle(e)
+    {
+		this.setState({searchQuery:e.target.value})
+	}
 
     handleAddition = (e, {value}) => {
        
@@ -52,13 +60,13 @@ class SkillsSection extends React.Component {
     };
 
     handleChange = (e, {value}) => {    
- 
+
      
         const skillsNormalized = value.map(x => this.state.skills.filter(y => y.key === x)[0]);
         this.props.onChangeSkills(skillsNormalized)
-         debugger
         var select = document.querySelector('.selectpicker');
         var inner = select.querySelectorAll('.search');
+        this.setState({placeholder:""});
 
         var ta = document.getElementsByClassName("search")[1];
         var r=ta.value
@@ -68,6 +76,7 @@ class SkillsSection extends React.Component {
         var resm1= document.querySelector( ".sizer" ).innerHTML;
         document.querySelector( ".sizer" ).innerHTML=''
         var resm11= document.querySelector( ".sizer" ).innerHTML;
+        this.setState({searchQuery:""})
      
         };
 
@@ -92,7 +101,7 @@ class SkillsSection extends React.Component {
                         {/* <Input name='skills' fluid placeholder='Start typing to search for a skill.' onKeyPress={this.addNewSkill}/> */}
                         <Dropdown
                             options={skills}
-                            placeholder='Start typing to search for a skill.'
+                            placeholder="Start typing to search for a skill."
                             search
                             selection
                             fluid
@@ -102,7 +111,10 @@ class SkillsSection extends React.Component {
                             onAddItem={this.handleAddition}
                             onChange={this.handleChange}
                             renderLabel={this.renderLabel}
+                            searchQuery={this.state.searchQuery}
+                            onSearchChange={this.searchInputHandle}
                         />
+                       
                     </Grid.Column>
 
                     <Grid.Column width={12} textAlign='left' style={{paddingTop: '30px'}}>
