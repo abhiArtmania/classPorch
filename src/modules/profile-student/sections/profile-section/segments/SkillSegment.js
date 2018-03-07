@@ -26,7 +26,7 @@ class SkillSegment extends Component {
                     <Grid.Column width={12} textAlign='left' >
                         <div className='sub-heading' > 
                         { userId === presentProfileId ? 
-                            "SKILLS YOU WANT TO LEARN" : "SKILLS " + name + "WANTS TO LEARN" }
+                            "SUBJECTS/SKILLS YOU WANT TO LEARN" : "SUBJECTS/SKILLS " + name + "WANTS TO LEARN" }
                         </div>
                     </Grid.Column>
                 </Grid.Row>
