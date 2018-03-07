@@ -178,12 +178,7 @@ export const updateProfile = ({
 					city: profile.city,
 					number: profile.phone,
 					email: profile.email,
-					skills: [
-						{
-							id: 1,
-							name: 'RoR'
-						}
-					]
+					skills: profile['skill-ids']
 				}
 			}
 
