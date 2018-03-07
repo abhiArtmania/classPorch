@@ -127,7 +127,7 @@ class ProfileTile extends Component {
     let { profile, dashboard, authToken } = this.props;
     let { dimmer, modalVisible } = this.state;
     let skills = profile["skills-ids"].map(skillId => {
-      return { key: skillId, value: skillId.name, text: skillId.name }
+      return  <span key= {skillId.id}> {skillId.name} </span>
     });
 
     let durations = this.getDurations(5);
@@ -137,7 +137,7 @@ class ProfileTile extends Component {
         <Image src={profile['profile-picture'] ? profile['profile-picture'] : faker.internet.avatar()}
           size='tiny' verticalAlign='middle' shape='circular' />
         <div className='name'> {profile['full-name']} </div>
-        <div className='subjects'> {profile["skills-ids"]} </div>
+        <div className='subjects'> {skills} </div>
         <div className='price'> $ {profile["hourly-rate"]} </div>
         <Button
           onClick={this.showModal}
