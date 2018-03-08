@@ -8,7 +8,7 @@ import './styles.css'
 
 class HeaderSection extends Component {
 
-  constructor(props) {
+  /*constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
@@ -19,11 +19,11 @@ class HeaderSection extends Component {
   handleChange = (event) => {
     console.log('Selected file:', event.target.files[0]);
     this.setState({changeProfilePicturePlaceholder: 'Uploading 0%'});
-  };
+  };*/
 
   render() {
     const {userId, presentProfileId, role} = this.props;
-    const {changeProfilePicturePlaceholder} = this.state;
+    //const {changeProfilePicturePlaceholder} = this.state;
     return (
       <Grid padded relaxed style={{width: '100%'}}>
         <Grid.Row stretched columns={1} centered>
@@ -34,7 +34,7 @@ class HeaderSection extends Component {
             </div>
           </Grid.Column>
           <Grid.Column width={6} textAlign='right'>
-                  <form className='profile-picture-form'>
+                  {/*<form className='profile-picture-form'>
                   <Grid.Row columns={2} centered>
                     <Grid.Column width={12}>
                       <label htmlFor="myImage" className="ui button large profile-picture-form-label">{changeProfilePicturePlaceholder}</label>
@@ -48,7 +48,7 @@ class HeaderSection extends Component {
                                 onChange={this.handleChange}/>
                     </Grid.Column>
                   </Grid.Row>
-                  </form>
+                  </form>*/}
           </Grid.Column>
         </Grid.Row>
       </Grid>

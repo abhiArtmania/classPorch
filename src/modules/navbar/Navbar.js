@@ -394,7 +394,7 @@ class Navbar extends Component {
         if (this.props.role !== 'student') {
             return null
         }
-        if (window.location.pathname === '/search' || window.location.pathname === '/dashboard/student') {
+        if (window.location.pathname === '/search' || window.location.pathname === '/dashboard/student' || window.location.pathname === '/profile/student') {
             return (
                 <form className='search-form None-border' onSubmit={this.onSearch}>
                     <Input size='large' placeholder='Search for tutors, skills you want to learn...'

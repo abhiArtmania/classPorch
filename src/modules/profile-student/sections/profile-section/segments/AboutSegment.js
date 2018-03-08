@@ -75,8 +75,8 @@ class AboutSegment extends Component {
                         <Icon name='edit' size='large' color='grey' className='edit-icon' onClick={this.onClickEdit} />
                     }                    
                     </Grid.Column>
-                </Grid.Row> 
-                <Grid.Row stretched columns={1} centered >*/} 
+                </Grid.Row> */} 
+                <Grid.Row stretched columns={1} centered >
                     <Grid.Column width={1} textAlign='left' >
                         <div style={{fontWeight:'bold'}} > Gender </div>
                     </Grid.Column>
