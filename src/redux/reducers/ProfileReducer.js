@@ -12,7 +12,9 @@ import {
     EDIT_PROFILE_FAIL,
     CHANGE_EDUCATION,
     CHANGE_SKILLS,
-    CHANGE_PICTURE
+    CHANGE_PICTURE,
+    GET_SEEDED_SKILLS_SUCCESS,
+	GET_SEEDED_SKILLS_FAIL
 } from '../actions/types'
 
 const INITIAL_STATE = {
@@ -25,7 +27,8 @@ const INITIAL_STATE = {
     mode:'normal',
     editingProfile:false,
     editProfileMessage:'',
-    profileEditedIndicator:null
+    profileEditedIndicator:null,
+    seededSkills:[]
 };
 
 export default (state=INITIAL_STATE,action) => {
@@ -40,6 +43,12 @@ export default (state=INITIAL_STATE,action) => {
         }
         case GET_PROFILE_FAIL:
             return { ...state, errorProfile:action.payload, loadingProfile:false };
+        case GET_SEEDED_SKILLS_SUCCESS:{
+            return { ...state,  seededSkills:action.payload}
+        }
+        case GET_SEEDED_SKILLS_FAIL:
+            return { ...state, seededSkills:[] };
+
 
         case SET_PROFILE_ID:
             return { ...state, presentProfileId: action.payload };

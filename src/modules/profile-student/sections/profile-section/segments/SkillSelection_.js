@@ -13,14 +13,15 @@ class SkillsSelection extends React.Component{
 
     componentDidMount = async() => {
 		const {authToken} = this.props;
-		 this.props.getSeededSkills(authToken) 
-		if(this.props.seededSkills) this.setState({ 
-                skills: this.props.seededSkills.map(x => {
-                    return { key:x.id, text:capitalize(x.name), value:x.id }
-                })   
-			})
-		
+		this.props.getSeededSkills(authToken)    
     };
+    componentWillReceiveProps(nextProps)
+    {
+		this.setState({ 
+                skills: props.seededSkills.map(x => {
+                    return { key:x.id, text:capitalize(x.name), value:x.id }
+                })
+	}
 
     handleAddition = (e, { value }) => {
         this.setState({
@@ -78,7 +79,7 @@ function capitalize(str=''){
 const mapStateToProps = ({auth,profileState}) => {
   const {authToken} = auth;
   const {seededSkills} = profileState;
-  return {authToken, seededSkills}
+  return {authToken}
 };
 
 const mapActionToProps = () => {

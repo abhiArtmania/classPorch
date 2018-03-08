@@ -14,7 +14,9 @@ import {
 	UPLOAD_PROFILE_PICTURE,
 	UPLOAD_PROFILE_PICTURE_PROGRESS,
 	UPLOAD_PROFILE_PICTURE_COMPLETE,
-	UPLOAD_PROFILE_PICTURE_ERROR
+	UPLOAD_PROFILE_PICTURE_ERROR,
+	GET_SEEDED_SKILLS_SUCCESS,
+	GET_SEEDED_SKILLS_FAIL
 } from './types'
 import { apiEndpoints } from '../../ApiEndpoints'
 
@@ -39,7 +41,30 @@ export const uploadProfilePictureError = error => {
 export const setPresentProfile = ({ userId }) => {
 	return { type: SET_PROFILE_ID, payload: userId }
 }
+export const getSeededSkills = (authToken) => {
+	return async dispatch => {
+		try {
+			
+			let rawRes = await fetch(
+				`${apiEndpoints.base}/skills`,
+				{
+					headers: {
+						'auth-token': authToken
+					}
+				}
+			)
+            let res = await rawRes.json()
+			
 
+			return dispatch({
+				type: GET_SEEDED_SKILLS_SUCCESS,
+				payload: res.skills
+			})
+		} catch (e) {
+			return dispatch({ type: GET_SEEDED_SKILLS_FAIL, payload: e })
+		}
+	}
+}
 export const profileRequested = (userId, authToken) => {
 	return async dispatch => {
 		try {
@@ -53,6 +78,7 @@ export const profileRequested = (userId, authToken) => {
 				}
 			)
             let res = await rawRes.json()
+            console.log(res)
 			const averageRating = res.data.attributes['average-rating']
 			const educationalAttributes =
 				res.data.attributes['educations-attributes']
@@ -182,7 +208,7 @@ export const updateProfile = ({
 				}
 			}
 
-			console.log(bodyObject)
+			console.log(authToken)
 
 			let resRaw = await fetch(`${apiEndpoints.base}/user/${userId}`, {
 				method: 'PUT',
@@ -196,6 +222,7 @@ export const updateProfile = ({
 				throw 'failed request'
 			}
 			const res = await resRaw.json()
+			console.log(res)
 			const id = uuidv1()
 
 			return dispatch({

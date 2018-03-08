@@ -12,7 +12,7 @@ export const searchRequested = (searchWord, authToken) => {
         try {
             dispatch({ type: SEARCH_START });
 
-            let rawRes = await fetch(`${apiEndpoints.base}/search?type=tutors&&q=${searchWord}`, {
+            let rawRes = await fetch(`${apiEndpoints.base}/search?type=tutor&&q=${searchWord}`, {
                 headers: {
                     'auth-token': authToken
                 }

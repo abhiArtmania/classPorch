@@ -79,5 +79,6 @@ export const PROFILE_PICTURE_SUCCESS = 'profile_picture_success';
 export const PROFILE_PICTURE_FAIL = 'profile_picture_fail';
 
 export const TOGGLE_SEARCH_MODE = 'toggle_search_mode';
-
+export const GET_SEEDED_SKILLS_SUCCESS = 'GET_SEEDED_SKILLS_SUCCESS';
+export const GET_SEEDED_SKILLS_FAIL='GET_SEEDED_SKILLS_FAIL';
 export const STATE_PERSISTED = 'STATE_PERSISTED';

@@ -60,11 +60,11 @@ class ProfileStudent extends React.Component {
 		const { userId,authToken,presentProfileId,role,firstName, profile, educationalAttributes, 
 			averageRating, reviews,mode, onChangeEducation, onChangeSkill } = this.props;
         return (
-        	<div style={{width:'100%',display:'flex',flexDirection:'column', alignItems:'center' }} >
+        	<div>
         	  
         {
 			this.props.searchMode === 'normal'?
-			<div>
+			<div style={{width:'100%',display:'flex',flexDirection:'column', alignItems:'center' }}>
 				<HeaderSection userId={userId} authToken={authToken} role={role} profile={profile} presentProfileId={presentProfileId} />
 				
 
