@@ -46,7 +46,11 @@
 	justify-content: space-around;
 	align-items: center;
 }
+.request-form textarea{
+	height: 150px;
+    width: 250px;
 
+}
 .request-section{
 	width: 100%;
 	flex:1 1 100%;

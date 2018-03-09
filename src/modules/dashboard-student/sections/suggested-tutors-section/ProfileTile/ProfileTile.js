@@ -18,6 +18,7 @@ class ProfileTile extends Component {
     modalVisible: false,
     dimmer: 'blurring',
     selectedSkillId: null,
+    selectedSkillName: '',
     date: null,
     focusedDate: false,
     startTime: '10:00 am',
@@ -56,18 +57,18 @@ class ProfileTile extends Component {
   proceed = (e) => {
     const { profile, authToken, userId } = this.props;
 
-    let { selectedSkillId, date, startTime, duration, billedAmount: amountPaid } = this.state;
-    if (selectedSkillId === null || date === null) {
+    let { selectedSkillId, selectedSkillName, date, startTime, duration, billedAmount: amountPaid } = this.state;
+    if (selectedSkillId === null) {
       this.setState({ message: 'Please enter the required fields.', showMessage: true });
       return
     }
-    if (parseFloat(this.props.dashboard.profile.credits) < this.state.billedAmount) {
+    if (parseFloat(this.props.dashboard.profile.credits) < this.state.billedAmount) { 
       this.setState({ message: 'Not enough credits in your wallet.', showMessage: true, isAmountLess: true });
       return
     }
     this.close();
     const tutorId = profile.id;
-    const skill = { "id": selectedSkillId, "name": "RoR" };
+    const skill = { "id": selectedSkillId, "name": selectedSkillName };
     const { sessionStartTime, sessionEndTime } = this.getSessionStartTime(date, startTime, duration);
     this.bookSession(tutorId, skill, authToken, sessionStartTime, sessionEndTime, amountPaid, userId)
   };
@@ -102,7 +103,7 @@ class ProfileTile extends Component {
 
   };
 
-  onSelectSkill = (e, { value }) => this.setState({ selectedSkillId: value });
+  onSelectSkill = (e, { name, value }) => this.setState({ selectedSkillId: value, selectedSkillName: name });
   onChangeDuration = (e, { value }) => {
     const amount = parseFloat(value) * parseFloat(this.props.profile["hourly-rate"]);
     this.setState({
@@ -129,6 +130,10 @@ class ProfileTile extends Component {
     let skills = profile["skills-ids"].map(skillId => {
       return  <span key= {skillId.id}> {skillId.name} </span>
     });
+  
+	let skillsOpts = profile["skills-ids"].map(x => {
+      return { key:x.id, text:x.name, value:x.id }
+    });
 
     let durations = this.getDurations(5);
 
@@ -153,7 +158,7 @@ class ProfileTile extends Component {
             <div className='request-form'>
               <div className='request-section'>
                 <div className='field'>Skill</div>
-                <Dropdown placeholder='Select a skill' fluid selection options={skills}
+                <Dropdown placeholder='Select a skill' fluid selection options={skillsOpts}
                   onChange={this.onSelectSkill} className='value' required />
               </div>
               <div className='request-section'>
@@ -163,7 +168,7 @@ class ProfileTile extends Component {
                   onDateChange={date => this.setState({ date })} // PropTypes.func.isRequired
                   focused={this.state.focusedDate} // PropTypes.bool
                   onFocusChange={({ focused }) => this.setState({ focusedDate: focused })}
-                  required={true}
+                  required={false}
                   numberOfMonths={1}
                   className='value' // PropTypes.func.isRequired
                 />
@@ -175,7 +180,7 @@ class ProfileTile extends Component {
                     onChange={(time) => this.setState({ startTime: time.formatted })}
                     onDoneClick={() => this.setState({ displayClock: false })}
                     switchToMinuteOnHourSelect={true} /> :
-                  <div onClick={() => this.setState({ displayClock: true })} className='value'>
+                  <div onClick={() => this.setState({ displayClock: false })} className='value'>
                     <Input defaultValue={this.state.startTime} className='time-input' />
                   </div>
                 }
@@ -203,7 +208,7 @@ class ProfileTile extends Component {
               Cancel
             </Button>
             {
-               <Button color='black' onClick={this.close}>
+               <Button color='black' onClick={this.proceed}>
                Send
              </Button>
               // this.state.isAmountLess ?
