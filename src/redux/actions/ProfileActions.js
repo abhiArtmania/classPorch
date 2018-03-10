@@ -66,6 +66,7 @@ export const getSeededSkills = (authToken) => {
 	}
 }
 export const profileRequested = (userId, authToken) => {
+
 	return async dispatch => {
 		try {
 			dispatch({ type: GET_PROFILE_START })
@@ -78,7 +79,7 @@ export const profileRequested = (userId, authToken) => {
 				}
 			)
             let res = await rawRes.json()
-            console.log(res)
+           
 			const averageRating = res.data.attributes['average-rating']
 			const educationalAttributes =
 				res.data.attributes['educations-attributes']
@@ -95,6 +96,7 @@ export const profileRequested = (userId, authToken) => {
 				}
 			})
 		} catch (e) {
+			
 			return dispatch({ type: GET_PROFILE_FAIL, payload: e })
 		}
 	}

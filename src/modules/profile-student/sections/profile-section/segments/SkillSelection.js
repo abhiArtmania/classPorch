@@ -11,9 +11,9 @@ class SkillsSelection extends React.Component{
         skills:[],
     };
 
-    componentDidMount = async() => {
+    componentDidMount = async() => { 
 		const {authToken} = this.props;
-		 this.props.getSeededSkills(authToken) 
+		await this.props.getSeededSkills(authToken) 
 		if(this.props.seededSkills) this.setState({ 
                 skills: this.props.seededSkills.map(x => {
                     return { key:x.id, text:capitalize(x.name), value:x.id }
