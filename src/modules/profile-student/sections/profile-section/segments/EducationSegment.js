@@ -60,7 +60,7 @@ class EducationSegment extends Component {
       let startYear = moment(education["start_education"]).format("YYYY")
       let finishYear = moment(education["finish_education"]).format("YYYY")
 
-      console.log(education["start_education"])
+    
 
       return (
         <Grid padded relaxed style={{ width: "100%" }}>
@@ -72,12 +72,12 @@ class EducationSegment extends Component {
               {mode === "edit" ? (
                 <Input
                   className="profile-text"
-                  value={education["university_name"]}
+                  defaultValue={education["university_name"]}
                   placeholder="college/university name"
                   onChange={this.onChangeField.bind(this, i, "edit", "university_name")}
                 />
               ) : (
-                <div className="profile-text"> {education["university_name"]} </div>
+                <div className="profile-text"> {education["university_name"] ? education["university_name"] : education["university-name"]} </div>
               )}
               <br />
               {mode === "edit" ? (
@@ -119,6 +119,7 @@ class EducationSegment extends Component {
                   name={"start_education"}
                   type="text"
                   placeholder="Start Date * (dd/mm/yyyy)"
+                  defaultValue={education["start_education"]}
                   onFocus={this.onFocusChange}
                   min="1970-01-01"
                   max={moment().format("Y-mm-D")}
@@ -134,9 +135,10 @@ class EducationSegment extends Component {
               <Grid.Column centered width={3} textAlign="left">
                 <Input
                   fluid
-                  name={"finsih_education"}
+                  name={"finish_education"}
                   type="text"
                   placeholder="Finish Date * (dd/mm/yyyy)"
+                  defaultValue={education["finish_education"]}
                   onFocus={this.onFocusChange}
                   min="1970-01-01"
                   max={moment().format("Y-mm-D")}

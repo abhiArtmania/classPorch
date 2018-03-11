@@ -62,7 +62,7 @@ class ProfileTile extends Component {
       this.setState({ message: 'Please enter the required fields.', showMessage: true });
       return
     }
-    if (parseFloat(this.props.dashboard.profile.credits) < this.state.billedAmount) { 
+    if (false) { //parseFloat(this.props.dashboard.profile.credits) < this.state.billedAmount
       this.setState({ message: 'Not enough credits in your wallet.', showMessage: true, isAmountLess: true });
       return
     }

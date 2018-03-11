@@ -53,6 +53,7 @@ export const getSeededSkills = (authToken) => {
 					}
 				}
 			)
+			
             let res = await rawRes.json()
 			
 
@@ -79,13 +80,29 @@ export const profileRequested = (userId, authToken) => {
 				}
 			)
             let res = await rawRes.json()
-           
+			let tmp=[];
+			res.data.attributes['educations-attributes'].forEach(function(item)
+			{
+				
+				let newItem={};
+				for(let key in item){
+					let newKey=key.replace("-","_");
+					
+				if(key!="current-status") newItem[newKey]=item[key]
+				else newItem[key]=item[key]
+				}
+				tmp.push(newItem)
+			}
+			)
+			
 			const averageRating = res.data.attributes['average-rating']
-			const educationalAttributes =
-				res.data.attributes['educations-attributes']
 			const profile = res.data.attributes['profile']
+			const educationalAttributes =tmp//res.data.attributes['educations-attributes']
+			
+			
 			const reviews = res.data.attributes['reviews']
-
+			   
+			
 			return dispatch({
 				type: GET_PROFILE_SUCCESS,
 				payload: {
@@ -151,7 +168,7 @@ export const onChangeEducation = (
 				const newEducation = {
 					'start_education': '',
 					'finish_education': '',
-					'university-name': ''
+					'university_name': ''
 				}
 				updatedEducation = [...updatedEducation, newEducation]
 			}
@@ -189,6 +206,7 @@ export const updateProfile = ({
 	educationalAttributes,
 	authToken
 }) => {
+
 	return async dispatch => {
 		try {
 			dispatch({ type: EDIT_PROFILE_START })
@@ -223,8 +241,9 @@ export const updateProfile = ({
 			if (resRaw.status !== 200) {
 				throw 'failed request'
 			}
+			
 			const res = await resRaw.json()
-			console.log(res)
+			
 			const id = uuidv1()
 
 			return dispatch({

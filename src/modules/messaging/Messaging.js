@@ -68,7 +68,7 @@ class Messaging extends Component {
 
   render() {
     const { messages, isUploadingFile } = this.state;
-    const profilePicture = this.props.otherUser.pictureUrl ? this.props.otherUser.pictureUrl : `http://via.placeholder.com/300?text=${this.props.otherUser.name[0].toUpperCase()}`;
+    const profilePicture =  this.props.otherUser.pictureUrl ? this.props.otherUser.pictureUrl : `http://via.placeholder.com/300?text=${this.props.otherUser.name[0].toUpperCase()}`;
     return (
       <div>
         <Grid verticalAlign={'middle'} style={{ marginTop: 16, marginBottom: 16 }}>
