@@ -15,7 +15,7 @@ class SearchResults extends Component {
     };
 
     renderSearchResults = (results,authToken) => {
-        if(!results.length || !results){
+        if(!results || !results.length){
             return (
                 <Grid.Row centered style={{ fontSize:'1.3em',fontWeight:100 }} >
                     No tutors found for the searched keywords. Please try again.

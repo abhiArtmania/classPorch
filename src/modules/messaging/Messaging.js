@@ -52,7 +52,15 @@ class Messaging extends Component {
     });
     this.setState({ messages: messageRows });
   };
-
+onKeyPress(e){
+	if(e.key=="Enter"){
+	 const newMessage = e.target.value;
+    if (!newMessage.trim()) { return }
+    this.props.sendMessage(newMessage);
+    e.target.value = '';
+}
+	
+	}
   sendNewMessage = (event) => {
     const newMessage = event.target.parentElement.firstElementChild.value;
     if (!newMessage.trim()) { return }
@@ -68,7 +76,7 @@ class Messaging extends Component {
 
   render() {
     const { messages, isUploadingFile } = this.state;
-    const profilePicture =  this.props.otherUser.pictureUrl ? this.props.otherUser.pictureUrl : `http://via.placeholder.com/300?text=${this.props.otherUser.name[0].toUpperCase()}`;
+    const profilePicture =  this.props.otherUser.pictureUrl ? this.props.otherUser.pictureUrl : `http://via.placeholder.com/300?text=${this.props.otherUser.lastName[0].toUpperCase()}`;
     return (
       <div>
         <Grid verticalAlign={'middle'} style={{ marginTop: 16, marginBottom: 16 }}>
@@ -83,7 +91,7 @@ class Messaging extends Component {
             </Grid.Column>
             <Grid.Column textAlign='left' width={11} style={{ cursor: 'pointer' }}>
               <span style={{ fontSize: 32, fontWeight: 300 }}>
-                {this.props.otherUser.name}
+                {this.props.otherUser.lastName+" "+ this.props.otherUser.lastName}
               </span>
             </Grid.Column>
           </Grid.Row>
@@ -99,7 +107,7 @@ class Messaging extends Component {
               </Form>
             </Grid.Column>
             <Grid.Column width={10}>
-              <Input fluid action={{ content: 'Send Message', type: 'submit', onClick: (event) => { this.sendNewMessage(event) } }} placeholder={'Write a message...'} />
+              <Input fluid action={{ content: 'Send Message', type: 'submit', onClick: (event) => { this.sendNewMessage(event) } }} placeholder={'Write a message...'} onKeyPress= {this.onKeyPress.bind(this)} />
             </Grid.Column>
           </Grid.Row>
         </Grid>

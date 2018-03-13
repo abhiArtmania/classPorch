@@ -12,7 +12,17 @@ const initState = {
 };
 
 const MessageReducer = ( state = initState, action) => {
+	 
+	  
   switch (action.type) {
+	  case 'SET_FIRST_MESSAGE':
+	  
+	  
+      return {
+        ...state,
+        currentUser:action.payload.currentUser, 
+        otherUser:action.payload.otherUser
+      };
     case MessageActions.FIND_CHAT:
       return {
         ...state,

@@ -82,7 +82,8 @@ export default (state = INITIAL_STATE, action) => {
     }
 
     case TUTOR_SESSION_REQUESTED: {
-      return {...state}
+		
+      return {...state }
     }
 
     case TUTOR_SESSION_REQUEST_SENT: {

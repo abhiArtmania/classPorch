@@ -106,20 +106,33 @@ export const fetchNotifications = (uri, authToken, userId) => {
   }
 };
 
-export const sessionRequested = ({tutorId, skill, authToken, sessionStartTime, sessionEndTime, amountPaid, userId}) => {
+export const sessionRequested = ({tutorId, skill, authToken, sessionStartTime, sessionEndTime, amountPaid, userId,currentUser, otherUser, messageToClient}) => {
   return async (dispatch) => {
     try {
+		
+		let payload= {
+          "currentUser": currentUser,
+          "otherUser": otherUser
+        }
+       
       dispatch({type: TUTOR_SESSION_REQUESTED});
-
+      dispatch({type:"SET_FIRST_MESSAGE",
+        payload: {
+          "currentUser": currentUser,
+          "otherUser": otherUser
+        }
+	});
+	dispatch({ type: 'SEND_MESSAGE',
+			"message":messageToClient,
+			"messageType":'TEXT'
+			});
       let bodyObject = {
         "tutor_id": tutorId,
         "skill": skill,
         "start_time": sessionStartTime.toString(),
         "end_time": sessionEndTime.toString()
       };
-      console.log(bodyObject);
-      console.log(authToken);
-      console.log(JSON.stringify(bodyObject));
+      
       let resRaw = await fetch(`${apiEndpoints.base}/session_requests/request/`, {
         method: "POST",
         headers: {
@@ -144,7 +157,7 @@ export const sessionRequested = ({tutorId, skill, authToken, sessionStartTime, s
         "session_id": sessionId
       };
       console.log(paymentBody);
-      let payRaw = await fetch(`${apiEndpoints.base}/users/${userId}/pay`, {
+      /*let payRaw = await fetch(`${apiEndpoints.base}/users/${userId}/pay`, {
         method: 'POST',
         headers: {
           'auth-token': authToken,
@@ -159,7 +172,7 @@ export const sessionRequested = ({tutorId, skill, authToken, sessionStartTime, s
       let payRes = await payRaw.json();
       console.log(payRes);
 
-
+*/
       const id = uuidv1();
       return dispatch({
         type: TUTOR_SESSION_REQUEST_SENT,
@@ -169,7 +182,7 @@ export const sessionRequested = ({tutorId, skill, authToken, sessionStartTime, s
         }
       })
     } catch (e) {
-      console.log(e);
+      alert(e);
       const id = uuidv1();
       return dispatch({
         type: TUTOR_SESSION_REQUEST_FAILED,

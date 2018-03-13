@@ -4,9 +4,12 @@ import './styles.css'
 import moment from 'moment';
 
 export default ({ user, chat, onClick }) => {
+	
   return (
     <List.Item onClick={onClick} className='chat-row'>
-      <Image bordered size='tiny' avatar src={user.pictureUrl ? user.pictureUrl : `http://via.placeholder.com/300?text=${user.name[0].toUpperCase()}`} />
+    
+          <Image bordered size='tiny' avatar src={user.pictureUrl ? user.pictureUrl : 'http://via.placeholder.com/300?text=${user.name[0].toUpperCase()}'} />
+
       <List.Content>
         <List.Header style={{ fontSize: 20, marginLeft: 16 }}>
           {user.name}

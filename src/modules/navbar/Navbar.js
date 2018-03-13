@@ -234,7 +234,7 @@ class Navbar extends Component {
        
         let notificationiteam=this.state.NotificationList.map((item,j) =>{
 
-            console.log('item',item);
+         //   console.log('item',item);
             return
              (
                  <div>

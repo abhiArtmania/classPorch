@@ -49,13 +49,16 @@ export const loadMessages = (action$, state, {auth, firestore}) => action$
 export const sendMessage = (action$, state, {auth, firestore, serverTime}) => action$.ofType(MessageActions.SEND_MESSAGE)
   .switchMap(action => {
     const currentState = state.getState().messageReducer;
+  
     return verifyFirebaseAuth({auth}).switchMap(() => {
+		 
       if (currentState.chatId) {
         return writeMessage(currentState.chatId, action.message, action.messageType, currentState.currentUser, {firestore, serverTime})
           .switchMap(() => {
             return updateChat(action.message, currentState.chatId, currentState.currentUser, {firestore, serverTime})
           });
       } else {
+		  
         return createChat(action.message, currentState.currentUser, currentState.otherUser, {firestore, serverTime})
           .switchMap(ref => {
             return writeMessage(ref.id, action.message, action.messageType, currentState.currentUser, {firestore, serverTime})
@@ -70,6 +73,7 @@ export const sendMessage = (action$, state, {auth, firestore, serverTime}) => ac
 export const uploadFile = (action$, state, {auth, storage}) => action$.ofType(MessageActions.UPLOAD_FILE)
   .switchMap(action => {
     const currentState = state.getState().messageReducer;
+    
     return verifyFirebaseAuth({auth}).switchMap(() => {
         let ref = storage.ref().child('sharedFiles').child(`${currentState.currentUser.id}`).child(`${currentState.otherUser.id}`).child(moment().format('x'));
         return uploadFileService(ref, action.file, action.metadata);
@@ -131,6 +135,7 @@ const writeMessage = (chatId, message, messageType, currentUser, {firestore, ser
 
 
 const createChat = (message, currentUser, otherUser, {firestore, serverTime}) => {
+	
   return Rx.Observable.fromPromise(firestore.collection('chats')
     .add({
       createdAt: serverTime,

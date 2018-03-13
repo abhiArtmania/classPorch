@@ -26,6 +26,7 @@ class ProfileTile extends Component {
     duration: '1',
     billedAmount: '0',
     message: '',
+    messageToClient:"",
     showMessage: false,
     isAmountLess: false
   };
@@ -43,14 +44,16 @@ class ProfileTile extends Component {
       displayClock: false,
       duration: '1',
       billedAmount: '0',
+      messageToClient:"",
       message: '',
       showMessage: false,
       isAmountLess: false
     })
   };
 
-  bookSession(tutorId, skill, authToken, sessionStartTime, sessionEndTime, amountPaid, userId) {
-    this.props.sessionRequested({ tutorId, skill, authToken, sessionStartTime, sessionEndTime, amountPaid, userId });
+  bookSession(tutorId, skill, authToken, sessionStartTime, sessionEndTime, amountPaid, userId,currentUser, otherUser,messageToClient) {
+	  
+    this.props.sessionRequested({ tutorId, skill, authToken, sessionStartTime, sessionEndTime, amountPaid, userId,currentUser, otherUser,messageToClient});
     this.setState({ selectedSkillId: null, date: null })
   }
 
@@ -70,7 +73,23 @@ class ProfileTile extends Component {
     const tutorId = profile.id;
     const skill = { "id": selectedSkillId, "name": selectedSkillName };
     const { sessionStartTime, sessionEndTime } = this.getSessionStartTime(date, startTime, duration);
-    this.bookSession(tutorId, skill, authToken, sessionStartTime, sessionEndTime, amountPaid, userId)
+    const current=this.props.dashboard.profile['full-name'].split(' ')
+    const currentUser = { 
+			firstName: current[0], 
+			lastName:current[1], 
+			role:'student', 
+			id:this.props.userId 
+		};
+		const other=this.props.profile['full-name'].split(' ')
+		const otherUser = { 
+			firstName: other[0] , 
+			lastName: other[1], 
+			role: 'tutor', 
+			id: this.props.profile.id 
+		};
+		
+		
+    this.bookSession(tutorId, skill, authToken, sessionStartTime, sessionEndTime, amountPaid, userId, currentUser, otherUser, this.state.messageToClient)
   };
 
   addMoney = () => {
@@ -120,7 +139,7 @@ class ProfileTile extends Component {
     }
     return arrayDuration
   };
-
+  getMessage=(e) => {this.setState({messageToClient:e.target.value}); }
   showModal = () => this.setState({ modalVisible: true });
   close = () => this.setState({ modalVisible: false });
 
@@ -194,7 +213,7 @@ class ProfileTile extends Component {
               <div className='request-section'>
                 <div className='field'>Message</div>
                 <textarea placeholder='Message for client' fluid
-                  onChange={this.state.props} />
+                  onChange={this.getMessage.bind(this)} />
               </div>
 
             </div>
@@ -229,8 +248,8 @@ class ProfileTile extends Component {
 }
 
 const mapStateToProps = ({ dashboard, auth }) => {
-  const { authToken, id: userId } = auth;
-  return { dashboard, authToken, userId }
+  const { authToken, id: userId,first_name,last_name } = auth;
+  return { dashboard, authToken, userId,first_name,last_name } 
 };
 
 export default connect(mapStateToProps, { sessionRequested })(ProfileTile)

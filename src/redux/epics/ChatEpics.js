@@ -5,6 +5,7 @@ import Rx from 'rxjs/Rx';
 export const loadChats = (action$, state, {auth, firestore}) => action$.ofType(ChatActions.LOAD_CHATS)
   .mergeMap(() => {
     const currentState = state.getState().auth;
+    
     return verifyFirebaseAuth({auth}).switchMap(() => {
       return Rx.Observable.create(observer => {
         firestore.collection('chats')
