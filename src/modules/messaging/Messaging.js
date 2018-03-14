@@ -96,7 +96,7 @@ onKeyPress(e){
             </Grid.Column>
           </Grid.Row>
           <Grid.Row centered>
-            <Grid.Column textAlign={'left'} width={12} style={{ height: '65vh', overflow: 'scroll' }}>
+            <Grid.Column textAlign={'left'} width={12} style={{ height: '53vh', overflow: 'scroll' }}>
               <List relaxed>{messages}</List>
             </Grid.Column>
           </Grid.Row>

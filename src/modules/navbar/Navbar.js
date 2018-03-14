@@ -101,6 +101,7 @@ class Navbar extends Component {
                 this.scrollTo();
                 return role === 'tutor' ? history.push('/profile/tutor') : history.push('/profile/student');
             case 'notification':
+				this.setState({showReply: false})
                 history.push('/notification');
                 return;
 
@@ -265,15 +266,15 @@ class Navbar extends Component {
 
         const Notificationtrigger = (
             <Menu.Item name={'notification'} active={this.state.activeItem === 'notification'}
-                onClick={this.handleItemClick}><Image centered src={compass}  ></Image></Menu.Item>
+                onClick={this.handleItemClick}>Show all notifications</Menu.Item>
         );
 
-       let notificationbar=this.renderNotificationtems()
+       let notificationbar=this.renderNotificationtems(Notificationtrigger)
 
         return (<Menu.Menu position='right'>
             <Menu.Item name={'messages'} active={this.state.activeItem === 'messages'}
                 onClick={this.handleItemClick}>Messages</Menu.Item>
-            {this.props.role === 'student' &&
+            {(window.location.pathname === '/search' || window.location.pathname === '/dashboard/student' || window.location.pathname === '/profile/student') && this.props.role === 'student' &&
                 <Menu.Item name={'search'} active={this.state.activeItem === 'search'} onClick={this.handleItemClick}>Search
                 Tutors</Menu.Item>}
 
@@ -337,7 +338,7 @@ class Navbar extends Component {
         return (<Menu.Menu position={'right'}> {menuItems} </Menu.Menu>)
     }
 
-    renderNotificationtems() {
+    renderNotificationtems(all) {
     
         let menuItems = this.state.NotificationList.map((item) => {
             return (
@@ -348,7 +349,7 @@ class Navbar extends Component {
                 </div>
             );
         });
-        return (<div position={'right'}> {menuItems} </div>)
+        return (<div position={'right'}> {menuItems}{all} </div>)
     }
     
 
