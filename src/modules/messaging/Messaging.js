@@ -91,7 +91,7 @@ onKeyPress(e){
             </Grid.Column>
             <Grid.Column textAlign='left' width={11} style={{ cursor: 'pointer' }}>
               <span style={{ fontSize: 32, fontWeight: 300 }}>
-                {this.props.otherUser.lastName+" "+ this.props.otherUser.lastName}
+                {this.props.otherUser.firstName+" "+ this.props.otherUser.lastName}
               </span>
             </Grid.Column>
           </Grid.Row>

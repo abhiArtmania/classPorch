@@ -110,10 +110,7 @@ export const sessionRequested = ({tutorId, skill, authToken, sessionStartTime, s
   return async (dispatch) => {
     try {
 		
-		let payload= {
-          "currentUser": currentUser,
-          "otherUser": otherUser
-        }
+	
        
       dispatch({type: TUTOR_SESSION_REQUESTED});
       dispatch({type:"SET_FIRST_MESSAGE",

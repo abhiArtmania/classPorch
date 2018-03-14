@@ -21,7 +21,8 @@ const MessageReducer = ( state = initState, action) => {
       return {
         ...state,
         currentUser:action.payload.currentUser, 
-        otherUser:action.payload.otherUser
+        otherUser:action.payload.otherUser,
+        chatId: null
       };
     case MessageActions.FIND_CHAT:
       return {
