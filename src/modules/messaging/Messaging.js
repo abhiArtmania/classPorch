@@ -30,6 +30,7 @@ class Messaging extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+	  
     const { messages, error } = nextProps;
     if (error !== undefined && error !== null && error !== this.props.error) {
       //message.error(error);
@@ -37,7 +38,14 @@ class Messaging extends Component {
     this.setState({ isUploadingFile: nextProps.isUploadingFile, uploadProgress: nextProps.uploadProgress });
     this.createMessageRows(messages);
   }
-
+componentDidUpdate()
+{
+	
+	let container=document.getElementById("messaging_scroll");
+	let lastMsg=document.querySelector("#messaging_scroll .item:last-child")
+	
+	lastMsg.scrollIntoView(false)
+}
   componentWillUnmount() {
     this.props.unsubscribe();
   }
@@ -96,7 +104,7 @@ onKeyPress(e){
             </Grid.Column>
           </Grid.Row>
           <Grid.Row centered>
-            <Grid.Column textAlign={'left'} width={12} style={{ height: '53vh', overflow: 'scroll' }}>
+            <Grid.Column textAlign={'left'} width={12} id={"messaging_scroll"} style={{ height: '53vh', overflow: 'scroll' }}>
               <List relaxed>{messages}</List>
             </Grid.Column>
           </Grid.Row>

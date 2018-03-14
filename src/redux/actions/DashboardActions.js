@@ -44,6 +44,7 @@ export const unsubscribeDashboard = () => ({
 });
 
 export const getDashboard = ({userId, authToken}) => {
+	
   return (dispatch) => {
     fetch(`${apiEndpoints.base}/user/${userId}/dashboard`, {
       headers: {
@@ -57,12 +58,15 @@ export const getDashboard = ({userId, authToken}) => {
         return raw.json()
       })
       .then(res => {
-        console.log(res);
-        const {profile, notifications} = res.data.attributes;
+		   console.log("!!!!")
+        console.log(res.response);
+        const {notifications} = res.response;
+        const profile=res.response.user;
         const notificationsNextUrl = res.data.attributes['notifications-next-url'];
-        const suggestedTutors = res.data.attributes['suggested-tutors'];
+        const suggestedTutors = res.response['suggested-tutors'];
         const weekSchedule = res.data.attributes['week-schedule'];
         const nextWeekUrl = res.data.attributes['next-week-url'];
+       
         return dispatch({
           type: GET_DASHBOARD_SUCCESS,
           payload: {profile, notifications, notificationsNextUrl, suggestedTutors, weekSchedule, nextWeekUrl}
@@ -79,6 +83,8 @@ export const getDashboard = ({userId, authToken}) => {
 };
 
 export const fetchNotifications = (uri, authToken, userId) => {
+	  
+	  
   console.log(authToken);
   console.log(userId);
   return (dispatch) => {
@@ -97,7 +103,8 @@ export const fetchNotifications = (uri, authToken, userId) => {
         return raw.json()
       })
       .then(res => {
-        console.log(res.data);
+		  
+      
         return dispatch({type: FETCH_NOTIFICATIONS_SUCCESS, payload: res.data})
       })
       .catch(err => {
