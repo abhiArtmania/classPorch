@@ -60,10 +60,10 @@ export const getDashboard = ({userId, authToken}) => {
       .then(res => {
 		   console.log("!!!!")
         console.log(res.response);
-        const {notifications} = res.response;
-        const profile=res.response.user;
+        const {profile, notifications} = res.data.attributes;
+        
         const notificationsNextUrl = res.data.attributes['notifications-next-url'];
-        const suggestedTutors = res.response['suggested-tutors'];
+        const suggestedTutors = res.data.attributes['suggested-tutors'];
         const weekSchedule = res.data.attributes['week-schedule'];
         const nextWeekUrl = res.data.attributes['next-week-url'];
        
@@ -161,7 +161,7 @@ export const sessionRequested = ({tutorId, skill, authToken, sessionStartTime, s
         "session_id": sessionId
       };
       console.log(paymentBody);
-      /*let payRaw = await fetch(`${apiEndpoints.base}/users/${userId}/pay`, {
+     let payRaw = await fetch(`${apiEndpoints.base}/users/${userId}/pay`, {
         method: 'POST',
         headers: {
           'auth-token': authToken,
@@ -176,7 +176,7 @@ export const sessionRequested = ({tutorId, skill, authToken, sessionStartTime, s
       let payRes = await payRaw.json();
       console.log(payRes);
 
-*/
+
       const id = uuidv1();
       return dispatch({
         type: TUTOR_SESSION_REQUEST_SENT,

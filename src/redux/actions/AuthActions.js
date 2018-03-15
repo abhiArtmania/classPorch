@@ -89,21 +89,22 @@ export const signupUser = (parsedForm) => {
             dispatch({type: SIGNUP_USER});
 
             const res = await axios.post(apiEndpoints.auth.signUp, parsedForm);
-            console.log(res);
+           console.log(res)
+            
             if (res.status !== 200) {
                 throw('Please check your internet connection. A mouse may be chewing the wire.')
             }
 
-            if (!res.data.success) {
-                throw("We couldn't sign you up this time. We'd be grateful if you'd try just once more")
-            }
+           
 
             const userResObject = {...res.data.user, ...res.data.session};
+           
+            
 
-            if (res.data.user.role === 'tutor') {
+            if (res.data.response.role === 'tutor') {
                 dispatch({type: SIGNUP_SUCCESS, payload: {userResObject}});
                 return history.push('/dashboard/tutor')
-            } else if (res.data.user.role === 'student') {
+            } else if (res.data.response.role === 'student') {
                 dispatch({type: SIGNUP_SUCCESS, payload: {userResObject}});
                 return history.push('/dashboard/student')
             } else {
