@@ -24,7 +24,7 @@ import {
   TosStudent,
   TosTutor,
   PrivacyPolicy,
-  ContactUs,
+  ContactUs2,
 } from "./modules"
 import AboutUs from "./modules/AboutUs/AboutUs"
 import { iWant } from "./modules/IWant/IWant"
@@ -42,7 +42,7 @@ const Routes = () => {
         <Route exact path={"/chats"} component={Chat} />
         <Route exact path={"/messages"} component={Messaging} />
         <Route exact path={"/notification"} component={Notification} />
-        <Route exact path="/contact" component={ContactUs} />
+        <Route exact path="/contact" component={ContactUs2} />
         <Route exact path="/privacy-policy" component={PrivacyPolicy} />
         <Route exact path="/login" component={LoginRedux} />
         <Route exact path="/search" component={SearchResults} />
