@@ -59,8 +59,9 @@ export const getDashboard = ({userId, authToken}) => {
       })
       .then(res => {
 		   console.log("!!!!")
-        console.log(res.response);
-        const {profile, notifications} = res.data.attributes;
+        console.log(res);
+        const {notifications} = res.response;
+        const profile=res.response.user; 
         
         const notificationsNextUrl = res.data.attributes['notifications-next-url'];
         const suggestedTutors = res.data.attributes['suggested-tutors'];

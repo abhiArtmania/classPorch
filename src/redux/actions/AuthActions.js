@@ -89,15 +89,15 @@ export const signupUser = (parsedForm) => {
             dispatch({type: SIGNUP_USER});
 
             const res = await axios.post(apiEndpoints.auth.signUp, parsedForm);
-           console.log(res)
-            
+           
+            console.log(res.data.response.role)
             if (res.status !== 200) {
                 throw('Please check your internet connection. A mouse may be chewing the wire.')
             }
 
            
 
-            const userResObject = {...res.data.user, ...res.data.session};
+            const userResObject = res.data.response;
            
             
 

@@ -69,8 +69,11 @@ export default (state = INITIAL_STATE, action) => {
 			return { ...state = INITIAL_STATE, loading:true };
 
 		case SIGNUP_SUCCESS:{
+			
 			const { auth_token, birthday_date,city,country,created_at,email,
 				first_name,gender,id,image,last_name,number, provider,role,uid,updated_at } = action.payload.userResObject;
+				alert( auth_token+ birthday_date+city+country+created_at+email+
+				first_name+gender+id+image+last_name+number+provider+role+uid+updated_at)
 
 			return { ...state = INITIAL_STATE, loggedIn:true, authToken:auth_token, birthdayDate:birthday_date,city,country,
 				createdAt:created_at,email,firstName:first_name,gender,id,image,lastName:last_name,number, 

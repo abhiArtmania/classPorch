@@ -1,21 +1,41 @@
 import React from 'react';
+import {history} from '../../redux/store';
 import {Grid, Form, TextArea, Button, Card, Image, Header, Icon, Modal } from 'semantic-ui-react';
 import logoDark from '../../assets/logo_dark.png';
 import telephone from '../../assets/contact/oldtelephone.png';
 import envelope from '../../assets/contact/envelope.png';
-
+import book from '../../assets/contact/book.png';
 import './index.scss';
 export default class ContactUs2 extends React.Component {
 	state = {
     modalVisible: false
 }
   showModal = () => this.setState({ modalVisible: true });
+  goFAQ()
+  {
+	  history.push("/faq")
+  }
   close = () => this.setState({ modalVisible: false });
   render() {
     return (
     
     <div>
-    <Card.Group style={{margin: "50px 75px"}} itemsPerRow="2" stackable={true}>
+    <Card.Group style={{margin: "50px 15px"}} itemsPerRow="3" stackable={true}>
+    <Card className="buttonCard" onClick={this.goFAQ.bind(this)}>>
+      <Card.Content style={{margin: "auto", padding:"25px",textAlign:"center"}}>
+        <Image floated='center' size='medium' src={book} />
+        <Card.Header>
+          FAQ
+        </Card.Header>
+        <Card.Meta>
+          FAQ
+        </Card.Meta>
+        <Card.Description>
+         FAQ
+        </Card.Description>
+      </Card.Content>
+     
+    </Card>
     <Card className="buttonCard">
       <Card.Content style={{margin: "auto", padding:"25px",textAlign:"center"}}>
         <Image floated='center' size='medium' src={telephone} />
