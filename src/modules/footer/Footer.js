@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
 import './styles.scss';
-import {
-    Grid,
-    Menu
-} from 'semantic-ui-react';
+import {Grid, Menu } from 'semantic-ui-react'
 import {history} from '../../redux/store';
 import {connect} from 'react-redux'
 import {Intro} from "./Intro/index";
@@ -47,6 +44,11 @@ class Footer extends Component {
     render() {
         return (
             <div>
+    
+     
+    
+
+
                 <div className='footer-bottom-background no-pad'>
                     <Intro/>
                     <Grid centered padded={'horizontally'}>
@@ -95,8 +97,9 @@ class Footer extends Component {
 }
 
 
-const mapStateToProps = ({auth}) => {
+const mapStateToProps = ({auth,dashboard}) => {
     const {role} = auth;
+    
     return {role}
 };
 

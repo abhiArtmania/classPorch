@@ -4,8 +4,12 @@ import {browserHistory} from 'react-router';
 import {
   GET_UNREAD_MESSAGES_COUNT,
   SET_UNREAD_MESSAGES_COUNT,
+  GET_DASHBOARD_START,
   GET_DASHBOARD_SUCCESS,
   GET_DASHBOARD_FAIL,
+  GET_FAQ_START,
+  GET_FAQ_SUCCESS,
+  GET_FAQ_FAIL,
   FETCH_NOTIFICATIONS,
   FETCH_NOTIFICATIONS_SUCCESS,
   FETCH_NOTIFICATIONS_FAIL,
@@ -46,6 +50,7 @@ export const unsubscribeDashboard = () => ({
 export const getDashboard = ({userId, authToken}) => {
 	
   return (dispatch) => {
+	  dispatch({type: GET_DASHBOARD_START, payload: true});
     fetch(`${apiEndpoints.base}/user/${userId}/dashboard`, {
       headers: {
         'auth-token': authToken
@@ -113,7 +118,26 @@ export const fetchNotifications = (uri, authToken, userId) => {
       })
   }
 };
+export const getFAQ = () => {
 
+  return (dispatch) => {
+	  
+	  dispatch({type: GET_FAQ_START, payload: true});
+	  fetch(`${apiEndpoints.base}/faq`, {
+                headers: {
+                    'auth-token': 'd3FxhQYWG0FIZqn1X1UN_Q'
+                }
+            })
+	.then(rawRes => {console.log(rawRes); return rawRes.json()})
+	.then(res =>{if(res.meta.code=="200")
+      
+        return dispatch({type: GET_FAQ_SUCCESS, payload: res.response})
+      })
+      .catch(err => {
+        return dispatch({type: GET_FAQ_FAIL, payload: 'error'})
+      })
+  }
+};
 export const sessionRequested = ({tutorId, skill, authToken, sessionStartTime, sessionEndTime, amountPaid, userId,currentUser, otherUser, messageToClient}) => {
   return async (dispatch) => {
     try {

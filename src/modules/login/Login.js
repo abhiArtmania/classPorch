@@ -6,7 +6,9 @@ import {
     Icon,
     Input,
     Form,
-    Modal
+    Modal,
+    Dimmer,
+    Loader  
 } from 'semantic-ui-react';
 
 import compass from '../../assets/login/compass.png';
@@ -129,8 +131,14 @@ class Login extends Component {
         const {isLoading, noEmailError, showPasswordModal, isSigningIn} = this.state;
 
         return (
+    
+        
             <Grid className='login-body'>
                 <Grid.Row centered>
+                 {this.state.isSigningIn &&   <div style={{position:"fixed", top:"0",bottom:"0",left:"0",right:"0"}}><Dimmer active inverted>
+					<Loader inverted>Loading</Loader>
+				</Dimmer>
+      </div>}
                     <Grid.Column width={4}>
                         <Image centered src={compass} className='login-compass'></Image>
                     </Grid.Column>

@@ -63,11 +63,11 @@ export const loginUser = (userReqObject) => {
                 throw('Please check your internet connection. A mouse may be chewing the wire.')
             }
 
-            if (!res.data.success) {
+            if (res.meta.code!==201) {
                 throw('Please enter correct username or password. We know you can do it. ')
             }
 
-            const userResObject = {...res.data.user, ...res.data.session};
+            const userResObject = res.response;
             dispatch({type: LOGIN_USER_SUCCESS, payload: {userResObject}});
             history.isAuth = true;
             history.push('/dashboard/' + res.data.user.role)

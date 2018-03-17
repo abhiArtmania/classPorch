@@ -12,9 +12,12 @@ export const SIGNUP_FAIL = 'signup_fail';
 export const LOGOUT_USER = 'logout_user';
 export const LOGOUT_USER_SUCCESS = 'logout_user_success';
 export const LOGOUT_USER_FAIL = 'logout_user_fail';
-
+export const GET_DASHBOARD_START = 'get_dashboard_start';
 export const GET_DASHBOARD_SUCCESS = 'get_dashboard_success';
-export const GET_DASHBOARD_FAIL = 'get_dashbaord_fail';
+export const GET_DASHBOARD_FAIL = 'get_dashboard_fail';
+export const GET_FAQ_START = 'get_faq_start';
+export const GET_FAQ_SUCCESS = 'get_faq_success';
+export const GET_FAQ_FAIL = 'get_faq_fail';
 export const FETCH_NOTIFICATIONS = 'fetch_notifications';
 export const FETCH_NOTIFICATIONS_SUCCESS = 'fetch_notifications_success';
 export const FETCH_NOTIFICATIONS_FAIL = 'fetch_notifications_fail';

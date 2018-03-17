@@ -25,10 +25,11 @@ import {
   TosTutor,
   PrivacyPolicy,
   ContactUs2,
+  Faq 
 } from "./modules"
 import AboutUs from "./modules/AboutUs/AboutUs"
 import { iWant } from "./modules/IWant/IWant"
-import { Faq } from "./modules/Faq/Faq"
+
 
 const Routes = () => {
   const token = localStorage.getItem("store")

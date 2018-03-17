@@ -1,6 +1,10 @@
 import {
+  GET_DASHBOARD_START,
   GET_DASHBOARD_SUCCESS,
   GET_DASHBOARD_FAIL,
+  GET_FAQ_START,
+  GET_FAQ_SUCCESS,
+  GET_FAQ_FAIL,
   FETCH_NOTIFICATIONS,
   FETCH_NOTIFICATIONS_SUCCESS,
   FETCH_NOTIFICATIONS_FAIL,
@@ -57,18 +61,23 @@ const INITIAL_STATE = {
   accountLinkIndicator: null,
   linkingAccount: false,
   unreadMessageCount: 0,
-  searchMode:'normal'
+  searchMode:'normal',
+  FAQ:[]
 };
 
 export default (state = INITIAL_STATE, action) => {
+	
   switch (action.type) {
+	case   GET_DASHBOARD_START:
+		return {...state, loading: true};
+	  
     case GET_DASHBOARD_SUCCESS: {
       const {profile, notifications, notificationsNextUrl, suggestedTutors, weekSchedule, nextWeekUrl} = action.payload;
-      return {...state, profile, notifications, notificationsNextUrl, suggestedTutors, weekSchedule, nextWeekUrl}
+      return {...state, profile, notifications, notificationsNextUrl, suggestedTutors, weekSchedule, nextWeekUrl, loading: false}
     }
 
     case GET_DASHBOARD_FAIL:
-      return {...state, dashboardErrors: action.payload};
+      return {...state, dashboardErrors: action.payload, loading: false};
 
     case FETCH_NOTIFICATIONS:
       // console.log(action.payload)
@@ -174,7 +183,20 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         unreadMessageCount: action.count
-      };
+      }
+    case   GET_FAQ_START:{
+    
+		return {...state, loading: true}
+	  }
+    case GET_FAQ_SUCCESS: {
+      const FAQ = action.payload;
+      
+      return {...state, FAQ:FAQ}
+    }
+
+    case GET_FAQ_FAIL:
+      return {...state, dashboardErrors: action.payload}
+      
 
 
     default:
