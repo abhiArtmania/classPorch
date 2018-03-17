@@ -8,6 +8,7 @@ import { apiEndpoints } from '../../ApiEndpoints';
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { Accordion, Icon, Pagination  } from 'semantic-ui-react'
+//import {getFAQ} from '../../redux/actions';
 import './index.scss';
 
 export class Faq extends Component {
@@ -41,23 +42,26 @@ componentDidMount()
   }	
   onPageChanged(e,{activePage})
   {
+	  let view=document.querySelector(".accord_container .pagination");
+	  
 	  this.setState({activePage:activePage})
+	  //view.scrollIntoView(false);
   }
     render() {
 		const length=this.state.items.length;
 		const {activePage}=this.state;
-		const totalPages=(length % 10)? length/10+1 : length/10;
+		const totalPages=(length % 10)? Math.floor(length/10+1) : length/10;
 		let items;
 		if(length<=10) items=this.state.items;
 		else if(activePage==totalPages) items=this.state.items.slice((activePage-1)*10-1)
 		else items=this.state.items.slice(activePage*10-10,activePage*10)
-		const raws=items.map(item => 
+		const raws=items.map((item,i) => 
 		<div>
-		<Accordion.Title active={this.state.activeIndex === 0} index={0} onClick={this.handleClick}>
+		<Accordion.Title active={this.state.activeIndex === i} index={i} onClick={this.handleClick}>
           <Icon name='dropdown' />
          {item.question}
         </Accordion.Title>
-        <Accordion.Content active={this.state.activeIndex === 0}>
+        <Accordion.Content active={this.state.activeIndex === i}>
           <p>
             {item.answer}
           </p>
@@ -73,7 +77,15 @@ componentDidMount()
         </div>
     }
 }
+
 const mapStateToProps = ({auth}) => {
   const {authToken} = auth;
+ // const {FAQ} = dashboard;
+  return {authToken}
 };
+
+/*const mapActionsToProps = () => {
+  return {getFAQ}
+};
+*/
 export default connect(mapStateToProps, {})(Faq);
