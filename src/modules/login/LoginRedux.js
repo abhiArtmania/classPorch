@@ -9,7 +9,7 @@ import {
     Icon,
     Input,
     Form,
-    Modal, Label
+    Modal, Label, Dimmer, Loader
 } from 'semantic-ui-react';
 import './styles.scss';
 import compass from '../../assets/login/compass.png';
@@ -44,6 +44,7 @@ class LoginRedux extends Component {
 
     onLoginUser(event) {
         event.preventDefault();
+        this.setState({loading:true})
         const {email, password} = this.props;
         this.props.loginUser(this.makeLoginApiRequestBody(email, password, null, null, null))
     }
@@ -110,6 +111,10 @@ class LoginRedux extends Component {
         return (
             <Grid className='login-body'>
                 <Grid.Row centered>
+                {this.props.loading &&   <div style={{position:"fixed", top:"0",bottom:"0",left:"0",right:"0"}}><Dimmer active inverted>
+					<Loader inverted>Loading</Loader>
+				</Dimmer>
+      </div>}
                     <Grid.Column width={4}>
                         <Image centered src={compass} className='login-compass'></Image>
                     </Grid.Column>
@@ -122,7 +127,7 @@ class LoginRedux extends Component {
                 <Grid.Row centered>
                     <Grid.Column>
                         <div style={{color: '#4542f4'}}>
-                            {errorMessage ? null : null}
+                            {errorMessage ? errorMessage : null}
                         </div>
                     </Grid.Column>
                 </Grid.Row>

@@ -130,7 +130,7 @@ export const getFAQ = () => {
             })
 	.then(rawRes => {console.log(rawRes); return rawRes.json()})
 	.then(res =>{if(res.meta.code=="200")
-      
+      console.log(res); 
         return dispatch({type: GET_FAQ_SUCCESS, payload: res.response})
       })
       .catch(err => {

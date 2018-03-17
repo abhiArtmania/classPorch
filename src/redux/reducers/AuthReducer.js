@@ -58,7 +58,7 @@ export default (state = INITIAL_STATE, action) => {
 
 			return { ...state = INITIAL_STATE, loggedIn:true, authToken:auth_token, birthdayDate:birthday_date,city,country,
 				createdAt:created_at,email,firstName:first_name,gender,id,image,lastName:last_name,number, 
-				provider,role,uid,updatedAt:updated_at, errorMessage:null }
+				provider,role,uid,updatedAt:updated_at, errorMessage:null, loading:false }
 		}
 
 		case LOGIN_USER_FAIL:
