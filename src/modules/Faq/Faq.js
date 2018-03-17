@@ -55,7 +55,10 @@ componentDidMount=async() =>
 		else items=this.state.items.slice(activePage*10-10,activePage*10)
 		
 		const raws=items.map((item,i) => <div>
-		
+		{this.state.loading &&   <div style={{position:"fixed", top:"0",bottom:"0",left:"0",right:"0"}}><Dimmer active inverted>
+					<Loader inverted>Loading</Loader>
+				</Dimmer>
+      </div>}
 		<Accordion.Title active={this.state.activeIndex === i} index={i} onClick={this.handleClick}>
           <Icon name='dropdown' />
          {item.question}{i+1}
@@ -66,10 +69,7 @@ componentDidMount=async() =>
           </p>
         </Accordion.Content></div>)
         return <div>
-        {this.state.loading &&   <div style={{position:"fixed", top:"0",bottom:"0",left:"0",right:"0"}}><Dimmer active inverted>
-					<Loader inverted>Loading</Loader>
-				</Dimmer>
-      </div>}
+        
         <div style={{textAlign:"center", fontWeight:"bold",margin:"75px 0", fontSize:"2em", color:"steelblue"}}><span style={{ backgroundColor:"beige"}}>Frequently asked questions:</span></div> 
         <div className="accord_container">  
          <Accordion styled>
