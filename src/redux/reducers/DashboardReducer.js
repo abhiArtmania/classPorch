@@ -191,11 +191,11 @@ export default (state = INITIAL_STATE, action) => {
     case GET_FAQ_SUCCESS: {
       const FAQ = action.payload;
       
-      return {...state, FAQ:FAQ}
+      return {...state, FAQ:FAQ,loading: false}
     }
 
     case GET_FAQ_FAIL:
-      return {...state, dashboardErrors: action.payload}
+      return {...state, dashboardErrors: action.payload, loading: false}
       
 
 

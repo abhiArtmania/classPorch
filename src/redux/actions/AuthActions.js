@@ -69,7 +69,7 @@ export const loginUser = (userReqObject) => {
             }
 
             if (res.data.meta.code!==201) {
-                throw('Please enter correct username or password. We know you can do it. ')
+                throw('The email or password you entered is incorrect, please try again')
             }
 
             const userResObject = res.data.response;
