@@ -31,7 +31,7 @@ import {
 const INITIAL_STATE = {
   type: "",
   profile: {
-    "full-name": "",
+    "fullname": "",
     "profile-picture": "",
     "type": "",
     "credits": "",

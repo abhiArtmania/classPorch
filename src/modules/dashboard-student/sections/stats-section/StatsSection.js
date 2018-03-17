@@ -24,7 +24,7 @@ class StatsSection extends React.Component {
       <Grid className='tutor-stats-section'>
         <Grid.Row centered>
           <Grid.Column width={12} textAlign='left'>
-            <p className='tutor-greeting'> Hi {profile['full-name'].split(' ')[0]}  </p>
+            <p className='tutor-greeting'> Hi {profile['fullname']}  </p>
             <span className='tutor-greeting2'>Here is your tailored dashboard.</span>
           </Grid.Column>
         </Grid.Row>

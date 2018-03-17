@@ -58,11 +58,11 @@ export const getDashboard = ({userId, authToken}) => {
         return raw.json()
       })
       .then(res => {
-		   console.log("!!!!")
+		   
         console.log(res);
         const {notifications} = res.response;
         const profile=res.response.user; 
-        
+       
         const notificationsNextUrl = res.data.attributes['notifications-next-url'];
         const suggestedTutors = res.data.attributes['suggested-tutors'];
         const weekSchedule = res.data.attributes['week-schedule'];

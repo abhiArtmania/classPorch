@@ -21,7 +21,7 @@ export default class ContactUs2 extends React.Component {
     
     <div>
     <Card.Group style={{margin: "50px 15px"}} itemsPerRow="3" stackable={true}>
-    <Card className="buttonCard" onClick={this.goFAQ.bind(this)}>>
+    <Card className="buttonCard" onClick={this.goFAQ.bind(this)}>
       <Card.Content style={{margin: "auto", padding:"25px",textAlign:"center"}}>
         <Image floated='center' size='medium' src={book} />
         <Card.Header>
