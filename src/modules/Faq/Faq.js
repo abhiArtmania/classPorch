@@ -63,7 +63,7 @@ componentDidMount()
           </p>
         </Accordion.Content></div>)
         return <div>
-        <div style={{textAlign:"center", fontWeight:"bold",margin:"75px 0", fontSize:"5em"}}>F.A.Q.</div> 
+        <div style={{textAlign:"center", fontWeight:"bold",margin:"75px 0", fontSize:"2em", color:"steelblue"}}><span style={{ backgroundColor:"beige"}}>Frequently asked questions:</span></div> 
         <div className="accord_container">  
          <Accordion styled>
        {raws}
