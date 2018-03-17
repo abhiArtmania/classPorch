@@ -14,10 +14,15 @@ import {
     LOGIN_USER,
     SIGNUP_USER,
     SIGNUP_SUCCESS,
+    INITIAL_LOGIN,
     SIGNUP_FAIL,
     LOGOUT_USER_SUCCESS
 } from './types'
-
+export const initialLogin = () => {
+    return {
+        type: INITIAL_LOGIN
+    };
+};
 export const emailChanged = (text) => {
     return {
         type: EMAIL_CHANGED,

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import FacebookLogin from 'react-facebook-login';
-import {emailChanged, emailSubmitted, passwordChanged, passwordDialogClosed, loginUser} from '../../redux/actions';
+import {emailChanged, emailSubmitted, passwordChanged, passwordDialogClosed, loginUser, initialLogin} from '../../redux/actions';
 import {
     Grid,
     Image,
@@ -24,6 +24,10 @@ class LoginRedux extends Component {
         emailAfterFbLogin: '',
         fbResponseWithoutEmail: {}
     };
+    componentDidMount()
+    {
+		this.props.initialLogin();
+	}
 
     componentWillUnmount() {
         this.setState({isEmailFacebook: true, emailAfterFbLogin: '', fbResponseWithoutEmail: {}})
@@ -126,7 +130,7 @@ class LoginRedux extends Component {
                 </Grid.Row>
                 <Grid.Row centered>
                     <Grid.Column>
-                        <div style={{color: '#4542f4'}}>
+                        <div style={{color: 'red'}}>
                             {errorMessage ? errorMessage : null}
                         </div>
                     </Grid.Column>
@@ -190,7 +194,8 @@ export default connect(mapStateToProps, {
     emailSubmitted,
     passwordChanged,
     passwordDialogClosed,
-    loginUser
+    loginUser,
+    initialLogin
 })(LoginRedux);
 
 

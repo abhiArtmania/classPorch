@@ -8,6 +8,7 @@ import { EMAIL_CHANGED,
 		 SIGNUP_USER,
 		 SIGNUP_SUCCESS,
 		 SIGNUP_FAIL,
+		 INITIAL_LOGIN,
 		 LOGOUT_USER_SUCCESS } from '../actions/types';
 
 const INITIAL_STATE = { email: '',
@@ -36,6 +37,8 @@ const INITIAL_STATE = { email: '',
 
 export default (state = INITIAL_STATE, action) => {
 	switch(action.type){
+		case INITIAL_LOGIN:
+			return { ...state, errorMessage:"" };
 
 		case EMAIL_CHANGED:
 			return { ...state, email:action.payload };
