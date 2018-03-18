@@ -13,14 +13,19 @@ export default class HourlyRateSection extends React.Component {
         this.onChange = this.onChange.bind(this);
     }
     calcPerMin() {
-        return (this.state.perHour / 60)
+        return (this.state.perHour / 60)*1.25
     }
     onChange(e,{name,value}) {
+      
         if(value> 60 || value < 25) return
         this.setState({perHour: value});
         this.props.onChange(e,{name,value})
+        const newVal=((value / 60)*1.25).toFixed(2)
+        const obj={"name":"minute_rate", "value":newVal}
+        this.props.onChange(e,obj)
     }
     render() {
+		
         return (
             <Grid className='sign-up-hourly-body'>
                 <Grid.Row centered>
@@ -31,7 +36,7 @@ export default class HourlyRateSection extends React.Component {
                 <Grid.Row centered>
                     <Grid.Column width={12} textAlign='left'>
                         <Input
-                            name='rate'
+                            name='hourly_rate'
                             placeholder='0.00'
                             transparent
                             type='number'

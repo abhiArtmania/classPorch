@@ -96,6 +96,7 @@ class SignUpTutor extends React.Component {
     };
 
     onChange = (event, {name, value}) => {
+	
         this.setState({[name]: value});
     };
 

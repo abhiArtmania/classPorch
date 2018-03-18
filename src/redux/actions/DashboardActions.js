@@ -73,8 +73,8 @@ export const getDashboard = ({userId, authToken}) => {
                const suggestedTutors = res.response['suggested_tutors'];
         const notificationsNextUrl = ''//res.data.attributes['notifications-next-url'];
 
-        const weekSchedule = ''//res.data.attributes['week-schedule'];
-        const nextWeekUrl = ''//res.data.attributes['next-week-url'];
+        const weekSchedule = res.response['next_week_url'];
+        const nextWeekUrl = '';
        
         return dispatch({
           type: GET_DASHBOARD_SUCCESS,
