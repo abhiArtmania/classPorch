@@ -28,6 +28,7 @@ import {
   REQUEST_ACCOUNT_LINK_SUCCESS,
   REQUEST_ACCOUNT_LINK_FAILED,
   SET_UNREAD_MESSAGES_COUNT,
+  SET_FAQ_SUBJ,
 } from '../actions/types';
 
 
@@ -62,11 +63,12 @@ const INITIAL_STATE = {
   linkingAccount: false,
   unreadMessageCount: 0,
   searchMode:'normal',
-  FAQ:[]
+  FAQ:[],
+  FAQSubj:''
 };
 
 export default (state = INITIAL_STATE, action) => {
-	
+
   switch (action.type) {
 	case   GET_DASHBOARD_START:
 		return {...state, loading: true};
@@ -196,8 +198,10 @@ export default (state = INITIAL_STATE, action) => {
 
     case GET_FAQ_FAIL:
       return {...state, dashboardErrors: action.payload, loading: false}
-      
-
+      case SET_FAQ_SUBJ:{
+	
+      return {...state,  FAQSubj: action.subj}
+}
 
     default:
       return state

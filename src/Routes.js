@@ -25,7 +25,8 @@ import {
   TosTutor,
   PrivacyPolicy,
   ContactUs2,
-  Faq 
+  Faq,
+  Support 
 } from "./modules"
 import AboutUs from "./modules/AboutUs/AboutUs"
 import { iWant } from "./modules/IWant/IWant"
@@ -48,6 +49,7 @@ const Routes = () => {
         <Route exact path="/login" component={LoginRedux} />
         <Route exact path="/search" component={SearchResults} />
         <Route exact path="/faq" component={Faq} />
+         <Route exact path="/support" component={Support} />
         <Route exact path={"/terms-of-service"} component={TermsOfService} />
         <Route exact path={"/terms-of-service/tutor"} component={TosTutor} />
         <Route exact path={"/terms-of-service/student"} component={TosStudent} />

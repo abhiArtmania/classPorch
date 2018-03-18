@@ -228,7 +228,7 @@ export const updateProfile = ({
 				}
 			}
 
-			console.log(authToken)
+			console.log(bodyObject)
 
 			let resRaw = await fetch(`${apiEndpoints.base}/user/${userId}`, {
 				method: 'PUT',

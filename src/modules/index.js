@@ -26,3 +26,4 @@ export * from './terms-of-service';
 export * from './contact-us';
 export * from './scroll-to-top';
 export * from './Faq';
+export * from './support';

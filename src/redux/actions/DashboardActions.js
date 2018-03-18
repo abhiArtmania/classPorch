@@ -31,8 +31,11 @@ import {
   REQUEST_ACCOUNT_LINK_START,
   REQUEST_ACCOUNT_LINK_SUCCESS,
   REQUEST_ACCOUNT_LINK_FAILED,
+  SET_FAQ_SUBJ,
   UNSUBSCRIBE_DASHBOARD} from './types';
 const uuidv1 = require('uuid/v1');
+
+
 
 export const getUnreadMessagesCount = () => ({
   type: GET_UNREAD_MESSAGES_COUNT
@@ -138,6 +141,7 @@ export const getFAQ = () => {
       })
   }
 };
+export const setFAQSubject = (subj) => ({type:'SET_FAQ_SUBJ',subj});
 export const sessionRequested = ({tutorId, skill, authToken, sessionStartTime, sessionEndTime, amountPaid, userId,currentUser, otherUser, messageToClient}) => {
   return async (dispatch) => {
     try {

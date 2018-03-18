@@ -14,7 +14,7 @@ import './index.scss';
 class Faq extends Component {
 	state=
 	{
-		
+		loading:false,
 		items:[],
 		activeIndex: 0,
 		activePage:1
@@ -23,7 +23,8 @@ class Faq extends Component {
 componentDidMount=async() => 
 {
 		
-		
+	this.setState({loading:true})
+	setTimeout(()=>this.setState({loading:false}), 1500);	
 	await this.props.getFAQ();
 	this.setState({items:this.props.FAQ})
 			
@@ -31,23 +32,28 @@ componentDidMount=async() =>
 
 
   handleClick = (e, titleProps) => {
+	
     const { index } = titleProps
     const { activeIndex } = this.state
     const newIndex = activeIndex === index ? -1 : index
 
     this.setState({ activeIndex: newIndex })
   }	
+
   onPageChanged(e,{activePage})
   {
+	  
+	  this.setState({loading:true})
+	  setTimeout(()=>this.setState({loading:false,activePage:activePage}), 1500);
 	  let view=document.querySelector(".accord_container .pagination");
 	  window.scrollTo(0,0)
-	  this.setState({activePage:activePage})
+	  
 	 
   }
     render() {
 		const length=this.props.FAQ.length;
 		const {activePage}=this.state;
-		
+		const loading=(this.props.loading || this.state.loading)
 		const totalPages=(length%10)?(Math.floor(length/10)+1) : length/10;
 		let items;
 		if(length<=10) items=this.props.FAQ;
@@ -67,25 +73,27 @@ componentDidMount=async() =>
         </Accordion.Content></div>)
         return <div>
         
-        <div style={{textAlign:"center", fontWeight:"bold",margin:"75px 0", fontSize:"2em", color:"steelblue"}}><span style={{ backgroundColor:"beige"}}>Frequently asked questions:</span></div> 
-        {this.props.loading &&  <Segment> <Dimmer active inverted>
+        <div style={{textAlign:"center", fontWeight:"bold",margin:"75px 0", fontSize:"2em", color:"steelblue"}}><span style={{ backgroundColor:"beige"}}>Frequently asked questions <span style={{color:"red"}}>{this.props.FAQSubj}</span>:</span></div> 
+        {loading ?  (<Segment> <Dimmer active inverted>
 					<Loader inverted>Loading</Loader>
 				</Dimmer>
-      </Segment>}
+      </Segment>
+      ):(
         <div className="accord_container">  
          <Accordion styled>
        {raws}
         </Accordion>
-         { length>10 && <Pagination defaultActivePage={1} totalPages={totalPages} onPageChange={this.onPageChanged.bind(this)} />}
+         { length>10 && <Pagination defaultActivePage={this.state.activePage} totalPages={totalPages} onPageChange={this.onPageChanged.bind(this)} />}
         </div>
+        )}
         </div>
     }
 }
 
 
 const mapStateToProps = ({dashboard}) => {
-  const {FAQ, loading} = dashboard;
-  return {FAQ, loading}
+  const {FAQ, loading,FAQSubj} = dashboard;
+  return {FAQ, loading, FAQSubj}
 };
 
 const mapActionToProps = () => {
