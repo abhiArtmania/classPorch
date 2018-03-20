@@ -29,12 +29,11 @@ componentDidMount()
     this.setState({selectedSkills})
    };
 
-  continue = () =>{
+  continue = (e) =>{
+	 e.preventDefault(); 
     this.setState({step:2});
   }
-  goBack = () =>{
-    this.setState({step:1});
-  }
+ 
   onFormSubmitted = (event, {formData}) => {
     event.preventDefault();
 

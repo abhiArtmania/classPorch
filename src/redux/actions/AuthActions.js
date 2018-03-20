@@ -78,7 +78,7 @@ export const loginUser = (userReqObject) => {
             history.push('/dashboard/' + res.data.response.role)
 
         } catch (e) {
-            alert( e);
+            
             dispatch({type: LOGIN_USER_FAIL, payload: {errorMessage: e}});
             return history.push('/login')
         }
@@ -103,6 +103,7 @@ export const signupUser = (parsedForm) => {
            
 
             const userResObject = res.data.response;
+            
            
             
 
@@ -110,9 +111,11 @@ export const signupUser = (parsedForm) => {
                 dispatch({type: SIGNUP_SUCCESS, payload: {userResObject}});
                 return history.push('/dashboard/tutor')
             } else if (res.data.response.role === 'student') {
+				console.log(res.data.response.role)
                 dispatch({type: SIGNUP_SUCCESS, payload: {userResObject}});
                 return history.push('/dashboard/student')
             } else {
+				alert('Looks like the our intern slept while working. Please try again.')
                 throw('Looks like the our intern slept while working. Please try again.')
             }
         } catch (e) {

@@ -46,6 +46,7 @@ onSubmit()
 {
 }
     render() {
+		
         return (
         <Form name="signup2" encType='application/json' onSubmit={this.props.onFormSubmitted}>
           <Grid>

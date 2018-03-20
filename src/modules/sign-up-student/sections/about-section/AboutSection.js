@@ -161,7 +161,7 @@ emailChange(e) {
 	{
 		
 
-		if(!this.state.country) this.setState({selectCountry:"selectCountry"})
+		if(!this.state.country) this.setState({selectCountry:"select your country"})
 		this.setState({colorE:"red",colorP:"red" })
 		if(!this.state.password || !this.state.email || !this.state.country || 
 		this.state['first_name'] || this.state['last_name']
@@ -169,12 +169,12 @@ emailChange(e) {
 		
 		
 	}
-	nextStep()
+	nextStep(e)
 	{
-		this.props.continue();
+		this.props.continue(e);
 	}
     render() {
-		
+		const a=<span style={{color:"red"}}>*</span>
         let renderParentInfo;
         const { gender } = this.state;
         
@@ -190,11 +190,11 @@ emailChange(e) {
             </Grid.Row>
      
         const parents=<Grid.Row centered id="ParentDetails">
-                    <Grid.Column width={5} textAlign='left'>
+                    <Grid.Column width={4} textAlign='left'>
 
                         <input label="Parent/Guardian first Name" type="text" id="ParentfName" name='parent_first_name' fluid  placeholder="Parent/Guardian First Name" onChange={this.onChange.bind(this)}/>
                     </Grid.Column>
-                    <Grid.Column width={5} textAlign='left'>
+                    <Grid.Column width={4} textAlign='left'>
                         <input label="Parent/Guardian last Name" type="text" id="ParentlName" name='parent_last_name' fluid placeholder="Parent/Guardian Last Name" onChange={this.onChange.bind(this)}/>
                     </Grid.Column>
 
@@ -211,12 +211,12 @@ emailChange(e) {
                 {/* Full Name Part */}
                 <Grid.Row centered textAlign='left'>
                     <Grid.Column width={4}>
-                      <span> Name </span>
+                      <span> First Name</span>{a}
                       <input type="text" name="first_name" fluid error placeholder='First Name *' required
                           onChange={this.onChange.bind(this)}/>
                     </Grid.Column>
                     <Grid.Column width={4}>
-                      <br/>
+                      <span>Second Name</span>{a}
                       <input type="text" name="last_name" fluid error placeholder='Second Name *' required
                           onChange={this.onChange.bind(this)}/>
                     </Grid.Column>
@@ -244,24 +244,24 @@ emailChange(e) {
                 </Grid.Row>
 
                 {this.state.showParents && parents}
-                {this.state.showParents && renderParentInfo}
+                
                 <Grid.Row centered>
                     <Grid.Column width={4} textAlign='left'>
-                      <span> Country </span>
+                      <span> Country</span>{a}
                         <Select fluid labeled={true} fluid name='country' required onChange={this.onSelectChange} placeholder='Select your country' options={CountryList} required search />
-                        <div style={{color:"red", position:"absolute", left:"41%", bottom:"-20px"}}>{this.state.selectCountry}</div>
+                        <div style={{color:"red", position:"absolute", left:"15px", bottom:"-20px"}}>{this.state.selectCountry}</div>
                         {/*<Input fluid name='country' type='text' placeholder='Country' required*/}
                         {/*onChange={this.props.onChange}/>*/}
                     </Grid.Column>
                     <Grid.Column width={4} textAlign='left'>
-                      <span> City </span>
+                      <span> City</span>{a}
                         <input  type='text' name="city" fluid placeholder='City' error label="City"
                             onChange={this.onChange.bind(this)} />
                     </Grid.Column>
                 </Grid.Row>
                 <Grid.Row centered>
                   <Grid.Column width={4} textAlign='left'>
-                    <span> Email</span>
+                    <span> Email</span>{a}
                       <input fluid id='email' name="email" error placeholder='Email *' required type='email'
                         onChange={this.emailChange.bind(this)}
                          
@@ -274,7 +274,7 @@ emailChange(e) {
                         }}></label>
                   </Grid.Column>
                    <Grid.Column width={4} textAlign='left'>
-                     <span>Confirm Email</span>
+                     <span>Confirm Email</span>{a}
                       <input fluid name='email' id='cmail' error placeholder='Confirm Email *' 
                       onChange={this.emailChange.bind(this)} onChange={this.emailChange.bind(this)}required type='email' />
                      
@@ -282,13 +282,13 @@ emailChange(e) {
                       <label id='lblCemail' style={{
                           display: "block", float: "right", color: "red", verticalAlign: "top",paddingTop: "5px"
                         }}></label>
+                  
+                  {this.state.wrongEmail  && <div style={{color:this.state.colorE,position:"absolute", right:"15px", bottom:"-15px"}}> emails mismatch </div>}
                   </Grid.Column>
-                  {this.state.wrongEmail  && <div style={{color:this.state.colorE,position:"absolute", left:"41%", bottom:"-20px"}}> -Emails are not the same </div>}
-                  {this.state.wrongFormat && <div style={{color:this.state.colorE,position:"absolute", left:"41%", bottom:"-5px"}}> -Wrong format for email</div>}
                 </Grid.Row>
                 <Grid.Row centered>
                     <Grid.Column width={4} textAlign='left'>
-                      <span> Password </span>
+                      <span> Password</span>{a}
                         <input id='password' name="password" fluid pattern=".{8,}" error type='password' required title="8 characters minimum"
                             placeholder='Password *' onChange={this.passwordChange.bind(this)}/>
                         <label id='lblpassword' style={{
@@ -297,7 +297,7 @@ emailChange(e) {
                         </label>
                     </Grid.Column>
                     <Grid.Column width={4} textAlign='left'>
-                        <span> Confirm Password </span>
+                        <span> Confirm Password</span>{a}
                         <input fluid name='password' id='cpassword' errortype='password' placeholder='Password Confirmation *'
                             required
                             onChange={this.passwordChange.bind(this)} />
@@ -306,8 +306,9 @@ emailChange(e) {
                           }}>
                       </label>
                     </Grid.Column>
-                    {this.state.wrongPass && <div style={{color:this.state.colorP,position:"absolute", left:"41%", bottom:"-20px"}}> -Passwords are not the same </div>}
-                  {this.state.wrongPassFormat && <div style={{color:this.state.colorP,position:"absolute", left:"41%", bottom:"-5px"}}> -Wrong format for password(at least one number, one lowercase, one uppercase )</div>}
+                    {this.state.wrongPass && <div style={{color:this.state.colorP,position:"absolute", left:"26%", bottom:"-20px"}}> -Passwords are not the same </div>}
+                  {this.state.wrongPassFormat && <div style={{color:this.state.colorP,position:"absolute", left:"26%", bottom:"-5px"}}> -Wrong format for password(at least one number, one lowercase, one uppercase )</div>}
+                
                 </Grid.Row>
             </Grid>
              <Grid column={1} centered>
