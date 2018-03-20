@@ -1,40 +1,37 @@
 import React from 'react';
 import {
   AboutSection,
-  EducationSection
+  BottomSection,
+  ContactSection,
+  EducationSection,
+  SkillsSection,
+  TopSection
 } from './sections';
-import {Form,Grid, Checkbox, Button, Dimmer, Loader} from 'semantic-ui-react';
+import {Form,Grid, Checkbox, Button} from 'semantic-ui-react';
 import {connect} from 'react-redux';
-import {signupUser, initialLogin} from '../../redux/actions';
-var $ = require('jquery');
+import {signupUser} from '../../redux/actions';
+
 
 class SignUpStudent extends React.Component {
 
   constructor(props) {
     super(props);
+
+    
     this.onChangeSkills = this.onChangeSkills.bind(this);
     this.onFormSubmitted = this.onFormSubmitted.bind(this);
-    this.continue= this.continue.bind(this);
-    this.state = {step:1, selectedSkills: []};
   }
+  
+ 
 
-  // state = {
-  //   
- ///  };
-componentDidMount()
-{
-	this.props.initialLogin()
-}
+  state = {
+    selectedSkills: []
+  };
+
   onChangeSkills = (selectedSkills) => {
     this.setState({selectedSkills})
-   };
+  };
 
-  continue = () =>{
-    this.setState({step:2});
-  }
-  goBack = () =>{
-    this.setState({step:1});
-  }
   onFormSubmitted = (event, {formData}) => {
     event.preventDefault();
 
@@ -45,24 +42,27 @@ componentDidMount()
     const {
       email,
       password,
+      password_confirmation,
       first_name,
       last_name,
       gender,
+      dob,
       country,
       city,
       mobile,
       grade,
-      state,
       start_education,
       finish_education,
       college_name,
     } = this.state;
-	const password_confirmation=password;
+
     //Modify form data for actual use:
     let parsedForm = {
       user: {
         educations_attributes: {
           '0': {
+            start_education,
+            finish_education,
             university_name: college_name,
             grade
           }
@@ -74,12 +74,15 @@ componentDidMount()
         first_name,
         last_name,
         gender,
+        birthday_date: dob,
         country,
         city,
         number: mobile,
         skills: formSkills
       }
     };
+
+   
 
     if (this.props.errorObject) {
       const { provider, access_token, secret } = this.props.errorObject;
@@ -98,42 +101,38 @@ componentDidMount()
     this.props.signupUser(parsedForm);
   };
 
-  onChange = (event) => {
-	
-    this.setState({[event.target.name]: event.target.value});
-  };
-   onSelectChange = ({name,value}) => {
-
+  onChange = (event, {name, value}) => {
     this.setState({[name]: value});
   };
 
   render() {
     return (
-    <div>
-    {this.props.loading &&   <div style={{position:"fixed", top:"0",bottom:"0",left:"0",right:"0"}}><Dimmer active inverted>
-					<Loader inverted>Loading</Loader>
-				</Dimmer>
-      </div>}
-    <div style={{margin:"0 auto", color:"red", textAlign:"center"}}>{this.props.errorMessage}</div>
-      {/* onSubmit={this.onFormSubmitted} */}
-        {/* <AboutSection onChange={this.onChange}/> */}
-        {(this.state.step == 1)?
-          <AboutSection onSelectChange={this.onSelectChange} onChange={this.onChange} continue={this.continue.bind(this)}/>
-          :<EducationSection onChange={this.onChange} onChangeSkills={this.onChangeSkills.bind(this)}
-           selectedSkills={this.state.selectedSkills} onFormSubmitted={this.onFormSubmitted.bind(this)} 
-       />
-        }
-       
-    </div>
+      <Form encType='application/json' onSubmit={this.onFormSubmitted}>
+        <TopSection/>
+        <AboutSection onChange={this.onChange}/>
+          <ContactSection onChange={this.onChange}/>
+        <EducationSection onChange={this.onChange}/>
+        <SkillsSection onChangeSkills={this.onChangeSkills} selectedSkills={this.state.selectedSkills}/>
+        <BottomSection/>
+        {/* <Grid.Column width={12}>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <Button circular size='large' color='yellow' type='submit' onClick={this.Formvalidation}>CONTINUE</Button>
+                    </Grid.Column> */}
+      </Form>
     )
   }
 }
 
 const mapStateToProps = ({auth}) => {
-  const {email, errorMessage, errorObject, loading} = auth;
-  return {email, errorObject, errorMessage, loading}
+  const {email, errorObject, loading} = auth;
+  return {email, errorObject, loading}
 };
 
 
 
-export default connect(mapStateToProps, {signupUser, initialLogin})(SignUpStudent);
+export default connect(mapStateToProps, {signupUser})(SignUpStudent);
+
+
+

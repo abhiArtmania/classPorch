@@ -78,7 +78,7 @@ export const loginUser = (userReqObject) => {
             history.push('/dashboard/' + res.data.response.role)
 
         } catch (e) {
-            console.log('e', e);
+            alert( e);
             dispatch({type: LOGIN_USER_FAIL, payload: {errorMessage: e}});
             return history.push('/login')
         }
