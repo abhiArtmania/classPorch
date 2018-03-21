@@ -4,7 +4,9 @@ import * as moment from 'moment';
 import './styles.css';
 import { CountryList } from "../../../../helpers/utils";
 import $ from 'jquery';
-
+import Phone from 'react-phone-number-input'
+import 'react-phone-number-input/rrui.css'
+import 'react-phone-number-input/style.css'
 export default class AboutSection extends React.Component {
 
     constructor() {
@@ -14,6 +16,7 @@ export default class AboutSection extends React.Component {
         this.changeProvince = this.changeProvince.bind(this);
          this.onSelectChange = this.onSelectChange.bind(this);
         this.state = {
+			value:"",
 			nextStep:false,
             password_: false,
             email_:false,
@@ -56,6 +59,8 @@ export default class AboutSection extends React.Component {
 
     componentDidMount() {
         window.addEventListener('load', this.handleLoad);
+       if(this.props.data.mobile) this.setState({value:this.props.data.mobile})
+        //$('#phone').mask('(999) 999-9999');
      }
 
      /*emailChange(e) {
@@ -138,10 +143,10 @@ emailCheck() {
         this.props.onSelectChange({ name, value });
 
     };
-    onchangeGrade = (event, data) => {
+    onchangeGrade = (e,{name,value}) => {
 		
 
-        if (data.value < 12) {
+        if (value <= 12) {
 
 
             this.setState({'showParents':true});
@@ -150,7 +155,7 @@ emailCheck() {
 
             this.setState({'showParents':false});
         }
-		this.props.onSelectChange(data);
+		this.props.onSelectChange({name,value});
     };
     onSelectChange(event,{name,value})
     {
@@ -166,15 +171,23 @@ emailCheck() {
 	
 	continue(e)
 	{
-		
+		let el;
+			if(!this.props.data.grade){  this.setState({selectGrade:"select your grade"})
+			el=document.querySelector("#grade .dropdown.icon");
+			
+			$(el).trigger('click');
+			window.scrollTo(0,0)
+			e.preventDefault();
+		}
 
-		if(!this.props.data.country){ this.setState({selectCountry:"select your country"})
-			//const el=document.querySelector("#country_container input[type='text']");
-			//el.focus();
+		else if(!this.props.data.country){ this.setState({selectCountry:"select your country"})
+			el=document.querySelector("#country_container input[type='text']");
+			$(el).trigger('click');
+			e.preventDefault();
 		}
 		
 		this.setState({colorE:"red",colorP:"red" })
-		if(!this.passwordCheck() || !this.emailCheck() || !this.props.data.country || 
+		if( !this.emailCheck() || !this.passwordCheck()  || !this.props.data.country || 
 		!this.props.data['first_name'] || !this.props.data['last_name'] || !this.props.data.city
 		 ) this.setState({nextStep:false})
 		 else this.setState({nextStep:true})
@@ -188,6 +201,7 @@ emailCheck() {
 		if(this.state.nextStep) this.props.continue(e);
 		else e.preventDefault();
 	}
+
     render() {
 		const a=<span style={{color:"red"}}>*</span>
         let renderParentInfo;
@@ -238,6 +252,23 @@ emailCheck() {
                 </Grid.Row>
                 {/* Grade and Gender */}
                 <Grid.Row centered>
+                 <Grid.Column width={8} textAlign='left'>
+                        <span> Grade{a}</span>
+                        {/* <Form.Select size={'large'} fluid id='grade' name='grade' onChange={this.onchangeGrade} placeholder='Select your grade'
+                            options={this.state.gradesList} style={{margin:"0"}}/> */}
+                        <Select
+							name ='grade'
+                            options={this.state.gradesList} fluid
+                            placeholder="Select your grade"
+                            id ='grade' selection fluid
+                            value={this.props.data.grade}
+                            onChange={this.onchangeGrade} 
+                        />
+                    </Grid.Column>
+					</Grid.Row>
+
+                {this.state.showParents && parents}
+                <Grid.Row centered>
                   <Grid.Column width={4} textAlign='left'>
                       <span>State/Province</span>
                       <input type="text" name="state" fluid error placeholder='Add your state/province' 
@@ -246,27 +277,18 @@ emailCheck() {
                   </Grid.Column>
                   <Grid.Column width={4} textAlign='left'>
                     <span>Phone</span>
-                      <input fluid name='mobile' error placeholder='Phone' type='tel' value={this.props.data.mobile}  onChange={this.onChange.bind(this)} />
+                     <Phone
+						placeholder="Enter phone number"
+						country="CA"
+						value={ this.props.data.mobile }
+						
+						onChange={ value => this.props.setPhone({ value })  }/>
+                  
                        {/* onChange={props.onChange}  Phone is optional*/}
                   </Grid.Column>
                    
                 </Grid.Row>
-                 <Grid.Row centered>
-                 <Grid.Column width={8} textAlign='left'>
-                        <span> Grade</span>
-                        {/* <Form.Select size={'large'} fluid id='grade' name='grade' onChange={this.onchangeGrade} placeholder='Select your grade'
-                            options={this.state.gradesList} style={{margin:"0"}}/> */}
-                        <Select
-                            options={this.state.gradesList} fluid
-                            placeholder="Select your grade"
-                            id ='grade' selection fluid
-                            value={this.props.data.grade}
-                            onChange={this.onchangeGrade} name ='grade'
-                        />
-                    </Grid.Column>
-					</Grid.Row>
-
-                {this.state.showParents && parents}
+                 
                 
                 <Grid.Row centered>
                     <Grid.Column width={4} textAlign='left'>
@@ -317,20 +339,22 @@ emailCheck() {
                         <label id='lblpassword' style={{
                             display: "block", float: "right", color: "red", verticalAlign: "top",paddingTop: "5px"
                           }}>
+                          {this.state.wrongPassFormat && <span> -Wrong format for password(at least one number, one lowercase, one uppercase )</span>}
                         </label>
                     </Grid.Column>
                     <Grid.Column width={4} textAlign='left'>
                         <span> Confirm Password</span>{a}
-                        <input fluid name='confirm_password' id='cpassword' errortype='password' placeholder='Password Confirmation *'
+                        <input fluid name='confirm_password' id='cpassword' error type='password' placeholder='Password Confirmation *'
                             required
                             onChange={this.props.onChange} />
                         <label id='lblCpassword' style={{
                             display: "block", float: "right", color: "red", verticalAlign: "top",paddingTop: "5px"
                           }}>
+                           {this.state.wrongPass && <span> -Passwords are not the same </span>}
                       </label>
                     </Grid.Column>
-                    {this.state.wrongPass && <div style={{color:this.state.colorP,position:"absolute", left:"26%", bottom:"-20px"}}> -Passwords are not the same </div>}
-                  {this.state.wrongPassFormat && <div style={{color:this.state.colorP,position:"absolute", left:"26%", bottom:"-5px"}}> -Wrong format for password(at least one number, one lowercase, one uppercase )</div>}
+                   
+                  
                 
                 </Grid.Row>
             </Grid>

@@ -119,7 +119,11 @@ componentDidMount()
 
     this.setState({[name]: value});
   };
-
+setPhone(phone)
+{
+	
+	this.setState({mobile:phone.value})
+}
   render() {
     return (
     <div>
@@ -131,7 +135,9 @@ componentDidMount()
       {/* onSubmit={this.onFormSubmitted} */}
         {/* <AboutSection onChange={this.onChange}/> */}
         {(this.state.step == 1)?
-          <AboutSection onSelectChange={this.onSelectChange} onChange={this.onChange} continue={this.continue.bind(this)}
+          <AboutSection onSelectChange={this.onSelectChange} onChange={this.onChange}
+          setPhone={this.setPhone.bind(this)}
+           continue={this.continue.bind(this)}
           setOuterState={this.setOuterState.bind(this)}
            data={this.state}/>
           :<EducationSection onChange={this.onChange} onChangeSkills={this.onChangeSkills.bind(this)}
