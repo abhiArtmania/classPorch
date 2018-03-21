@@ -110,7 +110,7 @@ class SkillsSection extends React.Component {
                                action={{content: "Add Skill", onClick: this.onSkillSubmit}} label="Custom Skills"
                                value={this.state.customSkill}
                                onChange={this.onCustomSkillsChange}/>
-                               <button type="button" class="ui olive button"  onClick={this.onSkillSubmit.bind(this)}>Add</button>
+                               <button type="button" class="ui olive button" style={{marginLeft:"5px"}}  onClick={this.onSkillSubmit.bind(this)}>Add</button>
                           </Grid.Row>
                     </Grid.Column>
                 </Grid.Row>

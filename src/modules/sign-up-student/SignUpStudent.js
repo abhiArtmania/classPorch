@@ -15,7 +15,12 @@ class SignUpStudent extends React.Component {
     this.onChangeSkills = this.onChangeSkills.bind(this);
     this.onFormSubmitted = this.onFormSubmitted.bind(this);
     this.continue= this.continue.bind(this);
-    this.state = {step:1, selectedSkills: []};
+    this.state = {step:1,
+		 selectedSkills: [],
+		 email_:false,
+		 password_:false
+		 
+		 };
   }
 
   // state = {
@@ -33,7 +38,16 @@ componentDidMount()
 	 e.preventDefault(); 
     this.setState({step:2});
   }
+  goBack = () =>{
+	  
+    this.setState({step:1});
+  }
  
+ setOuterState(name,value)
+ {
+	 
+	 this.setState([name]:value)
+ }
   onFormSubmitted = (event, {formData}) => {
     event.preventDefault();
 
@@ -117,9 +131,12 @@ componentDidMount()
       {/* onSubmit={this.onFormSubmitted} */}
         {/* <AboutSection onChange={this.onChange}/> */}
         {(this.state.step == 1)?
-          <AboutSection onSelectChange={this.onSelectChange} onChange={this.onChange} continue={this.continue.bind(this)}/>
+          <AboutSection onSelectChange={this.onSelectChange} onChange={this.onChange} continue={this.continue.bind(this)}
+          setOuterState={this.setOuterState.bind(this)}
+           data={this.state}/>
           :<EducationSection onChange={this.onChange} onChangeSkills={this.onChangeSkills.bind(this)}
            selectedSkills={this.state.selectedSkills} onFormSubmitted={this.onFormSubmitted.bind(this)} 
+           goBack={this.goBack.bind(this)} data={this.state}
        />
         }
        

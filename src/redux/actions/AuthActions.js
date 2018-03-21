@@ -58,12 +58,13 @@ export const statePersisted = () => {
 };
 
 export const loginUser = (userReqObject) => {
+	
     return async (dispatch) => {
         try {
             dispatch({type: LOGIN_USER});
 
             const res = await axios.post(apiEndpoints.auth.signIn, userReqObject);
-            console.log(res);
+          
             if (res.status !== 200) {
                 throw('Please check your internet connection. A mouse may be chewing the wire.')
             }
@@ -78,7 +79,7 @@ export const loginUser = (userReqObject) => {
             history.push('/dashboard/' + res.data.response.role)
 
         } catch (e) {
-            
+         
             dispatch({type: LOGIN_USER_FAIL, payload: {errorMessage: e}});
             return history.push('/login')
         }
@@ -90,37 +91,43 @@ export const signupUser = (parsedForm) => {
     console.log(parsedForm);
     console.log(JSON.stringify(parsedForm, null, 4));
     return async (dispatch) => {
-        try {
+      
             dispatch({type: SIGNUP_USER});
 
-            const res = await axios.post(apiEndpoints.auth.signUp, parsedForm);
+          axios.post(apiEndpoints.auth.signUp, parsedForm).then(res => {
            
-            console.log(res.data.response.role)
+            
             if (res.status !== 200) {
                 throw('Please check your internet connection. A mouse may be chewing the wire.')
             }
+          
 
-           
+           if (res.data.meta.code!==201) {
+			   const err=(res.data.response.error)? res.data.response.error : "error"
+                throw(err)
+            }
 
             const userResObject = res.data.response;
             
-           
+           const role=res.data.response.role;
             
 
-            if (res.data.response.role === 'tutor') {
+            if (role == 'tutor') {
                 dispatch({type: SIGNUP_SUCCESS, payload: {userResObject}});
                 return history.push('/dashboard/tutor')
-            } else if (res.data.response.role === 'student') {
-				console.log(res.data.response.role)
+            } else if (role == 'student') {
+				
                 dispatch({type: SIGNUP_SUCCESS, payload: {userResObject}});
-                return history.push('/dashboard/student')
+               return history.push('/dashboard/student');
             } else {
-				alert('Looks like the our intern slept while working. Please try again.')
-                throw('Looks like the our intern slept while working. Please try again.')
+				
+                throw(res.error)
+
             }
-        } catch (e) {
+        }).catch((e) => {
+			
             return dispatch({type: SIGNUP_FAIL, payload: {errorMessage: e}})
-        }
+        })
     }
 };
 

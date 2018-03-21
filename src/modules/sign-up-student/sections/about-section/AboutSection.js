@@ -14,14 +14,17 @@ export default class AboutSection extends React.Component {
         this.changeProvince = this.changeProvince.bind(this);
          this.onSelectChange = this.onSelectChange.bind(this);
         this.state = {
-            password: '',
-            email:false,
+			nextStep:false,
+            password_: false,
+            email_:false,
             selectCountry:"",
-            colorE:"white",
-            colorP:"white",
+            colorE:"red",
+            colorP:"red",
             password:false,
             wrongFormat:false,
             wrongEmail:false,
+            country:"",
+            
             wrongPassFormat:false,
             wrongPass:false,
             emailErrorsVisible:false,
@@ -84,40 +87,44 @@ export default class AboutSection extends React.Component {
 	
 		
 		}*/
-emailChange(e) {
-	this.setState({colorE:"white"})
-	let email=document.getElementById("email")
-	let confirm=document.getElementById("cmail")
-	if( email.value.trim()==confirm.value.trim()){
-		 this.setState({wrongEmail:false});
-		 this.setState({[e.target.name]:e.target.value}) 
-			 this.props.onChange(e);
-		 }
-			else this.setState({wrongEmail:true}) 
+emailCheck() {
+	
+
+	let email=document.getElementById("email").value.trim();
+	let confirm=document.getElementById("cmail").value.trim();
+	if(email==confirm){ this.setState({wrongEmail:false}); return true;}
+	else{  this.setState( {wrongEmail:true}); return false;}
 			
 			}
 
-		passwordChange(e)
+		passwordCheck()
 		{
-			this.setState({colorP:"white"});
-			const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-		if(re.test(String(e.target.value))){
-			
-			this.setState({wrongPassFormat:false})
 			let pass=document.getElementById("password").value.trim()
 			let confirm=document.getElementById("cpassword").value.trim()
+
+			const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+		if(re.test(pass)){
+			
+			this.setState({wrongPassFormat:false})
+			
+			
 			if(pass!=="" && confirm!=="" && pass==confirm)
 			{
 				
 				this.setState({wrongPass:false}); 
-				this.setState({password:true});
-				this.props.onChange(e);
+				return true;
 				
 			}
-			else this.setState({wrongPass:true, password:false })
+			else 
+			{
+				this.setState({wrongPass:true})
+				return false;
+			
+			}
 		}
 		
-		else this.setState({wrongPassFormat:true, password:false});
+		else {this.setState({wrongPassFormat:true});
+			return false;}
 	
 		
 		
@@ -153,7 +160,7 @@ emailChange(e) {
 	}
 	onChange(e)
 	{
-		this.setState({[e.target.name]:e.target.value})
+		
 		this.props.onChange(e);
 	}
 	
@@ -161,17 +168,25 @@ emailChange(e) {
 	{
 		
 
-		if(!this.state.country) this.setState({selectCountry:"select your country"})
+		if(!this.props.data.country){ this.setState({selectCountry:"select your country"})
+			//const el=document.querySelector("#country_container input[type='text']");
+			//el.focus();
+		}
+		
 		this.setState({colorE:"red",colorP:"red" })
-		if(!this.state.password || !this.state.email || !this.state.country || 
-		this.state['first_name'] || this.state['last_name']
-		 )return false;
+		if(!this.passwordCheck() || !this.emailCheck() || !this.props.data.country || 
+		!this.props.data['first_name'] || !this.props.data['last_name'] || !this.props.data.city
+		 ) this.setState({nextStep:false})
+		 else this.setState({nextStep:true})
+		 
 		
 		
 	}
 	nextStep(e)
 	{
-		this.props.continue(e);
+		
+		if(this.state.nextStep) this.props.continue(e);
+		else e.preventDefault();
 	}
     render() {
 		const a=<span style={{color:"red"}}>*</span>
@@ -190,12 +205,12 @@ emailChange(e) {
             </Grid.Row>
      
         const parents=<Grid.Row centered id="ParentDetails">
-                    <Grid.Column width={4} textAlign='left'>
+                    <Grid.Column width={4} textAlign='left' name="parent_first_name" value={this.state.parent_first_name}>
 
-                        <input label="Parent/Guardian first Name" type="text" id="ParentfName" name='parent_first_name' fluid  placeholder="Parent/Guardian First Name" onChange={this.onChange.bind(this)}/>
+                        <input label="Parent/Guardian first Name" type="text" id="ParentfName" name='parent_first_name' value={this.props.data.parent_first_name} fluid  placeholder="Parent/Guardian First Name" onChange={this.onChange.bind(this)}/>
                     </Grid.Column>
                     <Grid.Column width={4} textAlign='left'>
-                        <input label="Parent/Guardian last Name" type="text" id="ParentlName" name='parent_last_name' fluid placeholder="Parent/Guardian Last Name" onChange={this.onChange.bind(this)}/>
+                        <input label="Parent/Guardian last Name" type="text" id="ParentlName" name='parent_last_name' value={this.props.data.parent_last_name} fluid placeholder="Parent/Guardian Last Name" onChange={this.onChange.bind(this)}/>
                     </Grid.Column>
 
                 </Grid.Row>
@@ -213,12 +228,12 @@ emailChange(e) {
                     <Grid.Column width={4}>
                       <span> First Name</span>{a}
                       <input type="text" name="first_name" fluid error placeholder='First Name *' required
-                          onChange={this.onChange.bind(this)}/>
+                          onChange={this.onChange.bind(this)} value={this.props.data.first_name} />
                     </Grid.Column>
                     <Grid.Column width={4}>
                       <span>Second Name</span>{a}
                       <input type="text" name="last_name" fluid error placeholder='Second Name *' required
-                          onChange={this.onChange.bind(this)}/>
+                          onChange={this.onChange.bind(this)} value={this.props.data.last_name}/>
                     </Grid.Column>
                 </Grid.Row>
                 {/* Grade and Gender */}
@@ -226,10 +241,18 @@ emailChange(e) {
                   <Grid.Column width={4} textAlign='left'>
                       <span>State/Province</span>
                       <input type="text" name="state" fluid error placeholder='Add your state/province' 
-                          onChange={this.onChange.bind(this)}/>
+                          onChange={this.onChange.bind(this)} value={this.props.data.state}/>
                       
                   </Grid.Column>
-                    <Grid.Column width={4} textAlign='left'>
+                  <Grid.Column width={4} textAlign='left'>
+                    <span>Phone</span>
+                      <input fluid name='mobile' error placeholder='Phone' type='tel' value={this.props.data.mobile}  onChange={this.onChange.bind(this)} />
+                       {/* onChange={props.onChange}  Phone is optional*/}
+                  </Grid.Column>
+                   
+                </Grid.Row>
+                 <Grid.Row centered>
+                 <Grid.Column width={8} textAlign='left'>
                         <span> Grade</span>
                         {/* <Form.Select size={'large'} fluid id='grade' name='grade' onChange={this.onchangeGrade} placeholder='Select your grade'
                             options={this.state.gradesList} style={{margin:"0"}}/> */}
@@ -237,33 +260,33 @@ emailChange(e) {
                             options={this.state.gradesList} fluid
                             placeholder="Select your grade"
                             id ='grade' selection fluid
+                            value={this.props.data.grade}
                             onChange={this.onchangeGrade} name ='grade'
                         />
                     </Grid.Column>
-
-                </Grid.Row>
+					</Grid.Row>
 
                 {this.state.showParents && parents}
                 
                 <Grid.Row centered>
                     <Grid.Column width={4} textAlign='left'>
                       <span> Country</span>{a}
-                        <Select fluid labeled={true} fluid name='country' required onChange={this.onSelectChange} placeholder='Select your country' options={CountryList} required search />
+                        <Select fluid labeled={true} fluid name='country' id="country_container" required onChange={this.onSelectChange} placeholder='Select your country' value={this.props.data.country} options={CountryList} required search />
                         <div style={{color:"red", position:"absolute", left:"15px", bottom:"-20px"}}>{this.state.selectCountry}</div>
                         {/*<Input fluid name='country' type='text' placeholder='Country' required*/}
                         {/*onChange={this.props.onChange}/>*/}
                     </Grid.Column>
                     <Grid.Column width={4} textAlign='left'>
                       <span> City</span>{a}
-                        <input  type='text' name="city" fluid placeholder='City' error label="City"
+                        <input  type='text' name="city" value={this.props.data.city} fluid placeholder='City' required error label="City"
                             onChange={this.onChange.bind(this)} />
                     </Grid.Column>
                 </Grid.Row>
                 <Grid.Row centered>
                   <Grid.Column width={4} textAlign='left'>
                     <span> Email</span>{a}
-                      <input fluid id='email' name="email" error placeholder='Email *' required type='email'
-                        onChange={this.emailChange.bind(this)}
+                      <input fluid id='email' name="email" value={this.props.data.email} error placeholder='Email *' required type='email'
+                        onChange={this.props.onChange}
                          
 							 />
                       {/* onChange={props.onChange} */}
@@ -275,8 +298,8 @@ emailChange(e) {
                   </Grid.Column>
                    <Grid.Column width={4} textAlign='left'>
                      <span>Confirm Email</span>{a}
-                      <input fluid name='email' id='cmail' error placeholder='Confirm Email *' 
-                      onChange={this.emailChange.bind(this)} onChange={this.emailChange.bind(this)}required type='email' />
+                      <input fluid name='email2' id='cmail' value={this.props.data.email2} error placeholder='Confirm Email *' 
+                      onChange={this.props.onChange}  required type='email' />
                      
                       {/* onChange={props.onChange} */}
                       <label id='lblCemail' style={{
@@ -290,7 +313,7 @@ emailChange(e) {
                     <Grid.Column width={4} textAlign='left'>
                       <span> Password</span>{a}
                         <input id='password' name="password" fluid pattern=".{8,}" error type='password' required title="8 characters minimum"
-                            placeholder='Password *' onChange={this.passwordChange.bind(this)}/>
+                            placeholder='Password *' onChange={this.props.onChange}/>
                         <label id='lblpassword' style={{
                             display: "block", float: "right", color: "red", verticalAlign: "top",paddingTop: "5px"
                           }}>
@@ -298,9 +321,9 @@ emailChange(e) {
                     </Grid.Column>
                     <Grid.Column width={4} textAlign='left'>
                         <span> Confirm Password</span>{a}
-                        <input fluid name='password' id='cpassword' errortype='password' placeholder='Password Confirmation *'
+                        <input fluid name='confirm_password' id='cpassword' errortype='password' placeholder='Password Confirmation *'
                             required
-                            onChange={this.passwordChange.bind(this)} />
+                            onChange={this.props.onChange} />
                         <label id='lblCpassword' style={{
                             display: "block", float: "right", color: "red", verticalAlign: "top",paddingTop: "5px"
                           }}>
