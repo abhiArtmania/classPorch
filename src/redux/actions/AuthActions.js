@@ -114,9 +114,10 @@ export const signupUser = (parsedForm) => {
 
             if (role == 'tutor') {
                 dispatch({type: SIGNUP_SUCCESS, payload: {userResObject}});
+                 history.isAuth = true;
                 return history.push('/dashboard/tutor')
             } else if (role == 'student') {
-				
+				 history.isAuth = true;
                 dispatch({type: SIGNUP_SUCCESS, payload: {userResObject}});
                return history.push('/dashboard/student');
             } else {

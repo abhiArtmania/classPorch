@@ -75,9 +75,7 @@ export default (state = INITIAL_STATE, action) => {
 			
 			const { auth_token, birthday_date,city,country,created_at,email,
 				first_name,gender,id,image,last_name,number, provider,role,uid,updated_at } = action.payload.userResObject;
-				console.log({ ...state = INITIAL_STATE, loggedIn:true, authToken:auth_token,city,country,
-				createdAt:created_at,email,firstName:first_name,gender,id,image,lastName:last_name,number, 
-				provider,role,uid,updatedAt:updated_at, errorMessage:null })
+			
 
 			return { ...state = INITIAL_STATE, loggedIn:true, authToken:auth_token,city,country,
 				createdAt:created_at,email,firstName:first_name,gender,id,image,lastName:last_name,number, 
