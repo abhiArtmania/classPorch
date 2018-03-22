@@ -5,7 +5,7 @@ import { Button } from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import { Notification } from 'react-notification';
 import { profileRequested,getDashboard, toggleProfileMode, onChangeUserInfo,onChangeEducation,onChangeSkill, updateProfile, toggleSearchMode } from '../../redux/actions';
-import { Icon } from 'semantic-ui-react'
+import { Icon,  Dimmer, Loader } from 'semantic-ui-react'
 import {SearchResults} from '../search'
 class ProfileStudent extends React.Component {
 
@@ -61,7 +61,10 @@ class ProfileStudent extends React.Component {
 			averageRating, reviews,mode, onChangeEducation, onChangeSkill } = this.props;
         return (
         	<div>
-        	  
+        	   {(this.props.editingProfile || this.props.loadingProfile) &&   <div style={{position:"fixed", top:"0",bottom:"0",left:"0",right:"0"}}><Dimmer active inverted>
+					<Loader inverted>Loading</Loader>
+				</Dimmer>
+      </div>}
         {
 			this.props.searchMode === 'normal'?
 			<div style={{width:'100%',display:'flex',flexDirection:'column', alignItems:'center' }}>
@@ -120,13 +123,13 @@ class ProfileStudent extends React.Component {
 const mapStateToProps = ( {auth,profileState,dashboard,search} ) => {
 	const { id:userId, authToken, role, firstName } =  auth;
 	const { presentProfileId, profile, educationalAttributes, averageRating, 
-			reviews, mode, editProfileMessage,profileEditedIndicator } = profileState;
+			reviews, mode, editProfileMessage,profileEditedIndicator, editingProfile, loadingProfile } = profileState;
 	const { sessionRequestIndicator,displayMessage } = dashboard;
 	const {searchMode} = search;
 	
 
 	return { userId, authToken,role,firstName, presentProfileId, profile, educationalAttributes, averageRating, reviews, mode,
-		sessionRequestIndicator, displayMessage, searchMode  }
+		sessionRequestIndicator, displayMessage, searchMode, editingProfile, loadingProfile   }
 };
 
 export default connect(mapStateToProps, { 

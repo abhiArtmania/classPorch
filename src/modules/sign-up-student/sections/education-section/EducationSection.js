@@ -72,7 +72,7 @@ isAgreedToTerms(bool)
                       {/* onChange={this.props.onChange} */}
                   </Grid.Column>
               </Grid.Row>
-              <SkillsSection onChangeSkills={this.props.onChangeSkills}  selectedSkills={this.props.selectedSkills}/>
+              <SkillsSection seededSkills={this.props.seededSkills} onChangeSkills={this.props.onChangeSkills}  selectedSkills={this.props.selectedSkills}/>
               <BottomSection isAgreedToTerms={this.isAgreedToTerms.bind(this)} agreeMessage={this.state.agreeMessage}/>
               </Grid>
                <Grid column={1} centered>

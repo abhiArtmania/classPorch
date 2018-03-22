@@ -1,20 +1,22 @@
 import React from 'react'
 import {Grid, Dropdown, Input, Button} from 'semantic-ui-react';
 import {TutorList} from "../../../../helpers/utils";
-
+import {getSeededSkills} from '../../../../redux/actions';
+import {connect} from 'react-redux';
 class SkillsSection extends React.Component {
 
     constructor() {
         super();
         this.state = {
             customSkill: "",
-            skills: TutorList.map((item, key) => {
+            skills:[],
+           /* skills: TutorList.map((item, key) => {
                 return {
                     key: key,
                     text: item,
                     value: key
                 }
-            }),
+            }),*/
             searchQuery:''
         };
         this.onCustomSkillsChange = this.onCustomSkillsChange.bind(this);
@@ -22,7 +24,16 @@ class SkillsSection extends React.Component {
         this.searchInputHandle=this.searchInputHandle.bind(this);
     }
 
-    componentDidMount() {
+    componentDidMount= async() => {
+		await this.props.getSeededSkills('d3FxhQYWG0FIZqn1X1UN_Q') 
+		if(this.props.seededSkills) this.setState({ 
+                skills: this.props.seededSkills.map(x => {
+                    return { key:x.id, text:capitalize(x.name), value:x.id }
+                })   
+			})
+		
+ 
+		
     }
 
     onCustomSkillsChange(e) {
@@ -121,7 +132,7 @@ class SkillsSection extends React.Component {
 }
 
 
-export default SkillsSection;
+
 
 function capitalize(str = '') {
     if (!str) return;
@@ -129,3 +140,12 @@ function capitalize(str = '') {
         .map((char, i) => i === 0 ? char.toUpperCase() : char)
         .reduce((final, char) => final += char, '')
 }
+const mapStateToProps = ({auth, profileState}) => {
+
+  const {seededSkills} = profileState;
+  return {seededSkills}
+};
+
+
+
+export default connect(mapStateToProps, {getSeededSkills})(SkillsSection);

@@ -1,3 +1,7 @@
 .labeled{
   font-weight: normal!important;
 }
+.react-phone-number-input input
+{
+padding:17px!important;
+}

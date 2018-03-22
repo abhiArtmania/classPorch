@@ -42,6 +42,7 @@ export const setPresentProfile = ({ userId }) => {
 	return { type: SET_PROFILE_ID, payload: userId }
 }
 export const getSeededSkills = (authToken) => {
+	
 	return async dispatch => {
 		try {
 			
@@ -59,7 +60,7 @@ export const getSeededSkills = (authToken) => {
 
 			return dispatch({
 				type: GET_SEEDED_SKILLS_SUCCESS,
-				payload: res.skills
+				payload: res.response
 			})
 		} catch (e) {
 			return dispatch({ type: GET_SEEDED_SKILLS_FAIL, payload: e })
@@ -80,8 +81,9 @@ export const profileRequested = (userId, authToken) => {
 				}
 			)
             let res = await rawRes.json()
-			let tmp=[];
-			res.data.attributes['educations-attributes'].forEach(function(item)
+            console.log(res)
+			/*let tmp=[];
+			/*res.data.attributes['educations-attributes'].forEach(function(item)
 			{
 				
 				let newItem={};
@@ -93,14 +95,14 @@ export const profileRequested = (userId, authToken) => {
 				}
 				tmp.push(newItem)
 			}
-			)
+			)*/
 			
-			const averageRating = res.data.attributes['average-rating']
-			const profile = res.data.attributes['profile']
-			const educationalAttributes =tmp//res.data.attributes['educations-attributes']
+			const averageRating =''// res.data.attributes['average-rating']
+			const profile = res.response;
+			const educationalAttributes =res.response.educations;
 			
 			
-			const reviews = res.data.attributes['reviews']
+			const reviews = '';// res.data.attributes['reviews']
 			   
 			
 			return dispatch({
@@ -215,20 +217,19 @@ export const updateProfile = ({
 				user: {
 					educations_attributes: educationalAttributes,
 					role: profile.type,
-					first_name: profile['full-name'].split(' ')[0],
-					last_name: profile['full-name'].split(' ')[1],
+					first_name: profile['first_name'],
+					last_name: profile['last_name'],
 					gender: profile.gender,
 					'profile-picture': profile['profile-picture'],
-					birthday_date: profile['birthday date'],
 					country: profile.country,
 					city: profile.city,
 					number: profile.phone,
 					email: profile.email,
-					skills: profile['skill-ids']
+					skills: profile['skills']
 				}
 			}
 
-			console.log(bodyObject)
+			
 
 			let resRaw = await fetch(`${apiEndpoints.base}/user/${userId}`, {
 				method: 'PUT',
@@ -236,7 +237,7 @@ export const updateProfile = ({
 					'auth-token': authToken,
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify(bodyObject)
+				
 			})
 			if (resRaw.status !== 200) {
 				throw 'failed request'
@@ -254,6 +255,8 @@ export const updateProfile = ({
 				}
 			})
 		} catch (e) {
+			
+			alert(e)
 			const id = uuidv1()
 			return dispatch({
 				type: EDIT_PROFILE_FAIL,

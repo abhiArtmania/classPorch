@@ -107,7 +107,7 @@ emailCheck() {
 			let pass=document.getElementById("password").value.trim()
 			let confirm=document.getElementById("cpassword").value.trim()
 
-			const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+			const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z0-9!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,]{8,}$/;
 		if(re.test(pass)){
 			
 			this.setState({wrongPassFormat:false})
@@ -201,7 +201,11 @@ emailCheck() {
 		if(this.state.nextStep) this.props.continue(e);
 		else e.preventDefault();
 	}
-
+setPhone(value)
+{
+	this.setState({value})
+	this.props.setPhone(({value}))
+}
     render() {
 		const a=<span style={{color:"red"}}>*</span>
         let renderParentInfo;
@@ -278,11 +282,12 @@ emailCheck() {
                   <Grid.Column width={4} textAlign='left'>
                     <span>Phone</span>
                      <Phone
+                     
 						placeholder="Enter phone number"
 						country="CA"
-						value={ this.props.data.mobile }
+						value={ this.state.value}
 						
-						onChange={ value => this.props.setPhone({ value })  }/>
+						onChange={this.setPhone.bind(this)  }/>
                   
                        {/* onChange={props.onChange}  Phone is optional*/}
                   </Grid.Column>

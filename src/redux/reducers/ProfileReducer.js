@@ -39,6 +39,7 @@ export default (state=INITIAL_STATE,action) => {
             
         case GET_PROFILE_SUCCESS:{
             const { profile,averageRating,educationalAttributes,reviews } = action.payload;
+          
             return { ...state, profile, averageRating, educationalAttributes, reviews, loadingProfile:false }
         }
         case GET_PROFILE_FAIL:

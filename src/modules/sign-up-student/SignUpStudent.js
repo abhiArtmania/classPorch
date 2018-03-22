@@ -29,6 +29,7 @@ class SignUpStudent extends React.Component {
 componentDidMount()
 {
 	this.props.initialLogin()
+	
 }
   onChangeSkills = (selectedSkills) => {
     this.setState({selectedSkills})
@@ -142,7 +143,7 @@ setPhone(phone)
            data={this.state}/>
           :<EducationSection onChange={this.onChange} onChangeSkills={this.onChangeSkills.bind(this)}
            selectedSkills={this.state.selectedSkills} onFormSubmitted={this.onFormSubmitted.bind(this)} 
-           goBack={this.goBack.bind(this)} data={this.state}
+           goBack={this.goBack.bind(this)} data={this.state}   seededSkills={this.props.seededSkills}
        />
         }
        
@@ -151,8 +152,9 @@ setPhone(phone)
   }
 }
 
-const mapStateToProps = ({auth}) => {
+const mapStateToProps = ({auth, profileState}) => {
   const {email, errorMessage, errorObject, loading} = auth;
+  
   return {email, errorObject, errorMessage, loading}
 };
 

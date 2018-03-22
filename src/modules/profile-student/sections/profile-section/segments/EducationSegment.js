@@ -156,6 +156,7 @@ class EducationSegment extends Component {
   }
 
   render() {
+	 
     const educationBlocks = this.getEducationBlocks(this.props.educationalAttributes)
     const { profile, toggleProfileMode, mode, onChangeUserInfo, presentProfileId, userId } = this.props
     return (
