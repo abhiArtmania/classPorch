@@ -1,9 +1,14 @@
 import React from 'react';
 import {
     AboutSection,
-    EducationSection
+    BottomSection,
+    ContactSection,
+    EducationSection,
+    HourlyRateSection,
+    SkillsSection,
+    TopSection
 } from './sections';
-import {Form, Grid, Button} from 'semantic-ui-react';
+import {Form} from 'semantic-ui-react';
 import {connect} from 'react-redux';
 import {signupUser} from '../../redux/actions';
 
@@ -11,19 +16,20 @@ class SignUpTutor extends React.Component {
 
     constructor(props) {
         super(props);
+        this.onChangeSkills = this.onChangeSkills.bind(this);
         this.onFormSubmitted = this.onFormSubmitted.bind(this);
         this.onChangeEducation = this.onChangeEducation.bind(this);
         this.onChange = this.onChange.bind(this);
-        this.changeStep = this.changeStep.bind(this);
-        this.state = {
-            educations:[],
-            step: 1
-        };
     }
 
-    changeStep = () => {
-        this.setState({step: 2});
-    }
+    state = {
+        selectedSkills: [],
+        educations:[]
+    };
+
+    onChangeSkills = (selectedSkills) => {
+        this.setState({selectedSkills})
+    };
 
     onFormSubmitted = (event, {formData}) => {
         event.preventDefault();
@@ -90,6 +96,7 @@ class SignUpTutor extends React.Component {
     };
 
     onChange = (event, {name, value}) => {
+	
         this.setState({[name]: value});
     };
 
@@ -100,22 +107,13 @@ class SignUpTutor extends React.Component {
     render() {
         return (
             <Form encType='application/json' onSubmit={this.onFormSubmitted.bind(this)}>
-             {(this.state.step === 1)?
-                <AboutSection/>: 
-               <EducationSection/>
-               }
-        
-                 {/* onChange={this.onChange}/> */}
-                {/* <EducationSection onChange={this.onChange} onChangeEdu={this.onChangeEducation}/> */}
-                {/* <SkillsSection onChangeSkills={this.onChangeSkills} selectedSkills={this.state.selectedSkills}/> */}
-                {/* <HourlyRateSection onChange={this.onChange}/> */}
-                {/* <BottomSection/> */}
-                 {/* onClick={this.uploadFile.bind(this)}*/}
-                  <div className="ui center aligned segment" style={{marginTop:"30px", border:"0"}}>
-                    <Button color='olive'
-                        onclick={this.changeStep}>Continue
-                    </Button>
-                  </div>
+                <TopSection/>
+                <AboutSection onChange={this.onChange}/>
+                <ContactSection onChange={this.onChange}/>
+                <EducationSection onChange={this.onChange} onChangeEdu={this.onChangeEducation}/>
+                <SkillsSection onChangeSkills={this.onChangeSkills} selectedSkills={this.state.selectedSkills}/>
+                <HourlyRateSection onChange={this.onChange}/>
+                <BottomSection/>
             </Form>
         )
     }
@@ -127,3 +125,6 @@ const mapStateToProps = ({auth}) => {
 };
 
 export default connect(mapStateToProps, {signupUser})(SignUpTutor);
+
+
+

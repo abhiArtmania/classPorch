@@ -1,4 +1,7 @@
 import React from 'react';
+import BottomSection from './BottomSection';
+import SkillsSection from './SkillsSection';
+import HourlyRateSection from './HourlyRateSection';
 import {Button, Form, Grid, Header, Input} from 'semantic-ui-react';
 import moment from 'moment';
 import './styles.css';
@@ -9,10 +12,13 @@ export default class EducationSection extends React.Component {
         super();
         this.state = {
             listOfEducation: [{}],
+            selectedSkills: [],
             numberOfEducationFields: 1
         };
         this.renderEduction = this.renderEduction.bind(this);
         this.onEducationChange = this.onEducationChange.bind(this);
+        this.onChangeSkills = this.onChangeSkills.bind(this);
+
     }
 
     onFocusChange = (event, data) => {
@@ -22,6 +28,10 @@ export default class EducationSection extends React.Component {
         } else {
             event.target.type = 'text'
         }
+    };
+
+    onChangeSkills = (selectedSkills) => {
+        this.setState({selectedSkills})
     };
 
     getEducations = () => {
@@ -55,62 +65,90 @@ export default class EducationSection extends React.Component {
     }
     renderEduction() {
         return this.state.listOfEducation.map((edu, key) => {
-            return <Grid.Row columns={12} centered key={key}>
-                <Grid.Column width={12} textAlign='left' style={{paddingBottom: '20px'}}>
-                    <Input label="School Name" type='text' name={'university_name'} fluid placeholder='Name of School'
-                           onChange={this.onEducationChange.bind(this, key)}/>
-                </Grid.Column>
-                <Grid.Column width={6} textAlign='left'>
-                    <Input label="Start" fluid name={'start_education'} type='text' placeholder='Start Date * (dd/mm/yyyy)'
-                           onFocus={this.onFocusChange} min='1970-01-01' max={moment().format('Y-mm-D')}
-                           onBlur={this.onFocusChange} required onChange={this.onEducationChange.bind(this, key)}/>
-                </Grid.Column>
-                <Grid.Column width={6} textAlign='left'>
-                    <Input label="End" fluid name={'finish_education'} type='text' placeholder='End Date * (dd/mm/yyyy)'
-                           onFocus={this.onFocusChange} min='1970-01-01' max={moment().format('Y-mm-D')}
-                           onBlur={this.onFocusChange} required onChange={this.onEducationChange.bind(this, key)}/>
-                </Grid.Column>
-                <Grid.Column width={12} align={'center'} style={{paddingTop:'30px'}}>
-                    <Header as="h3" textAlign={'center'}>Upload verification document</Header>
-                    <div id="verifiy-doc" className="ui middle aligned center aligned grid container">
-                        <div className="ui fluid segment">
-                            <input type="file" onChange={this.startUploading}
-                                   className="inputfile"/>
-
-                            <label htmlFor="embedpollfileinput" className="ui huge yellow right floated button">
-                                <i className="ui upload icon"/>
-                                Upload File
+            return <Grid key={key}>
+                      <Grid.Row centered style={{marginTop:"10px"}}>
+                        <Grid.Column width={4} textAlign='left'>
+                          <span>School Name</span>
+                            <input fluid type='text' name={'university_name'} placeholder='Name of School'
+                                   onChange={this.onEducationChange.bind(this, key)}/>
+                        </Grid.Column>
+                        <Grid.Column width={2} textAlign='left'>
+                          <span>Start</span>
+                            <input fluid name={'start_education'} type='text' placeholder='(dd/mm/yyyy)'
+                                   onFocus={this.onFocusChange} min='1970-01-01' max={moment().format('Y-mm-D')}
+                                   onBlur={this.onFocusChange} required onChange={this.onEducationChange.bind(this, key)}/>
+                        </Grid.Column>
+                        <Grid.Column width={2} textAlign='left'>
+                          <span>End</span>
+                            <input fluid name={'finish_education'} type='text' placeholder='(dd/mm/yyyy)'
+                                   onFocus={this.onFocusChange} min='1970-01-01' max={moment().format('Y-mm-D')}
+                                   onBlur={this.onFocusChange} required onChange={this.onEducationChange.bind(this, key)}/>
+                        </Grid.Column>
+                      </Grid.Row>
+                      <Grid.Row centered textAlign="left">
+                          <Grid.Column width={3} textAlign='left'>
+                            <span style={{fontWeight:"bold"}}>Upload Degree/Diploma/Transcript</span>
+                         </Grid.Column>
+                         <Grid.Column width={3} textAlign='left'>
+                           {/* info button */}
+                           <abbr title="Upload verification document(Passport, Driver License etc)" style={{border:"none"}}>
+                             <Button className="circular basic teal" icon ="warning" style={{padding:"2px",marginTop:"10px"}}/>
+                           </abbr>
+                           {/* upload button */}
+                           <input type="file" class="inputfile" id="embedpollfileinput" />
+                           <label for="embedpollfileinput" class="ui small right floated red button">
+                             <i class="ui upload icon"></i>
+                             Upload Doc
+                           </label>
+                         </Grid.Column>
+                         <Grid.Column width={2}>
+                            <Button floated="right" size="small" onClick={this.addEducation.bind(this)}>Add Education</Button>
+                             {/* <input fluid name={'finish_education'} type='text' placeholder='(dd/mm/yyyy)'
+                                    onFocus={this.onFocusChange} min='1970-01-01' max={moment().format('Y-mm-D')}
+                                    onBlur={this.onFocusChange} required onChange={this.onEducationChange.bind(this, key)}/> */}
+                         </Grid.Column>
+                        {/* Upload doc                style={{ marginTop:"20px"}}*/}
+                        {/* <Grid.Column width={4} textAlign="left">
+                            <input type="file" class="inputfile" id="embedpollfileinput" />
+                            <label for="embedpollfileinput" class="ui small red button">
+                              <i class="ui upload icon"></i>
+                              Upload image
                             </label>
-                        </div>
-                    </div>
-                </Grid.Column>
-            </Grid.Row>
+                        </Grid.Column>
+                      <Grid.Column width={1} textAlign="left">
+                          <abbr title="Upload verification document(Passport, Driver License etc)" style={{border:"none"}}>
+                            <Button className="circular basic teal" icon ="warning" style={{padding:"2px",marginTop:"25px"}}/>
+                          </abbr>
+                      </Grid.Column>
+                          <Grid.Column width={4} textAlign="left">
+                            <Button onClick={this.addEducation.bind(this)}>Add Education</Button>
+                          </Grid.Column> */}
+                      </Grid.Row>
+                </Grid>
         })
     }
 
     render() {
         return (
-            <Grid className='sign-up-about-education-body'>
-                <Grid.Row centered>
-                    <Grid.Column width={12} textAlign='left'>
-                        <p className='sign-up-label'>EDUCATION</p>
+            <Grid>
+                <Grid.Row centered style={{marginTop:"20px"}}>
+                    <Grid.Column width={8} textAlign='left'>
+                      <h4 class="ui dividing header">Education</h4>
                     </Grid.Column>
                 </Grid.Row>
+
                 {this.renderEduction()}
+
                 <Grid.Row centered>
-                    <Button onClick={this.addEducation.bind(this)}>Add Education</Button>
-                </Grid.Row>
-                <Grid.Row centered>
-                    <Grid.Column width={4}>
-                        <p>Your total experience in months</p>
-                    </Grid.Column>
-                </Grid.Row>
-                <Grid.Row centered>
-                    <Grid.Column width={4}>
-                        <Input label="Experience" required fluid name='experience' placeholder='Experience (in months)'
+                    <Grid.Column width={8} textAlign='left'>
+                      <span>Experience</span>
+                        <input required fluid name='experience' placeholder='Experience (in years)'
                                onChange={this.props.onChange}/>
                     </Grid.Column>
                 </Grid.Row>
+                <SkillsSection onChangeSkills={this.onChangeSkills} selectedSkills={this.state.selectedSkills}/>
+                <HourlyRateSection/>
+                <BottomSection/>
             </Grid>
         );
     }
