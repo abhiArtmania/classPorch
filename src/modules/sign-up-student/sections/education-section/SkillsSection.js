@@ -140,7 +140,7 @@ function capitalize(str = '') {
         .map((char, i) => i === 0 ? char.toUpperCase() : char)
         .reduce((final, char) => final += char, '')
 }
-const mapStateToProps = ({auth, profileState}) => {
+const mapStateToProps = ({profileState}) => {
 
   const {seededSkills} = profileState;
   return {seededSkills}

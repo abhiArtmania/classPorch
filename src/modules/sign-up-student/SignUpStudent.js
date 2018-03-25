@@ -143,7 +143,7 @@ setPhone(phone)
            data={this.state}/>
           :<EducationSection onChange={this.onChange} onChangeSkills={this.onChangeSkills.bind(this)}
            selectedSkills={this.state.selectedSkills} onFormSubmitted={this.onFormSubmitted.bind(this)} 
-           goBack={this.goBack.bind(this)} data={this.state}   seededSkills={this.props.seededSkills}
+           goBack={this.goBack.bind(this)} data={this.state}  
        />
         }
        
