@@ -1,0 +1,76 @@
+.outerProfile-section{
+    padding-bottom: 30px;
+}
+.section-background{
+    background-color: #656656!important;
+    padding: 0!important;
+}
+.profile-section{
+    border: 2px solid #e1a435;
+    background: white;
+    padding: 15px;
+}
+.profileImage img{
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+}
+.userInfo span.rate{
+    float: right;
+}
+.userInfo h2{
+    margin: 0.7rem 0;
+}
+.userInfo h3{
+    margin: 0.7rem 0;
+    color: #969292;
+}
+.session-booking-btn{
+    display: block !important;
+    margin: 15px 0 !important;
+    padding: 15px 30px !important;
+    background: orange !important;
+    transition: all ease .3s;
+}
+.save-profile-btn{
+    float: right;
+    display: block !important;
+    margin: 0 15px !important;
+    background: orange !important;
+}
+.session-booking-btn:hover{
+    background: orange !important;
+    color: white !important;
+}
+.about-section {
+    padding-top: 60px;
+}
+.profile-section .ui.small.label{
+    background: orange !important;
+    color: #fff;
+}
+.profile-section .ui.clearing.divider{
+    border-top: 1px solid #d29b37c9;
+}
+.profile-section .ui.rating .active.icon{
+    color:#e1a435 !important;
+}
+.profile-section .ui.horizontal.statistic{
+    margin: 0px;
+}
+.profile-section .ui.horizontal.statistic .value{
+    font-size: 16px !important;
+    margin-right: 2px;
+    width: auto !important;
+}
+.profile-section .ui.horizontal.statistic .lable{
+    font-size: 14px;
+    margin: 0 !important;
+    font-weight: 400 !important;
+}
+.profile-section .ui.avatar.image, .ui.avatar.image img, .ui.avatar.image svg, .ui.avatar.images .image, .ui.avatar.images img, .ui.avatar.images svg{
+    margin: 5px !important;
+}
+.rating-footer{
+    float: right;
+}

@@ -51,6 +51,7 @@ class HeaderSection extends Component {
               {userId === presentProfileId ?
                 'Your Profile' : profile['full-name']}
             </div>
+            <h3>fafadf</h3>
           </Grid.Column>
           <Grid.Column width={6} textAlign='right'>
             {/*<div>*/}

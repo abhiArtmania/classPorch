@@ -25,10 +25,12 @@ import {
   TosTutor,
   PrivacyPolicy,
   ContactUs,
-} from "./modules"
-import AboutUs from "./modules/AboutUs/AboutUs"
-import { iWant } from "./modules/IWant/IWant"
-import { Faq } from "./modules/Faq/Faq"
+
+} from "./modules";
+import AboutUs from "./modules/AboutUs/AboutUs";
+import { iWant } from "./modules/IWant/IWant";
+import { Faq } from "./modules/Faq/Faq";
+import {Profile} from "./modules/profile"
 
 const Routes = () => {
   const token = localStorage.getItem("store")
@@ -53,6 +55,7 @@ const Routes = () => {
         <Route exact path={"/sign-up/tutor"} component={SignUpTutor} />
         <Route exact path={"/sign-up/student"} component={SignUpStudent} />
         <Route exact path={"/sign-up"} component={SignUpMethods} />
+        <Route exact path={"/profile"} component={Profile} />
         <Route
           exact
           render={props =>

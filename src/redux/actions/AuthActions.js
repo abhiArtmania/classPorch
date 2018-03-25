@@ -59,6 +59,8 @@ export const loginUser = (userReqObject) => {
 
             const res = await axios.post(apiEndpoints.auth.signIn, userReqObject);
             console.log(res);
+            console.log(res.data);
+            
             if (res.status !== 200) {
                 throw('Please check your internet connection. A mouse may be chewing the wire.')
             }
@@ -68,6 +70,7 @@ export const loginUser = (userReqObject) => {
             }
 
             const userResObject = {...res.data.user, ...res.data.session};
+            console.log(userResObject);
             dispatch({type: LOGIN_USER_SUCCESS, payload: {userResObject}});
             history.isAuth = true;
             history.push('/dashboard/' + res.data.user.role)
