@@ -4,6 +4,7 @@ import {Grid, Image} from 'semantic-ui-react';
 import './styles.css';
 import {messageIcon, messageIconUnread} from '../../../../assets/dashboard';
 import {connect} from 'react-redux';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class StatsSection extends React.Component {
 
@@ -42,8 +43,8 @@ class StatsSection extends React.Component {
             <a className='dashboard-stats-container'>
               <p className='dashboard-stats-text'>
                 {profile['sessions-done-count']} <br/>
-                Sessions done <br/>
-                Today
+                <Link to="/completed-sessions">Completed <br/> Sessions</Link>
+                
               </p>
             </a>
           </Grid.Column>

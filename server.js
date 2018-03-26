@@ -8,4 +8,4 @@ app.get("/*", (req , res) => {
   res.sendFile(__dirname + "/build/index.html")
 })
 
-app.listen(port,() => console.log('App is running'));
+app.listen(port,() => console.log('App is running '+port));
