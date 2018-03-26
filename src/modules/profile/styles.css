@@ -6,9 +6,20 @@
     padding: 0!important;
 }
 .profile-section{
-    border: 2px solid #e1a435;
-    background: white;
+    background-color: #fff;
+    box-shadow: 0 1px 3px 0 rgba(63,63,68,0.15), 0 0 0 1px rgba(63,63,68,0.05);
+    border-radius: 3px;
+    position: relative;
     padding: 15px;
+    width: 98% !important;
+    margin: 10px auto !important; 
+}
+.profile-section .ui.list .list>.item>.icon+.content, .ui.list .list>.item>.image+.content, .ui.list>.item>.icon+.content, .ui.list>.item>.image+.content{
+    font-size: 18px;
+    padding: 5px 0;
+}
+.profile-section .subjects{
+    margin: 10px 0;
 }
 .profileImage img{
     width: 100%;
@@ -55,16 +66,54 @@
 .profile-section .ui.rating .active.icon{
     color:#e1a435 !important;
 }
-.profile-section .ui.horizontal.statistic{
-    margin: 0px;
+.profile-section .total-reviews h3{
+    float: right;
+    margin: -40px 0;
+    line-height: 20px;
+    font-size: 18px;
+    color: orange;
+}
+.profile-section .ui.circular.label, .ui.circular.labels .label{
+    min-width: 1.5em;
+    min-height: 1.5em;
+}
+.profile-section .description .column{margin-top: 15px !important;
+}
+.profile-section .description .column h2{
+    margin: 15px 0;
+}
+button.load-more{
+    background: none !important;
+    font-size: 18px !important;
+    color: orange !important;
+}
+.save-profile{
+    width: auto;
+    /* height: 14px; */
+    font-size: 16px;
+    float: right;
+    margin: -40px 0;
+}
+.save-profile:before{
+    content: '';
+    display: inline-block;
+    background-image: url('https://cdn.mytutor.co.uk/images/uploads/save.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 14px;
+    height: 19px;
+    padding-left: 4px;
+    vertical-align: sub;
 }
 .profile-section .ui.horizontal.statistic .value{
-    font-size: 16px !important;
+    font-size: 18px;
+    color: orange;
     margin-right: 2px;
     width: auto !important;
 }
-.profile-section .ui.horizontal.statistic .lable{
-    font-size: 14px;
+.profile-section .ui.statistic>.label, .ui.statistics .statistic>.label{
+    font-size: 18px !important;
+    color: orange !important;
     margin: 0 !important;
     font-weight: 400 !important;
 }
