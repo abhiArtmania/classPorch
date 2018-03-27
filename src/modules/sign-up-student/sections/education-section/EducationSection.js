@@ -77,6 +77,7 @@ isAgreedToTerms(bool)
               </Grid>
                <Grid column={1} centered>
           <Grid.Column width={8} style={{padding:"20px 0"}}>
+          <div style={{margin:"0 auto", color:"red", textAlign:"center"}}>{this.props.errorMessage}</div>
            <button class="ui olive button"  type='button' onClick={this.props.goBack}>Back</button>
            <button class="ui olive button"  type='submit' onClick={this.onSubmit.bind(this)}>Submit</button>
             {/* onClick={this.Formvalidation} */}

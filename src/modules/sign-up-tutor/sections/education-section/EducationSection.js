@@ -15,26 +15,26 @@ export default class EducationSection extends React.Component {
             selectedSkills: [],
             numberOfEducationFields: 1,
             agreeMessage:false,
-			proceed:false,
+			proceed:false
+			
         };
         this.renderEduction = this.renderEduction.bind(this);
         this.onEducationChange = this.onEducationChange.bind(this);
         this.onChangeSkills = this.onChangeSkills.bind(this);
 
     }
-	uploadFile(key,e){
-		let tmp=[...this.state.loadedFiles];
-		
-		tmp[key]=e.target.files[0].name+" (delete)"
-		this.setState({loadedFiles:tmp})
-      
-    }
+	
     clearFile(key)
 {
-	$("#embedpollfileinput_"+key).val("");
+	
+	 let educations = [...this.props.data.listOfEducation];
+        educations[key]["verification_document"] = null;  //new value
+        this.props.setListOfEducation(educations);
+        this.props.onChangeEdu(this.props.data.listOfEducation)
+	/*$("#embedpollfileinput_"+key).val("");
 	let tmp=[...this.state.loadedFiles];
 		tmp[key]=null
-		this.setState({loadedFiles:tmp})
+		this.setState({loadedFiles:tmp})*/
 
 	
 }
@@ -71,22 +71,25 @@ export default class EducationSection extends React.Component {
         tmp.splice(key+1,0,{})
        
         this.props.setListOfEducation(tmp)
-        let tmp2=[...this.state.loadedFiles];
+        /*let tmp2=[...this.state.loadedFiles];
 		tmp2.splice(key+1,0,null)
-		this.setState({loadedFiles:tmp2})
+		this.setState({loadedFiles:tmp2})*/
     }
     deleteEducation(key) {
+		if(this.props.data.listOfEducation.length===1) return;
         let tmp=[...this.props.data.listOfEducation];
         tmp.splice(key,1)
         this.props.setListOfEducation(tmp)
-        let tmp2=[...this.state.loadedFiles];
+        /*let tmp2=[...this.state.loadedFiles];
 		tmp2.splice(key,1)
-		this.setState({loadedFiles:tmp2})
+		this.setState({loadedFiles:tmp2})*/
     }
 
     onEducationChange(key, e, {name, value}) {
+		$("#file_error_"+key).text(''); 
         let educations = [...this.props.data.listOfEducation];
         educations[key][name] = value;  //new value
+        if(e.target.files) educations[key][name]=e.target.files[0]
         this.props.setListOfEducation(educations);
         this.props.onChangeEdu(this.props.data.listOfEducation)
     }
@@ -96,28 +99,32 @@ export default class EducationSection extends React.Component {
     }
 
     renderEduction() {
+		const a=<span style={{color:"red"}}>*</span>
         return this.props.data.listOfEducation.map((edu, key) => {
 			const university=(this.props.data.listOfEducation[key]['university_name'])? this.props.data.listOfEducation[key]['university_name'] : "";
 			const start=(this.props.data.listOfEducation[key]['start_education'] )? this.props.data.listOfEducation[key]['start_education'] : "";
 			const finish=(this.props.data.listOfEducation[key]['finish_education'] )? this.props.data.listOfEducation[key]['finish_education'] : "";
+			const file=(this.props.data.listOfEducation[key]['verification_document'] )? this.props.data.listOfEducation[key]['verification_document'] : "";
+            const filename=(file.name)? file.name: null
             const id="embedpollfileinput_"+key;
+            const errId="file_error_"+key; 
             return <Grid key={key}>
                       <Grid.Row centered style={{marginTop:"10px"}}>
                         <Grid.Column width={4} textAlign='left'>
-                          <span>School Name{key}{university}</span>
-                            <Input fluid type='text' name={'university_name'} placeholder='Name of School'
+                          <span>School Name{a}</span>
+                            <Input fluid type='text' name={'university_name'} required  placeholder='Name of School'
                             value={university}
                                    onChange={this.onEducationChange.bind(this, key)}/>
                         </Grid.Column>
                         <Grid.Column width={2} textAlign='left'>
-                          <span>Start</span>
+                          <span>Start{a}</span>
                             <Input fluid name={'start_education'} type='text' placeholder='(dd/mm/yyyy)'
                                    onFocus={this.onFocusChange} min='1970-01-01' max={moment().format('Y-mm-D')}
                                    value={start}
                                    onBlur={this.onFocusChange} required onChange={this.onEducationChange.bind(this, key)}/>
                         </Grid.Column>
                         <Grid.Column width={2} textAlign='left'>
-                          <span>End</span>
+                          <span>End{a}</span>
                             <Input fluid name={'finish_education'} type='text' placeholder='(dd/mm/yyyy)'
                                    onFocus={this.onFocusChange} min='1970-01-01' max={moment().format('Y-mm-D')}
                                    value={finish}
@@ -131,16 +138,16 @@ export default class EducationSection extends React.Component {
                          <Grid.Column width={4} textAlign='left'>
                            {/* info button */}
                            <abbr title="Upload verification document(Passport, Driver License etc)" style={{border:"none"}}>
-                             <Button className="circular basic teal" icon ="warning" style={{padding:"2px",marginTop:"10px"}}/>
+                             <Button className="circular basic teal" type="button" icon ="warning" style={{padding:"2px",marginTop:"10px"}}/>
                            </abbr>
                            {/* upload button */}
-                           <input type="file" class="inputfile" id={id} onChange={this.uploadFile.bind(this,key)}/>
+                           <Input type="file" name={'verification_document'}  required  class="inputfile" id={id}  onChange={this.onEducationChange.bind(this, key)}/>
                            <label for={id} class="ui small right floated red button">
                              <i class="ui upload icon"></i>
                              Upload Doc
                            </label>
-                           
-                           {this.state.loadedFiles[key] && <div class="ui small red left floated button" style={{clear:"both", float:"right", marginTop:"3px"}} onClick={this.clearFile.bind(this,key)}><span>{this.state.loadedFiles[key]} </span></div>}
+                           <div id={errId} style={{color:"red", clear:"both",float:"right"}} />
+                           {this.props.data.listOfEducation[key]['verification_document'] && (<div  style={{position:"relative", clear:"both", marginTop:"3px", border:"1px solid white", marginTop:"2px", backgroundColor:"beige", padding:"15px", wordWrap:"break-word", borderRadius:"5px"}} >{filename}<div className="closeIcon" onClick={this.clearFile.bind(this,key)}>✖</div></div>)}
                          </Grid.Column>
                          </Grid.Row>
                         
@@ -175,7 +182,23 @@ export default class EducationSection extends React.Component {
     }
 continue(e)
 {
-		
+	this.props.data.listOfEducation.forEach(function(item,i)
+	{
+		if(!item.verification_document){ 
+			let v=$("#file_error_"+i);
+			v.text("upload file");
+			v.get(0).scrollIntoView(true);
+			window.scrollBy(0,-100)
+  
+			 e.preventDefault();
+		 }
+	}
+	
+	)
+	if(!this.props.selectedSkills.length)
+	{ $("#skills_dropdown").trigger('click');
+	  e.preventDefault();
+		}
 	if(this.state.proceed==true) this.setState({agreeMessage:false })
 	else {this.setState({agreeMessage:true }); e.preventDefault();}
 }
@@ -185,12 +208,13 @@ isAgreedToTerms(bool)
 	else this.setState({proceed:false})
 }
     render() {
+		const a=<span style={{color:"red"}}>*</span>
         return (
           <Form encType='application/json' onSubmit={this.props.onFormSubmitted}>
             <Grid>
                 <Grid.Row centered style={{marginTop:"20px"}}>
                     <Grid.Column width={8} textAlign='left'>
-                      <h4 class="ui dividing header">Education</h4>
+                      <h4 class="ui dividing header">Education{a}</h4>
                     </Grid.Column>
                 </Grid.Row>
 </Grid>
@@ -198,7 +222,7 @@ isAgreedToTerms(bool)
 <Grid>
                 <Grid.Row centered>
                     <Grid.Column width={8} textAlign='left'>
-                      <span>Experience</span>
+                      <span>Experience{a}</span>
                         <Input required fluid name='experience' value={this.props.data.experience} placeholder='Experience (in years)'
                                onChange={this.props.onChange}/>
                     </Grid.Column>
@@ -208,6 +232,7 @@ isAgreedToTerms(bool)
                 <BottomSection isAgreedToTerms={this.isAgreedToTerms.bind(this)} agreeMessage={this.state.agreeMessage}/>
             </Grid>
             <div className="ui center aligned segment" style={{marginTop:"30px", border:"0"}}>
+            <div style={{margin:"0 auto", color:"red", textAlign:"center"}}>{this.props.errorMessage}</div>
                     <Button color='olive'
                         onClick={this.props.goBack}>back
                     </Button>

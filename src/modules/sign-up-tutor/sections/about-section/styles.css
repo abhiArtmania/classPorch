@@ -2,7 +2,17 @@
 	font-weight: 600;
 	font-size: 15px;
 }
-
+.closeIcon:hover
+{
+color:white;
+cursor:pointer;
+}
+.closeIcon
+{
+position:absolute;
+top:2px;
+right:2px;
+}
 .sign-up-about-section-body{
 	margin-top: 40px!important;
 	margin-bottom: 40px!important;

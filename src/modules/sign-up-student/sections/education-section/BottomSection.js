@@ -93,7 +93,7 @@ export default class BottomSection extends React.Component {
                             <Link to={'/terms-of-service/student'} className='sign-up-bottom-span-links'> Terms of Service </Link>
                             documents of ClassPorch.
                         </span><br />
-                       {this.props.agreeMessage && <span style={{color:"red",marginLeft:"35px"}}>You must read and agree to the Privacy Policy and Terms of Service  documents of ClassPorch</span>}
+                       {this.props.agreeMessage && <span style={{color:"red",marginLeft:"35px"}}>You must agree on the terms and conditions of ClassPorch.</span>}
                     </Grid.Column>
                 </Grid.Row>
         );

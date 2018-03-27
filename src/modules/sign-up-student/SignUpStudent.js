@@ -26,21 +26,18 @@ class SignUpStudent extends React.Component {
   // state = {
   //   
  ///  };
-componentDidMount()
-{
-	this.props.initialLogin()
-	
-}
+
   onChangeSkills = (selectedSkills) => {
     this.setState({selectedSkills})
    };
 
   continue = (e) =>{
+	  this.props.initialLogin()
 	 e.preventDefault(); 
     this.setState({step:2});
   }
   goBack = () =>{
-	  
+	  this.props.initialLogin()
     this.setState({step:1});
   }
  
@@ -128,11 +125,11 @@ setPhone(phone)
   render() {
     return (
     <div>
-    {this.props.loading &&   <div style={{position:"fixed", top:"0",bottom:"0",left:"0",right:"0"}}><Dimmer active inverted>
+    {this.props.loading &&   <div style={{position:"fixed", top:"0",bottom:"0",left:"0",right:"0", zIndex:"1"}}><Dimmer active inverted>
 					<Loader inverted>Loading</Loader>
 				</Dimmer>
       </div>}
-    <div style={{margin:"0 auto", color:"red", textAlign:"center"}}>{this.props.errorMessage}</div>
+    
       {/* onSubmit={this.onFormSubmitted} */}
         {/* <AboutSection onChange={this.onChange}/> */}
         {(this.state.step == 1)?
@@ -144,7 +141,9 @@ setPhone(phone)
           :<EducationSection onChange={this.onChange} onChangeSkills={this.onChangeSkills.bind(this)}
            selectedSkills={this.state.selectedSkills} onFormSubmitted={this.onFormSubmitted.bind(this)} 
            goBack={this.goBack.bind(this)} data={this.state}  
+           errorMessage={this.props.errorMessage}
        />
+       
         }
        
     </div>

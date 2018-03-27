@@ -97,7 +97,10 @@ emailCheck() {
     }
 
     uploadFile(e, key){
-		this.setState({fileName:e.target.files[0].name+" (delete)"})
+		$("#err_file").text('');
+		if(e.target.files) this.props.setFile(e.target.files[0])
+		
+		//this.setState({fileName:e.target.files[0].name+" (delete)"})
         console.log(e)
     }
 setPhone(value)
@@ -107,8 +110,7 @@ setPhone(value)
 }
 clearFile()
 {
-	$("#embedpollfileinput").val("");
-	this.setState({fileName:null});
+	this.props.setFile(null)
 	
 }
 continue(e)
@@ -116,7 +118,7 @@ continue(e)
 		
 		let el;
 	
-
+		if(!this.props.data.idFile){$("#err_file").text('upload file'); e.preventDefault();}
 		if(!this.props.data.country){ this.setState({selectCountry:"select your country"})
 			el=document.querySelector("#country_container");
 			$(el).trigger("click");
@@ -139,7 +141,8 @@ continue(e)
 		else e.preventDefault();
 	}
     render() {
-        // const {gender} = this.state;
+        const gender = this.props.data.gender;
+        const a=<span style={{color:"red"}}>*</span>
         return (
         <Form encType='application/json' onSubmit={this.nextStep.bind(this)}>
             <Grid>
@@ -150,19 +153,19 @@ continue(e)
                 </Grid.Row>
                 <Grid.Row centered >
                     <Grid.Column width={4} textAlign='left' >
-                      <span> Name </span>
+                      <span> First Name{a} </span>
                         <Input fluid name='first_name' placeholder='First Name *' value={this.props.data.first_name} required
                                onChange={this.props.onChange}/>
                     </Grid.Column>
                     <Grid.Column width={4} textAlign='left' >
-                      <br/>
+                      <span> Last Name{a} </span>
                         <Input fluid name='last_name' placeholder='Last Name *' value={this.props.data.last_name} required
                                onChange={this.props.onChange}/>
                     </Grid.Column>
                 </Grid.Row>
                 <Grid.Row centered>
                     <Grid.Column width={4} textAlign='left' >
-                        <span>Date of Birth</span>
+                        <span>Date of Birth{a}</span>
                         <Input id="datepicker" fluid name='dob'  type='date' value={this.props.data.dob}  placeholder='dd/mm/yyyy'
                                onFocus={this.onFocusChange}
                                onBlur={this.onFocusChange}
@@ -171,25 +174,42 @@ continue(e)
                                
                         <p style={{color: 'red', fontSize: '15px'}}>{this.state.dobError}</p>
                     </Grid.Column>
-                    <Grid.Column width={4} textAlign='left' >
-                      <span>Country</span>
+                    
+                    <Grid.Column width={4} textAlign='left'>
+                        <span>Gender</span>
+                        <Radio
+                            label='Male'
+                            name='gender'
+                            value="male"
+                            className='space'
+                            checked={gender === 'male'}
+                            onChange={this.props.onChange}/>
+                        <Radio
+                            label='Female'
+                            name='gender'
+                            value="female"
+                            className='space'
+                            checked={gender === 'female'}
+                            onChange={this.props.onChange}/>
+                    </Grid.Column>
+              
+                    
+                    
+                </Grid.Row>
+                <Grid.Row centered>
+                <Grid.Column width={4} textAlign='left' >
+                      <span>Country{a}</span>
                         <Select labeled={true} fluid name='country' value={this.props.data.country} id="country_container" onChange={this.props.onChange}
                                 placeholder='Select your country *'  options={CountryList}  required/>
                         {/*<input fluid name='country' type='text' placeholder='Country' required*/}
                         {/*onChange={this.props.onChange}/>*/}
                     </Grid.Column>
-                </Grid.Row>
-                <Grid.Row centered>
                     <Grid.Column width={4} textAlign='left' >
-                      <span>State/Province</span>
+                      <span>State/Province{a}</span>
                         <Input fluid name='province' type='text' placeholder='State/Province *' value={this.props.data.province}  required
                                onChange={this.props.onChange}/>
                     </Grid.Column>
-                    <Grid.Column width={4} textAlign='left' >
-                      <span>City</span>
-                        <Input fluid name='city' type='text' placeholder='City *' value={this.props.data.city}  required
-                               onChange={this.props.onChange}/>
-                    </Grid.Column>
+                   
                 </Grid.Row>
                 {/* <Grid.Row centered  >
                     <Grid.Column width={12} textAlign='left'>
@@ -210,45 +230,55 @@ continue(e)
                             onChange={this.changeGender}/>
                     </Grid.Column>
                 </Grid.Row> */}
+                 <Grid.Row centered  >
+                  
+                 <Grid.Column width={4} textAlign='left' >
+                      <span>City{a}</span>
+                        <Input fluid name='city' type='text' placeholder='City *' value={this.props.data.city}  required
+                               onChange={this.props.onChange}/>
+                    </Grid.Column>
+                    <Grid.Column width={4} textAlign='left'>
+                    <span>Phone{a}</span>
+                      <Phone
+						placeholder="Enter phone number"
+						country="CA"
+						value={ this.props.data.mobile}
+						required
+						onChange={this.setPhone.bind(this)  }/>
+                              {/* (change)="fileEvent($event)" */}
+                  </Grid.Column>
+                  </Grid.Row>
                 <Grid.Row centered  >
                   <Grid.Column width={4} textAlign='left'>
-                      <span>Email</span>
+                      <span>Email{a}</span>
                       <Input fluid name='email' placeholder='Email' id="email" type='email' value={this.props.data.email}  onChange={this.props.onChange}/>
                  
                   </Grid.Column>
                   <Grid.Column width={4} textAlign='left'>
-                      <span>Confirm Email</span>
+                      <span>Confirm Email{a}</span>
                       <Input fluid name='ConfirmEmail' id="confirmEmail" placeholder='Confirm Email' type='email' value={this.props.data.ConfirmEmail}  onChange={this.props.onChange}/>
-                  {this.state.wrongEmail  && <span style={{color:"red"}}> emails mismatch</span>}
+                  {this.state.wrongEmail  && <span style={{color:"red"}}>Email and Confirm Email does not match!</span>}
                   </Grid.Column>
                 </Grid.Row>
                 <Grid.Row centered  >
                     <Grid.Column width={4} textAlign='left' >
-                      <span>Password</span>
+                      <span>Password{a}</span>
                         <Input fluid name='password' id="password" type='password' placeholder='Password *' required
                                onChange={this.props.onChange}/>
-                               {this.state.wrongPassFormat && <span style={{color:"red"}}> -Wrong format for password(at least one number, one lowercase, one uppercase )</span>}
+                               {this.state.wrongPassFormat && <span style={{color:"red"}}> Wrong format for password(at least one number, one lowercase, one uppercase )</span>}
                     </Grid.Column>
                     <Grid.Column width={4} textAlign='left'>
-                      <span>Confirm Password</span>
+                      <span>Confirm Password{a}</span>
                         <Input fluid name='password_confirmation' id='password_confirmation' type='password' placeholder='Password Confirmation *'
                                required
                                onChange={this.props.onChange}/>
-                                {this.state.wrongPass && <span style={{color:"red"}}> -Passwords are not the same </span>}
+                                {this.state.wrongPass && <span style={{color:"red"}}> Password and Confirm Password does not match! </span>}
                     </Grid.Column>
                 </Grid.Row>
                 <Grid.Row centered>
-                  <Grid.Column width={4} textAlign='left'>
-                    <span>Phone</span>
-                      <Phone
-						placeholder="Enter phone number"
-						country="CA"
-						value={ this.state.value}
-						
-						onChange={this.setPhone.bind(this)  }/>
-                              {/* (change)="fileEvent($event)" */}
-                  </Grid.Column>
-                    <Grid.Column width={3} textAlign='left' style={{ marginTop:"20px"}}>
+                  
+                    <Grid.Column width={2} textAlign='center' style={{ marginTop:"20px"}}>
+                       
                         <Input type="file" class="inputfile" id="embedpollfileinput" onChange={this.uploadFile.bind(this)}/>
                        
                         <label for="embedpollfileinput" class="ui small red left floated button">
@@ -256,14 +286,17 @@ continue(e)
                           <i class="ui upload icon"></i>
                           Upload ID
                         </label>
-                        <br />
-                       {this.state.fileName && <div class="ui small red left floated button" style={{clear:"both", textAlign:"left", marginTop:"3px"}} onClick={this.clearFile.bind(this)}><span>{this.state.fileName} </span></div>}
-                    </Grid.Column>
-                  <Grid.Column width={1} textAlign='left'>
-                      <abbr title="Upload verification document(Passport, Driver License etc)" style={{border:"none"}}>
-                        <Button className="circular basic teal" icon ="warning" style={{padding:"2px",marginTop:"25px"}}/>
+                         <abbr title="Upload verification document(Passport, Driver License etc)" style={{border:"none"}}>
+                        <Button className="circular basic teal" type="button" icon ="warning" style={{padding:"2px",marginTop:"7px", float:"left"}}/>
                       </abbr>
-                  </Grid.Column>
+                        <br />
+                        <div id={"err_file"} style={{color:"red", clear:"both", marginTop:"15px"}} />
+                     
+                    
+                           {this.props.data.idFile && (<div  style={{position:"relative", clear:"both", marginTop:"3px", border:"1px solid white", marginTop:"2px", backgroundColor:"beige", padding:"15px", wordWrap:"break-word", borderRadius:"5px", display:"inline-block"}} >{this.props.data.idFile.name}<div className="closeIcon" onClick={this.clearFile.bind(this)}>✖</div></div>)}
+                     
+                    </Grid.Column>
+                  
                 </Grid.Row>
             </Grid>
              <div className="ui center aligned segment" style={{marginTop:"30px", border:"0"}}>

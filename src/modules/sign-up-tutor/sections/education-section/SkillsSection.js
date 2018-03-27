@@ -69,12 +69,13 @@ class SkillsSection extends React.Component{
         const { skills } = this.state;
         const { selectedSkills } = this.props;
         const displayableSkills = (selectedSkills)? selectedSkills.map(x => x.key ):[];
-
+		const a=<span style={{color:"red"}}>*</span>
         return (
                 <Grid.Row centered>
                     <Grid.Column width={4} textAlign='left'>
-                        <span>Skills</span>
+                        <span>Skills{a}</span>
                         <Dropdown
+							id="skills_dropdown"
                             options={skills}
                             placeholder='Start typing to search for a skill.'
                             search

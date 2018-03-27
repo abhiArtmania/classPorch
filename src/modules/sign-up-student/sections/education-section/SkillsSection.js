@@ -91,6 +91,7 @@ class SkillsSection extends React.Component {
     });
 
     render() {
+		
         const {skills} = this.state;
         const {selectedSkills} = this.props;
         const displayableSkills = selectedSkills.map(x => x.key);

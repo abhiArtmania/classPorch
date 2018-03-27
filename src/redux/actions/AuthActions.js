@@ -72,6 +72,7 @@ export const loginUser = (userReqObject) => {
             if (res.data.meta.code!==201) {
                 throw('The email or password you entered is incorrect, please try again')
             }
+            console.log(res.data.response)
 
             const userResObject = res.data.response;
             dispatch({type: LOGIN_USER_SUCCESS, payload: {userResObject}});
@@ -93,7 +94,13 @@ export const signupUser = (parsedForm) => {
     return async (dispatch) => {
       
             dispatch({type: SIGNUP_USER});
-
+            let config={};
+		//if(arguments[1]==="tutor")
+		 config={
+        headers: {
+            'content-type': 'multipart/form-data'
+        }
+    }
           axios.post(apiEndpoints.auth.signUp, parsedForm).then(res => {
            
             
@@ -103,6 +110,7 @@ export const signupUser = (parsedForm) => {
           
 
            if (res.data.meta.code!==201) {
+			   
 			   const err=(res.data.response.error)? res.data.response.error : "error"
                 throw(err)
             }

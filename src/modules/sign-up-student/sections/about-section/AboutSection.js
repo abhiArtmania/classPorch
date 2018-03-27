@@ -225,10 +225,10 @@ setPhone(value)
         const parents=<Grid.Row centered id="ParentDetails">
                     <Grid.Column width={4} textAlign='left' name="parent_first_name" value={this.state.parent_first_name}>
 
-                        <input label="Parent/Guardian first Name" type="text" id="ParentfName" name='parent_first_name' value={this.props.data.parent_first_name} fluid  placeholder="Parent/Guardian First Name" onChange={this.onChange.bind(this)}/>
+                        <input label="Parent/Guardian first Name" required type="text" id="ParentfName" name='parent_first_name' value={this.props.data.parent_first_name} fluid  placeholder="Parent/Guardian First Name" onChange={this.onChange.bind(this)}/>
                     </Grid.Column>
                     <Grid.Column width={4} textAlign='left'>
-                        <input label="Parent/Guardian last Name" type="text" id="ParentlName" name='parent_last_name' value={this.props.data.parent_last_name} fluid placeholder="Parent/Guardian Last Name" onChange={this.onChange.bind(this)}/>
+                        <input label="Parent/Guardian last Name" required type="text" id="ParentlName" name='parent_last_name' value={this.props.data.parent_last_name} fluid placeholder="Parent/Guardian Last Name" onChange={this.onChange.bind(this)}/>
                     </Grid.Column>
 
                 </Grid.Row>
@@ -249,7 +249,7 @@ setPhone(value)
                           onChange={this.onChange.bind(this)} value={this.props.data.first_name} />
                     </Grid.Column>
                     <Grid.Column width={4}>
-                      <span>Second Name</span>{a}
+                      <span>Last Name</span>{a}
                       <input type="text" name="last_name" fluid error placeholder='Second Name *' required
                           onChange={this.onChange.bind(this)} value={this.props.data.last_name}/>
                     </Grid.Column>
@@ -271,26 +271,20 @@ setPhone(value)
                     </Grid.Column>
 					</Grid.Row>
 
-                {this.state.showParents && parents}
+                {(this.state.showParents || this.props.data.grade<=12) && parents}
                 <Grid.Row centered>
+                <Grid.Column width={4} textAlign='left'>
+                      <span> City</span>{a}
+                        <input  type='text' name="city" value={this.props.data.city} fluid placeholder='City' required error label="City"
+                            onChange={this.onChange.bind(this)} />
+                    </Grid.Column>
                   <Grid.Column width={4} textAlign='left'>
                       <span>State/Province</span>
                       <input type="text" name="state" fluid error placeholder='Add your state/province' 
                           onChange={this.onChange.bind(this)} value={this.props.data.state}/>
                       
                   </Grid.Column>
-                  <Grid.Column width={4} textAlign='left'>
-                    <span>Phone</span>
-                     <Phone
-                     
-						placeholder="Enter phone number"
-						country="CA"
-						value={ this.state.value}
-						
-						onChange={this.setPhone.bind(this)  }/>
                   
-                       {/* onChange={props.onChange}  Phone is optional*/}
-                  </Grid.Column>
                    
                 </Grid.Row>
                  
@@ -304,10 +298,17 @@ setPhone(value)
                         {/*onChange={this.props.onChange}/>*/}
                     </Grid.Column>
                     <Grid.Column width={4} textAlign='left'>
-                      <span> City</span>{a}
-                        <input  type='text' name="city" value={this.props.data.city} fluid placeholder='City' required error label="City"
-                            onChange={this.onChange.bind(this)} />
-                    </Grid.Column>
+                    <span>Phone</span>
+                     <Phone
+                     
+						placeholder="Enter phone number"
+						country="CA"
+						value={ this.state.value}
+						required
+						onChange={this.setPhone.bind(this)  }/>
+                  
+                       {/* onChange={props.onChange}  Phone is optional*/}
+                  </Grid.Column>
                 </Grid.Row>
                 <Grid.Row centered>
                   <Grid.Column width={4} textAlign='left'>
@@ -333,7 +334,7 @@ setPhone(value)
                           display: "block", float: "right", color: "red", verticalAlign: "top",paddingTop: "5px"
                         }}></label>
                   
-                  {this.state.wrongEmail  && <div style={{color:this.state.colorE,position:"absolute", right:"15px", bottom:"-15px"}}> emails mismatch </div>}
+                  {this.state.wrongEmail  && <div style={{color:this.state.colorE,position:"absolute", right:"15px", bottom:"-15px"}}> Email and Confirm Email does not match! </div>}
                   </Grid.Column>
                 </Grid.Row>
                 <Grid.Row centered>
@@ -344,7 +345,7 @@ setPhone(value)
                         <label id='lblpassword' style={{
                             display: "block", float: "right", color: "red", verticalAlign: "top",paddingTop: "5px"
                           }}>
-                          {this.state.wrongPassFormat && <span> -Wrong format for password(at least one number, one lowercase, one uppercase )</span>}
+                          {this.state.wrongPassFormat && <span> Wrong format for password(at least one number, one lowercase, one uppercase )</span>}
                         </label>
                     </Grid.Column>
                     <Grid.Column width={4} textAlign='left'>
@@ -355,7 +356,7 @@ setPhone(value)
                         <label id='lblCpassword' style={{
                             display: "block", float: "right", color: "red", verticalAlign: "top",paddingTop: "5px"
                           }}>
-                           {this.state.wrongPass && <span> -Passwords are not the same </span>}
+                           {this.state.wrongPass && <span> Password and Confirm Password does not match! </span>}
                       </label>
                     </Grid.Column>
                    
