@@ -19,13 +19,14 @@ class SignUpTutor extends React.Component {
 			 selectedSkills: [],
             educations:[],
             step: 1,
-            listOfEducation: [{}]
+            listOfEducation: [{}],
+            rate:25
         };
     }
    
 	setListOfEducation(data)
 	{
-	this.setState({listOfEducation: data, gender:"male"})	
+	this.setState({listOfEducation: data})	
 	}
     changeStep = () => {
 		this.props.initialLogin();

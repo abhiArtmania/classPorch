@@ -13,7 +13,7 @@ export default class HourlyRateSection extends React.Component {
         this.onChange = this.onChange.bind(this);
     }
     calcPerMin() {
-        return (this.state.perHour / 60)
+        return (this.props.data.rate / 60)
     }
     onChange(e,{name,value}) {
         if(value> 60 || value < 25) return
@@ -31,7 +31,7 @@ export default class HourlyRateSection extends React.Component {
                         labelPosition='right'
                         type='number'
                         required
-                        value={this.state.perHour}
+                        value={this.props.data.rate}
                         onChange={this.onChange}>
                         <Label basic style={{color:"olive"}}>$</Label>
                         <input/>

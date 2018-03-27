@@ -228,7 +228,7 @@ isAgreedToTerms(bool)
                     </Grid.Column>
                 </Grid.Row>
                 <SkillsSection onChangeSkills={this.props.onChangeSkills} selectedSkills={this.props.selectedSkills}/>
-                <HourlyRateSection/>
+                <HourlyRateSection onChange={this.props.onChange} data={this.props.data}/>
                 <BottomSection isAgreedToTerms={this.isAgreedToTerms.bind(this)} agreeMessage={this.state.agreeMessage}/>
             </Grid>
             <div className="ui center aligned segment" style={{marginTop:"30px", border:"0"}}>

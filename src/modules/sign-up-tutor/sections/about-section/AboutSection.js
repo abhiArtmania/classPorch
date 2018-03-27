@@ -176,7 +176,11 @@ continue(e)
                     </Grid.Column>
                     
                     <Grid.Column width={4} textAlign='left'>
-                        <span>Gender</span>
+						<div style={{marginTop:"27px"}}>
+						<span>Gender</span>
+						
+                        
+                        
                         <Radio
                             label='Male'
                             name='gender'
@@ -184,6 +188,7 @@ continue(e)
                             className='space'
                             checked={gender === 'male'}
                             onChange={this.props.onChange}/>
+                           
                         <Radio
                             label='Female'
                             name='gender'
@@ -191,6 +196,8 @@ continue(e)
                             className='space'
                             checked={gender === 'female'}
                             onChange={this.props.onChange}/>
+                            </div>
+                          
                     </Grid.Column>
               
                     
