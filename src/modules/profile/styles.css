@@ -1,0 +1,121 @@
+.outerProfile-section{
+    padding-bottom: 30px;
+}
+.section-background{
+    background-color: #656656!important;
+    padding: 0!important;
+}
+
+.profile-section .ui.list .list>.item>.icon+.content, .ui.list .list>.item>.image+.content, .ui.list>.item>.icon+.content, .ui.list>.item>.image+.content{
+    font-size: 18px;
+    padding: 5px 0;
+}
+.profile-section .subjects{
+    margin: 10px 0;
+}
+.profileImage img{
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+}
+.userInfo span.rate{
+    float: right;
+}
+.userInfo h2{
+    margin: 0.7rem 0;
+}
+.userInfo h3{
+    margin: 0.7rem 0;
+    color: #969292;
+}
+.session-booking-btn{
+   color: white !important;
+    margin: 15px 0 !important;
+    padding: 15px 30px !important;
+    background: orange !important;
+    transition: all ease .3s;
+}
+.save-profile-btn{
+    float: right;
+    display: block !important;
+    margin: 0 15px !important;
+    background: orange !important;
+    color: white;
+}
+.session-booking-btn:hover{
+    background: orange !important;
+    color: white !important;
+}
+.about-section {
+    padding-top: 60px;
+}
+.profile-section .ui.small.label{
+    background: orange !important;
+    color: #fff;
+}
+.profile-section .ui.clearing.divider{
+    border-top: 1px solid #d29b37c9;
+}
+.profile-section .ui.rating .active.icon{
+    color:#e1a435 !important;
+}
+.profile-section .total-reviews h3{
+    float: right;
+    margin: -40px 0;
+    line-height: 20px;
+    font-size: 18px;
+    color: orange;
+}
+.profile-section .ui.circular.label, .ui.circular.labels .label{
+    min-width: 1.5em;
+    min-height: 1.5em;
+}
+.profile-section .description .column{margin-top: 15px !important;
+}
+.profile-section .description .column h2{
+    margin: 15px 0;
+}
+button.load-more{
+    background: none !important;
+    font-size: 18px !important;
+    color: orange !important;
+}
+.save-profile{
+    color: white !important;
+    margin: 15px 15px !important;
+    padding: 13px 30px !important;
+    background: orange !important;
+    transition: all ease .3s;
+}
+.userInfo h2.userName{
+    color: orange;
+}
+.save-profile:before{
+    content: '';
+    display: inline-block;
+   /* background-image: url('../');*/
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 14px;
+    height: 19px;
+    padding-left: 4px;
+    vertical-align: sub;
+}
+.profile-section .ui.horizontal.statistic .value{
+    font-size: 18px;
+    color: orange;
+    margin-right: 2px;
+    width: auto !important;
+}
+.profile-section .ui.statistic>.label, .ui.statistics .statistic>.label{
+    font-size: 18px !important;
+    color: orange !important;
+    margin: 0 !important;
+    font-weight: 400 !important;
+}
+.profile-section .ui.avatar.image, .ui.avatar.image img, .ui.avatar.image svg, .ui.avatar.images .image, .ui.avatar.images img, .ui.avatar.images svg{
+    margin: 5px !important;
+}
+.rating-footer{
+    float: right;
+}

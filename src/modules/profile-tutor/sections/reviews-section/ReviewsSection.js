@@ -65,15 +65,18 @@ class ReviewsSegment extends Component {
         return(
             <Grid padded relaxed style={{width:'100%'}} >
                 <Grid.Row centered >
-                    <Grid.Column width={12} textAlign='left' >
-                        <div className='sub-heading' > RECENT REVIEWS  </div>
+                    <Grid.Column width={16} textAlign='left' >
+                    <h2>Reviews</h2>
+                            <div className="total-reviews">
+                                <h3 className="review-count">(3 Reviews)</h3>
+                            </div> 
                     </Grid.Column>
                 </Grid.Row>
 
                 { this.renderReviews(displayReviews) }
 
                 { hiddenReviews ? (<Grid.Row centered >
-                    <Grid.Column width={12} >
+                    <Grid.Column width={8} >
                         <Segment style={styles.segment} inverted textAlign='center' onClick={this.onExpandReviews}>
                              {segmentMessage}
                         </Segment> 
@@ -121,26 +124,26 @@ const styles = {
 
 const mapStateToProps = ({profileState}) => {
     let {reviews} = profileState;
-    // reviews = {
-    //     "0":{
-    //             "reviewer_name":"Phil Stevens",
-    //             "reviewer_profile_picture":faker.internet.avatar(),
-	// 			"review":"mark is a good teacher.",
-	// 			"rating": 3
-    //         },
-    //     "1":{
-    //             "reviewer_name":"Phil Stevens",
-    //             "reviewer_profile_picture":faker.internet.avatar(),
-	// 			"review":"mark is a good teacher.",
-	// 			"rating": 3
-    //         },
-    //     "2":{
-    //             "reviewer_name":"Phil Stevens",
-    //             "reviewer_profile_picture":faker.internet.avatar(),
-	// 			"review":"mark is a good teacher.",
-	// 			"rating": 3
-    //         }
-    //     }
+     reviews = {
+        "0":{
+                 "reviewer_name":"Phil Stevens",
+                 "reviewer_profile_picture":"faker.internet.avatar()",
+	 			"review":"mark is a good teacher.",
+	 			"rating": 3
+             },
+         "1":{
+                 "reviewer_name":"Phil Stevens",
+                "reviewer_profile_picture":"faker.internet.avatar()",
+	 			"review":"mark is a good teacher.",
+ 			"rating": 3
+             },
+         "2":{
+                "reviewer_name":"Phil Stevens",
+                 "reviewer_profile_picture":"faker.internet.avatar()",
+	 			"review":"mark is a good teacher.",
+	 			"rating": 3
+             }
+         }
     return  {reviews}
 };
 
