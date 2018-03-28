@@ -178,7 +178,7 @@ continue(e)
                     </Grid.Column>
                     
                     <Grid.Column width={4} textAlign='left'>
-						<div style={{marginTop:"27px"}}>
+						
 						<span>Gender</span>
 						
                         
@@ -198,7 +198,7 @@ continue(e)
                             className='space'
                             checked={gender === 'female'}
                             onChange={this.props.onChange}/>
-                            </div>
+                            
                           
                     </Grid.Column>
               
