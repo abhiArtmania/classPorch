@@ -28,7 +28,9 @@ import {
   Faq,
   Support,
   Contact 
+
 } from "./modules"
+import CompletedSession from './modules/completed-sessions/CompletedSession'
 import AboutUs from "./modules/AboutUs/AboutUs"
 import { iWant } from "./modules/IWant/IWant"
 
@@ -57,7 +59,8 @@ const Routes = () => {
         <Route exact path={"/terms-of-service/student"} component={TosStudent} />
         <Route exact path={"/sign-up/tutor"} component={SignUpTutor} />
         <Route exact path={"/sign-up/student"} component={SignUpStudent} />
-        <Route exact path={"/sign-up"} component={SignUpMethods} />
+        <Route exact path={"/sign-up"} component={SignUpMethods}/>
+        {/* <Route exact path={"/completed-sessions"} component={CompletedSession} /> */}
         <Route
           exact
           render={props =>
@@ -108,6 +111,17 @@ const Routes = () => {
           render={props =>
             authed || history.isAuth ? (
               <DashboardStudent />
+            ) : (
+                <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+              )
+          }
+        />,
+        <Route
+          exact
+          path={"/completed-sessions"}
+          render={props =>
+            authed || history.isAuth ? (
+              <CompletedSession />
             ) : (
                 <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
               )
