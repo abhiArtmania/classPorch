@@ -55,6 +55,7 @@ class SignUpTutor extends React.Component {
             city,
             mobile,
             rate,
+            idFile,
             experience
         } = this.state;
         //Modify form data for actual use:
@@ -77,6 +78,7 @@ class SignUpTutor extends React.Component {
                 country,
                 city,
                 number: mobile,
+                idFile,
                 skills: formSkills
             
         };
@@ -115,7 +117,9 @@ formSkills.forEach(function(item)
                 }
             }
         }
-
+for(var pair of formData2.entries()) {
+   console.log(pair[0]+ ': '+ pair[1]); 
+}
         this.props.signupUser(formData2,"tutor");
     };
 

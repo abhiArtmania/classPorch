@@ -302,8 +302,9 @@ setPhone(value)
                      <Phone
                      
 						placeholder="Enter phone number"
-						country="CA"
-						value={ this.state.value}
+						autoComplete="off"
+						displayInitialValueAsLocalNumber={true}
+						value={ this.props.data.mobile}
 						required
 						onChange={this.setPhone.bind(this)  }/>
                   

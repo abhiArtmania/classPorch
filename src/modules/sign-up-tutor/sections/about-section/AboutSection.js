@@ -75,6 +75,7 @@ emailCheck() {
             needParent: ageInYears < 18,
             dobError: ageInYears < 18 ? "You must be 18 years old minimum" : ""
         }));
+        
         this.props.onChange(e, {name, value})
     }
 
@@ -119,6 +120,7 @@ continue(e)
 		let el;
 	
 		if(!this.props.data.idFile){$("#err_file").text('upload file'); e.preventDefault();}
+		if(this.state.dobError){ e.preventDefault();}
 		if(!this.props.data.country){ this.setState({selectCountry:"select your country"})
 			el=document.querySelector("#country_container");
 			$(el).trigger("click");
@@ -248,7 +250,9 @@ continue(e)
                     <span>Phone{a}</span>
                       <Phone
 						placeholder="Enter phone number"
-						country="CA"
+						
+						autoComplete="off"
+						displayInitialValueAsLocalNumber
 						value={ this.props.data.mobile}
 						required
 						onChange={this.setPhone.bind(this)  }/>

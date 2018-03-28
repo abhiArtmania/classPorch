@@ -67,6 +67,8 @@ class SignUpStudent extends React.Component {
       start_education,
       finish_education,
       college_name,
+      parent_first_name,
+      parent_last_name
     } = this.state;
 	const password_confirmation=password;
     //Modify form data for actual use:
@@ -88,6 +90,8 @@ class SignUpStudent extends React.Component {
         country,
         city,
         number: mobile,
+        parent_first_name,
+      parent_last_name,
         skills: formSkills
       }
     };

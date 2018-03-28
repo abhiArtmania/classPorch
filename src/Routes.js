@@ -26,7 +26,8 @@ import {
   PrivacyPolicy,
   ContactUs2,
   Faq,
-  Support 
+  Support,
+  Contact 
 } from "./modules"
 import AboutUs from "./modules/AboutUs/AboutUs"
 import { iWant } from "./modules/IWant/IWant"
@@ -40,6 +41,7 @@ const Routes = () => {
       <Switch>
         <Route exact path={"/"} component={Home} />
         <Route exact path={"/about-us"} component={AboutUs} />
+        <Route exact path={"/contact-us"} component={Contact} />
         <Route exact path={"/i-want"} component={iWant} />
         <Route exact path={"/chats"} component={Chat} />
         <Route exact path={"/messages"} component={Messaging} />
