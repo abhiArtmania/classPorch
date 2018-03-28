@@ -5,15 +5,7 @@
     background-color: #656656!important;
     padding: 0!important;
 }
-.profile-section{
-    background-color: #fff;
-    box-shadow: 0 1px 3px 0 rgba(63,63,68,0.15), 0 0 0 1px rgba(63,63,68,0.05);
-    border-radius: 3px;
-    position: relative;
-    padding: 15px;
-    width: 98% !important;
-    margin: 10px auto !important; 
-}
+
 .profile-section .ui.list .list>.item>.icon+.content, .ui.list .list>.item>.image+.content, .ui.list>.item>.icon+.content, .ui.list>.item>.image+.content{
     font-size: 18px;
     padding: 5px 0;
@@ -37,7 +29,7 @@
     color: #969292;
 }
 .session-booking-btn{
-    display: block !important;
+   color: white !important;
     margin: 15px 0 !important;
     padding: 15px 30px !important;
     background: orange !important;
@@ -48,6 +40,7 @@
     display: block !important;
     margin: 0 15px !important;
     background: orange !important;
+    color: white;
 }
 .session-booking-btn:hover{
     background: orange !important;
@@ -88,16 +81,19 @@ button.load-more{
     color: orange !important;
 }
 .save-profile{
-    width: auto;
-    /* height: 14px; */
-    font-size: 16px;
-    float: right;
-    margin: -40px 0;
+    color: white !important;
+    margin: 15px 15px !important;
+    padding: 13px 30px !important;
+    background: orange !important;
+    transition: all ease .3s;
+}
+.userInfo h2.userName{
+    color: orange;
 }
 .save-profile:before{
     content: '';
     display: inline-block;
-    background-image: url('https://cdn.mytutor.co.uk/images/uploads/save.svg');
+   /* background-image: url('../');*/
     background-size: contain;
     background-repeat: no-repeat;
     width: 14px;

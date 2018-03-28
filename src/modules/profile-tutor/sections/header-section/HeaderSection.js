@@ -5,9 +5,11 @@ import RequestSession from './RequestSession'
 import {
   Grid,
   Button,
-  Form} from 'semantic-ui-react';
-import './styles.css'
-
+  Rating} from 'semantic-ui-react';
+import './styles.css';
+import profileImg  from '../../../../assets/profile/profile.jpg';
+import {apiEndpoints} from '../../../../ApiEndpoints';
+import axios from 'axios'
 class HeaderSection extends Component {
 
   startUploading = (event) => {
@@ -39,48 +41,76 @@ class HeaderSection extends Component {
     this.props.showMessages(currentUser, otherUser, null);
     history.push('/messages');
   };
-
+ 
+  componentDidMount(){
+    console.log(apiEndpoints);
+    
+    
+  }
   render() {
-    const {userId, presentProfileId, profile, role} = this.props;
+    const {userId, presentProfileId, profile, authToken, role,averageRating} = this.props;
+    //console.log(this.apitTest(authToken));
+    const searchRequested = ( authToken) => {
+      return async () => {
+          try {
+             
+              let rawRes = await fetch(`https://classporch-staging-backend.herokuapp.com/api/v1/user/online/online_status` , {
+                  headers: {
+                      'auth-token': authToken
+                  }
+              });
+              let res = await rawRes.json();
+  
+              return res.results;
+          } catch (e) {
+              return e;
+          }
+      }
+  };
+  console.log(searchRequested(authToken));
     return (
-      <Grid padded relaxed style={{width: '100%', paddingTop: '40px'}}>
-        <Grid.Row columns={1} centered>
-
-          <Grid.Column width={6} textAlign='left'>
-            <div style={styles.heading}>
-              {userId === presentProfileId ?
-                'Your Profile' : profile['full-name']}
-            </div>
-            <h3>fafadf</h3>
-          </Grid.Column>
-          <Grid.Column width={6} textAlign='right'>
-            {/*<div>*/}
-              {/*{userId === presentProfileId ?*/}
-
-                {/*<Form loading={false} className='profile-picture-form' >*/}
-                    {/*<Form.Field */}
-                      {/*control={'input'} */}
-                      {/*type='file' */}
-                      {/*onFocus={this.onFocusChange}*/}
-                      {/*onBlur={this.onFocusChange}*/}
-                      {/*accept={'.jpg, .jpeg'} */}
-                      {/*placeholder='Change profile picture'*/}
-                      {/*className='image-input'*/}
-                      {/*onChange={this.startUploading}/>*/}
-                {/*</Form>*/}
-                {/*:*/}
-                {/*<div style={{display: 'flex', justifyContent: 'flex-end'}}>*/}
-                  {/*<RequestSession profile={profile}/>*/}
-                  {/*<Button*/}
-                    {/*onClick={this.redirectToChats}*/}
-                    {/*color='yellow'*/}
-                    {/*style={{marginLeft: '15px'}}*/}
-                    {/*content='MESSAGE'/>*/}
-                {/*</div>*/}
-              {/*}*/}
-            {/*</div>*/}
-          </Grid.Column>
-        </Grid.Row>
+      <Grid className={'profile-section'}>
+                    <Grid.Row width={16} className=''>
+                        <Grid.Column width={3} className='profileImage'>
+                            <img src={profileImg} alt="ProfileImage"/>
+                        </Grid.Column>
+                        <Grid.Column width={13} className='userInfo'>
+                            <h2 className="userName"> <a className="ui green circular label"></a>{profile['full-name']}<span className="rate">${profile['hourly-rate']}/hr</span></h2>
+                            <h3>Mphil in Philosophy(Masters)-Glasgow University </h3>
+                            <div>
+                           <div><div className="ui small label"> {averageRating?averageRating: 0}</div> 
+                                <Rating  defaultRating={averageRating||0} maxRating={5} disabled/> </div>
+                            </div>
+                            <div className="ui  labels subjects">
+                            <div className="ui label">
+                                AI
+                            </div>
+                            <div className="ui label">
+                                Math
+                            </div>
+                            <div className="ui label">
+                            English
+                            </div>
+                            <div className="ui label">
+                                Descrete
+                            </div>
+                            <div className="ui label">
+                                Computer Graphics
+                            </div>
+                            <div className="ui label">
+                                Computer netwoks
+                            </div>
+                            </div>
+                        
+                        </Grid.Column>
+                    </Grid.Row>
+                    <div className="ui clearing divider"></div> 
+                    <Grid.Row>
+                    <Grid.Column width={16} >
+                    { role ==='tutor'?<Button className="save-profile">Edit Profile</Button>:''}
+                    <Button  className="session-booking-btn">Message Tutor</Button>
+                    </Grid.Column >
+                    </Grid.Row>
       </Grid>
     )
   }

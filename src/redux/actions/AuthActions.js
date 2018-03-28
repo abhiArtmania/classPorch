@@ -59,21 +59,21 @@ export const loginUser = (userReqObject) => {
 
             const res = await axios.post(apiEndpoints.auth.signIn, userReqObject);
             console.log(res);
-            console.log(res.data);
+            console.log(res.data.response);
             
             if (res.status !== 200) {
                 throw('Please check your internet connection. A mouse may be chewing the wire.')
             }
 
-            if (!res.data.success) {
+           /* if (!res.data.success) {
                 throw('Please enter correct username or password. We know you can do it. ')
-            }
+            }*/
 
-            const userResObject = {...res.data.user, ...res.data.session};
+            const userResObject = {...res.data.response};
             console.log(userResObject);
             dispatch({type: LOGIN_USER_SUCCESS, payload: {userResObject}});
             history.isAuth = true;
-            history.push('/dashboard/' + res.data.user.role)
+            history.push('/dashboard/' + res.data.response.role)
 
         } catch (e) {
             console.log('e', e);
@@ -102,7 +102,7 @@ export const signupUser = (parsedForm) => {
             }
 
             const userResObject = {...res.data.user, ...res.data.session};
-
+            console.log(userResObject);
             if (res.data.user.role === 'tutor') {
                 dispatch({type: SIGNUP_SUCCESS, payload: {userResObject}});
                 return history.push('/dashboard/tutor')

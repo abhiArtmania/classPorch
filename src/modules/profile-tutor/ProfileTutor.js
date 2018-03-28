@@ -1,12 +1,12 @@
 
 import React from 'react';
-import { HeaderSection,RatingSection,ReviewsSection,ProfileSection } from './sections';
+import { HeaderSection,ProfileSection } from './sections';
 import { Button } from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import { Notification } from 'react-notification';
 import { profileRequested,getDashboard, toggleProfileMode, onChangeUserInfo,updateProfilePicture,
 	onChangeEducation,onChangeSkill, updateProfile, ChatActions } from '../../redux/actions';
-
+import './styles.css';
 class ProfileTutor extends React.Component {
 
 	state = {
@@ -54,20 +54,20 @@ class ProfileTutor extends React.Component {
     render(){
 		const { userId,authToken,presentProfileId,role,firstName, profile, educationalAttributes, lastName ,
 			averageRating, reviews,mode, onChangeEducation, onChangeSkill } = this.props;
+			console.log( this.props);
         return (
-        	<div style={{width:'100%',display:'flex',flexDirection:'column', alignItems:'center' }} >
-				<HeaderSection userId={userId} authToken={authToken} profile={profile} presentProfileId={presentProfileId}
+			<div style={{padding:'15px'}}>
+        	<div className="outerProfile-section" style={{width:'100%',display:'flex',flexDirection:'column', alignItems:'center' }} >
+				<HeaderSection userId={userId} averageRating={averageRating} authToken={authToken} profile={profile} presentProfileId={presentProfileId}
 								role= {role} lastName = {lastName} firstName={firstName} showMessages={this.props.showMessages}
 								updateProfilePicture={updateProfilePicture} />
 				
-                <RatingSection userId={userId} authToken={authToken} firstName={firstName} role={role} 
-								profile={profile} presentProfileId={presentProfileId} averageRating = {averageRating}  />
+              
 
-                <ReviewsSection userId={userId} authToken={authToken} role={role} profile={profile}  presentProfileId={presentProfileId}
-								reviews = {reviews}  />
+                
 
                 <ProfileSection userId={userId} authToken={authToken} role={role} profile={profile} educationalAttributes={educationalAttributes}
-								presentProfileId={presentProfileId} firstName={firstName} mode={ mode}
+								presentProfileId={presentProfileId} firstName={firstName} mode={ mode} reviews = {reviews} 
 								toggleProfileMode={this.props.toggleProfileMode} onChangeUserInfo={this.props.onChangeUserInfo}
 								onChangeEducation={this.props.onChangeEducation} onChangeSkill = {this.props.onChangeSkill}
 								/>
@@ -102,6 +102,7 @@ class ProfileTutor extends React.Component {
 
 				
         	</div>
+			</div>
         	);
     }
 }
