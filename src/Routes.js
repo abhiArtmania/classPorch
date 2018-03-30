@@ -29,6 +29,7 @@ import {
   Support,
 } from "./modules"
 import CompletedSession from './modules/completed-sessions/CompletedSession'
+import ScheduledSession from './modules/scheduled-sessions/ScheduledSessions'
 import AboutUs from "./modules/AboutUs/AboutUs"
 import { iWant } from "./modules/IWant/IWant"
 
@@ -119,6 +120,17 @@ const Routes = () => {
           render={props =>
             authed || history.isAuth ? (
               <CompletedSession />
+            ) : (
+                <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+              )
+          }
+        />,
+        <Route
+          exact
+          path={"/scheduled-sessions"}
+          render={props =>
+            authed || history.isAuth ? (
+              <ScheduledSession />
             ) : (
                 <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
               )

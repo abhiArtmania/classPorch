@@ -52,8 +52,8 @@ class StatsSection extends React.Component {
             <a className='dashboard-stats-container'>
               <p className='dashboard-stats-text'>
                 {profile['scheduled-sessions-count']} <br/>
-                Scheduled <br/>
-                Sessions
+                <Link to="/scheduled-sessions">Scheduled <br/> Sessions</Link>
+              
               </p>
             </a>
           </Grid.Column>

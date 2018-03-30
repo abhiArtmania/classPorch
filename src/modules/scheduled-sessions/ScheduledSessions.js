@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import  './style.css'
 import Image from '../../assets/completedsessions/ins2.jpg';
 
-class CompletedSession extends Component {
+class ScheduledSessions extends Component {
     render() {
         return (
             
         <div className="c-session">
-        <h2>Completed Sessions</h2>
-        
+        <h2>Scheduled Sessions</h2>
 
 
             
@@ -23,7 +22,7 @@ class CompletedSession extends Component {
                     </div>
 
                     <div classNameName="duration-data">
-                        <span classNameName="duration">Duration</span> <p classNameName="st-end-date">26/Mar to 26/Apr</p>
+                        <span classNameName="duration">Scheduled At</span> <p classNameName="st-end-date">26/Mar to 26/Apr</p>
                             
                     </div>
 
@@ -51,7 +50,7 @@ class CompletedSession extends Component {
              </div>
 
              <div classNameName="duration-data">
-                 <span classNameName="duration">Duration</span> <p classNameName="st-end-date">26/Mar to 26/Apr</p>
+                 <span classNameName="duration">Scheduled At</span> <p classNameName="st-end-date">26/Mar to 26/Apr</p>
                      
              </div>
 
@@ -79,7 +78,7 @@ class CompletedSession extends Component {
                         </div>                            
                     </div>
                     <div className="duration-data">
-                        <span className="duration">Duration</span> <p className="st-end-date">26/Mar to 26/Apr</p>
+                        <span className="duration">Scheduled At</span> <p className="st-end-date">26/Mar to 26/Apr</p>
                         
                     </div>
                     <div className="duration-data2">
@@ -96,7 +95,7 @@ class CompletedSession extends Component {
                                  </div>                            
                              </div>
                              <div className="duration-data">
-                                 <span className="duration">Duration</span> <p className="st-end-date">26/Mar to 26/Apr</p>
+                                 <span className="duration">Scheduled At</span> <p className="st-end-date">26/Mar to 26/Apr</p>
                                  
                              </div>
                              <div className="duration-data2">
@@ -114,7 +113,7 @@ class CompletedSession extends Component {
                                  </div>                            
                              </div>
                              <div className="duration-data">
-                                 <span className="duration">Duration</span> <p className="st-end-date">26/Mar to 26/Apr</p>
+                                 <span className="duration">Scheduled At</span> <p className="st-end-date">26/Mar to 26/Apr</p>
                                  
                              </div>
                              <div className="duration-data2">
@@ -132,7 +131,7 @@ class CompletedSession extends Component {
                                  </div>                            
                              </div>
                              <div className="duration-data">
-                                 <span className="duration">Duration</span> <p className="st-end-date">26/Mar to 26/Apr</p>
+                                 <span className="duration">Scheduled At</span> <p className="st-end-date">26/Mar to 26/Apr</p>
                                  
                              </div>
                              <div className="duration-data2">
@@ -150,7 +149,7 @@ class CompletedSession extends Component {
                         </div>                            
                     </div>
                     <div className="duration-data">
-                        <span className="duration">Duration</span> <p className="st-end-date">26/Mar to 26/Apr</p>
+                        <span className="duration">Scheduled At</span> <p className="st-end-date">26/Mar to 26/Apr</p>
                         
                     </div>
                     <div className="duration-data2">
@@ -180,7 +179,7 @@ class CompletedSession extends Component {
                    </div>                            
                </div>
                <div className="duration-data">
-                   <span className="duration">Duration</span> <p className="st-end-date">26/Mar to 26/Apr</p>
+                   <span className="duration">Scheduled At</span> <p className="st-end-date">26/Mar to 26/Apr</p>
                    
                </div>
                <div className="duration-data2">
@@ -197,7 +196,7 @@ class CompletedSession extends Component {
                             </div>                            
                         </div>
                         <div className="duration-data">
-                            <span className="duration">Duration</span> <p className="st-end-date">26/Mar to 26/Apr</p>
+                            <span className="duration">Scheduled At</span> <p className="st-end-date">26/Mar to 26/Apr</p>
                             
                         </div>
                         <div className="duration-data2">
@@ -215,7 +214,7 @@ class CompletedSession extends Component {
                             </div>                            
                         </div>
                         <div className="duration-data">
-                            <span className="duration">Duration</span> <p className="st-end-date">26/Mar to 26/Apr</p>
+                            <span className="duration">Scheduled At</span> <p className="st-end-date">26/Mar to 26/Apr</p>
                             
                         </div>
                         <div className="duration-data2">
@@ -233,7 +232,7 @@ class CompletedSession extends Component {
                             </div>                            
                         </div>
                         <div className="duration-data">
-                            <span className="duration">Duration</span> <p className="st-end-date">26/Mar to 26/Apr</p>
+                            <span className="duration">Scheduled At</span> <p className="st-end-date">26/Mar to 26/Apr</p>
                             
                         </div>
                         <div className="duration-data2">
@@ -251,7 +250,7 @@ class CompletedSession extends Component {
                    </div>                            
                </div>
                <div className="duration-data">
-                   <span className="duration">Duration</span> <p className="st-end-date">26/Mar to 26/Apr</p>
+                   <span className="duration">Scheduled At</span> <p className="st-end-date">26/Mar to 26/Apr</p>
                    
                </div>
                <div className="duration-data2">
@@ -350,5 +349,5 @@ class CompletedSession extends Component {
     }
 }
 
-export default CompletedSession;
+export default ScheduledSessions;
 
