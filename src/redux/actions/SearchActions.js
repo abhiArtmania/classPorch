@@ -7,19 +7,19 @@ import {
     TOGGLE_SEARCH_MODE
 } from './types'
 
-export const searchRequested = (searchWord, authToken) => {
+export const searchRequested = (filter, searchWord, authToken) => {
     return async (dispatch) => {
         try {
             dispatch({ type: SEARCH_START });
 
-            let rawRes = await fetch(`${apiEndpoints.base}/search?type=tutor&&q=${searchWord}`, {
+            let rawRes = await fetch(`${apiEndpoints.base}/search?type=${filter}&q=${searchWord}`, {
                 headers: {
                     'auth-token': authToken
                 }
             });
             let res = await rawRes.json();
 
-            return dispatch({ type: SEARCH_SUCCESS, payload: res.results })
+            return dispatch({ type: SEARCH_SUCCESS, payload: res.response.users })
         } catch (e) {
             return dispatch({ type: SEARCH_FAIL, payload: e })
         }
