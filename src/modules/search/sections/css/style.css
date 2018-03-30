@@ -5298,3 +5298,7 @@ table.manage-table .title-container .title span {
   width: 16px;height: 16px;background-color:#aaa;border-radius:50%;position: absolute;top: 85px;right: 7px;border: 3px solid #FFF;
 }
 .status.online { background-color:#390; }
+
+.label-skill {
+    margin-left: 3px;
+}

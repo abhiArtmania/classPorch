@@ -29,8 +29,8 @@ const SearchResults = props => {
                         </Segment>
                     ) : (
                         <div>
-                            {searchResults.length > 0 ? searchResults.map(result => {
-                                return <SearchSection result={result} authToken={authToken} key={result.id} />
+                            {searchResults.length > 0 ? searchResults.map(tutorInfo => {
+                                return <SearchSection tutorInfo={tutorInfo} authToken={authToken} key={tutorInfo.id} />
                             }) : (
                                 <h3 style={{ marginBottom: 40 }}>Oops! No result found.</h3 >
                             )}
