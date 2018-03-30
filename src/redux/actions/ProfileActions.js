@@ -81,7 +81,7 @@ export const profileRequested = (userId, authToken) => {
 			)
             let res = await rawRes.json()
 			let tmp=[];
-			res.data.attributes['educations-attributes'].forEach(function(item)
+			res.data.response.educations.forEach(function(item)
 			{
 				
 				let newItem={};
@@ -97,7 +97,7 @@ export const profileRequested = (userId, authToken) => {
 			
 			const averageRating = res.data.attributes['average-rating']
 			const profile = res.data.attributes['profile']
-			const educationalAttributes =tmp//res.data.attributes['educations-attributes']
+			const educations =tmp//res.data.attributes['educations']
 			
 			
 			const reviews = res.data.attributes['reviews']
@@ -107,7 +107,7 @@ export const profileRequested = (userId, authToken) => {
 				type: GET_PROFILE_SUCCESS,
 				payload: {
 					averageRating,
-					educationalAttributes,
+					educations,
 					profile,
 					reviews
 				}
@@ -136,12 +136,12 @@ export const onChangeUserInfo = (field, value) => {
 export const onChangeEducation = (
 	index,
 	action,
-	educationalAttributes,
+	educations,
 	field,
 	value
 ) => {
 	if (action === 'edit') {
-		const updatedEducation = educationalAttributes.map((ed, i) => {
+		const updatedEducation = educations.map((ed, i) => {
 			if (i === index) {
 				ed[field] = value
 				return ed
@@ -153,7 +153,7 @@ export const onChangeEducation = (
 			payload: updatedEducation
 		}
 	} else if (action === 'delete') {
-		const updatedEducation = educationalAttributes.filter((ed, i) => {
+		const updatedEducation = educations.filter((ed, i) => {
 			return i !== index
 		})
 		return {
@@ -163,8 +163,8 @@ export const onChangeEducation = (
 	} else {
 		// noinspection JSUnusedAssignment
 		if ((action = 'add')) {
-			let updatedEducation = educationalAttributes
-			if (index > educationalAttributes.length) {
+			let updatedEducation = educations
+			if (index > educations.length) {
 				const newEducation = {
 					'start_education': '',
 					'finish_education': '',
@@ -180,7 +180,7 @@ export const onChangeEducation = (
 		} else {
 			return {
 				type: CHANGE_EDUCATION,
-				payload: educationalAttributes
+				payload: educations
 			}
 		}
 	}
@@ -203,7 +203,7 @@ export const updateProfilePicture = picturePath => {
 export const updateProfile = ({
 	profile,
 	userId,
-	educationalAttributes,
+	educations,
 	authToken
 }) => {
 
@@ -213,7 +213,7 @@ export const updateProfile = ({
 
 			let bodyObject = {
 				user: {
-					educations_attributes: educationalAttributes,
+					educations: educations,
 					role: profile.type,
 					first_name: profile['full-name'].split(' ')[0],
 					last_name: profile['full-name'].split(' ')[1],

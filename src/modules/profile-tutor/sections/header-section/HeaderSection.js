@@ -9,9 +9,15 @@ import {
 import './styles.css';
 import profileImg  from '../../../../assets/profile/profile.jpg';
 import {apiEndpoints} from '../../../../ApiEndpoints';
-import axios from 'axios'
+import axios from 'axios';
+let status;
 class HeaderSection extends Component {
-
+  constructor(props) {
+    super(props);
+    this.state = { statue: 'offline' };
+  }
+  
+  state = {}
   startUploading = (event) => {
     // this.setState({isUploadingFile: true});
     // this.props.uploadFile(event.target.files[0], {contentType: 'image/jpeg'});
@@ -41,15 +47,38 @@ class HeaderSection extends Component {
     this.props.showMessages(currentUser, otherUser, null);
     history.push('/messages');
   };
- 
-  componentDidMount(){
-    console.log(apiEndpoints);
-    
+  setStateAsync(state) {
+
+    return new Promise((resolve) => {
+      status=resolve;
+      this.setState(state, resolve);
+      this.setState(state, resolve)
+    });
+  }
+  async componentDidMount() {
+    console.log(`${apiEndpoints.base}/user/online_status`);
+    const res = await fetch(`${apiEndpoints.base}/user/online_status`,
+      {
+        headers: {
+          'auth-token': this.props.authToken
+        }
+      }
+    )
+    const rult  = await res.json();
+    console.log(rult.response.online_status);
+    this.setState({status: rult.response.online_status });
+    await this.setStateAsync({status: rult.response.online_status})
     
   }
   render() {
-    const {userId, presentProfileId, profile, authToken, role,averageRating} = this.props;
-    //console.log(this.apitTest(authToken));
+    const {userId, presentProfileId, profile, fullname, authToken,skills , role,averageRating} = this.props;
+   console.log(skills);
+   const content = skills.map((post) =>
+   <div key={skills.id}>
+    
+     <p>{skills.skills}</p>
+   </div>
+ );
     const searchRequested = ( authToken) => {
       return async () => {
           try {
@@ -75,13 +104,14 @@ class HeaderSection extends Component {
                             <img src={profileImg} alt="ProfileImage"/>
                         </Grid.Column>
                         <Grid.Column width={13} className='userInfo'>
-                            <h2 className="userName"> <a className="ui green circular label"></a>{profile['full-name']}<span className="rate">${profile['hourly-rate']}/hr</span></h2>
+                            <h2 className="userName"> {this.state.status === 'online'?<div className="ui green circular label"></div>:''}{fullname}{profile['hourly-rate']?<span className="rate">${profile['hourly-rate']}/hr</span>:''}</h2>
                             <h3>Mphil in Philosophy(Masters)-Glasgow University </h3>
                             <div>
                            <div><div className="ui small label"> {averageRating?averageRating: 0}</div> 
                                 <Rating  defaultRating={averageRating||0} maxRating={5} disabled/> </div>
                             </div>
                             <div className="ui  labels subjects">
+                            {content}
                             <div className="ui label">
                                 AI
                             </div>
