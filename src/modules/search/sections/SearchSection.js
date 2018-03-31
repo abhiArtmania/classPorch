@@ -37,10 +37,9 @@ class SearchSection extends React.Component {
           </h1>
 
           <div class="educations">
-            <p><strong>Education:</strong> {tutorInfo.educations.length === 0 && "N/A"}</p>
             {tutorInfo.educations.length && tutorInfo.educations.map(item => {
               return (
-                <p className="educations__detail">- University {item.university_name} ({`${item.start_education} - ${item.finish_educaiton}`}), {item.status}</p>
+                <p>University {item.university_name} ({`${item.start_education} - ${item.finish_educaiton}`}), {item.status}</p>
               )
             })}
           </div>
