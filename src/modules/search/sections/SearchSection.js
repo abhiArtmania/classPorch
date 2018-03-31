@@ -44,7 +44,7 @@ class SearchSection extends React.Component {
             })}
           </div>
 
-          <p><strong>Subjects:</strong>
+          <p>
             {tutorInfo.skills.map(skill => {
               return (
                 <span
