@@ -4,6 +4,7 @@
 .rating { 
   border: none;
   float: left;
+  margin-right: 2px;
 }
 
 .rating > input { display: none; } 

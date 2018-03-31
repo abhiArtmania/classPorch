@@ -23,8 +23,8 @@ const Rating = props => {
     rateRounded = 1.5;
   } else if (rate > 0.5 && rate <= 1) {
     rateRounded = 1;
-  } else {
-    rateRounded = 0.5;
+  } else if (rate > 0 && rate <= 1) {
+    rateRounded = 1;
   }
   return (
     <div class="rating">
