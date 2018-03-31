@@ -27,8 +27,8 @@ import {
   ContactUs2,
   Faq,
   Support,
-  Contact 
-
+  Contact,
+  Tutor
 } from "./modules"
 import CompletedSession from './modules/completed-sessions/CompletedSession'
 import AboutUs from "./modules/AboutUs/AboutUs"
@@ -155,6 +155,17 @@ const Routes = () => {
           render={props =>
             authed || history.isAuth ? (
               <ProfileTutor />
+            ) : (
+                <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+              )
+          }
+        />,
+        <Route
+          exact
+          path={"/tutors/:tutorId"}
+          render={props =>
+            authed || history.isAuth ? (
+              <Tutor route={props} />
             ) : (
                 <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
               )

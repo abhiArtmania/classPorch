@@ -42,7 +42,6 @@ const enhancers = compose(
 );
 
 // Create store
-
 const persistedState = loadState();
 
 const store = createStore(
