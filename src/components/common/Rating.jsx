@@ -26,8 +26,6 @@ const Rating = props => {
   } else {
     rateRounded = 0.5;
   }
-  console.log(rate)
-  console.log(rateRounded)
   return (
     <div class="rating">
       <input type="radio" id="star5" name={`rating_${props.name}`} value={5} checked={rateRounded === 5} />
