@@ -42,7 +42,7 @@ class SuggestedTutors extends React.Component {
   };
 
   populateGridColumns(profiles) {
-   
+  
     return profiles.map((profile, i) => ( <ProfileTile profile={profile} key={i}/> ))
   }
 
@@ -143,6 +143,7 @@ class SuggestedTutors extends React.Component {
 
   render() {
     let {displayedTutorProfiles, pageStart, totalPages} = this.state;
+    console.log(displayedTutorProfiles);
     return (
       <Grid style={{marginBottom: 100}}>
         <Grid.Row centered>

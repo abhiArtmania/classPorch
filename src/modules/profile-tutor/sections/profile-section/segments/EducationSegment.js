@@ -33,10 +33,52 @@ class EducationSegment extends Component {
         }
     };
 
-    getEducationBlocks = (educationalAttributes) => {
+    getEducationBlocks = (educations) => {
         const {mode, presentProfileId, userId} = this.props;
-
-        return educationalAttributes.map((education, i) => {
+        "2017-08-20"
+        id
+        :
+        6
+        identity_document_content_type
+        :
+        null
+        identity_document_file_name
+        :
+        null
+        identity_document_file_size
+        :
+        null
+        identity_document_updated_at
+        :
+        null
+        identity_document_url
+        :
+        null
+        start_education
+        :
+        "2017-08-20"
+        status
+        :
+        null
+        university_name
+        :
+        "vns"
+        verification_document_content_type
+        :
+        null
+        verification_document_file_name
+        :
+        null
+        verification_document_file_size
+        :
+        null
+        verification_document_updated_at
+        :
+        null
+        verification_document_url
+        :
+        null
+        return educations.map((education, i) => {
             let startYear = moment(education['start_education']).format('YYYY');
             let finishYear = moment(education['finish_education']).format('YYYY');
             return (
@@ -47,8 +89,8 @@ class EducationSegment extends Component {
                                 <div className="item" style={{borderTop:'none'}}>
                                     <img className="ui avatar image" src={checkimg}/>
                                     <div className="content">
-                                    <div className="header">Phd <span>2009-2010</span></div>
-                                    western washington University
+                                    <div className="header">Phd <span>{startYear}-{finishYear}</span></div>
+                                   { education['university_name']}
                                     </div>
                                 </div>
                                 
@@ -61,9 +103,9 @@ class EducationSegment extends Component {
     };
 
     render() {
-        const educationBlocks = this.getEducationBlocks(this.props.educationalAttributes);
-        const {mode, presentProfileId, userId} = this.props;
-
+        const educationBlocks = this.getEducationBlocks(this.props.educations);
+        const {mode, presentProfileId, userId, educations} = this.props;
+        console.log(this.props);
         return (
             <Grid padded relaxed style={{width: '100%', paddingTop: 30}}>
                 <Grid.Row stretched columns={2} >

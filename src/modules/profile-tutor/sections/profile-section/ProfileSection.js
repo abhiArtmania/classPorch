@@ -7,7 +7,7 @@ import '../../styles.css'
 class ProfileSection extends Component {
 
     render(){
-        const { profile,educationalAttributes,userId, role, authToken, firstName, presentProfileId, mode,
+        const { profile,educations,userId, role, authToken, firstName, presentProfileId, mode,
                 onChangeEducation, onChangeSkill, toggleProfileMode, reviews } = this.props;
         return(
             <div style={{width:'100%',paddingBottom:'5em'}} >
@@ -19,7 +19,7 @@ class ProfileSection extends Component {
                  <ReviewsSection userId={userId} authToken={authToken} role={role} profile={profile}  presentProfileId={presentProfileId}
 								reviews = {reviews}  />
                 
-                <EducationSegment educationalAttributes={educationalAttributes} presentProfileId={presentProfileId}
+                <EducationSegment educations={educations} presentProfileId={presentProfileId}
                     onChangeEducation={onChangeEducation} toggleProfileMode={toggleProfileMode} mode={mode}
                     userId={userId} />
                 

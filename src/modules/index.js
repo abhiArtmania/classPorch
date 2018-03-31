@@ -28,3 +28,4 @@ export * from './scroll-to-top';
 export * from './Faq';
 export * from './support';
 export * from './contact';
+export * from './Settings';

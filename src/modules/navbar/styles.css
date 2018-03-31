@@ -2,7 +2,9 @@
 {
 display:none;
 }
-
+.title-dashboard{
+    text-align: center;
+}
 .menubar{
     height: 80px;
     padding-right: 20px;

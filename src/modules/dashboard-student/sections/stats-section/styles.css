@@ -2,7 +2,12 @@
 	margin-top: 40px!important;
 	margin-bottom: 40px!important;
 }
-
+.tutor-stats-section .ui.secondary.pointing.menu .active.item {
+   
+    border-color: orange ;
+    font-weight: 700;
+    color: orange;
+}
 .tutor-greeting{
 	font-size: 40px;
 	font-weight: 300;

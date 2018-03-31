@@ -1,5 +1,5 @@
 import React from 'react';
-import {NotificationsSection, StatsSection, SuggestedTutors} from './sections';
+import { StatsSection, SuggestedTutors} from './sections';
 import {connect} from 'react-redux';
 import { Icon } from 'semantic-ui-react'
 
@@ -54,7 +54,7 @@ class DashboardStudent extends React.Component {
         this.props.searchMode === 'normal'?
         <div>
             <StatsSection unreadMessagesCount={unreadMessagesCount}/>
-            <NotificationsSection/>
+            
             <SuggestedTutors/>
             <Notification
               isActive={this.state.isNotificationActive}
