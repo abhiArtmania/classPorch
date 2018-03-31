@@ -398,9 +398,11 @@ class Navbar extends Component {
     isShowSearchBar = () => {
         const options = [
             { key: 'all', text: 'All', value: '' },
-            { key: 'tutor', text: 'Tutor', value: 'tutor' },
-            { key: 'java', text: 'Java', value: 'java' },
-          ]
+            { key: 'skill', text: 'Skill', value: 'skill' },
+            { key: 'name', text: 'Name', value: 'name' },
+            { key: 'gender', text: 'Gender', value: 'gender' },
+        ]
+        const optionSelected = options.filter(item => item.value === this.state.filter)
         if (this.props.role !== 'student') {
             return null
         }
@@ -417,7 +419,7 @@ class Navbar extends Component {
                     <Dropdown
                         floating
                         options={options}
-                        text={this.state.filter === '' ? 'All' : this.state.filter}
+                        text={this.state.filter === '' ? 'All' : optionSelected.text}
                         onChange={this.onChangeFilter}
                         name='filter'
                         value={this.state.filter}

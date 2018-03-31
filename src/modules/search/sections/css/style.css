@@ -5302,3 +5302,7 @@ table.manage-table .title-container .title span {
 .label-skill {
     margin-left: 3px;
 }
+
+.educations__detail {
+    margin: 0 0 15px 15px !important;
+}

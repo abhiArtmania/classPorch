@@ -5,6 +5,7 @@ import './css/animate.css';
 import './css/style.css';
 import './css/default.css';
 import defaultAvatar from 'assets/avatar/default.png';
+import { Rating } from 'components/common';
 
 
 class SearchSection extends React.Component {
@@ -20,7 +21,7 @@ class SearchSection extends React.Component {
 
   render() {
     const {tutorInfo} = this.props;
-    const className = tutorInfo.online ? "online" : "";
+    const className = tutorInfo.online_status ? "online" : "";
     return (
       <div className="agent-box-list clearfix wow fadeInUp delay-03s" style={{ visibility: "hidden" }}>
         <div className="col-lg-1 col-md-1 col-sm-1  agent-box-theme-2">
@@ -34,10 +35,17 @@ class SearchSection extends React.Component {
             <a className="pull-right">{tutorInfo.hourly_rate ? tutorInfo.hourly_rate: "Not Vefiried"}</a>
             <div className="clearfix" />
           </h1>
-          {/* contact */}
-          <p>University College London University - Biomedical Science ({tutorInfo.fullname})</p>
 
-          <p>Subjects:
+          <div class="educations">
+            <p><strong>Education:</strong> {tutorInfo.educations.length === 0 && "N/A"}</p>
+            {tutorInfo.educations.length && tutorInfo.educations.map(item => {
+              return (
+                <p className="educations__detail">- University {item.university_name} ({`${item.start_education} - ${item.finish_educaiton}`}), {item.status}</p>
+              )
+            })}
+          </div>
+
+          <p><strong>Subjects:</strong>
             {tutorInfo.skills.map(skill => {
               return (
                 <span
@@ -50,10 +58,10 @@ class SearchSection extends React.Component {
             })}
           </p>
 
-          <p>Ethusiastic and friendly graduate with extensive teaching and tutoring experience. Morbi accumsan ipsum velit nam nec tellus a odio tincidunt...</p>
+          <p>{tutorInfo.bio}</p>
           <p>
-            <img src="/img/star-rating.jpg" alt="" style={{width: 100}} />
-            <b> 21 reviews, 67 completed lessons</b>
+            <Rating rate={tutorInfo.overall_rating} name={tutorInfo.id} /> ({tutorInfo.overall_rating})
+            <b> {tutorInfo.reviews.length} reviews, {tutorInfo.session_completed_count} completed sessiona</b>
           </p>
         </div>
       </div>
