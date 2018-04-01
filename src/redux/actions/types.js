@@ -87,3 +87,6 @@ export const GET_SEEDED_SKILLS_FAIL='GET_SEEDED_SKILLS_FAIL';
 export const STATE_PERSISTED = 'STATE_PERSISTED';
 export const INITIAL_LOGIN = 'INITIAL_LOGIN';
 export const SET_FAQ_SUBJ = 'SET_FAQ_SUBJ';
+
+// Written by Vien Nguyen
+export const GET_TUTOR_SCHEDULE = 'GET_TUTOR_SCHEDULE';

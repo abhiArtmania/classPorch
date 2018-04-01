@@ -76,6 +76,7 @@ class ReviewsSegment extends Component {
 
     return(
       <Grid padded relaxed style={{width:'100%'}} >
+        <div className="ui clearing divider" style={{width:'100%', margin: 14}}></div> 
         <Grid.Row centered >
           <Grid.Column width={16} textAlign='left' >
           <h2>Reviews</h2>

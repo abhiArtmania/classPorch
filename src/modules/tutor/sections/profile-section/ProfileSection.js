@@ -1,5 +1,6 @@
 
 import React from 'react'
+import { object } from 'prop-types';
 import { AboutSegment, EducationSegment } from './segments'
 import ReviewsSection from './../reviews-section/ReviewsSection'
 import '../../styles.css'
@@ -7,29 +8,28 @@ import '../../styles.css'
 const ProfileSection = props => {
   const {
     profile,
-    educationalAttributes,
-    userId,
-    presentProfileId,
-    mode,
-    onChangeEducation,
-    toggleProfileMode,
+    tutorSchedule
   } = props;
 
   return(
     <div style={{width:'100%',paddingBottom:'5em'}} >
-      <AboutSegment data={profile} />
-      <div className="ui clearing divider"></div>  
+      <AboutSegment data={profile} /> 
       <ReviewsSection data={profile.reviews} />
       <EducationSegment
-        educationalAttributes={educationalAttributes}
-        presentProfileId={presentProfileId}
-        onChangeEducation={onChangeEducation}
-        toggleProfileMode={toggleProfileMode}
-        mode={mode}
-        userId={userId}
+        tutorSchedule={tutorSchedule}
+        tutorInfo={profile}
       />
     </div>
   )
+}
+
+ProfileSection.propTypes = {
+  tutorSchedule: object.isRequired,
+  tutorInfo: object,
+}
+
+ProfileSection.defaultProps = {
+  tutorInfo: {},
 }
 
 export default ProfileSection

@@ -12,7 +12,7 @@ const HeaderSection = props => {
   const { tutorInfo } = props;
   return (
     <Grid className='profile-section' >
-      <Grid.Row width={16} className=''>
+      <Grid.Row width={16}>
         <Grid.Column width={3} className='profileImage'>
           <img
             src={tutorInfo.image ? tutorInfo.image : defaultAvatar}
@@ -26,7 +26,7 @@ const HeaderSection = props => {
               {tutorInfo.hourly_rate ? `$${tutorInfo.hourly_rate}/hr` : "N/A"}
             </span>
           </h2>
-          {tutorInfo.educations.length && tutorInfo.educations.map(item => {
+          {tutorInfo.educations && tutorInfo.educations.map(item => {
             return (
               <h3>University {item.university_name} ({`${item.start_education} - ${item.finish_educaiton}`}), {item.status}</h3>
             )
@@ -40,7 +40,7 @@ const HeaderSection = props => {
           </div>
 
           <div className="ui  labels subjects">
-            {tutorInfo.skills.map(skill => {
+            {tutorInfo.skills && tutorInfo.skills.map(skill => {
               return (
                 <span
                   key={`skill_${skill.id}`}

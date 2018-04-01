@@ -45,10 +45,11 @@
     margin: 10px 0;
 }
 .profile-section{
-    
-    padding: 15px;
     width: 100% !important;
     margin: 10px auto !important; 
+}
+.row {
+    margin: 0 !important;
 }
 .save-profile{
     color: white !important;

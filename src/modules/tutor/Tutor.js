@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { HeaderSection, ProfileSection } from './sections';
-import { Button } from 'semantic-ui-react'
+import { Button } from 'semantic-ui-react';
+import { func, object } from 'prop-types';
 import { connect } from 'react-redux';
 import { Notification } from 'react-notification';
 import {
@@ -15,6 +15,8 @@ import {
 	updateProfile,
 	ChatActions,
 } from '../../redux/actions';
+import { HeaderSection, ProfileSection } from './sections';
+import { getTutorSchedule } from "redux/actions/tutors";
 import './styles.css';
 
 class Tutor extends React.Component {
@@ -28,10 +30,11 @@ class Tutor extends React.Component {
     this.tutorId = props.route.match.params.tutorId;
 	}
 
-	componentDidMount(){
-		const {authToken} = this.props;
+	async componentWillMount(){
+    const {authToken} = this.props;
 		this.props.profileRequested(this.tutorId, authToken);
-		this.props.toggleProfileMode('normal')
+    this.props.getTutorSchedule(this.tutorId);
+    this.props.toggleProfileMode('normal')
 	}
 
 	componentWillReceiveProps(nextProps){
@@ -73,8 +76,6 @@ class Tutor extends React.Component {
       firstName,
       profile,
       educationalAttributes,
-      lastName,
-      averageRating,
       reviews,
       mode,
     } = this.props;
@@ -99,6 +100,7 @@ class Tutor extends React.Component {
             onChangeUserInfo={this.props.onChangeUserInfo}
             onChangeEducation={this.props.onChangeEducation}
             onChangeSkill={this.props.onChangeSkill}
+            tutorSchedule={this.props.tutorSchedule}
           />
 
           {mode ==='edit' && 
@@ -133,6 +135,8 @@ class Tutor extends React.Component {
 }
 
 const mapStateToProps = store => {
+  console.log(store);
+
 	const { id:userId, authToken, role, firstName, lastName } =  store.auth;
 	const {
     profile,
@@ -141,7 +145,7 @@ const mapStateToProps = store => {
     reviews,
     mode
   } = store.profileState;
-	const { sessionRequestIndicator,displayMessage } = store.dashboard;
+	const { sessionRequestIndicator, displayMessage } = store.dashboard;
 
 	return {
     userId,
@@ -155,9 +159,15 @@ const mapStateToProps = store => {
     reviews,
     mode,
     sessionRequestIndicator,
-    displayMessage
+    displayMessage,
+    tutorSchedule: store.tutors.tutorSchedule
   }
 };
+
+Tutor.propTypes = {
+  getTutorSchedule: func.isRequired,
+  tutorSchedule: object.isRequired,
+}
 
 export default connect(mapStateToProps, { 
 	profileRequested,
@@ -168,6 +178,7 @@ export default connect(mapStateToProps, {
 	onChangeEducation,
 	updateProfile,
 	updateProfilePicture,
-	showMessages: ChatActions.showMessages
+  showMessages: ChatActions.showMessages,
+  getTutorSchedule
 })(Tutor);
 

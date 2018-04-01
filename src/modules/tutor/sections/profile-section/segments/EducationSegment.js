@@ -1,163 +1,152 @@
 import React, {Component} from 'react'
-import {Grid, Icon} from 'semantic-ui-react'
-import {connect} from 'react-redux'
-import moment from 'moment'
+import { object } from 'prop-types';
+import { Grid } from 'semantic-ui-react'
 import '../../../styles.css'
-import checkimg from '../../../../../assets/profile/check.png';
+import checkimg from 'assets/profile/check.png';
 
-
-class EducationSegment extends Component {
-
-    onClickEdit = () => {
-        this.props.toggleProfileMode('edit')
-    };
-
-    onChangeField = (index, action, field, e, {value}) => {
-        this.props.onChangeEducation(index, action, this.props.educationalAttributes, field, value)
-    };
-
-    onClickDelete = (index, action) => {
-        this.props.onChangeEducation(index, action, this.props.educationalAttributes)
-    };
-
-    onAddEducation = (index, action) => {
-        this.props.onChangeEducation(index, action, this.props.educationalAttributes)
-    };
-
-    onFocusChange = (event, data) => {
-        if (event.type === 'focus') {
-            event.target.type = 'date';
-            event.target.click()
-        } else {
-            event.target.type = 'text'
-        }
-    };
-
-    getEducationBlocks = (educationalAttributes) => {
-        const {mode, presentProfileId, userId} = this.props;
-
-        return educationalAttributes.map((education, i) => {
-            let startYear = moment(education['start_education']).format('YYYY');
-            let finishYear = moment(education['finish_education']).format('YYYY');
-            return (
-                <Grid.Row stretched  key={i}>
-                   <Grid.Column width={16} >
-                           
-                            <div className="ui celled list">
-                                <div className="item" style={{borderTop:'none'}}>
-                                    <img className="ui avatar image" src={checkimg}/>
-                                    <div className="content">
-                                    <div className="header">Phd <span>2009-2010</span></div>
-                                    western washington University
-                                    </div>
-                                </div>
-                                
-                            </div>
-                            
-                        </Grid.Column> 
-                </Grid.Row>
-            )
-        })
-    };
-
-    render() {
-        const educationBlocks = this.getEducationBlocks(this.props.educationalAttributes);
-        const {mode, presentProfileId, userId} = this.props;
-
-        return (
-            <Grid padded relaxed style={{width: '100%', paddingTop: 30}}>
-                <Grid.Row stretched columns={2} >
-                <Grid.Column width={16}> 
-                        <div className="ui clearing divider"></div>
-                            <h2>Tutor Availability</h2>
-                            <div>
-                                <table class="ui single line table">
-                                    <thead>
-                                        <tr>
-                                            <th> </th>
-                                        <th>6AM-10AM</th>
-                                        <th>10AM-2PM</th>
-                                        <th>2PM-5PM</th>
-                                        <th>5PM-9PM</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Monday</td>
-                                            <td><i class="large green checkmark icon"></i></td>
-                                            <td><i class="large green checkmark icon"></i></td>
-                                            <td><i class="large green checkmark icon"></i></td>
-                                            <td><i class="large green checkmark icon"></i></td>
-                                        
-                                        </tr>
-                                        <tr>
-                                            <td>Tuesdays</td>
-                                            <td><i class="large green checkmark icon"></i></td>
-                                            <td><i class="large green checkmark icon"></i></td>
-                                            <td><i class="large green checkmark icon"></i></td>
-                                            <td><i class="large green checkmark icon"></i></td>
-                                        
-                                        </tr>
-                                        <tr>
-                                            <td>Wednesdays</td>
-                                            <td><i class="large green checkmark icon"></i></td>
-                                            <td><i class="large green checkmark icon"></i></td>
-                                            <td><i class="large green checkmark icon"></i></td>
-                                            <td><i class="large green checkmark icon"></i></td>
-                                        
-                                        </tr><tr>
-                                            <td>Thursdays</td>
-                                            <td><i class="large green checkmark icon"></i></td>
-                                            <td><i class="large green checkmark icon"></i></td>
-                                            <td><i class="large green checkmark icon"></i></td>
-                                            <td><i class="large green checkmark icon"></i></td>
-                                        
-                                        </tr><tr>
-                                            <td>Friday</td>
-                                            <td><i class="large green checkmark icon"></i></td>
-                                            <td><i class="large green checkmark icon"></i></td>
-                                            <td><i class="large green checkmark icon"></i></td>
-                                            <td><i class="large green checkmark icon"></i></td>
-                                        
-                                        </tr><tr>
-                                            <td>Saturday</td>
-                                            <td><i class="large green checkmark icon"></i></td>
-                                            <td><i class="large green checkmark icon"></i></td>
-                                            <td><i class="large green checkmark icon"></i></td>
-                                            <td><i class="large green checkmark icon"></i></td>
-                                        
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div className="ui clearing divider"></div> 
-                        </Grid.Column>
-                        
-                    <Grid.Column width={16} textAlign='left'>
-                    <h2>Education & certification</h2>
-                    </Grid.Column>
-                    
-                </Grid.Row>
-                {educationBlocks}
-            </Grid>
-        )
-    }
+// 10:15 AM => 10
+// 10:15 PM => 22
+function __convertTime(time) {
+  const ampm = time.split(" ")[1];
+  const hour = time.split(" ")[0];
+  const convertTime = ampm === "AM" ? parseInt(hour.split(":")[0], 10)
+    : parseInt(hour.split(":")[0], 10) + 12;
+  return convertTime;
 }
 
-const styles = {
-    heading: {
-        fontSize: '1.1em',
-        fontWeight: 600,
-        marginTop: '40px'
-    },
-    text: {
-        fontSize: 15
+function __checkAvailability(realTimesAvailable, periodTime) {
+  let isAvailability = false;
+
+  if(!realTimesAvailable || realTimesAvailable.length === 0) {
+    isAvailability = false;
+    return isAvailability;
+  }
+
+  for(let index = 0; index < realTimesAvailable.length; index++) {
+    const start = __convertTime(realTimesAvailable[index].start_time);
+    const end = __convertTime(realTimesAvailable[index].end_time);
+
+    if (!(periodTime.end <= start || end <= periodTime.start)) {
+      isAvailability = true;
+      break;
     }
-};
+  }
+  return isAvailability;
+}
 
-// const mapStateToProps = ({ profileState }) => {
-//     const {profile} = profileState
-//     return { profile }
-// }
+class EducationSegment extends Component {
+  constructor(props) {
+    super(props)
+    this.periodsTime = [
+      {
+        id: 1,
+        start: 6,
+        end: 10,
+        label: "6AM-10AM"
+      },
+      {
+        id: 2,
+        start: 10,
+        end: 14,
+        label: "10AM-2PM"
+      },
+      {
+        id: 3,
+        start: 14,
+        end: 17,
+        label: "2PM-5PM"
+      },
+      {
+        id: 4,
+        start: 17,
+        end: 21,
+        label: "5PM-9PM"
+      },
+    ]
+  }
 
-export default connect(null, {})(EducationSegment)
+	getEducationBlocks = (tutorInfo) => {
+		return tutorInfo.educations ? tutorInfo.educations.map(edu => {
+			return (
+				<Grid.Row stretched  key={`education_${edu.id}`}>
+          <Grid.Column width={16} >
+            <div className="ui celled list">
+              <div className="item" style={{borderTop:'none', display: "flex", alignItems: "center"}}>
+                <img className="ui avatar image" alt="" src={checkimg}/>
+                <div className="content">
+                  <div className="header">
+                    {edu.university_name}
+                    <span> {edu.start_education}-{edu.finish_educaiton}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Grid.Column> 
+				</Grid.Row>
+			)
+		})  : null;
+	};
+
+	render() {
+		const educationBlocks = this.getEducationBlocks(this.props.tutorInfo);
+    console.log(this.props.tutorSchedule)
+		return (
+			<Grid padded relaxed style={{width: '100%', paddingTop: 30}}>
+				<Grid.Row stretched columns={2} >
+				<Grid.Column width={16}> 
+						<div className="ui clearing divider"></div>
+							<h2>Tutor Availability</h2>
+							<div>
+								<table class="ui single line table">
+									<thead>
+										<tr>
+											<th></th>
+                      {this.periodsTime.map(period => {
+                        return <th key={`th_${period.id}`}>{period.label}</th>
+                      })}
+										</tr>
+									</thead>
+									<tbody>
+                    {Object.keys(this.props.tutorSchedule).map(day => {
+                      return (
+                        <tr key={day}>
+                          <td style={{ textTransform: "capitalize" }}>{day}</td>
+                          {this.periodsTime.map(period => {
+                            const isAvailability = __checkAvailability(
+                              this.props.tutorSchedule[day],
+                              period
+                            );
+                            return (
+                              <td key={`check_${period.id}`}>
+                                {isAvailability && <i class="large green checkmark icon"></i>}
+                              </td>
+                            )
+                          })}
+                        </tr>
+                      )
+                    })}
+									</tbody>
+								</table>
+							</div>
+              <br />
+              <br />
+							<div className="ui clearing divider"></div> 
+						</Grid.Column>
+						
+					<Grid.Column width={16} textAlign='left'>
+					  <h2>Education & certification</h2>
+					</Grid.Column>
+					
+				</Grid.Row>
+				{educationBlocks}
+			</Grid>
+		)
+	}
+}
+
+EducationSegment.propTypes = {
+  tutorSchedule: object.isRequired,
+  tutorInfo: object.isRequired,
+}
+
+export default EducationSegment
