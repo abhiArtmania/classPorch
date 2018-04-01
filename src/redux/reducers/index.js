@@ -5,6 +5,7 @@ import SearchReducer from './SearchReducer';
 import ProfileReducer from './ProfileReducer';
 import ChatReducer from './ChatReducer';
 import MessageReducer from './MessageReducer';
+import tutors from './tutors';
 
 export default {
     auth: AuthReducer,
@@ -12,5 +13,6 @@ export default {
     search: SearchReducer,
     profileState: ProfileReducer,
     chatReducer: ChatReducer,
-    messageReducer: MessageReducer
+    messageReducer: MessageReducer,
+    tutors
 }

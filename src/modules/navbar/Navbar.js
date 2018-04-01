@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import logoDark from '../../assets/logo_dark.png';
-
 import { history } from '../../redux/store';
 import './styles.css';
 import { Menu, Dropdown, Image, Input, Button, Grid, Icon, Table } from 'semantic-ui-react';
@@ -46,7 +45,9 @@ class Navbar extends Component {
                 {id:4, Date: 'Feb-2018', Notification: 'Hello this is forth notification' },
                 {id:5, Date: 'Feb-2018', Notification: 'Hello this is five notification' },
             ],
-            showReply: false
+            showReply: false,
+            searchWord: '',
+            filter: ''
         }
 
     }
@@ -399,28 +400,50 @@ class Navbar extends Component {
     }
 
     onSearchWordChange = (e, { value }) => {
-
-        console.log('value', value);
         this.setState({ searchWord: value })
     };
 
     onSearch = (e) => {
         e && e.preventDefault();
+        const { filter, searchWord  } = this.state;
         this.props.toggleSearchMode({ mode: 'search' });
-        this.props.searchRequested(this.state.searchWord, this.props.authToken)
+        this.props.searchRequested(filter, searchWord, this.props.authToken)
     };
 
+    onChangeFilter = (e, data) => {
+        this.setState({ [data.name]: data.value })
+    }
+
     isShowSearchBar = () => {
+        const options = [
+            { key: 'all', text: 'All', value: '' },
+            { key: 'skill', text: 'Skill', value: 'skill' },
+            { key: 'name', text: 'Name', value: 'name' },
+            { key: 'gender', text: 'Gender', value: 'gender' },
+        ]
+        const optionSelected = options.filter(item => item.value === this.state.filter)
         if (this.props.role !== 'student') {
             return null
         }
         if (window.location.pathname === '/search' || window.location.pathname === '/dashboard/student' || window.location.pathname === '/profile/student') {
             return (
                 <form className='search-form None-border' onSubmit={this.onSearch}>
-                    <Input size='large' placeholder='Search for tutors, skills you want to learn...'
-                        className='search-input' action='Search'
-                        // action={<Button type="submit"> Search </Button>}
-                        onChange={this.onSearchWordChange} />
+                    <Input
+                        size='large'
+                        placeholder='Search for tutors, skills you want to learn...'
+                        className='search-input'
+                        action='Search'
+                        onChange={this.onSearchWordChange}
+                    />
+                    <Dropdown
+                        floating
+                        options={options}
+                        text={this.state.filter === '' ? 'All' : optionSelected.text}
+                        onChange={this.onChangeFilter}
+                        name='filter'
+                        value={this.state.filter}
+                        className="searchFilter"
+                    />
                 </form>
             )
         }
@@ -476,9 +499,9 @@ class Navbar extends Component {
     }
 }
 
-const mapStateToProps = ({ auth, dashboard }) => {
-    const { authToken, id: userId, role, firstName, lastName, loggedIn } = auth;
-    const { profile } = dashboard;
+const mapStateToProps = store => {
+    const { authToken, id: userId, role, firstName, lastName, loggedIn } = store.auth;
+    const { profile } = store.dashboard;
     return { authToken, userId, role, firstName, lastName, loggedIn, profile }
 };
 

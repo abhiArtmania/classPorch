@@ -1,5 +1,6 @@
 import React from 'react';
-import { StatsSection, SuggestedTutors} from './sections';
+import { array } from 'prop-types';
+import {NotificationsSection, StatsSection, SuggestedTutors} from './sections';
 import {connect} from 'react-redux';
 import { Icon } from 'semantic-ui-react'
 
@@ -53,24 +54,33 @@ class DashboardStudent extends React.Component {
       { 
         this.props.searchMode === 'normal'?
         <div>
-            <StatsSection unreadMessagesCount={unreadMessagesCount}/>
-            
-            <SuggestedTutors/>
-            <Notification
-              isActive={this.state.isNotificationActive}
-              message="Notification"
-              action="Dismiss"
-              title={this.props.displayMessage}
-              dismissAfter={5000}
-              onDismiss={this.dismissNotification}
-              onClick={this.dismissNotification}
-            />
-          </div>
+          <StatsSection unreadMessagesCount={unreadMessagesCount}/>
+          <NotificationsSection/>
+          <SuggestedTutors/>
+          <Notification
+            isActive={this.state.isNotificationActive}
+            message="Notification"
+            action="Dismiss"
+            title={this.props.displayMessage}
+            dismissAfter={5000}
+            onDismiss={this.dismissNotification}
+            onClick={this.dismissNotification}
+          />
+        </div>
         :
-        <div style={{  }} >
-          <Icon name='delete' size='large' color='red' style={{ cursor:'pointer',position:'relative',left:'80%' }} 
-                        onClick={this.onCancelSearch} />
-          <SearchResults/>
+        <div>
+          <Icon
+            name='delete'
+            size='large'
+            color='red'
+            style={{ cursor:'pointer',position:'relative',left:'80%' }} 
+            onClick={this.onCancelSearch}
+          />
+          <SearchResults
+            authToken={this.props.authToken}
+            loadingSearch={this.props.loadingSearch}
+            searchResults={this.props.searchResults}
+          />
         </div>
       }
       </div>
@@ -78,12 +88,21 @@ class DashboardStudent extends React.Component {
   }
 }
 
-const mapStateToProps = ({auth, dashboard,search}) => {
-  const {id: userId, authToken} = auth;
-  const {sessionRequestIndicator, displayMessage, unreadMessageCount} = dashboard;
-  const {searchMode} = search;
-  return {userId, authToken, sessionRequestIndicator, displayMessage, unreadMessageCount,searchMode}
+const mapStateToProps = store => {
+  console.log(store)
+  const {id: userId, authToken} = store.auth;
+  const {sessionRequestIndicator, displayMessage, unreadMessageCount} = store.dashboard;
+  const {searchMode, searchResults, loadingSearch} = store.search;
+  return {userId, authToken, sessionRequestIndicator, displayMessage, unreadMessageCount, searchMode, searchResults, loadingSearch}
 };
+
+DashboardStudent.propTypes = {
+  searchResults: array,
+}
+
+DashboardStudent.defaultProps = {
+  searchResults: [],
+}
 
 const mapActionToProps = () => {
   return {getDashboard, getUnreadMessagesCount,toggleSearchMode}

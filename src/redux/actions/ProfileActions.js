@@ -68,7 +68,6 @@ export const getSeededSkills = (authToken) => {
 	}
 }
 export const profileRequested = (userId, authToken) => {
-
 	return async dispatch => {
 		try {
 			dispatch({ type: GET_PROFILE_START })

@@ -16,6 +16,7 @@ display:none;
 
 .search-input{
     width:33em !important;
+    border-right: 1px solid rgba(34,36,38,.15);
 }
 
 .search-form{
@@ -97,3 +98,6 @@ display:none;
     
 }
 
+.searchFilter {
+    left: -80px;
+}

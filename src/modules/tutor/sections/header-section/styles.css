@@ -1,0 +1,78 @@
+
+.message-box{
+	height: 30px;
+	cursor: default;
+	background-color: #fff;
+	margin:0;
+	box-shadow: none;
+	border-radius: 0;
+	border-width: 0;
+	text-align: left;
+	padding: 0 150px 0 0;
+	color:rgb(202, 130, 14);
+}
+
+.money-text{
+	font-size:1.1em;
+}
+
+
+.profile-picture-form ::placeholder {
+	color: #fff !important;
+}	 
+
+.image-input input{
+	height: 40px;
+	width:220px;
+	border-radius: 5px;
+	box-shadow: none;
+	border:none;
+	cursor: pointer;
+	background-color:#FBBD08 !important;
+	padding:0;
+    margin: 0;
+    text-transform: uppercase;
+    font-weight: 400;
+	color:#fff;
+	text-align: center;
+}
+
+.profile-picture-form{
+	height: 40px !important;
+	border:none;
+}
+.profile-section .subjects{
+    margin: 10px 0;
+}
+.profile-section{
+    width: 100% !important;
+    margin: 10px auto !important; 
+}
+.row {
+    margin: 0 !important;
+}
+.save-profile{
+    color: white !important;
+    margin: 15px 15px !important;
+    padding: 13px 30px !important;
+    background: orange !important;
+    transition: all ease .3s;
+}
+.session-booking-btn{
+	color: white !important;
+	 margin: 15px 0 !important;
+	 padding: 15px 30px !important;
+	 background: orange !important;
+	 transition: all ease .3s;
+ }
+.save-profile-btn{
+	 float: right;
+	 display: block !important;
+	 margin: 0 15px !important;
+	 background: orange !important;
+	 color: white;
+ }
+ .session-booking-btn:hover{
+	 background: orange !important;
+	 color: white !important;
+ }
