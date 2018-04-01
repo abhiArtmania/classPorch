@@ -145,14 +145,15 @@ class ProfileTile extends Component {
 
   render() {
     let { profile, dashboard, authToken } = this.props;
+    console.log(profile['first_name']);
     let { dimmer, modalVisible } = this.state;
-    let skills = profile["skills-ids"].map(skillId => {
+    let skills = profile["skills"].map(skillId => {
       return  <span key= {skillId.id}> {skillId.name} </span>
     });
   
-	let skillsOpts = profile["skills-ids"].map(x => {
+	/*let skillsOpts = profile["skills-ids"].map(x => {
       return { key:x.id, text:x.name, value:x.id }
-    });
+    });*/
 
     let durations = this.getDurations(5);
 
@@ -160,13 +161,13 @@ class ProfileTile extends Component {
       <Grid.Column width={3} textAlign='center' className='card-style'>
         <Image src={profile['profile-picture'] ? profile['profile-picture'] : faker.internet.avatar()}
           size='tiny' verticalAlign='middle' shape='circular' />
-        <div className='name'> {profile['full-name']} </div>
+        <div className='name'> {profile['first_name'] } {profile['last_name'].charAt(0).toUpperCase()} </div>
         <div className='subjects'> {skills} </div>
-        <div className='price'> $ {profile["hourly-rate"]} </div>
+        <div className='price'>{ profile["hourly-rate"] ?'$'+profile["hourly-rate"]:'NA'} </div>
         <Button
-          onClick={this.showModal}
+          onClick={'this.showModal'}
           color='yellow'
-          content='BOOK A SESSION' />
+          content='View Profile' />
 
         <Modal size={'small'} dimmer={dimmer} open={modalVisible} onClose={this.close}>
           <Modal.Header> Request {profile['full-name']} for a session ? </Modal.Header>
@@ -177,8 +178,8 @@ class ProfileTile extends Component {
             <div className='request-form'>
               <div className='request-section'>
                 <div className='field'>Skill</div>
-                <Dropdown placeholder='Select a skill' fluid selection options={skillsOpts}
-                  onChange={this.onSelectSkill} className='value' required />
+                {/*<Dropdown placeholder='Select a skill' fluid selection options={skillsOpts}
+                  onChange={this.onSelectSkill} className='value' required />*/}
               </div>
               <div className='request-section'>
                 <div className='field'>Start Date</div>

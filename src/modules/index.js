@@ -29,3 +29,4 @@ export * from './Faq';
 export * from './support';
 export * from './contact';
 export * from './tutor';
+export * from './Settings';

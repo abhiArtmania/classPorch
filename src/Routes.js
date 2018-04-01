@@ -28,7 +28,8 @@ import {
   Faq,
   Support,
   Contact,
-  Tutor
+  Tutor,
+  Settings
 } from "./modules"
 import CompletedSession from './modules/completed-sessions/CompletedSession'
 import AboutUs from "./modules/AboutUs/AboutUs"
@@ -89,6 +90,28 @@ const Routes = () => {
           render={props =>
             authed || history.isAuth ? (
               <RequestMoney />
+            ) : (
+                <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+              )
+          }
+        />,
+        <Route
+          exact
+          path="/add-credits"
+          render={props =>
+            authed || history.isAuth ? (
+              <AddCredits />
+            ) : (
+                <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+              )
+          }
+        />,
+        <Route
+          exact
+          path="/settings"
+          render={props =>
+            authed || history.isAuth ? (
+              <Settings />
             ) : (
                 <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
               )

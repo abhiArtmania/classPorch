@@ -75,3 +75,15 @@
 	 background: orange !important;
 	 color: white !important;
  }
+.profile-section .ui.small.label, .ui.small.labels .label{
+	background: orange;
+    padding: 10px;
+    color: #fff;
+    font-weight: 700;
+ }
+.profile-section .ui.rating .active.icon{
+	color: orange;
+}
+.profile-section .ui.green.label, .ui.green.labels .label{
+	display: inline-block;
+}

@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 import logoDark from '../../assets/logo_dark.png';
 import { history } from '../../redux/store';
 import './styles.css';
-import { Menu, Dropdown, Image, Input, Button,Grid } from 'semantic-ui-react';
+import { Menu, Dropdown, Image, Input, Button, Grid, Icon, Table } from 'semantic-ui-react';
 import faker from 'faker'
 import { connect } from 'react-redux';
 import { logoutUserRequested, searchRequested, setPresentProfile, toggleSearchMode } from '../../redux/actions';
 import $ from "jquery";
 import { findDOMNode } from 'react-dom';
+import messenger from '../../assets/messenger.svg';
+import searchicon from '../../assets/searchicon.svg';
+import notificationIcon from '../../assets/ring.svg';
 import compass from '../../assets/n.png';
+
 
 class Navbar extends Component {
 
@@ -30,16 +34,16 @@ class Navbar extends Component {
         this.menuToggle = this.menuToggle.bind(this);
         this.state={
             NotificationList:[
-                {Date:'1-3-2018',Notification:'Hello this is first notification'},
-                {Date:'2-3-2018',Notification:'Hello this is second notification'},
-                {Date:'2-3-2018',Notification:'Hello this is third notification'},
-                {Date:'3-3-2018',Notification:'Hello this is forth notification'},
-                {Date:'3-3-2018',Notification:'Hello this is five notification'},
-                {Date:'1-3-2018',Notification:'Hello this is first notification'},
-                {Date:'2-3-2018',Notification:'Hello this is second notification'},
-                {Date:'2-3-2018',Notification:'Hello this is third notification'},
-                {Date:'3-3-2018',Notification:'Hello this is forth notification'},
-                {Date:'3-3-2018',Notification:'Hello this is five notification'},
+                {id:6, Date: 'Mar-2018', Notification: 'Hello this is first notification' },
+                {id:7, Date: 'Mar-2018', Notification: 'Hello this is second notification' },
+                {id:8, Date: 'Mar-2018', Notification: 'Hello this is third notification' },
+                {id:9, Date: 'Apr-2018', Notification: 'Hello this is forth notification' },
+                {id:10, Date: 'Apr-2018', Notification: 'Hello this is five notification' },
+                {id:2, Date: 'Jan-2018', Notification: 'Hello this is first notification' },
+                {id:1, Date: 'Jan-2018', Notification: 'Hello this is second notification' },
+                {id:3, Date: 'Feb-2018', Notification: 'Hello this is third notification' },
+                {id:4, Date: 'Feb-2018', Notification: 'Hello this is forth notification' },
+                {id:5, Date: 'Feb-2018', Notification: 'Hello this is five notification' },
             ],
             showReply: false,
             searchWord: '',
@@ -136,6 +140,12 @@ class Navbar extends Component {
             case 'contact-us':
                 history.push('/contact');
                 break;
+            case 'dashboard':
+                history.push('/dashboard');
+                break;   
+            case 'settings':
+                history.push('/settings');
+                break;        
             case 'search':
                 this.onSearch();
                 break;
@@ -196,6 +206,11 @@ class Navbar extends Component {
                 buttonTitle: 'Link Account'
             },
             {
+                key: 'settings',
+                name: 'settings',
+                buttonTitle: 'Settings'
+            },
+            {
                 key: 'support',
                 name: 'support',
                 buttonTitle: 'Support'
@@ -208,8 +223,8 @@ class Navbar extends Component {
         ];
 
         let filteredMenuItems = [];
-        const hiddenFromTutorItems = ['add-credits', 'previous-expenses'];
-        const hiddenFromStudentItems = ['request-money', 'link-account'];
+        const hiddenFromTutorItems = ['add-credits', 'previous-expenses','settings'];
+        const hiddenFromStudentItems = ['profile','previous-expenses','request-money', 'link-account'];
 
         if (this.props.role === "tutor") {
             filteredMenuItems = hiddenFromTutorItems.reduce((final, itemKey) => {
@@ -235,7 +250,7 @@ class Navbar extends Component {
 
        
         let notificationiteam=this.state.NotificationList.map((item,j) =>{
-
+          
          //   console.log('item',item);
             return
              (
@@ -260,7 +275,7 @@ class Navbar extends Component {
 
                 <div className='trigger-content'>
                     <div className='username-text'> {this.capitalize(firstName)} {this.capitalize(lastName)} </div>
-                    <div className='user-credits'> {`${this.props.profile.credits} credits`} </div>
+                    <div className='user-credits'> {`$${this.props.profile.credits ?this.props.profile.credits:'0' }`} </div>
                 </div>
             </div>
         );
@@ -271,22 +286,25 @@ class Navbar extends Component {
         );
 
        let notificationbar=this.renderNotificationtems(Notificationtrigger)
-
+       let key=1;
         return (<Menu.Menu position='right'>
-            <Menu.Item name={'messages'} active={this.state.activeItem === 'messages'}
-                onClick={this.handleItemClick}>Messages</Menu.Item>
-            {(window.location.pathname === '/search' || window.location.pathname === '/dashboard/student' || window.location.pathname === '/profile/student') && this.props.role === 'student' &&
-                <Menu.Item name={'search'} active={this.state.activeItem === 'search'} onClick={this.handleItemClick}>Search
-                Tutors</Menu.Item>}
-
-         
-          
-        
            
+            <Menu.Item name={'dashboard'} active={this.state.activeItem === 'dashboard'}
+                onClick={this.handleItemClick}><h3 className="title-dashboard">Dashboard</h3></Menu.Item>      
+            {(window.location.pathname === '/search' || window.location.pathname === '/dashboard/student' || window.location.pathname === '/profile/student') && this.props.role === 'student' &&
+                <Menu.Item name={'search'} active={this.state.activeItem === 'search'} onClick={this.handleItemClick}><Icon color='yellow' name='search' size='large' /></Menu.Item>}
+
+            <Menu.Item name={'messages'} active={this.state.activeItem === 'messages'}
+                onClick={this.handleItemClick}><Image centered src={messenger}  ></Image></Menu.Item>
             <Menu.Item name={'notification'} active={this.state.activeItem === 'notification'}
-                 onClick={this.onClick.bind(this)}><Image centered src={compass}  ></Image></Menu.Item>
+                 onClick={this.onClick.bind(this)}><Icon color='yellow' name='alarm' size='large' /></Menu.Item>
        
-             { this.state.showReply ?   <div id="notificationDiv" className="NotificationDiv">  {notificationbar}   </div>: null }  
+             { this.state.showReply ?   <div id="notificationDiv" className="NotificationDiv">  <Table basic='very'>
+                            <Table.Body keys={key++}>
+                            {notificationbar} 
+               
+                            </Table.Body>   
+                        </Table>   </div>: null }  
           
             <Dropdown item trigger={trigger} pointing='top left' value={this.state.activeItem}
                 className='menubar-container'>
@@ -341,13 +359,14 @@ class Navbar extends Component {
 
     renderNotificationtems(all) {
     
-        let menuItems = this.state.NotificationList.map((item) => {
+        let menuItems = this.state.NotificationList.slice(0,5).map((item) => {
             return (
-           
-                 <div >
-                {item.Date}
-                {item.Notification}
-                </div>
+                <Table.Row keys={item.id}>
+                  <Table.Cell>
+                    {item.Notification}
+                    </Table.Cell>
+                </Table.Row>
+                   
             );
         });
         return (<div position={'right'}> {menuItems}{all} </div>)
@@ -464,8 +483,8 @@ class Navbar extends Component {
                         </a>
                     </Menu.Item>
                     {menuBar}
-                    <Button size={'medium'} basic={true} onClick={this.menuToggle}>menu</Button>
                     {searchbar}
+                    <Button size={'medium'} basic={true} onClick={this.menuToggle}>menu</Button>
                     {menuRight}
 
                 </Menu>

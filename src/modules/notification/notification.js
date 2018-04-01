@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid } from 'semantic-ui-react'
+import { Grid, Icon, Table} from 'semantic-ui-react'
 import './styles.css';
 import DeleteImg from '../../assets/close_red.png';
 import { Menu, Dropdown, Image, Input, Button } from 'semantic-ui-react';
@@ -10,66 +10,83 @@ class Notification extends React.Component {
         super();
         this.state = {
             NotificationList: [
-                { Date: '1-3-2018', Notification: 'Hello this is first notification' },
-                { Date: '2-3-2018', Notification: 'Hello this is second notification' },
-                { Date: '2-3-2018', Notification: 'Hello this is third notification' },
-                { Date: '3-3-2018', Notification: 'Hello this is forth notification' },
-                { Date: '3-3-2018', Notification: 'Hello this is five notification' },
-                { Date: '1-3-2018', Notification: 'Hello this is first notification' },
-                { Date: '2-3-2018', Notification: 'Hello this is second notification' },
-                { Date: '2-3-2018', Notification: 'Hello this is third notification' },
-                { Date: '3-3-2018', Notification: 'Hello this is forth notification' },
-                { Date: '3-3-2018', Notification: 'Hello this is five notification' },
-            ]
+                {id:6, Date: 'Mar-2018', Notification: 'Hello this is first notification' },
+                {id:7, Date: 'Mar-2018', Notification: 'Hello this is second notification' },
+                {id:8, Date: 'Mar-2018', Notification: 'Hello this is third notification' },
+                {id:9, Date: 'Apr-2018', Notification: 'Hello this is forth notification' },
+                {id:10, Date: 'Apr-2018', Notification: 'Hello this is five notification' },
+                {id:2, Date: 'Jan-2018', Notification: 'Hello this is first notification' },
+                {id:1, Date: 'Jan-2018', Notification: 'Hello this is second notification' },
+                {id:3, Date: 'Feb-2018', Notification: 'Hello this is third notification' },
+                {id:4, Date: 'Feb-2018', Notification: 'Hello this is forth notification' },
+                {id:5, Date: 'Feb-2018', Notification: 'Hello this is five notification' },
+            ],
+            limit: 5
         };
-
+       
     }
 
 
     componentDidMount() {
         window.scrollTo(0, 0)
     }
+    onLoadMore = (e) => {
+        e.preventDefault();
+        console.log(this.state.limit);
+        this.setState({
+            limit: this.state.limit + 5
+        });
+    }
+    
 
+    renderTodos(){
+        let nlist=this.state.NotificationList.sort((a, b) => parseFloat(b.id) - parseFloat(a.id));
+        console.log(this.state.limit);
+        return nlist.slice(0,this.state.limit).map((p)=>{
+            return(
+                <Table.Row key={p.id}>
+                <Table.Cell> <Icon name='delete' color='yellow' size='large' /></Table.Cell>
+                <Table.Cell>{p.Date}</Table.Cell>
+                <Table.Cell>{p.Notification}</Table.Cell>
+                
+            </Table.Row>
+            );
+        });
+    };
     render() {
-
-        let list = this.state.NotificationList.map(p => {
+        let nlist=this.state.NotificationList.sort((a, b) => parseFloat(b.id) - parseFloat(a.id));
+        let list = nlist.map(p => {
 
             return (
-                <tr className="grey2">
-                    <td>{p.Date}</td>
-                    <td>{p.Notification}</td>
-                    <td><Image centered src={DeleteImg}  ></Image></td>
-                </tr>
+                <Table.Row>
+                    <Table.Cell> <Icon name='delete' color='yellow' size='large' /></Table.Cell>
+                    <Table.Cell>{p.Date}</Table.Cell>
+                    <Table.Cell>{p.Notification}</Table.Cell>
+                    
+                </Table.Row>
             );
         });
 
         return (
             <Grid className='tutor-notification-section'>
                 <Grid.Row centered textAlign='left'>
-                    <Grid.Column width={12}>
+                    <Grid.Column width={15}>
                         <p className='notifications-header'>Notifications</p>
                     </Grid.Column>
                 </Grid.Row>
                 <Grid.Row centered>
-                    {/* <Grid.Column width={12}>
-                    
-                </Grid.Column> */}
-
-                    <div className="row">
-
-                        <table cellSpacing="3" id="tblNotification"  className="table">
-                            <thead>
-                                <tr>
-                                    <th>Notification Date</th>
-                                    <th> Notification Message</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>{list}</tbody>
-                        </table>
-                    </div>
+                    <Grid.Column width={15}>
+                        <Table basic='very'>
+                            <Table.Body>
+                            {this.renderTodos()}
+               
+                            </Table.Body>   
+                        </Table>
+                        <Button color='yellow'  onClick={this.onLoadMore.bind(this)}>Load More</Button>
+                      
+                    </Grid.Column> 
                 </Grid.Row>
-                  </Grid>
+            </Grid>
            
         )
     }

@@ -21,34 +21,34 @@ const INITIAL_STATE = {
     profile:{},
     presentProfileId:null,
     averageRating:null,
-    educationalAttributes:[],
+    educations:{},
     reviews:[],
     loadingProfile:false,
     mode:'normal',
     editingProfile:false,
     editProfileMessage:'',
     profileEditedIndicator:null,
-    seededSkills:[]
+    skills:[]
 };
 
 export default (state=INITIAL_STATE,action) => {
-    console.log(state.educationalAttributes)
+    
     switch(action.type){
         case GET_PROFILE_START:
             return { ...state, loadingProfile:true };
             
         case GET_PROFILE_SUCCESS:{
-            const { profile,averageRating,educationalAttributes,reviews } = action.payload;
-          
-            return { ...state, profile, averageRating, educationalAttributes, reviews, loadingProfile:false }
+            const { profile,averageRating,educations,reviews } = action.payload;
+            console.log(action.payload);
+            return { ...state, profile, averageRating, educations, reviews, loadingProfile:false }
         }
         case GET_PROFILE_FAIL:
             return { ...state, errorProfile:action.payload, loadingProfile:false };
         case GET_SEEDED_SKILLS_SUCCESS:{
-            return { ...state,  seededSkills:action.payload}
+            return { ...state,  skills:action.payload}
         }
         case GET_SEEDED_SKILLS_FAIL:
-            return { ...state, seededSkills:[] };
+            return { ...state, skills:[] };
 
 
         case SET_PROFILE_ID:
@@ -82,7 +82,7 @@ export default (state=INITIAL_STATE,action) => {
         }
 
         case CHANGE_EDUCATION:{
-            return { ...state, educationalAttributes:action.payload }
+            return { ...state, educations:action.payload }
         }
 
         case CHANGE_SKILLS : {

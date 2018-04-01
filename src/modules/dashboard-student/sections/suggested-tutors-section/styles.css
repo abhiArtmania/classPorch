@@ -24,3 +24,16 @@
 	height:2em !important;
 	cursor: pointer !important;
 }
+.suggested-tutor .ui.secondary.pointing.menu{
+	border-bottom: none;
+}
+.suggested-tutor .ui.secondary.pointing.menu .active.item{
+
+	border-color: #fbbd08;
+    font-weight: 700;
+    color: rgb(251, 189, 8);
+}
+.suggested-tutor .ui.secondary.pointing.menu .dropdown.item:hover, .ui.secondary.pointing.menu .link.item:hover, .ui.secondary.pointing.menu a.item:hover{
+	color: rgb(251, 189, 8);
+    font-weight: 700;
+}
