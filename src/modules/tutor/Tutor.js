@@ -5,7 +5,6 @@ import { func, object } from 'prop-types';
 import { connect } from 'react-redux';
 import { Notification } from 'react-notification';
 import {
-	profileRequested,
 	getDashboard,
 	toggleProfileMode,
 	onChangeUserInfo,
@@ -16,7 +15,7 @@ import {
 	ChatActions,
 } from '../../redux/actions';
 import { HeaderSection, ProfileSection } from './sections';
-import { getTutorSchedule } from "redux/actions/tutors";
+import { getTutorSchedule, getUserInfo } from "redux/actions/tutors";
 import './styles.css';
 
 class Tutor extends React.Component {
@@ -31,8 +30,7 @@ class Tutor extends React.Component {
 	}
 
 	async componentWillMount(){
-    const {authToken} = this.props;
-		this.props.profileRequested(this.tutorId, authToken);
+		this.props.getUserInfo(this.tutorId);
     this.props.getTutorSchedule(this.tutorId);
     this.props.toggleProfileMode('normal')
 	}
@@ -74,10 +72,10 @@ class Tutor extends React.Component {
       authToken,
       role,
       firstName,
-      profile,
       educationalAttributes,
       reviews,
       mode,
+      tutorInfo
     } = this.props;
     return (
       <div style={{padding:'15px'}}>
@@ -85,12 +83,12 @@ class Tutor extends React.Component {
           className="outerProfile-section"
           style={{width:'100%',display:'flex',flexDirection:'column', alignItems:'center' }}
         >
-          <HeaderSection tutorInfo={profile} />
+          <HeaderSection tutorInfo={tutorInfo} />
           <ProfileSection
             userId={userId}
             authToken={authToken}
             role={role}
-            profile={profile}
+            tutorInfo={tutorInfo}
             educationalAttributes={educationalAttributes}
             presentProfileId={this.tutorId}
             firstName={firstName}
@@ -160,17 +158,19 @@ const mapStateToProps = store => {
     mode,
     sessionRequestIndicator,
     displayMessage,
-    tutorSchedule: store.tutors.tutorSchedule
+    tutorSchedule: store.tutors.tutorSchedule,
+    tutorInfo: store.tutors.userInfo,
   }
 };
 
 Tutor.propTypes = {
   getTutorSchedule: func.isRequired,
+	getUserInfo: func.isRequired,
   tutorSchedule: object.isRequired,
+  tutorInfo: object.isRequired,
 }
 
 export default connect(mapStateToProps, { 
-	profileRequested,
 	getDashboard, 
 	toggleProfileMode, 
 	onChangeUserInfo,
@@ -179,6 +179,7 @@ export default connect(mapStateToProps, {
 	updateProfile,
 	updateProfilePicture,
   showMessages: ChatActions.showMessages,
+	getUserInfo,
   getTutorSchedule
 })(Tutor);
 

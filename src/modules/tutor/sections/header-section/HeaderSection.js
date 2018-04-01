@@ -67,4 +67,8 @@ HeaderSection.propTypes = {
   tutorInfo: object.isRequired,
 }
 
+HeaderSection.defaultProps = {
+  tutorInfo: {},
+}
+
 export default HeaderSection
