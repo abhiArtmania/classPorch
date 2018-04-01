@@ -3,8 +3,8 @@ import React, {Component} from 'react'
 import { array } from 'prop-types'
 import { Grid, Segment, Image } from 'semantic-ui-react'
 import '../../styles.css'
-import defaultAvatar from 'assets/avatar/default.png';
-import { Rating } from 'components/common'
+import defaultAvatar from '../../../../assets/avatar/default.png';
+import { Rating } from '../../../../components/common'
 
 
 class ReviewsSegment extends Component {

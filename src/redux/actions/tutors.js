@@ -1,5 +1,5 @@
 // import { request } from "utils/request";
-import { apiEndpoints } from 'ApiEndpoints';
+import { apiEndpoints } from '../../ApiEndpoints';
 import { GET_TUTOR_SCHEDULE } from "./types";
 
 export function setTutorSchedule(schedule) {

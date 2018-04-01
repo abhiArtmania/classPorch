@@ -1,6 +1,6 @@
 import {
   GET_TUTOR_SCHEDULE,
-} from "redux/actions/types";
+} from "../../redux/actions/types";
 
 const initialState = {
   tutorSchedule: {},
