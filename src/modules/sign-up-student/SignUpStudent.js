@@ -23,10 +23,6 @@ class SignUpStudent extends React.Component {
 		 };
   }
 
-  // state = {
-  //   
- ///  };
-
   onChangeSkills = (selectedSkills) => {
     this.setState({selectedSkills})
    };
@@ -134,8 +130,6 @@ setPhone(phone)
 				</Dimmer>
       </div>}
     
-      {/* onSubmit={this.onFormSubmitted} */}
-        {/* <AboutSection onChange={this.onChange}/> */}
         {(this.state.step == 1)?
           <AboutSection onSelectChange={this.onSelectChange} onChange={this.onChange}
           setPhone={this.setPhone.bind(this)}

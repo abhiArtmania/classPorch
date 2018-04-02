@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import { object } from 'prop-types';
+import moment from 'moment';
 import { Grid } from 'semantic-ui-react'
 import '../../../styles.css'
 import checkimg from 'assets/profile/check.png';
@@ -76,7 +77,7 @@ class EducationSegment extends Component {
                 <div className="content">
                   <div className="header" style={{ fontSize: 16 }}>
                     {edu.university_name}
-                    <span> {edu.start_education}-{edu.finish_educaiton}</span>
+                    <span> ({moment(edu.start_education).format('YYYY')}-{moment(edu.finish_educaiton).format('YYYY')})</span>
                   </div>
                 </div>
               </div>

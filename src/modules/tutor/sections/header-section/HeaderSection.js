@@ -1,5 +1,6 @@
 import React from 'react';
 import { object } from 'prop-types';
+import moment from 'moment';
 import {
   Grid,
   Button,
@@ -29,7 +30,7 @@ const HeaderSection = props => {
           </h2>
           {tutorInfo.educations && tutorInfo.educations.map(item => {
             return (
-              <h3>University {item.university_name} ({`${item.start_education} - ${item.finish_educaiton}`}), {item.status}</h3>
+              <h3 className="university__text">{item.university_name}</h3>
             )
           })}
 
