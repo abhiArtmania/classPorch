@@ -290,7 +290,7 @@ class Navbar extends Component {
         return (<Menu.Menu position='right'>
            
             <Menu.Item name={'dashboard'} active={this.state.activeItem === 'dashboard'}
-                onClick={this.handleItemClick}><h3 className="title-dashboard">Dashboard</h3></Menu.Item>      
+                onClick={this.handleItemClick}>Dashboard</Menu.Item>      
             {(window.location.pathname === '/search' || window.location.pathname === '/dashboard/student' || window.location.pathname === '/profile/student') && this.props.role === 'student' &&
                 <Menu.Item name={'search'} active={this.state.activeItem === 'search'} onClick={this.handleItemClick}><Icon color='yellow' name='search' size='large' /></Menu.Item>}
 
@@ -363,7 +363,7 @@ class Navbar extends Component {
             return (
                 <Table.Row keys={item.id}>
                   <Table.Cell>
-                    {item.Notification}
+                   <a href="#" className="notification-link"> {item.Notification}</a>
                     </Table.Cell>
                 </Table.Row>
                    
@@ -483,7 +483,7 @@ class Navbar extends Component {
                         </a>
                     </Menu.Item>
                     {menuBar}
-                    {searchbar}
+                    
                     <Button size={'medium'} basic={true} onClick={this.menuToggle}>menu</Button>
                     {menuRight}
 

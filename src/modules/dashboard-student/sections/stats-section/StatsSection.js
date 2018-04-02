@@ -5,6 +5,7 @@ import './styles.css';
 import {messageIcon, messageIconUnread} from '../../../../assets/dashboard';
 import {connect} from 'react-redux';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import CompletedSession from "./CompletedSession.js";
 
 class StatsSection extends React.Component {
 
@@ -21,17 +22,18 @@ class StatsSection extends React.Component {
    
     const {profile, unreadMessageCount} = this.props.dashboard;
     const panes = [
-      { menuItem: 'Completed Sessions', render: () => <Tab.Pane attached={false}>Completed Sessions</Tab.Pane> },
+    { menuItem: 'Completed Sessions', render: () => <Tab.Pane attached={false}>{<CompletedSession/>}</Tab.Pane> },
       { menuItem: 'Scheduled Sessions', render: () => <Tab.Pane attached={false}>Scheduled Sessions</Tab.Pane> },
       { menuItem: 'Pending Sessions', render: () => <Tab.Pane attached={false}>Pending Sessions</Tab.Pane> },
     ]
     
     return (
       <Grid className='tutor-stats-section'>
-        <Grid.Row centered >
-          <Grid.Column width={15}>
+        <Grid.Row width={15} >
+          <Grid.Column width={15} style={{margin:'0 auto'}}>
             <Tab menu={{ secondary: true, pointing: true }} panes={panes} />
           </Grid.Column>
+         
         </Grid.Row>
       </Grid>
     );
