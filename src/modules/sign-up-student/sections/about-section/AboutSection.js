@@ -1,6 +1,5 @@
 import React from 'react';
-import {Dropdown, Grid, Input, Radio, Select, Form, Button } from 'semantic-ui-react';
-import * as moment from 'moment';
+import { Grid, Select, Form } from 'semantic-ui-react';
 import './styles.css';
 import { CountryList } from "../../../../helpers/utils";
 import $ from 'jquery';
@@ -57,7 +56,6 @@ export default class AboutSection extends React.Component {
 	componentDidMount() {
 		window.addEventListener('load', this.handleLoad);
     if(this.props.data.mobile) this.setState({value:this.props.data.mobile})
-		//$('#phone').mask('(999) 999-9999');
   }
 
   emailCheck() {
@@ -198,8 +196,6 @@ export default class AboutSection extends React.Component {
             <Grid.Row centered>
               <Grid.Column width={8} textAlign='left'>
                 <span> Grade{a}</span>
-                {/* <Form.Select size={'large'} fluid id='grade' name='grade' onChange={this.onchangeGrade} placeholder='Select your grade'
-                  options={this.state.gradesList} style={{margin:"0"}}/> */}
                 <Select
                   name ='grade'
                   options={this.state.gradesList} fluid

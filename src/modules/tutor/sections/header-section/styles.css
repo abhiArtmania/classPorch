@@ -82,7 +82,7 @@
 }
 .userName__status {
 	position: relative;
-    top: 3px;
+    top: 2px;
     margin: 0 10px 0 0 !important;
     min-width: 20px !important;
     min-height: 20px !important;
@@ -108,4 +108,15 @@
 
 .university__text {
 	font-size: 18px;
+}
+
+.tutor__heading {
+	font-size: 22px;
+}
+
+.education__university {
+	font-size: 16px;
+    font-weight: 400;
+    line-height: 18px;
+    margin-left: 3px;
 }

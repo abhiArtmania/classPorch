@@ -1,6 +1,5 @@
 import React from 'react';
 import { object } from 'prop-types';
-import moment from 'moment';
 import {
   Grid,
   Button,

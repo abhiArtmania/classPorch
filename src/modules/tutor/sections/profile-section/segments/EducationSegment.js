@@ -75,9 +75,12 @@ class EducationSegment extends Component {
               <div className="item" style={{borderTop:'none', display: "flex", alignItems: "center"}}>
                 <img className="ui avatar image" alt="" src={checkimg}/>
                 <div className="content">
-                  <div className="header" style={{ fontSize: 16 }}>
+                  <div className="education__university">
                     {edu.university_name}
-                    <span> ({moment(edu.start_education).format('YYYY')}-{moment(edu.finish_educaiton).format('YYYY')})</span>
+                  </div>
+                  <div className="education__university">
+                    <i className="graduation icon"></i>
+                    {moment(edu.start_education).format('YYYY')}-{moment(edu.finish_educaiton).format('YYYY')}
                   </div>
                 </div>
               </div>
@@ -90,56 +93,55 @@ class EducationSegment extends Component {
 
 	render() {
 		const educationBlocks = this.getEducationBlocks(this.props.tutorInfo);
-    console.log(this.props.tutorSchedule)
 		return (
 			<Grid padded relaxed style={{width: '100%', paddingTop: 30}}>
 				<Grid.Row stretched columns={2} >
-				<Grid.Column width={16}> 
-						<div className="ui clearing divider"></div>
-							<h2>Tutor Availability</h2>
-							<div>
-								<table class="ui single line table table__availability">
-									<thead>
-										<tr>
-											<th></th>
-                      {this.periodsTime.map(period => {
-                        return <th key={`th_${period.id}`}>{period.label}</th>
-                      })}
-										</tr>
-									</thead>
-									<tbody>
-                    {Object.keys(this.props.tutorSchedule).map(day => {
-                      return (
-                        <tr key={day}>
-                          <td style={{ textTransform: "capitalize" }}>{day}</td>
-                          {this.periodsTime.map(period => {
-                            const isAvailability = __checkAvailability(
-                              this.props.tutorSchedule[day],
-                              period
-                            );
-                            return (
-                              <td key={`check_${period.id}`}>
-                                {isAvailability ? <i class="large green checkmark icon"></i> :
-                                <i class="large red close icon"></i>}
-                              </td>
-                            )
-                          })}
-                        </tr>
-                      )
+          <Grid.Column width={16}> 
+            <div className="ui clearing divider"></div>
+            <h2 className="tutor__heading">Tutor Availability</h2>
+            <div>
+              <table class="ui single line table table__availability">
+                <thead>
+                  <tr>
+                    <th></th>
+                    {this.periodsTime.map(period => {
+                      return <th key={`th_${period.id}`}>{period.label}</th>
                     })}
-									</tbody>
-								</table>
-							</div>
-              <br />
-              <br />
-							<div className="ui clearing divider"></div> 
-						</Grid.Column>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Object.keys(this.props.tutorSchedule).map(day => {
+                    return (
+                      <tr key={day}>
+                        <td style={{ textTransform: "capitalize" }}>{day}</td>
+                        {this.periodsTime.map(period => {
+                          const isAvailability = __checkAvailability(
+                            this.props.tutorSchedule[day],
+                            period
+                          );
+                          return (
+                            <td key={`check_${period.id}`}>
+                              {isAvailability ? <i class="large green checkmark icon"></i> :
+                              <i class="large red close icon"></i>}
+                            </td>
+                          )
+                        })}
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
+            <br />
+            <br />
+            <div className="ui clearing divider"></div> 
+          </Grid.Column>
 						
 					<Grid.Column width={16} textAlign='left'>
-					  <h2>Education & certification</h2>
+					  <h2 className="tutor__heading">Education & certification</h2>
+				    {educationBlocks}
 					</Grid.Column>
 				</Grid.Row>
-				{educationBlocks}
 			</Grid>
 		)
 	}

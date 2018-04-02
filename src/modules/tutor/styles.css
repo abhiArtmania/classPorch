@@ -55,3 +55,11 @@
     display: inline-block;
     margin: 0;
 }
+
+.tutor__heading {
+	font-size: 22px;
+}
+.review__group {
+    display: flex !important;
+    align-items: center !important;
+}
