@@ -21,6 +21,7 @@ const HeaderSection = props => {
         </Grid.Column>
         <Grid.Column width={13} className='userInfo'>
           <h2 className="userName">
+            {tutorInfo.online_status && <div class="ui green circular label online__status"></div>}
             <span>{tutorInfo.fullname}</span>
             <span className="pull-right">
               {tutorInfo.hourly_rate ? `$${tutorInfo.hourly_rate}/hr` : "N/A"}

@@ -47,7 +47,8 @@ class Navbar extends Component {
             ],
             showReply: false,
             searchWord: '',
-            filter: ''
+            filterGender: '',
+            filterSkill: ''
         }
 
     }
@@ -405,9 +406,16 @@ class Navbar extends Component {
 
     onSearch = (e) => {
         e && e.preventDefault();
-        const { filter, searchWord  } = this.state;
+        const { filterGender, filterSkill, searchWord  } = this.state;
         this.props.toggleSearchMode({ mode: 'search' });
-        this.props.searchRequested(filter, searchWord, this.props.authToken)
+        const page_no = 1; // default
+        const params = {
+            page_no,
+            q: searchWord,
+            type: filterSkill,
+            gender: filterGender,
+        };
+        this.props.searchRequested(params)
     };
 
     onChangeFilter = (e, data) => {
@@ -415,13 +423,22 @@ class Navbar extends Component {
     }
 
     isShowSearchBar = () => {
-        const options = [
+        const optsSkill = [
             { key: 'all', text: 'All', value: '' },
-            { key: 'skill', text: 'Skill', value: 'skill' },
-            { key: 'name', text: 'Name', value: 'name' },
-            { key: 'gender', text: 'Gender', value: 'gender' },
+            { key: 'java', text: 'Java', value: 'java' },
+            { key: 'C', text: 'C', value: 'c' },
+            { key: 'css', text: 'Css', value: 'css' },
         ]
-        const optionSelected = options.filter(item => item.value === this.state.filter)
+        const optsSkillSelected = optsSkill.filter(item => item.value === this.state.filterSkill)
+
+
+        const optsGender = [
+            { key: 'all', text: 'All', value: '' },
+            { key: 'male', text: 'Male', value: 'male' },
+            { key: 'female', text: 'Female', value: 'female' },
+        ]
+        const optsGenderSelected = optsGender.filter(item => item.value === this.state.filterGender)
+        
         if (this.props.role !== 'student') {
             return null
         }
@@ -435,15 +452,26 @@ class Navbar extends Component {
                         action='Search'
                         onChange={this.onSearchWordChange}
                     />
-                    <Dropdown
-                        floating
-                        options={options}
-                        text={this.state.filter === '' ? 'All' : optionSelected.text}
-                        onChange={this.onChangeFilter}
-                        name='filter'
-                        value={this.state.filter}
-                        className="searchFilter"
-                    />
+                    <div className="searchFilters">
+                        <Dropdown
+                            floating
+                            options={optsGender}
+                            text={this.state.filterGender === '' ? 'All' : optsGenderSelected.text}
+                            onChange={this.onChangeFilter}
+                            name='filterGender'
+                            value={this.state.filterGender}
+                            className="searchFilters__filter"
+                        />
+                        <Dropdown
+                            floating
+                            options={optsSkill}
+                            text={this.state.filterSkill === '' ? 'All' : optsSkillSelected.text}
+                            onChange={this.onChangeFilter}
+                            name='filterSkill'
+                            value={this.state.filterSkill}
+                            className="searchFilters__filter"
+                        />
+                    </div>
                 </form>
             )
         }

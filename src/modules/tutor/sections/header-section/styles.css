@@ -76,3 +76,8 @@
 	 background: orange !important;
 	 color: white !important;
  }
+.userName .online__status {
+	position: relative;
+	top: 2px;
+	margin: 0 5px 0 0 !important;
+}

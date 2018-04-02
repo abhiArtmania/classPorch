@@ -22,6 +22,7 @@ display:none;
 .search-form{
     margin-bottom: 0;
     padding-bottom: 0;
+    position: relative;
 }
 
 .menubar-container{
@@ -94,10 +95,12 @@ display:none;
 .NotificationDiv .ui[class*="very basic"].table:not(.sortable):not(.striped) td:last-child, .ui[class*="very basic"].table:not(.sortable):not(.striped) th:last-child{padding:10px;
 }
 
-.NotificationMessage{
-    
+.searchFilters {
+    right: 5px;
+    top: calc(50% - 7px);
+    display: inline-block;
+    position: absolute;
 }
-
-.searchFilter {
-    left: -80px;
+.searchFilters__filter {
+    margin: 0 20px 0 0;
 }

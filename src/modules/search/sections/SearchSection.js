@@ -24,7 +24,7 @@ class SearchSection extends React.Component {
     const {tutorInfo} = this.props;
     const className = tutorInfo.online_status ? "online" : "";
     return (
-      <Link to={`/tutors/${tutorInfo.id}`} >
+      <Link to={`/tutors/${tutorInfo.id}`} style={{ color: "#333" }} >
         <div
           className="agent-box-list clearfix wow fadeInUp delay-03s"
           style={{ visibility: "hidden" }}
@@ -34,17 +34,15 @@ class SearchSection extends React.Component {
             <div className={`status ${className}`} />
           </div>
           <div className="col-lg-11 col-md-11 col-sm-11 agent-content">
-            {/* Title */}
-            <h1 className="title">
-              <a className="pull-left">{tutorInfo.fullname}</a>
-              <a className="pull-right">{tutorInfo.hourly_rate ? tutorInfo.hourly_rate: "Not Vefiried"}</a>
-              <div className="clearfix" />
+            <h1 className="title clearfix">
+              <span className="pull-left text-orange">{tutorInfo.fullname}</span>
+              <span className="pull-right text-orange">{tutorInfo.hourly_rate ? tutorInfo.hourly_rate: "Not Vefiried"}</span>
             </h1>
 
-            <div class="educations">
+            <div className="educations">
               {tutorInfo.educations.length && tutorInfo.educations.map(item => {
                 return (
-                  <p>University {item.university_name} ({`${item.start_education} - ${item.finish_educaiton}`}), {item.status}</p>
+                  <p key={`edu_${item.id}`}>University {item.university_name} ({`${item.start_education} - ${item.finish_educaiton}`}), {item.status}</p>
                 )
               })}
             </div>
@@ -63,10 +61,10 @@ class SearchSection extends React.Component {
             </p>
 
             <p>{tutorInfo.bio}</p>
-            <p>
-              <Rating rate={tutorInfo.overall_rating} name={tutorInfo.id} /> ({tutorInfo.overall_rating})
-              <b> {tutorInfo.reviews.length} reviews, {tutorInfo.session_completed_count} completed sessiona</b>
-            </p>
+            <div className="wrapper__rating">
+              <Rating rate={parseInt(tutorInfo.overall_rating, 10)} name={tutorInfo.id.toString()} /> ({tutorInfo.overall_rating})
+              <strong> {tutorInfo.reviews.length} reviews, {tutorInfo.session_completed_count} completed sessiona</strong>
+            </div>
           </div>
         </div>
       </Link>
