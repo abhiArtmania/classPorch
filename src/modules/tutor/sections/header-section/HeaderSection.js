@@ -21,7 +21,7 @@ const HeaderSection = props => {
         </Grid.Column>
         <Grid.Column width={13} className='userInfo'>
           <h2 className="userName">
-            {tutorInfo.online_status && <div class="ui green circular label online__status"></div>}
+            <div class={`userName__status ${tutorInfo.online_status}`}></div>
             <span>{tutorInfo.fullname}</span>
             <span className="pull-right">
               {tutorInfo.hourly_rate ? `$${tutorInfo.hourly_rate}/hr` : "N/A"}
@@ -40,7 +40,7 @@ const HeaderSection = props => {
             <Rating rate={tutorInfo.overall_rating} name={tutorInfo.id} />
           </div>
 
-          <div className="ui  labels subjects">
+          <div className="ui labels subjects">
             {tutorInfo.skills && tutorInfo.skills.map(skill => {
               return (
                 <span
@@ -52,14 +52,11 @@ const HeaderSection = props => {
               )
             })}
           </div>
+
+          <Button  className="session-booking-btn">Message Tutor</Button>
         </Grid.Column>
       </Grid.Row>
-      <div className="ui clearing divider"></div> 
-      <Grid.Row>
-        <Grid.Column width={16} >
-          <Button  className="session-booking-btn">Message Tutor</Button>
-        </Grid.Column >
-      </Grid.Row>
+      <div className="ui clearing divider"></div>
     </Grid>
   )
 }

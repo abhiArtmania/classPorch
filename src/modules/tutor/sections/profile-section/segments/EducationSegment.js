@@ -74,7 +74,7 @@ class EducationSegment extends Component {
               <div className="item" style={{borderTop:'none', display: "flex", alignItems: "center"}}>
                 <img className="ui avatar image" alt="" src={checkimg}/>
                 <div className="content">
-                  <div className="header">
+                  <div className="header" style={{ fontSize: 16 }}>
                     {edu.university_name}
                     <span> {edu.start_education}-{edu.finish_educaiton}</span>
                   </div>
@@ -97,7 +97,7 @@ class EducationSegment extends Component {
 						<div className="ui clearing divider"></div>
 							<h2>Tutor Availability</h2>
 							<div>
-								<table class="ui single line table">
+								<table class="ui single line table table__availability">
 									<thead>
 										<tr>
 											<th></th>
@@ -118,7 +118,8 @@ class EducationSegment extends Component {
                             );
                             return (
                               <td key={`check_${period.id}`}>
-                                {isAvailability && <i class="large green checkmark icon"></i>}
+                                {isAvailability ? <i class="large green checkmark icon"></i> :
+                                <i class="large red close icon"></i>}
                               </td>
                             )
                           })}
@@ -136,7 +137,6 @@ class EducationSegment extends Component {
 					<Grid.Column width={16} textAlign='left'>
 					  <h2>Education & certification</h2>
 					</Grid.Column>
-					
 				</Grid.Row>
 				{educationBlocks}
 			</Grid>

@@ -75,9 +75,33 @@
  .session-booking-btn:hover{
 	 background: orange !important;
 	 color: white !important;
- }
-.userName .online__status {
+}
+.userName {
+	font-size: 22px;
+	color: orange;
+}
+.userName__status {
 	position: relative;
-	top: 2px;
-	margin: 0 5px 0 0 !important;
+    top: 3px;
+    margin: 0 10px 0 0 !important;
+    min-width: 20px !important;
+    min-height: 20px !important;
+    display: inline-block;
+    border-radius: 100%;
+}
+.userName__status.online {
+	background: #390 !important;
+}
+.userName__status.offline {
+	background: #bdc3be !important;
+}
+.userName__status.away {
+	background: #f5a81b !important;
+}
+
+.total__reviews {
+	color: orange;
+    float: right;
+    font-size: 20px;
+    line-height: 32px;
 }
