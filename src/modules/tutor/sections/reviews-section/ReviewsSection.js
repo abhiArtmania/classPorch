@@ -38,15 +38,15 @@ class ReviewsSegment extends Component {
   renderReviews = (reviews) => {
     return reviews.map(review => {
       return(
-        <Grid.Row columns={2} centered key={`review_${review.id}`} >
-          <Grid.Column width={2} textAlign='left' >
+        <Grid.Row className="review__group" columns={2} key={`review_${review.id}`} >
+          <Grid.Column width={3} textAlign='left' >
             <Image
               src={review.reviewer.image ? review.reviewer.image : defaultAvatar}
               size='tiny'
               shape='circular'
             />
           </Grid.Column>
-          <Grid.Column width={9} textAlign='left'  >
+          <Grid.Column width={10} textAlign='left'>
             <div style={styles.top}>
               <span style={styles.name}> {review.reviewer.name} </span>
               <span style={styles.rating}>
@@ -57,7 +57,7 @@ class ReviewsSegment extends Component {
               {review.message}
             </div>
           </Grid.Column>
-          <Grid.Column width={1}>
+          <Grid.Column width={3}>
           </Grid.Column>
         </Grid.Row>
       )
@@ -79,10 +79,12 @@ class ReviewsSegment extends Component {
         <div className="ui clearing divider" style={{width:'100%', margin: 14}}></div> 
         <Grid.Row centered >
           <Grid.Column width={16} textAlign='left' >
-          <h2>Reviews</h2>
-            <div className="total-reviews">
-              <h3 className="review-count">({allReviews.length} Reviews)</h3>
-            </div> 
+            <h2 className="tutor__heading">
+              Reviews
+              <span className="total__reviews">
+                {allReviews.length === 1 ? "(1 Review)" : `(${allReviews.length} Reviews)`}
+              </span>
+            </h2>
           </Grid.Column>
         </Grid.Row>
 
@@ -116,12 +118,12 @@ const styles = {
     display:'flex',
     flexDirection:'row',
     justifyContent:'space-between',
-    paddingBottom:10
   },
   name:{
     fontSize:'16px', 
     textTransform:'capitalize',
-    fontWeight:'bold'
+    fontWeight:'bold',
+    lineHeight: "38px"
   },
   rating:{
     paddingLeft:20,

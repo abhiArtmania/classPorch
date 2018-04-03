@@ -36,3 +36,57 @@
 .rating > input:checked ~ label:hover,
 .rating > label:hover ~ input:checked ~ label,
 .rating > input:checked ~ label:hover ~ label { color: #FFED85;  }  */
+
+
+/*****************
+* Pagination
+******************/
+.pagination__wrapper {
+  text-align: right;
+}
+.pagination__wrapper .pagination {
+  margin: 0 0 30px 0;
+}
+.pagination>li>a,
+.pagination>li>span {
+  border-radius: 0!important;
+  margin: 0 5px 5px;
+  text-align: center;
+  padding: 7px 13px;
+  display: inline-block;
+  background-color: #cacaca;
+  border: 1px solid #cacaca;
+  color: #fff
+}
+
+.pagination>li>a {
+  font-weight: 600
+}
+
+.pagination>li>a[disabled] {
+  cursor: not-allowed !important;
+  background: #e2e2e2 !important;
+  border-color: #e2e2e2 !important;
+}
+
+.pagination>li>a:hover {
+  color: #fff
+}
+
+.pagination > li > a:hover {
+  background: #fac219;
+  border-color: #fac219;
+  opacity: 0.8;
+}
+
+.pagination > .active > a {
+  background: #fac219;
+  border-color: #fac219;
+}
+
+.pagination > .active > a:hover {
+  background: #fac219;
+  border-color: #fac219;
+}
+
+

@@ -11,7 +11,7 @@ body {
     background: #f8f8f8
 }
 
-a {
+.text-orange {
     color: #fac219
 }
 
@@ -2493,25 +2493,6 @@ footer ul {
     font-size: 12px;
     margin-bottom: 20px;
     display: block
-}
-
-.pagination>li>a,.pagination>li>span {
-    border-radius: 0!important;
-    margin: 0 5px 5px;
-    text-align: center;
-    padding: 7px 13px;
-    display: inline-block;
-    background-color: #cacaca;
-    border: 1px solid #cacaca;
-    color: #fff
-}
-
-.pagination>li>a {
-    font-weight: 600
-}
-
-.pagination>li>a:hover {
-    color: #fff
 }
 
 .form-content-box {
@@ -5305,4 +5286,12 @@ table.manage-table .title-container .title span {
 
 .educations__detail {
     margin: 0 0 15px 15px !important;
+}
+
+.wrapper__rating {
+    margin: 0 0 15px;
+}
+
+.wrapper__rating .rating {
+    margin-top: -1px;
 }

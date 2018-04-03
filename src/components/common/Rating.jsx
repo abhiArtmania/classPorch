@@ -27,36 +27,36 @@ const Rating = props => {
     rateRounded = 1;
   }
   return (
-    <div class="rating">
+    <div className="rating">
       <input type="radio" id="star5" name={`rating_${props.name}`} value={5} checked={rateRounded === 5} />
-      <label class = "full" for="star5" ></label>
+      <label className = "full" htmlFor="star5" ></label>
 
       <input type="radio" id="star4half" name={`rating_${props.name}`} value={4.5} checked={rateRounded === 4.5} />
-      <label class="half" for="star4half"></label>
+      <label className="half" htmlFor="star4half"></label>
 
       <input type="radio" id="star4" name={`rating_${props.name}`} value={4} checked={rateRounded === 4} />
-      <label class = "full" for="star4"></label>
+      <label className = "full" htmlFor="star4"></label>
 
       <input type="radio" id="star3half" name={`rating_${props.name}`} value={3.5} checked={rateRounded === 3.5} />
-      <label class="half" for="star3half"></label>
+      <label className="half" htmlFor="star3half"></label>
 
       <input type="radio" id="star3" name={`rating_${props.name}`} value={3} checked={rateRounded === 3} />
-      <label class = "full" for="star3"></label>
+      <label className = "full" htmlFor="star3"></label>
 
       <input type="radio" id="star2half" name={`rating_${props.name}`} value={2.5} checked={rateRounded === 2.5} />
-      <label class="half" for="star2half"></label>
+      <label className="half" htmlFor="star2half"></label>
 
       <input type="radio" id="star2" name={`rating_${props.name}`} value={2} checked={rateRounded === 2} />
-      <label class = "full" for="star2"></label>
+      <label className = "full" htmlFor="star2"></label>
 
       <input type="radio" id="star1half" name={`rating_${props.name}`} value={1} checked={rateRounded === 1.5} />
-      <label class="half" for="star1half"></label>
+      <label className="half" htmlFor="star1half"></label>
 
       <input type="radio" id="star1" name={`rating_${props.name}`} value={1} checked={rateRounded === 1} />
-      <label class = "full" for="star1"></label>
+      <label className = "full" htmlFor="star1"></label>
 
       <input type="radio" id="starhalf" name={`rating_${props.name}`} value={0.5} checked={rateRounded === 0.5} />
-      <label class="half" for="starhalf"></label>
+      <label className="half" htmlFor="starhalf"></label>
     </div>
   );
 };

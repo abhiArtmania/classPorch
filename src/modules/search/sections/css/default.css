@@ -266,21 +266,6 @@ input[type=checkbox]:checked + label:before {
     color: #fac219;
 }
 
-.pagination > li > a:hover {
-    background: #fac219;
-    border-color: #fac219;
-}
-
-.pagination > .active > a {
-    background: #fac219;
-    border-color: #fac219;
-}
-
-.pagination > .active > a:hover {
-    background: #fac219;
-    border-color: #fac219;
-}
-
 .blog-box .detail .post-meta span a i {
     color: #fac219;
 }

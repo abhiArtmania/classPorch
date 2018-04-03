@@ -31,3 +31,35 @@
 .ui.clearing.divider {
     border-top: 1px solid #d29b37c9 !important;
 }
+
+.table__availability thead tr th {
+    border-top: 1px solid rgba(0, 12, 25, 0.1) !important;
+}
+.table__availability thead tr th:first-child {
+    border-left: 1px solid rgba(0, 12, 25, 0.1) !important;
+}
+.table__availability thead tr th:last-child {
+    border-right: 1px solid rgba(0, 12, 25, 0.1) !important;
+}
+.table__availability th,
+.table__availability td {
+    text-align: center !important;
+}
+
+.table__availability td:nth-child(1){
+    text-align: left !important;
+}
+
+.table__availability i {
+    float: none;
+    display: inline-block;
+    margin: 0;
+}
+
+.tutor__heading {
+	font-size: 22px;
+}
+.review__group {
+    display: flex !important;
+    align-items: center !important;
+}

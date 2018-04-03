@@ -21,6 +21,7 @@ const HeaderSection = props => {
         </Grid.Column>
         <Grid.Column width={13} className='userInfo'>
           <h2 className="userName">
+            <div class={`userName__status ${tutorInfo.online_status}`}></div>
             <span>{tutorInfo.fullname}</span>
             <span className="pull-right">
               {tutorInfo.hourly_rate ? `$${tutorInfo.hourly_rate}/hr` : "N/A"}
@@ -28,7 +29,7 @@ const HeaderSection = props => {
           </h2>
           {tutorInfo.educations && tutorInfo.educations.map(item => {
             return (
-              <h3>University {item.university_name} ({`${item.start_education} - ${item.finish_educaiton}`}), {item.status}</h3>
+              <h3 className="university__text">{item.university_name}</h3>
             )
           })}
 
@@ -39,7 +40,7 @@ const HeaderSection = props => {
             <Rating rate={tutorInfo.overall_rating} name={tutorInfo.id} />
           </div>
 
-          <div className="ui  labels subjects">
+          <div className="ui labels subjects">
             {tutorInfo.skills && tutorInfo.skills.map(skill => {
               return (
                 <span
@@ -51,20 +52,21 @@ const HeaderSection = props => {
               )
             })}
           </div>
+
+          <Button  className="session-booking-btn">Message Tutor</Button>
         </Grid.Column>
       </Grid.Row>
-      <div className="ui clearing divider"></div> 
-      <Grid.Row>
-        <Grid.Column width={16} >
-          <Button  className="session-booking-btn">Message Tutor</Button>
-        </Grid.Column >
-      </Grid.Row>
+      <div className="ui clearing divider"></div>
     </Grid>
   )
 }
 
 HeaderSection.propTypes = {
   tutorInfo: object.isRequired,
+}
+
+HeaderSection.defaultProps = {
+  tutorInfo: {},
 }
 
 export default HeaderSection

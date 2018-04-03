@@ -24,9 +24,9 @@ class AboutSegment extends Component {
   render() {
     const { expanded } = this.state;
     return (
-      <Grid padded relaxed style={{width: '100%', paddingTop: 30}}>
+      <Grid padded relaxed style={{width: '100%'}}>
         <Grid.Column width={16}>
-          <h2>About Me</h2>
+          <h2 className="tutor__heading">About Me</h2>
           <div>
             <Truncate
               lines={!expanded && 3}

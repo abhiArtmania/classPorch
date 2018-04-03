@@ -7,17 +7,17 @@ import '../../styles.css'
 
 const ProfileSection = props => {
   const {
-    profile,
+    tutorInfo,
     tutorSchedule
   } = props;
 
   return(
     <div style={{width:'100%',paddingBottom:'5em'}} >
-      <AboutSegment data={profile} /> 
-      <ReviewsSection data={profile.reviews} />
+      <AboutSegment data={tutorInfo} /> 
+      <ReviewsSection data={tutorInfo.reviews} />
       <EducationSegment
         tutorSchedule={tutorSchedule}
-        tutorInfo={profile}
+        tutorInfo={tutorInfo}
       />
     </div>
   )
