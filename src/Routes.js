@@ -29,6 +29,7 @@ import {
   Support,
   Contact,
   Tutor,
+  Message,
   Settings
 } from "./modules"
 import CompletedSession from './modules/completed-sessions/CompletedSession'
@@ -47,6 +48,7 @@ const Routes = () => {
         <Route exact path={"/contact-us"} component={Contact} />
         <Route exact path={"/i-want"} component={iWant} />
         <Route exact path={"/chats"} component={Chat} />
+        <Route exact path={"/message"} component={Message} />
         <Route exact path={"/messages"} component={Messaging} />
         <Route exact path={"/notification"} component={Notification} />
         <Route exact path="/contact" component={ContactUs2} />

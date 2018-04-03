@@ -88,7 +88,7 @@ class Navbar extends Component {
 
         switch (name) {
             case 'messages':
-                history.push('/chats');
+                history.push('/message');
                 return;
             case 'log-in':
                 this.scrollTo();
@@ -295,7 +295,7 @@ class Navbar extends Component {
                 <Menu.Item name={'search'} active={this.state.activeItem === 'search'} onClick={this.handleItemClick}><Icon color='yellow' name='search' size='large' /></Menu.Item>}
 
             <Menu.Item name={'messages'} active={this.state.activeItem === 'messages'}
-                onClick={this.handleItemClick}><Image centered src={messenger}  ></Image></Menu.Item>
+                onClick={this.handleItemClick}><Icon color='yellow' name='mail' size='large' /></Menu.Item>
             <Menu.Item name={'notification'} active={this.state.activeItem === 'notification'}
                  onClick={this.onClick.bind(this)}><Icon color='yellow' name='alarm' size='large' /></Menu.Item>
        
@@ -485,11 +485,13 @@ class Navbar extends Component {
                     {menuBar}
                     
                     <Button size={'medium'} basic={true} onClick={this.menuToggle}>menu</Button>
+                    {  role === 'tutor' ?searchbar:''}
                     {menuRight}
 
                 </Menu>
                 <div className="menu-container">
                     <Menu stackable borderless className='menubar2' size={'large'} fixed={'top'} ref="slideMenu">
+                   
                         {menuBar}
 
                     </Menu>

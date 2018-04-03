@@ -3,7 +3,7 @@ import { Grid, Icon, Table} from 'semantic-ui-react'
 import './styles.css';
 
 import { Menu, Dropdown, Image, Input, Button, Rating } from 'semantic-ui-react';
-import defultAvtart from "./../../../../assets/avatar/default.png"
+import defultAvtart from "./../../../../../assets/avatar/default.png"
 class CompletedSession extends React.Component {
 
     constructor() {
@@ -43,24 +43,25 @@ class CompletedSession extends React.Component {
         console.log(this.state.limit);
         return nlist.slice(0,this.state.limit).map((p)=>{
             return(
+               
                 <Grid.Row width={14} className='custom-row'>
-                <Grid.Column width={2} className='profileImage'>
-                    <Image src={defultAvtart} size='medium' circular />
-                </Grid.Column>
-                <Grid.Column width={14} className='userInfo'>
-                    <h3 className="userName"><div className="ui green circular label"></div> {p.fullName}<span className="time-spent">{p.totalSpendTime}</span></h3>
-                    <h4>Mphil in Philosophy(Masters)-Glasgow University </h4>
-                    <div>
-                   <div><div className="ui small label"> {p.averageRating?p.averageRating: 0}</div> 
-                        <Rating  defaultRating={p.averageRating||0} maxRating={5} disabled/> </div>
-                    </div>
-                    <div className="ui  labels subjects">
-                    {p.subject}
-                   
-                    </div>
-                
-                </Grid.Column>
-            </Grid.Row>
+                    <Grid.Column width={2} className='profileImage'>
+                        <Image src={defultAvtart} size='medium' circular />
+                    </Grid.Column>
+                    <Grid.Column width={4} className='userInfo'>
+                        <h3 className="userName"><div className="ui green circular label"></div> {p.fullName}</h3>
+                        <h4 className="ui  labels "> {p.subject}  </h4>
+                        <p><span className="start-date">Jan 15 </span> - <span className="end-date">Mar 25</span></p>
+                    
+                    </Grid.Column>
+                    <Grid.Column width={5} className=""> 
+                        <h4 className="complete-lable">Completed Mar 25</h4>
+                        <Rating icon='star' size='large'  defaultRating={p.averageRating||4} maxRating={5} disabled/>
+                    </Grid.Column>
+                    <Grid.Column width={5} className="">
+                        <h4 className="time-spent">Total Spent Time {p.totalSpendTime}</h4>
+                    </Grid.Column>
+                </Grid.Row>
             );
         });
     };
@@ -70,9 +71,9 @@ class CompletedSession extends React.Component {
         return (
             <Grid className='complete-session'>
                 {this.renderTabs()}
-                <Grid.Row width={14} centered >
-                <Button color='yellow'  onClick={this.onLoadMore.bind(this)}>Show More</Button>
-                </Grid.Row >     
+                <div style={{width:'100%'}}>
+                <Button color='yellow' className="load-more-right" >Show More</Button>
+                </div >     
                    
             </Grid>
            

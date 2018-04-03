@@ -103,3 +103,9 @@ display:none;
 .searchFilter {
     left: -80px;
 }
+.menubar .trigger-container{
+    display: inline-block;
+}
+.menubar .trigger-content{
+    display: inline-block;
+}

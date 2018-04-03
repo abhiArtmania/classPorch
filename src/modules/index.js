@@ -7,6 +7,7 @@ export * from './sign-up-tutor';
 export * from './sign-up-student';
 export * from './dashboard-tutor';
 export * from './dashboard-student';
+export * from './message';
 
 export * from './profile-tutor';
 export * from './profile-student';
