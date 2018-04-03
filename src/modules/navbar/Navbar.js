@@ -424,7 +424,7 @@ class Navbar extends Component {
 
     isShowSearchBar = () => {
         const optsSkill = [
-            { key: 'all', text: 'All', value: '' },
+            { key: 'skill', text: 'Skill', value: '' },
             { key: 'java', text: 'Java', value: 'java' },
             { key: 'C', text: 'C', value: 'c' },
             { key: 'css', text: 'Css', value: 'css' },
@@ -433,7 +433,7 @@ class Navbar extends Component {
 
 
         const optsGender = [
-            { key: 'all', text: 'All', value: '' },
+            { key: 'gender', text: 'Gender', value: '' },
             { key: 'male', text: 'Male', value: 'male' },
             { key: 'female', text: 'Female', value: 'female' },
         ]
@@ -447,7 +447,7 @@ class Navbar extends Component {
                 <form className='search-form None-border' onSubmit={this.onSearch}>
                     <Input
                         size='large'
-                        placeholder='Search for tutors, skills you want to learn...'
+                        placeholder='Enter tutor name'
                         className='search-input'
                         action='Search'
                         onChange={this.onSearchWordChange}
@@ -456,7 +456,7 @@ class Navbar extends Component {
                         <Dropdown
                             floating
                             options={optsGender}
-                            text={this.state.filterGender === '' ? 'All' : optsGenderSelected.text}
+                            text={this.state.filterGender === '' ? 'Gender' : optsGenderSelected.text}
                             onChange={this.onChangeFilter}
                             name='filterGender'
                             value={this.state.filterGender}
@@ -465,7 +465,7 @@ class Navbar extends Component {
                         <Dropdown
                             floating
                             options={optsSkill}
-                            text={this.state.filterSkill === '' ? 'All' : optsSkillSelected.text}
+                            text={this.state.filterSkill === '' ? 'Skill' : optsSkillSelected.text}
                             onChange={this.onChangeFilter}
                             name='filterSkill'
                             value={this.state.filterSkill}
