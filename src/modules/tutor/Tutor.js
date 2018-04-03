@@ -12,14 +12,11 @@ import {
 	onChangeEducation,
 	onChangeSkill,
 	updateProfile,
-	ChatActions,
+  ChatActions,
+
 } from '../../redux/actions';
 import { HeaderSection, ProfileSection } from './sections';
-<<<<<<< HEAD
-import { getTutorSchedule } from "../../redux/actions/tutors";
-=======
-import { getTutorSchedule, getUserInfo } from "redux/actions/tutors";
->>>>>>> 43a0fd66ec02c15c3c685b6d347d948d7dfffc36
+import { getTutorSchedule ,getUserInfo } from "../../redux/actions/tutors";
 import './styles.css';
 
 class Tutor extends React.Component {
