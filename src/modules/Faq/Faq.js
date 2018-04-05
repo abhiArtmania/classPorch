@@ -6,12 +6,28 @@
  */
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import { Accordion, Icon, Pagination, Dimmer, Loader,Segment   } from 'semantic-ui-react'
+import { Accordion, Icon, Pagination, Dimmer, Loader,Segment,Header   } from 'semantic-ui-react'
 import {getFAQ} from '../../redux/actions';
 
 import './index.scss';
 
+var styles = {
+  header: {
+      // margin: '50px',
+      // margin: '0 auto',
+      // display: 'block',
+      // textAlign: 'center',
+      margin: '50px',
+      fontSize: '50px',
+      
+  }
+}
+
 class Faq extends Component {
+  constructor(props){
+    super(props);
+    console.log(this.props.match.params.cat)
+  }
 	state=
 	{
 		loading:false,
@@ -25,7 +41,7 @@ componentDidMount=async() =>
 		
 	this.setState({loading:true})
 	setTimeout(()=>this.setState({loading:false}), 1500);	
-	await this.props.getFAQ();
+	await this.props.getFAQ(this.props.match.params.cat);
 	this.setState({items:this.props.FAQ})
 			
 }
@@ -51,6 +67,8 @@ componentDidMount=async() =>
 	 
   }
     render() {
+      
+      
 		const length=this.props.FAQ.length;
 		const {activePage}=this.state;
 		const loading=(this.props.loading || this.state.loading)
@@ -59,8 +77,9 @@ componentDidMount=async() =>
 		if(length<=10) items=this.props.FAQ;
 		else if(activePage==totalPages) items=this.props.FAQ.slice((activePage-1)*10)
 		else items=this.props.FAQ.slice(activePage*10-10,activePage*10)
-		
+		// {console.log("ye items hain",items)}
 		const raws=items.map((item,i) => <div>
+     
 		
 		<Accordion.Title active={this.state.activeIndex === i} index={i} onClick={this.handleClick}>
           <Icon name='dropdown' />

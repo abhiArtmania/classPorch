@@ -24,12 +24,13 @@ import {
   TosStudent,
   TosTutor,
   PrivacyPolicy,
-  ContactUs2,
+  ContactUs3,
   Faq,
   Support,
 } from "./modules"
 import CompletedSession from './modules/completed-sessions/CompletedSession'
 import ScheduledSession from './modules/scheduled-sessions/ScheduledSessions'
+import SubmitTicket from './modules/submit-ticket/SubmitTicket';
 import AboutUs from "./modules/AboutUs/AboutUs"
 import { iWant } from "./modules/IWant/IWant"
 
@@ -46,12 +47,15 @@ const Routes = () => {
         <Route exact path={"/chats"} component={Chat} />
         <Route exact path={"/messages"} component={Messaging} />
         <Route exact path={"/notification"} component={Notification} />
-        <Route exact path="/contact" component={ContactUs2} />
+        <Route exact path="/contact" component={ContactUs3} />
         <Route exact path="/privacy-policy" component={PrivacyPolicy} />
         <Route exact path="/login" component={LoginRedux} />
         <Route exact path="/search" component={SearchResults} />
-        <Route exact path="/faq" component={Faq} />
-         <Route exact path="/support" component={Support} />
+        <Route exact path="/faq/:cat" component={Faq} />
+        {/* <Route exact path="/faq/Tutor" component={Faq} /> */}
+        {/* <Route exact path="/faq/Technical" component={Faq} /> */}
+        <Route exact path="/support" component={Support} />
+        <Route exact path="/submit-ticket" component={SubmitTicket} />
         <Route exact path={"/terms-of-service"} component={TermsOfService} />
         <Route exact path={"/terms-of-service/tutor"} component={TosTutor} />
         <Route exact path={"/terms-of-service/student"} component={TosStudent} />

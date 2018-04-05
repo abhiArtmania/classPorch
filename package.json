@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "https://classporch.herokuapp.com/api/v1/",
+  "engines": {
+    "node": "8.9.4"
+  },
   "dependencies": {
     "@fortawesome/react-fontawesome": "0.0.17",
     "autoprefixer": "7.1.6",

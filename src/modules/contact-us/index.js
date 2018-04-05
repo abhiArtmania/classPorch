@@ -1,3 +1,3 @@
-import ContactUs2 from './ContactUs2';
+import ContactUs3 from './ContactUs3';
 
-export {ContactUs2};
+export {ContactUs3};

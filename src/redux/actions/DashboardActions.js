@@ -32,6 +32,7 @@ import {
   REQUEST_ACCOUNT_LINK_SUCCESS,
   REQUEST_ACCOUNT_LINK_FAILED,
   SET_FAQ_SUBJ,
+  SET_FAQ_CAT,
   UNSUBSCRIBE_DASHBOARD} from './types';
 const uuidv1 = require('uuid/v1');
 
@@ -121,19 +122,27 @@ export const fetchNotifications = (uri, authToken, userId) => {
       })
   }
 };
-export const getFAQ = () => {
+export const getFAQ = (cat) => {
 
   return (dispatch) => {
 	  
-	  dispatch({type: GET_FAQ_START, payload: true});
-	  fetch(`${apiEndpoints.base}/faq`, {
+    dispatch({type: GET_FAQ_START, payload: true});
+    console.log(cat);
+    let catApi = 'faq?q='+cat
+    // if(cat === 'faq') {catApi = 'faq'}
+    // let catApi = '/faq'
+    if(cat === 'ParentTeacher'){catApi = 'faq?category=student&q=How'}
+    else if(cat === 'Tutor'){catApi = 'faq?category=tutor&q=How'}
+    else if(cat === 'Technical'){catApi = 'faq?category=tech_support&q=How'}
+    console.log(`${apiEndpoints.base}/${catApi}`);
+	  fetch(`${apiEndpoints.base}/${catApi}`, {
                 headers: {
                     'auth-token': 'd3FxhQYWG0FIZqn1X1UN_Q'
                 }
             })
-	.then(rawRes => {console.log(rawRes); return rawRes.json()})
+	.then(rawRes => {console.log("rawRes",rawRes); return rawRes.json()})
 	.then(res =>{if(res.meta.code=="200")
-      console.log(res); 
+      console.log("res for faq api",res); 
         return dispatch({type: GET_FAQ_SUCCESS, payload: res.response})
       })
       .catch(err => {
@@ -142,6 +151,7 @@ export const getFAQ = () => {
   }
 };
 export const setFAQSubject = (subj) => ({type:'SET_FAQ_SUBJ',subj});
+// export const setFAQCat = (cat) => ({type:'SET_FAQ_CAT',cat});
 export const sessionRequested = ({tutorId, skill, authToken, sessionStartTime, sessionEndTime, amountPaid, userId,currentUser, otherUser, messageToClient}) => {
   return async (dispatch) => {
     try {

@@ -6,6 +6,9 @@ import telephone from '../../assets/contact/oldtelephone.png';
 import envelope from '../../assets/contact/envelope.png';
 import book from '../../assets/contact/book.png';
 import './index.scss';
+
+
+
 export default class ContactUs2 extends React.Component {
 	state = {
     modalVisible: false

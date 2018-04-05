@@ -29,6 +29,7 @@ import {
   REQUEST_ACCOUNT_LINK_FAILED,
   SET_UNREAD_MESSAGES_COUNT,
   SET_FAQ_SUBJ,
+  // SET_FAQ_CAT,
 } from '../actions/types';
 
 
@@ -64,7 +65,8 @@ const INITIAL_STATE = {
   unreadMessageCount: 0,
   searchMode:'normal',
   FAQ:[],
-  FAQSubj:''
+  FAQSubj:'',
+  // FAQCat: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -202,6 +204,10 @@ export default (state = INITIAL_STATE, action) => {
 	
       return {...state,  FAQSubj: action.subj}
 }
+      // case SET_FAQ_CAT:{
+        
+      //   return {...state,  FAQCat: action.cat}
+      // }
 
     default:
       return state
