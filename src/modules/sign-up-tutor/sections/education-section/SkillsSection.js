@@ -2,7 +2,8 @@
 import React from 'react'
 import {Grid, Dropdown, Input} from 'semantic-ui-react';
 import {TutorList} from "../../../../helpers/utils";
-
+import {getSeededSkills} from '../../../../redux/actions';
+import {connect} from 'react-redux';
 class SkillsSection extends React.Component{
 
     constructor() {
@@ -20,7 +21,17 @@ class SkillsSection extends React.Component{
         this.onCustomSkillsChange = this.onCustomSkillsChange.bind(this);
         this.onSkillSubmit = this.onSkillSubmit.bind(this);
     }
-
+   componentDidMount= async() => {
+		await this.props.getSeededSkills('d3FxhQYWG0FIZqn1X1UN_Q') 
+		if(this.props.seededSkills) this.setState({ 
+                skills: this.props.seededSkills.map(x => {
+                    return { key:x.id, text:capitalize(x.name), value:x.id }
+                })   
+			})
+		
+ 
+		
+    }
     onCustomSkillsChange(e, {name, value}) {
         this.setState({customSkill: value})
     }
@@ -57,13 +68,14 @@ class SkillsSection extends React.Component{
     render(){
         const { skills } = this.state;
         const { selectedSkills } = this.props;
-        const displayableSkills = selectedSkills.map(x => x.key );
-
+        const displayableSkills = (selectedSkills)? selectedSkills.map(x => x.key ):[];
+		const a=<span style={{color:"red"}}>*</span>
         return (
                 <Grid.Row centered>
                     <Grid.Column width={4} textAlign='left'>
-                        <span>Skills</span>
+                        <span>Skills{a}</span>
                         <Dropdown
+							id="skills_dropdown"
                             options={skills}
                             placeholder='Start typing to search for a skill.'
                             search
@@ -78,7 +90,7 @@ class SkillsSection extends React.Component{
                       </Grid.Column>
                       <Grid.Column  width={4} centered textAlign='left'>
                           <span style={{display:"block"}}>Custom Skill</span>
-                          <Input name='last_name' placeholder='Custom Skills'
+                          <Input name='flast_name' placeholder='Custom Skills'
                                action={{content: "Add Skill", onClick: this.onSkillSubmit}}
                                value={this.state.customSkill}
                                onChange={this.onCustomSkillsChange}/>
@@ -88,6 +100,17 @@ class SkillsSection extends React.Component{
     }
 
 }
+function capitalize(str = '') {
+    if (!str) return;
+    return str.trim().split('')
+        .map((char, i) => i === 0 ? char.toUpperCase() : char)
+        .reduce((final, char) => final += char, '')
+}
 
+const mapStateToProps = ({profileState}) => {
 
-export default SkillsSection;
+  const {seededSkills} = profileState;
+  return {seededSkills}
+};
+
+export default connect(mapStateToProps, {getSeededSkills})(SkillsSection);

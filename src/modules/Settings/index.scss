@@ -1,0 +1,18 @@
+.outer-setting{
+
+}
+.outer-setting .ui.vertical.right.tabular.menu{
+    border:none;
+}
+.outer-setting .ui.vertical.right.tabular.menu .active.item{
+    border: none;
+    background: #f8f8f8;
+    color: orange;
+    
+}
+.outer-setting .ui.vertical.right.tabular.menu .active.item::before{
+    border-left: 5px solid orange;
+    
+    color: orange;
+    
+}

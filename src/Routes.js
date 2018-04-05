@@ -27,6 +27,9 @@ import {
   ContactUs3,
   Faq,
   Support,
+  Contact,
+  Tutor,
+  Settings
 } from "./modules"
 import CompletedSession from './modules/completed-sessions/CompletedSession'
 import ScheduledSession from './modules/scheduled-sessions/ScheduledSessions'
@@ -43,6 +46,7 @@ const Routes = () => {
       <Switch>
         <Route exact path={"/"} component={Home} />
         <Route exact path={"/about-us"} component={AboutUs} />
+        <Route exact path={"/contact-us"} component={Contact} />
         <Route exact path={"/i-want"} component={iWant} />
         <Route exact path={"/chats"} component={Chat} />
         <Route exact path={"/messages"} component={Messaging} />
@@ -91,6 +95,28 @@ const Routes = () => {
           render={props =>
             authed || history.isAuth ? (
               <RequestMoney />
+            ) : (
+                <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+              )
+          }
+        />,
+        <Route
+          exact
+          path="/add-credits"
+          render={props =>
+            authed || history.isAuth ? (
+              <AddCredits />
+            ) : (
+                <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+              )
+          }
+        />,
+        <Route
+          exact
+          path="/settings"
+          render={props =>
+            authed || history.isAuth ? (
+              <Settings />
             ) : (
                 <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
               )
@@ -168,6 +194,17 @@ const Routes = () => {
           render={props =>
             authed || history.isAuth ? (
               <ProfileTutor />
+            ) : (
+                <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+              )
+          }
+        />,
+        <Route
+          exact
+          path={"/tutors/:tutorId"}
+          render={props =>
+            authed || history.isAuth ? (
+              <Tutor route={props} />
             ) : (
                 <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
               )

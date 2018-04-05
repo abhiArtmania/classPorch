@@ -3,6 +3,7 @@ import { render } from "react-dom"
 import { Provider } from "react-redux"
 import { store } from "./redux/store"
 import { StripeProvider } from "react-stripe-elements"
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import App from "./App"
 
 const rootEl = document.getElementById("root")

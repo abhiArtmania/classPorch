@@ -1,5 +1,5 @@
 import React from 'react';
-import {Grid, Card, Icon, Label} from 'semantic-ui-react';
+import {Grid, Card, Icon, Label, Pagination} from 'semantic-ui-react';
 import './styles.css';
 import {connect} from 'react-redux';
 import {ProfileTile} from './ProfileTile';
@@ -33,7 +33,7 @@ class SuggestedTutors extends React.Component {
     console.log(suggestedTutors);
     const pageStart = this.state.pageStart;
     const pageEnd = pageStart + 1;
-    const totalPages = parseInt(suggestedTutors.length / 20);
+    const totalPages = parseInt(suggestedTutors.length / 5);
     this.setState({
       allTutorProfiles: suggestedTutors,
       displayedTutorProfiles: suggestedTutors.slice(pageStart * 20, pageEnd * 20),
@@ -42,7 +42,7 @@ class SuggestedTutors extends React.Component {
   };
 
   populateGridColumns(profiles) {
-   
+  
     return profiles.map((profile, i) => ( <ProfileTile profile={profile} key={i}/> ))
   }
 
@@ -143,8 +143,9 @@ class SuggestedTutors extends React.Component {
 
   render() {
     let {displayedTutorProfiles, pageStart, totalPages} = this.state;
+    console.log(displayedTutorProfiles);
     return (
-      <Grid style={{marginBottom: 100}}>
+      <Grid style={{marginBottom: 100}} className="suggested-tutor">
         <Grid.Row centered>
           <Grid.Column width={12} textAlign='left'>
 
@@ -155,7 +156,11 @@ class SuggestedTutors extends React.Component {
             </Card.Group>
           </Grid.Column>
         </Grid.Row>
-        {this.renderCarousels(pageStart, totalPages)}
+        <Grid.Row centered>
+          <Grid.Column  width={12}>
+            {totalPages>0?<Pagination defaultActivePage={1} firstItem={null} lastItem={null} nextItem={'Next'}   prevItem={'Prev'}  pointing secondary  totalPages={3}  />:''}
+          </Grid.Column>
+        </Grid.Row>
       </Grid>
     )
   }

@@ -1,4 +1,12 @@
-
+.outerProfile-section{
+    background-color: #fff;
+    box-shadow: 0 1px 3px 0 rgba(63,63,68,0.15), 0 0 0 1px rgba(63,63,68,0.05);
+    border-radius: 3px;
+    position: relative;
+    padding: 15px;
+    width: 98% !important;
+    margin: 10px auto !important; 
+}
 .sub-heading{
     font-size: 1.1em;
     font-weight: 600;
@@ -12,4 +20,14 @@
 .profile-rate {
     font-size:2em;
     font-weight: 100;
+}
+.review-count{
+    float: right;
+    margin: -40px 0;
+    line-height: 20px;
+    font-size: 18px;
+    color: orange;
+}
+.ui.clearing.divider {
+    border-top: 1px solid #d29b37c9 !important;
 }

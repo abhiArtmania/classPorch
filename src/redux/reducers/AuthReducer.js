@@ -12,6 +12,7 @@ import { EMAIL_CHANGED,
 		 LOGOUT_USER_SUCCESS } from '../actions/types';
 
 const INITIAL_STATE = { email: '',
+						fullname:'',
 						password: '', 
 						showPasswordModal:false,
 						userObject:{},
@@ -24,6 +25,8 @@ const INITIAL_STATE = { email: '',
 						country:'',
 						createdAt:'',
 						firstName:'',
+						educations:{},
+						skills:[],
 						gender:'',
 						id:'',
 						image:'',
@@ -57,11 +60,11 @@ export default (state = INITIAL_STATE, action) => {
 
 		case LOGIN_USER_SUCCESS:{
 			const { auth_token, birthday_date,city,country,created_at,email,
-				first_name,gender,id,image,last_name,number, provider,role,uid,updated_at } = action.payload.userResObject;
+				first_name,gender,id,image,last_name,number,educations, skills, provider,role,uid,fullname,updated_at } = action.payload.userResObject;
 
-			return { ...state = INITIAL_STATE, loggedIn:true, authToken:auth_token, birthdayDate:birthday_date,city,country,
-				createdAt:created_at,email,firstName:first_name,gender,id,image,lastName:last_name,number, 
-				provider,role,uid,updatedAt:updated_at, errorMessage:null, loading:false }
+			return { ...state = INITIAL_STATE, loggedIn:true, authToken:auth_token,skills , birthdayDate:birthday_date,city,country,
+				createdAt:created_at,educations,email,firstName:first_name,gender,id,image,lastName:last_name,number,fullname:fullname, 
+				provider,role,uid,updatedAt:updated_at, errorMessage:null }
 		}
 
 		case LOGIN_USER_FAIL:

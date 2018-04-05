@@ -64,16 +64,19 @@ export const loginUser = (userReqObject) => {
             dispatch({type: LOGIN_USER});
 
             const res = await axios.post(apiEndpoints.auth.signIn, userReqObject);
-          
+
             if (res.status !== 200) {
                 throw('Please check your internet connection. A mouse may be chewing the wire.')
             }
 
+
             if (res.data.meta.code!==201) {
                 throw('The email or password you entered is incorrect, please try again')
             }
+            console.log(res.data.response)
 
-            const userResObject = res.data.response;
+            const userResObject = {...res.data.response};
+
             dispatch({type: LOGIN_USER_SUCCESS, payload: {userResObject}});
             history.isAuth = true;
             history.push('/dashboard/' + res.data.response.role)
@@ -93,7 +96,13 @@ export const signupUser = (parsedForm) => {
     return async (dispatch) => {
       
             dispatch({type: SIGNUP_USER});
-
+            let config={};
+		//if(arguments[1]==="tutor")
+		 config={
+        headers: {
+            'content-type': 'multipart/form-data'
+        }
+    }
           axios.post(apiEndpoints.auth.signUp, parsedForm).then(res => {
            
             
@@ -103,9 +112,11 @@ export const signupUser = (parsedForm) => {
           
 
            if (res.data.meta.code!==201) {
+			   
 			   const err=(res.data.response.error)? res.data.response.error : "error"
                 throw(err)
             }
+
 
             const userResObject = res.data.response;
             
@@ -113,6 +124,7 @@ export const signupUser = (parsedForm) => {
             
 
             if (role == 'tutor') {
+
                 dispatch({type: SIGNUP_SUCCESS, payload: {userResObject}});
                  history.isAuth = true;
                 return history.push('/dashboard/tutor')

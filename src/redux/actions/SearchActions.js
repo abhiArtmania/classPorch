@@ -1,55 +1,37 @@
-import { apiEndpoints } from '../../ApiEndpoints';
+import { apiEndpoints } from 'ApiEndpoints';
 import {
-    SEARCH_START,
-    SEARCH_SUCCESS,
-    SEARCH_FAIL,
-    REQUEST_PROFILE_START,
-    TOGGLE_SEARCH_MODE
+	SEARCH_START,
+	SEARCH_SUCCESS,
+	SEARCH_FAIL,
+	TOGGLE_SEARCH_MODE
 } from './types'
 
-export const searchRequested = (searchWord, authToken) => {
-    return async (dispatch) => {
-        try {
-            dispatch({ type: SEARCH_START });
+export const searchRequested = params => {
+	const store = localStorage.getItem("store");
+  const token = store && JSON.parse(store) ? JSON.parse(store).auth.authToken : "";
+  
+  const { gender, q, type, page_no } = params;
+	return async (dispatch) => {
+		try {
+			dispatch({ type: SEARCH_START });
 
-            let rawRes = await fetch(`${apiEndpoints.base}/search?type=tutor&&q=${searchWord}`, {
-                headers: {
-                    'auth-token': authToken
-                }
-            });
-            let res = await rawRes.json();
+			let rawRes = await fetch(`${apiEndpoints.base}/search?type=${type}&q=${q}&page_no=${page_no}&gender=${gender}`,{
+				headers: {
+					'auth-token': token
+				}
+			});
+			let res = await rawRes.json();
 
-            return dispatch({ type: SEARCH_SUCCESS, payload: res.results })
-        } catch (e) {
-            return dispatch({ type: SEARCH_FAIL, payload: e })
-        }
-    }
+			return dispatch({ type: SEARCH_SUCCESS, payload: res.response })
+		} catch (e) {
+			return dispatch({ type: SEARCH_FAIL, payload: e })
+		}
+	}
 };
-
 
 export const toggleSearchMode = (mode) => {
-    return {
-        type: TOGGLE_SEARCH_MODE,
-        payload: mode
-    }
+	return {
+		type: TOGGLE_SEARCH_MODE,
+		payload: mode
+	}
 };
-
-// export const redirectToProfile = ({ userId, authToken }) => {
-//     return async(dispatch) => {
-//         try{
-//             dispatch({ type:REQUEST_PROFILE_START })
-
-//             let resRaw = await fetch(`${apiEndpoints.base}/user/${userId}/profile`,{
-//                 headers:{
-//                     'auth_token':authToken
-//                 }
-//             })
-
-
-
-//         } catch(e) {
-//             console.log(e)
-
-//         }
-//     }
-// }

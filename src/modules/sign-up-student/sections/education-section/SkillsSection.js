@@ -91,6 +91,7 @@ class SkillsSection extends React.Component {
     });
 
     render() {
+		
         const {skills} = this.state;
         const {selectedSkills} = this.props;
         const displayableSkills = selectedSkills.map(x => x.key);
@@ -140,7 +141,7 @@ function capitalize(str = '') {
         .map((char, i) => i === 0 ? char.toUpperCase() : char)
         .reduce((final, char) => final += char, '')
 }
-const mapStateToProps = ({auth, profileState}) => {
+const mapStateToProps = ({profileState}) => {
 
   const {seededSkills} = profileState;
   return {seededSkills}

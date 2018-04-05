@@ -1,6 +1,6 @@
 import React from 'react';
 import {history} from '../../../../redux/store';
-import {Grid, Image} from 'semantic-ui-react';
+import {Grid, Image, Tab } from 'semantic-ui-react';
 import './styles.css';
 import {messageIcon, messageIconUnread} from '../../../../assets/dashboard';
 import {connect} from 'react-redux';
@@ -20,9 +20,15 @@ class StatsSection extends React.Component {
   render() {
    
     const {profile, unreadMessageCount} = this.props.dashboard;
-
+    const panes = [
+      { menuItem: 'Completed Sessions', render: () => <Tab.Pane attached={false}>Completed Sessions</Tab.Pane> },
+      { menuItem: 'Scheduled Sessions', render: () => <Tab.Pane attached={false}>Scheduled Sessions</Tab.Pane> },
+      { menuItem: 'Pending Sessions', render: () => <Tab.Pane attached={false}>Pending Sessions</Tab.Pane> },
+    ]
+    
     return (
       <Grid className='tutor-stats-section'>
+<<<<<<< HEAD
         <Grid.Row centered>
           <Grid.Column width={12} textAlign='left'>
             <p className='tutor-greeting'> Hi {profile['fullname']}  </p>
@@ -65,8 +71,12 @@ class StatsSection extends React.Component {
                 Sessions
               </p>
             </a>
+=======
+        <Grid.Row centered >
+          <Grid.Column width={15}>
+            <Tab menu={{ secondary: true, pointing: true }} panes={panes} />
+>>>>>>> 43a0fd66ec02c15c3c685b6d347d948d7dfffc36
           </Grid.Column>
-          <Grid.Column width={3}/>
         </Grid.Row>
       </Grid>
     );

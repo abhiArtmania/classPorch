@@ -1,61 +1,51 @@
-import React, {Component} from 'react'
-import { Grid, Header, Segment,Loader } from 'semantic-ui-react'
+import React from 'react'
+import { array, bool, string } from 'prop-types';
+import { Segment, Loader } from 'semantic-ui-react'
 import { SearchSection } from './sections'
-import { connect } from 'react-redux'
-import { searchRequested } from '../../redux/actions'
 
-class SearchResults extends Component {
-
-    componentDidMount(){
-        this.props.searchRequested('',this.props.authToken)
-    }
-
-    onClickResult = (e,data) => {
-        console.log(e)
-    };
-
-    renderSearchResults = (results,authToken) => {
-        if(!results || !results.length){
-            return (
-                <Grid.Row centered style={{ fontSize:'1.3em',fontWeight:100 }} >
-                    No tutors found for the searched keywords. Please try again.
-                </Grid.Row>
-            )
-        }
-        return results.map(result => {
-            return <SearchSection result = {result} authToken={authToken} key={result.id} />
-        })
-    };
-
-    renderLoader = () => {
-        return(
-            <Segment style={{flex:1,height:'700px'}} >
-                <Loader active content='Loading, please wait...' />
-
-            </Segment>
-        )
-    };
-
-    render(){
-        const { loadingSearch,searchResults,authToken } = this.props;
-        return(
-            <div style={{display:'flex',justifyContent:'center',marginBottom:'40px',minHeight:'700px'}}>
-                <Grid  style={{width:'60%'}} >
-                    <Grid.Row textAlign='left' >
-                        <Header size='large' style={{ paddingTop:'20px' }} > Tutors </Header>
-                    </Grid.Row> 
-                    { loadingSearch ? this.renderLoader() : this.renderSearchResults(searchResults,authToken) }
-                </Grid>
+const SearchResults = props => {
+    const { loadingSearch, searchResults, authToken } = props
+    return (
+        <div className="container">
+            <div className="option-bar">
+                <div className="row">
+                  <div className="col-lg-6 col-md-5 col-sm-5 col-xs-2">
+                    <h4>
+                      <span className="heading-icon">
+                        <i className="fa fa-th-list" />
+                      </span>
+                      <span className="hidden-xs">Tutors List</span>
+                    </h4>
+                  </div>
+                  <div className="col-lg-6 col-md-7 col-sm-7 col-xs-10 cod-pad">
+                  </div>
+                </div>
             </div>
-        )
-    }
+            <div className="row">
+                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    { loadingSearch ? (
+                        <Segment style={{flex:1,height:'700px'}} >
+                            <Loader active content='Loading, please wait...' />
+                        </Segment>
+                    ) : (
+                        <div>
+                            {searchResults.length > 0 ? searchResults.map(tutorInfo => {
+                                return <SearchSection tutorInfo={tutorInfo} authToken={authToken} key={tutorInfo.id} />
+                            }) : (
+                                <h3 style={{ marginBottom: 40 }}>Oops! No result found.</h3 >
+                            )}
+                        </div>
+                    )}
+                </div>
+            </div>
+        </div>
+    )
 }
 
-const mapStateToProps = ({search,auth}) => {
-    const { searchResults,loadingSearch } = search;
-    const {authToken} = auth;
+SearchResults.propTypes = {
+    authToken: string.isRequired,
+    loadingSearch: bool.isRequired,
+    searchResults: array.isRequired,
+}
 
-    return { searchResults,loadingSearch,authToken }
-};
-
-export default connect(mapStateToProps,{ searchRequested })(SearchResults)
+export default SearchResults

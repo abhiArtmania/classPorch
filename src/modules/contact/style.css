@@ -1,0 +1,17 @@
+
+#contact_form label
+{
+font-weight: bold!important;
+}
+#contact_form .checkbox {
+    padding-left: 0
+    }
+#contact_form input{
+    padding: 5px 5px 5px 10px;
+    border-radius: 3px!important;
+    }
+ #contact_form #categories
+ {
+ min-height:20px;
+ padding: 10px 5px 10px 10px;
+ }
