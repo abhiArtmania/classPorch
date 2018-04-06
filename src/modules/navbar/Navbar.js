@@ -511,7 +511,7 @@ class Navbar extends Component {
                         </a>
                     </Menu.Item>
                     {menuBar}
-                    {searchbar}
+                    {this.props.role === "tutor"?searchbar:''}
                     <Button size={'medium'} basic={true} onClick={this.menuToggle}>menu</Button>
                     {menuRight}
 
