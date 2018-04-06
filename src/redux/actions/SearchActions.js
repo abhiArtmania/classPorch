@@ -1,4 +1,4 @@
-import { apiEndpoints } from 'ApiEndpoints';
+import { apiEndpoints } from './../../ApiEndpoints';
 import {
 	SEARCH_START,
 	SEARCH_SUCCESS,

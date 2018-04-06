@@ -1,6 +1,6 @@
 // import { request } from "utils/request";
 import { apiEndpoints } from '../../ApiEndpoints';
-import { GET_TUTOR_SCHEDULE } from "./types";
+import { GET_TUTOR_SCHEDULE, GET_USER_INFO } from "./types";
 
 export function setTutorSchedule(schedule) {
   return { schedule, type: GET_TUTOR_SCHEDULE };

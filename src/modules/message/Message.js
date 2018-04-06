@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {Grid, List, Dropdown, Menu, Search,  Form, Icon  } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import {Grid, List, Dropdown, Menu, Search,  Form, Icon, Input  } from 'semantic-ui-react';
 import {ChatRow} from './chat-strip';
+import EmojiPicker from 'emoji-picker-react';
 import {ChatActions} from '../../redux/actions';
 import {history} from '../../redux/store';
+import Files from 'react-files'
 import "./styles.css";
 
 class Message extends Component {
@@ -12,7 +15,11 @@ class Message extends Component {
 
   constructor(props) {
     super(props);
-   
+   this.state ={
+    isEmoji:false,
+    emoji:null,
+   }
+    this.showEmoji = this.showEmoji.bind(this);
     this.createChatsFromResponse = this.createChatsFromResponse.bind(this);
   }
 
@@ -60,6 +67,25 @@ class Message extends Component {
 
     this.setState({ submittedName: name, submittedEmail: email })
   }
+  showEmoji(e){
+      
+      if(this.state.isEmoji === true){
+        this.setState({isEmoji: false});
+      }else{
+        this.setState({isEmoji: true});
+      }
+     
+  }
+  setEmoji(emoji) {
+    this.setState({emoji: emoji})
+  }
+  onFilesChange(files){
+    console.log(files)
+  }
+ 
+  onFilesError(error, file){
+    console.log('error code ' + error.code + ': ' + error.message)
+  }
   render = () => {
     const {chats, isLoadingChats} = this.state;
     const options = [
@@ -106,42 +132,55 @@ class Message extends Component {
           </Grid.Column>
           <Grid.Column textAlign='left' width={12} className="right-tab">
             <Grid.Row className="header-message">
-              <h2> <Icon name='user' size='large' /> James hema</h2>
+              <Link to="tutors/88"><h2> <Icon name='user' size='large' /> James hema</h2></Link>
             </Grid.Row>
-          <Grid.Row  style={{height: '65vh', overflow: 'scroll',background: '#fff'}}>
+          <Grid.Row  style={{height: '65vh', overflow: 'scroll',background: '#fff', paddingLeft: '15px'}}>
+          <Files
+          className='files-dropzone'
+          onChange={this.onFilesChange}
+          onError={this.onFilesError}
+          accepts={['image/png', '.pdf', 'audio/*']}
+          multiple
+          maxFiles={3}
+          maxFileSize={10000000}
+          minFileSize={0}
+         
+        >
+          <h4>Drop files For Attachment</h4>
           <List divided  relaxed>
-      <List.Item>
-        <List.Content>
-          <List.Header>Snickerdoodle</List.Header>
-          An excellent companion
-        </List.Content>
-      </List.Item>
-      <List.Item>
-        <List.Content>
-          <List.Header>Poodle</List.Header>
-          A poodle, its pretty basic
-        </List.Content>
-      </List.Item>
-      <List.Item>
-        <List.Content>
-          <List.Header>Paulo</List.Header>
-          He's also a dog
-        </List.Content>
-      </List.Item>
-    </List>
-          
+            <List.Item className="message-row">
+              <List.Content>
+                <List.Header> <Icon name='user' size='Small' /> Snickerdoodle</List.Header>
+                An excellent companion
+              </List.Content>
+            </List.Item>
+            <List.Item  className="message-row">
+              <List.Content>
+                <List.Header><Icon name='user' size='Small' /> James h</List.Header>
+                A poodle, its pretty basic
+              </List.Content>
+            </List.Item>
+            <List.Item  className="message-row">
+              <List.Content>
+                <List.Header><Icon name='user' size='Small' /> Snickerdoodle</List.Header>
+                He's also a good
+              </List.Content>
+            </List.Item>
+          </List>
+          </Files>
           </Grid.Row>
           <Grid.Row>
           <Grid.Column width={8}>
           <div style={{margin:'10px 0px'}}>
               <Form onSubmit={this.handleSubmit}>
-               
-                  <Form.Input className="message-input" placeholder='Message' name='name' value={name} onChange={this.handleChange} />
+                  <Input className="message-input" icon={<div className="inner-content"><Icon name='smile' size='large' link onClick={this.showEmoji}/><Files className="file-attachment"><Icon name='attach' size='large' link/></Files></div>}   placeholder='Search...'  />
+                {this.state.isEmoji?<EmojiPicker onSelect={this.setEmoji} query={this.state.emoji} />:''}
+                 
                   
                   <Form.Button content='Submit' />
                 
               </Form>
-       
+              
           </div>
           </Grid.Column>
       </Grid.Row>

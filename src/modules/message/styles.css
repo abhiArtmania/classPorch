@@ -64,6 +64,23 @@
 .header-message{
     border: 1px solid #ccc !important; 
 }
+.message-input .inner-content{
+    position: absolute;
+    right: 0;
+    margin: 10px 10px;
+}
+.message-input .inner-content > div{
+    display: inline-block;
+}
+.message-input{
+    width: 83% !important;
+    margin-right: 10px;
+}
+.chatsContainer .emoji-picker {
+    position: absolute;
+    right: 20%;
+    z-index: 99;
+}
 .chatsContainer .right-tab{
     padding: 0;
 }
