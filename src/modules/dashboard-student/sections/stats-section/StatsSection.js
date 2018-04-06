@@ -28,7 +28,7 @@ class StatsSection extends React.Component {
     
     return (
       <Grid className='tutor-stats-section'>
-<<<<<<< HEAD
+
         <Grid.Row centered>
           <Grid.Column width={12} textAlign='left'>
             <p className='tutor-greeting'> Hi {profile['fullname']}  </p>
@@ -71,11 +71,7 @@ class StatsSection extends React.Component {
                 Sessions
               </p>
             </a>
-=======
-        <Grid.Row centered >
-          <Grid.Column width={15}>
-            <Tab menu={{ secondary: true, pointing: true }} panes={panes} />
->>>>>>> 43a0fd66ec02c15c3c685b6d347d948d7dfffc36
+
           </Grid.Column>
         </Grid.Row>
       </Grid>

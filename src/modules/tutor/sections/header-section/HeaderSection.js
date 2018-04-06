@@ -5,8 +5,9 @@ import {
   Button,
 } from 'semantic-ui-react';
 import './styles.css';
-import defaultAvatar  from 'assets/avatar/default.png';
-import { Rating } from 'components/common';
+// import defaultAvatar  from '../../../assets/avatar/default.png';
+import defaultAvatar from '../../../../assets/avatar/default.png'
+import { Rating } from '../../../../components/common';
 
 const HeaderSection = props => {
   const { tutorInfo } = props;
