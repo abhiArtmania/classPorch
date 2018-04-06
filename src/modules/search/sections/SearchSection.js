@@ -5,8 +5,10 @@ import {WOW} from 'wowjs/dist/wow';
 import './css/animate.css';
 import './css/style.css';
 import './css/default.css';
+
 // import defaultAvatar from 'assets/avatar/default.png';
 import defaultAvatar from '../../../assets/avatar/default.png'
+
 import { Rating } from '../../../components/common';
 
 

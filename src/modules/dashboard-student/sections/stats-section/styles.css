@@ -14,7 +14,13 @@
 	margin-bottom: 0.3em!important;
 	line-height: 1!important;
 }
-
+.complete-session .custom-row{
+	border-bottom: 1px solid orange;
+    padding: 10px 10px;
+}
+.complete-session .custom-row .userInfo span.time-spent{
+	float: right;
+}
 .tutor-greeting2{
 	font-size: 13px;
 	color: #AAA;
@@ -47,4 +53,21 @@
 	vertical-align: middle;
 	color: #F6A623;
 	font-size: 24px;
+}
+.complete-session .rating{
+	float:none;
+}
+.complete-session .userName{
+	margin: 20px 0;
+	color: orange;
+}
+.complete-session .complete-lable{
+	margin: 20px 0;
+}
+.complete-session .time-spent{
+	margin: 20px 0;
+}
+.complete-session .load-more-right{
+	float: right;
+	margin:10px;
 }

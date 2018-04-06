@@ -7,6 +7,7 @@ const initState = {
 };
 
 const ChatReducer = (state = initState, action) => {
+  
   switch (action.type) {
     case ChatActions.LOAD_CHATS:
       return {
