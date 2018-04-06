@@ -32,7 +32,7 @@ class StatsSection extends React.Component {
     return (
       <Grid className='tutor-stats-section'>
         <Grid.Row width={15} >
-          <Grid.Column width={15} style={{margin:'0 auto'}}>
+          <Grid.Column width={12} style={{margin:'0 auto'}}>
             <Tab menu={{ secondary: true, pointing: true }} panes={panes} />
           </Grid.Column>
          

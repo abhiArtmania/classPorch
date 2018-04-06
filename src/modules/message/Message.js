@@ -135,45 +135,35 @@ class Message extends Component {
               <Link to="tutors/88"><h2> <Icon name='user' size='large' /> James hema</h2></Link>
             </Grid.Row>
           <Grid.Row  style={{height: '65vh', overflow: 'scroll',background: '#fff', paddingLeft: '15px'}}>
-          <Files
-          className='files-dropzone'
-          onChange={this.onFilesChange}
-          onError={this.onFilesError}
-          accepts={['image/png', '.pdf', 'audio/*']}
-          multiple
-          maxFiles={3}
-          maxFileSize={10000000}
-          minFileSize={0}
          
-        >
-          <h4>Drop files For Attachment</h4>
+         
           <List divided  relaxed>
             <List.Item className="message-row">
               <List.Content>
-                <List.Header> <Icon name='user' size='Small' /> Snickerdoodle</List.Header>
+                <List.Header> <Icon name='user' size='large' /> Snickerdoodle</List.Header>
                 An excellent companion
               </List.Content>
             </List.Item>
             <List.Item  className="message-row">
               <List.Content>
-                <List.Header><Icon name='user' size='Small' /> James h</List.Header>
+                <List.Header><Icon name='user' size='large' /> James h</List.Header>
                 A poodle, its pretty basic
               </List.Content>
             </List.Item>
             <List.Item  className="message-row">
               <List.Content>
-                <List.Header><Icon name='user' size='Small' /> Snickerdoodle</List.Header>
+                <List.Header><Icon name='user' size='large' /> Snickerdoodle</List.Header>
                 He's also a good
               </List.Content>
             </List.Item>
           </List>
-          </Files>
+         
           </Grid.Row>
           <Grid.Row>
           <Grid.Column width={8}>
           <div style={{margin:'10px 0px'}}>
               <Form onSubmit={this.handleSubmit}>
-                  <Input className="message-input" icon={<div className="inner-content"><Icon name='smile' size='large' link onClick={this.showEmoji}/><Files className="file-attachment"><Icon name='attach' size='large' link/></Files></div>}   placeholder='Search...'  />
+                  <Input className="message-input" icon={<div className="inner-content"><Icon name='smile' size='large' link onClick={this.showEmoji}/><Files className="file-attachment"><Icon name='attach' size='large' link/></Files></div>}   placeholder='Type...'  />
                 {this.state.isEmoji?<EmojiPicker onSelect={this.setEmoji} query={this.state.emoji} />:''}
                  
                   

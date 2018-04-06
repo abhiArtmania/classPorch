@@ -101,7 +101,15 @@ display:none;
 .NotificationMessage{
     
 }
+.pending-message{
+    top: 45px;
+    margin: 0 !important;
+    left: 40px;
+    padding: 5px;
+    font-size: 10px;
+    background: #ccc !important;
 
+}
 .searchFilter {
     left: -80px;
 }

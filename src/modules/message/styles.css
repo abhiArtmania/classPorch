@@ -45,7 +45,12 @@
 .chatsContainer .searchbar .ui.icon.input input{
     height: 40px;
 }
-
+.chatsContainer .message-row .content{
+    padding: 5px 30px;
+}
+.chatsContainer .message-row .content .header{
+    margin: 5px 0 5px -32px !important;
+}
 .chatsContainer .right-tab .ui.form{
     width: 100%;
     display: inline-block;
@@ -64,11 +69,15 @@
 .header-message{
     border: 1px solid #ccc !important; 
 }
+.header-message h2{
+    display: inline-block;
+}
 .message-input .inner-content{
     position: absolute;
     right: 0;
     margin: 10px 10px;
 }
+
 .message-input .inner-content > div{
     display: inline-block;
 }

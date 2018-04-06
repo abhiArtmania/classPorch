@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logoDark from '../../assets/logo_dark.png';
 import { history } from '../../redux/store';
 import './styles.css';
-import { Menu, Dropdown, Image, Input, Button, Grid, Icon, Table } from 'semantic-ui-react';
+import { Menu, Dropdown, Image, Input, Button, Grid, Icon, Table, Label } from 'semantic-ui-react';
 import faker from 'faker'
 import { connect } from 'react-redux';
 import { logoutUserRequested, searchRequested, setPresentProfile, toggleSearchMode } from '../../redux/actions';
@@ -296,7 +296,12 @@ class Navbar extends Component {
                 <Menu.Item name={'search'} active={this.state.activeItem === 'search'} onClick={this.handleItemClick}><Icon color='yellow' name='search' size='large' /></Menu.Item>}
 
             <Menu.Item name={'messages'} active={this.state.activeItem === 'messages'}
-                onClick={this.handleItemClick}><Icon color='yellow' name='mail' size='large' /></Menu.Item>
+                onClick={this.handleItemClick}> 
+    <Icon color='yellow' name='mail' size='large' >
+      <Label style={{top: "45px", margin: "0 !important",  left:" 55px", padding:" 5px", fontSize:" 10px", background:" #ccc !important" }} floating>22</Label></Icon>
+      
+   
+ </Menu.Item>
             <Menu.Item name={'notification'} active={this.state.activeItem === 'notification'}
                  onClick={this.onClick.bind(this)}><Icon color='yellow' name='alarm' size='large' /></Menu.Item>
        

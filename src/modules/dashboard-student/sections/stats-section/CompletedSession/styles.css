@@ -25,3 +25,19 @@
     height: 20px;
     width: 20px
 }
+.complete-session .tutor-img{
+    display: inline-block;
+    float: left;
+    width: 60px !important;
+    margin-right: 20px ;
+}
+.complete-session .ui.small.label, .ui.small.labels .label{
+    background-color:orange;
+    color:#fff;
+}
+.complete-session .i.orange.icon{
+    color: #ffa500!important;
+}
+.full-date{
+    color: #ffa500!important;
+}
