@@ -56,6 +56,7 @@
     "react-dev-utils": "^4.2.1",
     "react-dom": "16.1.1",
     "react-facebook-login": "3.7.2",
+    "react-files": "^2.4.5",
     "react-linkedin-login": "1.0.3",
     "react-notification": "6.8.2",
     "react-phone-number-input": "1.0.1",
