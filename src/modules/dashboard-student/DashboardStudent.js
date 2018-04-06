@@ -66,7 +66,7 @@ class DashboardStudent extends React.Component {
         this.props.searchMode === 'normal'?
         <div>
           <StatsSection unreadMessagesCount={unreadMessagesCount}/>
-          <NotificationsSection/>
+          
           <SuggestedTutors/>
           <Notification
             isActive={this.state.isNotificationActive}

@@ -84,24 +84,38 @@ display:none;
 .NotificationDiv{
     z-index: 101;
     top: 105%;
-    right: 0;
+    right: 5%;
     position: absolute;
     height: auto;
-    width:40%;
-    height:auto;
+    width: 230px;
+    border-radius: 5px;
+    height: auto;
     background: #fff;
     box-shadow: 0 6px 12px rgba(0,0,0,.175);
    
 }
 .NotificationDiv .ui[class*="very basic"].table:not(.sortable):not(.striped) td:last-child, .ui[class*="very basic"].table:not(.sortable):not(.striped) th:last-child{padding:10px;
 }
-
-.searchFilters {
-    right: 5px;
-    top: calc(50% - 7px);
-    display: inline-block;
-    position: absolute;
+.NotificationDiv a.notification-link{color: #333;}
+.NotificationDiv a.notification-link:hover{color: #fac219;}
+.NotificationMessage{
+    
 }
-.searchFilters__filter {
-    margin: 0 20px 0 0;
+.pending-message{
+    top: 45px;
+    margin: 0 !important;
+    left: 40px;
+    padding: 5px;
+    font-size: 10px;
+    background: #ccc !important;
+
+}
+.searchFilter {
+    left: -80px;
+}
+.menubar .trigger-container{
+    display: inline-block;
+}
+.menubar .trigger-content{
+    display: inline-block;
 }

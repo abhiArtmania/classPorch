@@ -1,0 +1,121 @@
+
+
+.chatsHeader {
+    font-size: 64px;
+    font-weight: 300;
+    margin-bottom: 60px;
+    margin-left: 20px;
+    text-align: left !important;
+}
+.chatsContainer .ui.compact.menu{
+    width: 80%;
+    margin: 0 10%;
+    text-align: center;
+
+}
+.chatsContainer .ui.menu .item{
+    width: 100%;
+   /* background: orange;*/
+    color: orange;
+    font-weight: 700;
+}
+.chatsContainer .ui.dropdown>.text{
+    width: 80%;
+}
+.chatsContainer .ui.menu .ui.dropdown .menu>.item:hover, .ui.menu .ui.dropdown .menu>.selected.item{
+    /*background:orange!important;
+    color: #fff !important;*/
+    color: orange !important;
+    font-weight: 700 !important;
+}
+.chatsContainer .ui.link.menu .item:hover, .ui.menu .dropdown.item:hover, .ui.menu .link.item:hover, .ui.menu a.item:hover{
+    color: orange !important;
+    font-weight: 700 !important;
+
+}
+
+.chatsContainer .searchbar{
+    padding: 7px 11px;
+}
+.chatsContainer .left-message-tab{
+    background: #FFF;
+}
+.chatsContainer .searchbar .ui.icon.input input{
+    height: 40px;
+}
+.chatsContainer .message-row .content{
+    padding: 5px 30px;
+}
+.chatsContainer .message-row .content .header{
+    margin: 5px 0 5px -32px !important;
+}
+.chatsContainer .right-tab .ui.form{
+    width: 100%;
+    display: inline-block;
+    float: right;
+    padding: 0px 10px;
+    margin-bottom: 0px;
+}
+.chatsContainer .right-tab .ui.form .field{
+    display: inline-block;
+    width: 10%;
+}
+.chatsContainer .right-tab .ui.form .field.message-input{
+    width: 83%;
+    display: inline-block;
+}
+.header-message{
+    border: 1px solid #ccc !important; 
+}
+.header-message h2{
+    display: inline-block;
+    color: orange !important; 
+}
+.message-input .inner-content{
+    position: absolute;
+    right: 0;
+    margin: 10px 10px;
+}
+
+.message-input .inner-content > div{
+    display: inline-block;
+}
+.message-input{
+    width: 83% !important;
+    margin-right: 10px;
+}
+.chatsContainer .emoji-picker {
+    position: absolute;
+    right: 20%;
+    z-index: 99;
+}
+.chatsContainer .right-tab{
+    padding: 0;
+}
+.chatsContainer .right-tab{
+        /* margin: 0; */
+        padding: 0 !important;
+        border-left: 1px solid;
+}
+.chatsContainer .right-tab header-message{
+    background: #f8f8f8;
+    border: 1px solid #cac7c7;
+    width: 99%; 
+}
+.chatsContainer .right-tab .header-message h2{
+    margin: 10px 10px;
+}
+.left-message-tab{
+    padding: 0px !important;
+    border: 1px solid #ccc;
+}
+
+
+
+.chatsContainer .right-tab .ui.button{
+    background: orange;
+    color: #fff;
+    font-weight: 700;
+    height: 47px;
+    width: 85px;
+}

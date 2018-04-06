@@ -44,7 +44,7 @@ componentDidUpdate()
 	let container=document.getElementById("messaging_scroll");
 	let lastMsg=document.querySelector("#messaging_scroll .item:last-child")
 	
-	lastMsg.scrollIntoView(false)
+	//lastMsg.scrollIntoView(false)
 }
   componentWillUnmount() {
     this.props.unsubscribe();
@@ -84,7 +84,7 @@ onKeyPress(e){
 
   render() {
     const { messages, isUploadingFile } = this.state;
-    const profilePicture =  this.props.otherUser.pictureUrl ? this.props.otherUser.pictureUrl : `http://via.placeholder.com/300?text=${this.props.otherUser.lastName[0].toUpperCase()}`;
+    const profilePicture =  this.props.otherUser ? this.props.otherUser.pictureUrl : `http://via.placeholder.com/300?text=r`;
     return (
       <div>
         <Grid verticalAlign={'middle'} style={{ marginTop: 16, marginBottom: 16 }}>
@@ -99,7 +99,7 @@ onKeyPress(e){
             </Grid.Column>
             <Grid.Column textAlign='left' width={11} style={{ cursor: 'pointer' }}>
               <span style={{ fontSize: 32, fontWeight: 300 }}>
-                {this.props.otherUser.firstName+" "+ this.props.otherUser.lastName}
+                {'xyz' +" "+ 'abc'}
               </span>
             </Grid.Column>
           </Grid.Row>

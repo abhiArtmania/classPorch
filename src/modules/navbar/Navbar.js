@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logoDark from '../../assets/logo_dark.png';
 import { history } from '../../redux/store';
 import './styles.css';
-import { Menu, Dropdown, Image, Input, Button, Grid, Icon, Table } from 'semantic-ui-react';
+import { Menu, Dropdown, Image, Input, Button, Grid, Icon, Table, Label } from 'semantic-ui-react';
 import faker from 'faker'
 import { connect } from 'react-redux';
 import { logoutUserRequested, searchRequested, setPresentProfile, toggleSearchMode } from '../../redux/actions';
@@ -89,7 +89,7 @@ class Navbar extends Component {
 
         switch (name) {
             case 'messages':
-                history.push('/chats');
+                history.push('/message');
                 return;
             case 'log-in':
                 this.scrollTo();
@@ -291,12 +291,17 @@ class Navbar extends Component {
         return (<Menu.Menu position='right'>
            
             <Menu.Item name={'dashboard'} active={this.state.activeItem === 'dashboard'}
-                onClick={this.handleItemClick}><h3 className="title-dashboard">Dashboard</h3></Menu.Item>      
+                onClick={this.handleItemClick}>Dashboard</Menu.Item>      
             {(window.location.pathname === '/search' || window.location.pathname === '/dashboard/student' || window.location.pathname === '/profile/student') && this.props.role === 'student' &&
                 <Menu.Item name={'search'} active={this.state.activeItem === 'search'} onClick={this.handleItemClick}><Icon color='yellow' name='search' size='large' /></Menu.Item>}
 
             <Menu.Item name={'messages'} active={this.state.activeItem === 'messages'}
-                onClick={this.handleItemClick}><Image centered src={messenger}  ></Image></Menu.Item>
+                onClick={this.handleItemClick}> 
+    <Icon color='yellow' name='mail' size='large' >
+      <Label style={{top: "45px", margin: "0 !important",  left:" 55px", padding:" 5px", fontSize:" 10px", background:" #ccc !important" }} floating>22</Label></Icon>
+      
+   
+ </Menu.Item>
             <Menu.Item name={'notification'} active={this.state.activeItem === 'notification'}
                  onClick={this.onClick.bind(this)}><Icon color='yellow' name='alarm' size='large' /></Menu.Item>
        
@@ -364,7 +369,7 @@ class Navbar extends Component {
             return (
                 <Table.Row keys={item.id}>
                   <Table.Cell>
-                    {item.Notification}
+                   <a href="#" className="notification-link"> {item.Notification}</a>
                     </Table.Cell>
                 </Table.Row>
                    
@@ -513,11 +518,13 @@ class Navbar extends Component {
                     {menuBar}
                     {this.props.role === "tutor"?searchbar:''}
                     <Button size={'medium'} basic={true} onClick={this.menuToggle}>menu</Button>
+                    {  role === 'tutor' ?searchbar:''}
                     {menuRight}
 
                 </Menu>
                 <div className="menu-container">
                     <Menu stackable borderless className='menubar2' size={'large'} fixed={'top'} ref="slideMenu">
+                   
                         {menuBar}
 
                     </Menu>
