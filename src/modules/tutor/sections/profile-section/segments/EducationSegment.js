@@ -3,7 +3,7 @@ import { object } from 'prop-types';
 import moment from 'moment';
 import { Grid } from 'semantic-ui-react'
 import '../../../styles.css'
-import checkimg from 'assets/profile/check.png';
+import checkimg from '../../../../../assets/profile/check.png';
 
 // 10:15 AM => 10
 // 10:15 PM => 22
