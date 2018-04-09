@@ -2,6 +2,7 @@ import React from 'react';
 import {history} from '../../../../redux/store';
 import {Grid, Image, Tab } from 'semantic-ui-react';
 import './styles.css';
+import {  sessionRequested } from '../../../../redux/actions';
 import {messageIcon, messageIconUnread} from '../../../../assets/dashboard';
 import {connect} from 'react-redux';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
@@ -47,4 +48,4 @@ const mapStateToProps = ({dashboard}) => {
 };
 
 
-export default connect(mapStateToProps, {})(StatsSection);
+export default connect(mapStateToProps, {sessionRequested})(StatsSection);
