@@ -6,7 +6,7 @@ import { StripeProvider } from "react-stripe-elements"
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import App from "./App"
 
-const rootEl = document.getElementById("root")
+const rootEl = document.getElementById("root");
 const renderApp = () =>
   render(
     <StripeProvider apiKey="pk_test_9QPuYWOs5fSjGmRCNWCgAYHL">
