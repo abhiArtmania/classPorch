@@ -16,7 +16,10 @@ import {
 
 } from '../../redux/actions';
 import { HeaderSection, ProfileSection } from './sections';
+
 import { getTutorSchedule, getUserInfo } from "../../redux/actions/tutors";
+
+
 import './styles.css';
 
 class Tutor extends React.Component {

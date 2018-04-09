@@ -12,7 +12,10 @@ import {
   toggleSearchMode
 } from '../../redux/actions';
 import {SearchResults} from '../search'
+
 import { Pagination } from "../../components/common";
+
+
 
 class DashboardStudent extends React.Component {
 
