@@ -95,13 +95,13 @@ class Message extends Component {
     ];
     const { name, submittedName } = this.state
     return (
-      <Grid className='chatsContainer' style={{padding:'10px'}}>
+      <Grid className='chatsContainer' >
         
-        <Grid.Row style={{padding:'10px'}}>
+        <Grid.Row style={{padding:'0 10px'}}>
       
           <Grid.Column textAlign='left' width={4} className="left-message-tab" >
           <div className="searchbar"><Search /></div>
-          <Grid.Row style={{height: '80vh', overflow: 'scroll', padding:'0 10px'}}>
+          <Grid.Row style={{height: '65vh', overflow: 'scroll',padding:'0 10px'}}>
             <Menu compact>
               <Dropdown text='All Recent' options={options} simple item />
             </Menu>
@@ -134,7 +134,7 @@ class Message extends Component {
             <Grid.Row className="header-message">
               <Link to="tutors/88"><h2> <Icon name='user' size='large' /> James hema</h2></Link>
             </Grid.Row>
-          <Grid.Row  style={{height: '65vh', overflow: 'scroll',background: '#fff', paddingLeft: '15px'}}>
+          <Grid.Row  style={{height: '55vh', overflow: 'scroll',background: '#fff', paddingLeft: '15px'}}>
          
          
           <List divided  relaxed>

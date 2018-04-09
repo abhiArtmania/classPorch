@@ -5,5 +5,6 @@ export * from './AuthActions';
 export * from './DashboardActions';
 export * from './SearchActions';
 export * from './ProfileActions';
+export * from './SessionActions';
 
 export { ChatActions, MessageActions };

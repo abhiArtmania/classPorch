@@ -30,7 +30,8 @@ import {
   Contact,
   Tutor,
   Message,
-  Settings
+  Settings,
+  SessionRequested
 } from "./modules"
 import CompletedSession from './modules/completed-sessions/CompletedSession'
 import ScheduledSession from './modules/scheduled-sessions/ScheduledSessions'
@@ -67,6 +68,7 @@ const Routes = () => {
         <Route exact path={"/terms-of-service/student"} component={TosStudent} />
         <Route exact path={"/sign-up/tutor"} component={SignUpTutor} />
         <Route exact path={"/sign-up/student"} component={SignUpStudent} />
+        <Route exact path={"/sessionrequested"} component={SessionRequested} />
         <Route exact path={"/sign-up"} component={SignUpMethods}/>
         {/* <Route exact path={"/completed-sessions"} component={CompletedSession} /> */}
         <Route

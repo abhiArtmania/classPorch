@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Icon, Table} from 'semantic-ui-react'
 import './styles.css';
-
+import { history } from '../../../../../redux/store';
 import { Menu, Dropdown, Image, Input, Button, Rating, Label } from 'semantic-ui-react';
 import defultAvtart from "./../../../../../assets/avatar/default.png"
 class CompletedSession extends React.Component {
@@ -31,10 +31,7 @@ class CompletedSession extends React.Component {
     }
     onLoadMore = (e) => {
         e.preventDefault();
-        console.log(this.state.limit);
-        this.setState({
-            limit: this.state.limit + 5
-        });
+        history.push('/sessionrequested');
     }
     
 
@@ -81,7 +78,7 @@ class CompletedSession extends React.Component {
             <Grid className='complete-session'>
                 {this.renderTabs()}
                 <div style={{width:'100%'}}>
-                <Button color='yellow' className="load-more-right" >Show More</Button>
+                <Button color='yellow' className="load-more-right" onClick={this.onLoadMore} >Show More</Button>
                 </div >     
                    
             </Grid>
