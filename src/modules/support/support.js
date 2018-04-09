@@ -6,7 +6,7 @@ import logoDark from '../../assets/logo_dark.png';
 import Parent from '../../assets/support/parents3.jpg'
 import Tutors from '../../assets/support/tutors4.jpg'
 import Technical from '../../assets/support/technica2.jpg'
-import {setFAQSubject,getFAQ} from '../../redux/actions';
+import {setFAQSubject,getFAQ,getStudentFAQ,getTutorsFAQ,getTechnicalFAQ} from '../../redux/actions';
 import './index.scss';
 import _ from 'lodash'
 import faker from 'faker'
@@ -63,12 +63,15 @@ searchbox: {
   
 },
 header: {
-  marginTop: '10%',
+  marginTop: '8%',
   textAlign: 'center',
   fontSize: '50px'
 },
 headerHelp: {
   color: 'white'
+},
+searchboxArea: {
+  backgroundColor: 'red'
 }
 }
 class Support extends React.Component {
@@ -98,8 +101,17 @@ class Support extends React.Component {
     this.resultRenderer = this.resultRenderer.bind(this);
   }
 
-  componentWillMount() {
-    // this.resetComponent()
+  componentWillMount=async() => 
+  {
+      
+    // this.setState({loading:true})
+    // setTimeout(()=>this.setState({loading:false}), 1500);	
+    // await this.props.getFAQ("ParentTeacher");
+    await this.props.getStudentFAQ();
+    await this.props.getTutorsFAQ();
+    await this.props.getTechnicalFAQ();
+
+        
   }
 
 //   componentDidMount=async() => 
@@ -162,6 +174,8 @@ class Support extends React.Component {
   close = () => this.setState({ modalVisible: false });
   render() {
     const { isLoading, value, results } = this.state
+    // console.log("FAQSSSSSS",this.props.FAQ)
+    console.log("FAQSSTUTOR", this.props.TUTORSFAQ)
     return (
  
     <div>
@@ -174,17 +188,8 @@ class Support extends React.Component {
         <Segment style={styles.searchboxContainer}>
         <Button floated='right' onClick={()=>{history.push('/submit-ticket')}}>Submit Ticket</Button>
         <h1 className="ui header" style={styles.header} >Want any <span style={styles.headerHelp}>help?</span></h1>
-        {/* <Input icon='search' fluid iconPosition='left' placeholder='Search here...' style={styles.searchbox}/> */}
-        {/* <Search style={styles.searchbox}
-          resultRenderer={resultRenderer}
-            loading={isLoading}
-            onResultSelect={this.handleResultSelect}
-            onSearchChange={_.debounce(this.handleSearchChange, 500, { leading: true })}
-            results={results}
-            value={value}
-            {...this.props}
-          /> */}
-          <Search
+        {/* <Segment style={styles.searchboxArea}> */}
+          <Search 
             style={styles.searchbox}
               loading={isLoading}
               resultRenderer={this.resultRenderer}
@@ -192,13 +197,14 @@ class Support extends React.Component {
               results={results}
               value={value}
             />
+          {/* </Segment> */}
         </Segment>
       </Grid.Column>
     </Grid.Row>
     </Grid>
     <Card.Group style={{margin: "50px 15px", marginTop: '8%'}} itemsPerRow="3" stackable={true}>
     
-    <Card  className="buttonCard" onClick={this.goFAQ.bind(this,"for Students/Parents")}>
+    <Card  className="buttonCard" onClick={this.goFAQ.bind(this,"For Students/Parents")}>
     <Image src={Parent} style={styles.icons} />
       <Card.Content style={{margin: "auto", padding:"25px",textAlign:"center"}}>
         <Card.Header>
@@ -214,11 +220,11 @@ class Support extends React.Component {
       <Card.Content extra style={styles.cardFooter}>
             <a>
             <Icon name='question' style={styles.footerContent} />
-            <span style={styles.footerContent}>14 Questions Found!</span>
+            <span style={styles.footerContent}>{this.props.STUDENTFAQ.length} Questions Found!</span>
             </a>
       </Card.Content>
     </Card>
-    <Card className="buttonCard" onClick={this.goFAQTutor.bind(this,"for Tutors")}>
+    <Card className="buttonCard" onClick={this.goFAQTutor.bind(this,"For Tutors")}>
     <Image src={Tutors} style={styles.icons}/>
       <Card.Content style={{margin: "auto", padding:"25px",textAlign:"center"}}>
         <Card.Header>
@@ -234,11 +240,11 @@ class Support extends React.Component {
       <Card.Content extra style={styles.cardFooter}>
             <a>
             <Icon name='question' style={styles.footerContent} />
-            <span style={styles.footerContent}>7 Questions Found!</span>
+            <span style={styles.footerContent}>{this.props.TUTORSFAQ.length} Questions Found!</span>
             </a>
       </Card.Content>
     </Card>
-    <Card className="buttonCard" onClick={this.goFAQTechnical.bind(this,"Technical Support")}>
+    <Card className="buttonCard" onClick={this.goFAQTechnical.bind(this,"For Technical Support")}>
     <Image src={Technical} style={styles.icons}/>
       <Card.Content style={{margin: "auto", padding:"25px",textAlign:"center"}}>
         <Card.Header>
@@ -254,7 +260,7 @@ class Support extends React.Component {
       <Card.Content extra style={styles.cardFooter}>
             <a>
             <Icon name='question' style={styles.footerContent} />
-            <span style={styles.footerContent}>22 Questions Found!</span>
+            <span style={styles.footerContent}>{this.props.TECHNICALFAQ.length} Questions Found!</span>
             </a>
       </Card.Content>
     </Card>
@@ -271,11 +277,11 @@ class Support extends React.Component {
 }
 
 const mapStateToProps = ({dashboard}) => {
-  const {FAQSubj,FAQ} = dashboard;
-  return {FAQSubj,FAQ}
+  const {FAQSubj,FAQ,STUDENTFAQ,TUTORSFAQ,TECHNICALFAQ} = dashboard;
+  return {FAQSubj,FAQ,STUDENTFAQ,TUTORSFAQ,TECHNICALFAQ}
 };
 const mapActionToProps = () => {
-  return {setFAQSubject,getFAQ}
+  return {setFAQSubject,getFAQ,getStudentFAQ,getTutorsFAQ,getTechnicalFAQ}
 };
 
 

@@ -32,7 +32,10 @@ import {
   REQUEST_ACCOUNT_LINK_SUCCESS,
   REQUEST_ACCOUNT_LINK_FAILED,
   SET_FAQ_SUBJ,
-  SET_FAQ_CAT,
+  GET_STUDENT_FAQ_SUCCESS,
+  GET_TUTOR_FAQ_SUCCESS,
+  GET_TECHNICAL_FAQ_SUCCESS,
+  GET_SEARCH_FAQ_SUCCESS,
   UNSUBSCRIBE_DASHBOARD} from './types';
 const uuidv1 = require('uuid/v1');
 
@@ -150,6 +153,114 @@ export const getFAQ = (cat) => {
       })
   }
 };
+
+
+
+
+
+
+
+export const getStudentFAQ = () => {
+
+  return (dispatch) => {
+	  
+    dispatch({type: GET_FAQ_START, payload: true});
+    let catApi = 'faq?category=student&q=How'
+    console.log(`${apiEndpoints.base}/${catApi}`);
+	  fetch(`${apiEndpoints.base}/${catApi}`, {
+                headers: {
+                    'auth-token': 'd3FxhQYWG0FIZqn1X1UN_Q'
+                }
+            })
+	.then(rawRes => {console.log("rawRes",rawRes); return rawRes.json()})
+	.then(res =>{if(res.meta.code=="200")
+      console.log("res for Studentfaq api",res); 
+        return dispatch({type: GET_STUDENT_FAQ_SUCCESS, payload: res.response})
+      })
+      .catch(err => {
+        return dispatch({type: GET_FAQ_FAIL, payload: 'error'})
+      })
+  }
+};
+
+export const getTutorsFAQ = () => {
+
+  return (dispatch) => {
+	  
+    dispatch({type: GET_FAQ_START, payload: true});
+    let catApi = 'faq?category=tutor&q=How'
+    console.log(`${apiEndpoints.base}/${catApi}`);
+	  fetch(`${apiEndpoints.base}/${catApi}`, {
+                headers: {
+                    'auth-token': 'd3FxhQYWG0FIZqn1X1UN_Q'
+                }
+            })
+	.then(rawRes => {console.log("rawRes",rawRes); return rawRes.json()})
+	.then(res =>{if(res.meta.code=="200")
+      console.log("res for Tutorfaq api",res); 
+        return dispatch({type: GET_TUTOR_FAQ_SUCCESS, payload: res.response})
+      })
+      .catch(err => {
+        return dispatch({type: GET_FAQ_FAIL, payload: 'error'})
+      })
+  }
+};
+
+
+
+export const getTechnicalFAQ = () => {
+
+  return (dispatch) => {
+	  
+    dispatch({type: GET_FAQ_START, payload: true});
+    let catApi = 'faq?category=tech_support&q=How'
+    console.log(`${apiEndpoints.base}/${catApi}`);
+	  fetch(`${apiEndpoints.base}/${catApi}`, {
+                headers: {
+                    'auth-token': 'd3FxhQYWG0FIZqn1X1UN_Q'
+                }
+            })
+	.then(rawRes => {console.log("rawRes",rawRes); return rawRes.json()})
+	.then(res =>{if(res.meta.code=="200")
+      console.log("res for Techfaq api",res); 
+        return dispatch({type: GET_TECHNICAL_FAQ_SUCCESS, payload: res.response})
+      })
+      .catch(err => {
+        return dispatch({type: GET_FAQ_FAIL, payload: 'error'})
+      })
+  }
+};
+
+
+export const getSearchFAQ = (value) => {
+
+  return (dispatch) => {
+	  
+    dispatch({type: GET_FAQ_START, payload: true});
+    let catApi = 'faq?q='+value
+    console.log(`${apiEndpoints.base}/${catApi}`);
+	  fetch(`${apiEndpoints.base}/${catApi}`, {
+                headers: {
+                    'auth-token': 'd3FxhQYWG0FIZqn1X1UN_Q'
+                }
+            })
+	.then(rawRes => {console.log("rawRes",rawRes); return rawRes.json()})
+	.then(res =>{if(res.meta.code=="200")
+      console.log("res for Searchfaq api",res); 
+        return dispatch({type: GET_SEARCH_FAQ_SUCCESS, payload: res.response})
+      })
+      .catch(err => {
+        return dispatch({type: GET_FAQ_FAIL, payload: 'error'})
+      })
+  }
+};
+
+
+
+
+
+
+
 export const setFAQSubject = (subj) => ({type:'SET_FAQ_SUBJ',subj});
 // export const setFAQCat = (cat) => ({type:'SET_FAQ_CAT',cat});
 export const sessionRequested = ({tutorId, skill, authToken, sessionStartTime, sessionEndTime, amountPaid, userId,currentUser, otherUser, messageToClient}) => {
