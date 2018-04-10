@@ -40,6 +40,7 @@ class ProfileStudent extends React.Component {
 	}
 
 	dismissNotification = () => {
+		console.log('test');
 		this.setState({ isNotificationActive :false })
 	};
 
@@ -60,7 +61,7 @@ class ProfileStudent extends React.Component {
 		const { userId,authToken,presentProfileId,role,firstName, profile, educationalAttributes, 
 			averageRating, reviews,mode, onChangeEducation, onChangeSkill } = this.props;
         return (
-        	<div>
+        	<div onClick={ this.dismissNotification }>
         	   {(this.props.editingProfile || this.props.loadingProfile) &&   <div style={{position:"fixed", top:"0",bottom:"0",left:"0",right:"0"}}><Dimmer active inverted>
 					<Loader inverted>Loading</Loader>
 				</Dimmer>

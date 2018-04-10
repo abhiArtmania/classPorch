@@ -31,3 +31,4 @@ export * from './support';
 export * from './contact';
 export * from './tutor';
 export * from './Settings';
+export * from './SessionRequested';
