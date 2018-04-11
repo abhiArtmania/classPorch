@@ -1,4 +1,7 @@
-import { apiEndpoints } from '../../ApiEndpoints';
+import {apiEndpoints} from '../../ApiEndpoints';
+import {history} from '../../redux/store';
+import axios from 'axios'
+import {deleteState} from '../localStorage';
 import {
 	
 	SESSION_SUCCESS,
@@ -20,7 +23,9 @@ export const sessionRequested = params => {
 				}
 			});
 			let res = await rawRes.json();
-
+			console.log('token');
+			console.log(token);
+			//history.push('/sessionrequested');
 			return dispatch({ type: SESSION_SUCCESS, payload: res.response })
 		} catch (e) {
 			return dispatch({ type: SESSION_FAIL, payload: e })

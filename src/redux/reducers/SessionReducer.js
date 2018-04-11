@@ -17,6 +17,7 @@ export default (state=INITIAL_STATE, action) => {
   switch(action.type){
     
     case SESSION_SUCCESS:
+      console.log('test');
       return {
         ...state,
         loadingSearch: false,

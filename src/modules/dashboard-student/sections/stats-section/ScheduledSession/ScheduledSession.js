@@ -17,15 +17,16 @@ class ScheduledSession extends React.Component {
         super();
         this.state = {
             NotificationList: [
-                {id:1, fullName: 'Mohit kumar', subject: 'php',date:'Mar-2017',time:'6:30PM',totalSpendTime:'23 ',averageRating:"4",sessiondate:"13 April 2018 03:02:03" },
-               {id:2, fullName: 'Mohit kumar', subject: 'java',date:'Mar-2017',time:'6:30PM',totalSpendTime:'2', averageRating:"4", sessiondate:"14 April 2018 03:02:03" },
+                {id:1, fullName: 'Jasmine', subject: 'php',date:'Mar-2017',time:'6:30PM',totalSpendTime:'23 ',averageRating:"4",sessiondate:"13 June 2018 03:02:03" },
+               {id:2, fullName: 'Hari kumar', subject: 'java',date:'Mar-2017',time:'6:30PM',totalSpendTime:'2', averageRating:"4", sessiondate:"13 June 2018 03:02:03" },
                {id:6, fullName: 'Maria', subject: 'ror',date:'Mar-2017',time:'6:30PM',totalSpendTime:'8 ',averageRating:"4", sessiondate:"15 April 2018 03:02:03" },
                {id:3, fullName: 'Hohny', subject: 'php',date:'Mar-2017',time:'6:30PM',totalSpendTime:'12 ',averageRating:"4", sessiondate:"16 April 2018 03:02:03" },
-               {id:4, fullName: 'rohit', subject: 'javascrip',date:'Mar-2017',time:'6:30PM',totalSpendTime:'3 ',averageRating:"4", sessiondate:"18 April 2018 03:02:03" },
-               {id:6, fullName: 'Mohit kumar', subject: 'php',date:'Mar-2017',time:'6:30PM',totalSpendTime:'3 ', averageRating:"4", sessiondate:"12 April 2018 03:02:03" },
+               {id:4, fullName: 'rohit', subject: 'javascrip',date:'Mar-2017',time:'6:30PM',totalSpendTime:'3 ',averageRating:"4", sessiondate:"12 April 2018 03:02:03" },
+               {id:6, fullName: 'Mohit kumar', subject: 'php',date:'Mar-2017',time:'6:30PM',totalSpendTime:'3 ', averageRating:"4", sessiondate:"11 April 2018 23:52:03" },
               ],
             limit: 5
         };
+        this.onLoadMore=this.onLoadMore.bind(this);
        
     }
 
@@ -35,16 +36,13 @@ class ScheduledSession extends React.Component {
     }
     onLoadMore(e) {
         e.preventDefault();
-       
-        history.push('/sessionrequested');
         const page_no = 1; // default
         const params = {
             page_no,
             
         };
+        console.log(params);
         this.props.sessionRequested(params);
-       
-       
     }
     
 
@@ -52,16 +50,29 @@ class ScheduledSession extends React.Component {
         let nlist=this.state.NotificationList.sort((a, b) => parseFloat(b.id) - parseFloat(a.id));
         console.log(this.state.limit);
         // Random component
-                const Completionist = () => <span>You are good to go!</span>;
+                const Completionist = () => <span><Button color='yellow' className="join-room" >Join Room</Button></span>;
 
                 // Renderer callback with condition
                 const renderer = ({days, hours, minutes, seconds, completed }) => {
                 if (completed) {
                     // Render a complete state
                     return <Completionist />;
-                } else {
+                }else if (days>30) {
+                    var months=Math.ceil(days/30);
+                    return <span>{months} months</span>;
+                }else if (days>7) {
+                    var weeks=Math.ceil(days/7);
+                    return <span>{weeks} weeks</span>;
+                }else if (days>0) {
+                    return <span>{days} days</span>;
+                } else if (hours>0) {
+                    return <span>{hours} hours</span>;
+                }else if (minutes>0) {
+                    return <span>{minutes} minutes:{seconds} seconds</span>;
+                }else {
                     // Render a countdown
-                    return <span>{days} days:{hours} hours:{minutes} minutes:{seconds} seconds</span>;
+                    
+                    return <span>{minutes} minutes:{seconds} seconds</span>;
                 }
                 };
                 
@@ -90,7 +101,7 @@ class ScheduledSession extends React.Component {
                 
                 </div>
                 <div style={{float:'right'}}>
-                    <h4 >Scheduled</h4>
+                   
                     <h5 className="time-spent"><Icon  name='time' />  <Countdown date={p.sessiondate}    renderer={renderer}  /></h5>
                    {diff > 24 ?<Button color='yellow' className="reschedule" >Reschedule</Button>:<Modal trigger={<Button color='yellow' className="join-room" >Join Room</Button>  }>
                         <Modal.Header>s {p.fullName}</Modal.Header>
