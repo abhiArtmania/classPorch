@@ -50,7 +50,7 @@ class ScheduledSession extends React.Component {
         let nlist=this.state.NotificationList.sort((a, b) => parseFloat(b.id) - parseFloat(a.id));
         console.log(this.state.limit);
         // Random component
-                const Completionist = () => <span><Button color='yellow' className="join-room" >Join Room</Button></span>;
+                const Completionist = () => <span> </span>;
 
                 // Renderer callback with condition
                 const renderer = ({days, hours, minutes, seconds, completed }) => {
