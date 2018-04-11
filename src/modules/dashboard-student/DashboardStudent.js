@@ -68,7 +68,7 @@ class DashboardStudent extends React.Component {
       { 
         this.props.searchMode === 'normal'?
         <div>
-          <StatsSection unreadMessagesCount={unreadMessagesCount}/>
+          <StatsSection/>
           
           <SuggestedTutors/>
           <Notification
@@ -83,13 +83,7 @@ class DashboardStudent extends React.Component {
         </div>
         :
         <div>
-          <Icon
-            name='delete'
-            size='large'
-            color='red'
-            style={{ cursor:'pointer',position:'relative',left:'80%' }} 
-            onClick={this.onCancelSearch}
-          />
+          
           <SearchResults
             authToken={this.props.authToken}
             loadingSearch={this.props.loadingSearch}

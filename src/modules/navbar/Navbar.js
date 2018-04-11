@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import logoDark from '../../assets/logo_dark.png';
 import { history } from '../../redux/store';
 import './styles.css';
-import { Menu, Dropdown, Image, Input, Button, Grid, Icon, Table, Label } from 'semantic-ui-react';
+import { Menu, Dropdown, Image, Input, Button, Grid, Icon, Table, Label, TransitionablePortal } from 'semantic-ui-react';
 import faker from 'faker'
 import { connect } from 'react-redux';
 import { logoutUserRequested, searchRequested, setPresentProfile, toggleSearchMode } from '../../redux/actions';
 import $ from "jquery";
 import { findDOMNode } from 'react-dom';
-import messenger from '../../assets/messenger.svg';
+import speechbubble from '../../assets/speech-bubble.svg';
 import searchicon from '../../assets/searchicon.svg';
 import notificationIcon from '../../assets/ring.svg';
 import compass from '../../assets/n.png';
@@ -33,6 +33,7 @@ class Navbar extends Component {
         this.isShowSearchBar = this.isShowSearchBar.bind(this);
         this.menuToggle = this.menuToggle.bind(this);
         this.state={
+            open: false,
             NotificationList:[
                 {id:6, Date: 'Mar-2018', Notification: 'Hello this is first notification' },
                 {id:7, Date: 'Mar-2018', Notification: 'Hello this is second notification' },
@@ -81,7 +82,7 @@ class Navbar extends Component {
             }
         })
     }
-
+    handleClose = () => this.setState({ open: false })
     handleItemClick = (e, { name }) => {
         console.log(history);
         this.setState({ activeItem: name });
@@ -146,7 +147,10 @@ class Navbar extends Component {
                 break;   
             case 'settings':
                 history.push('/settings');
-                break;        
+                break; 
+            case 'support':
+                history.push('/support');
+                break;               
             case 'search':
                 this.onSearch();
                 break;
@@ -160,9 +164,10 @@ class Navbar extends Component {
     onClick(e){
         e.preventDefault();
         console.log(this.state.showReply)
+        this.setState({ open: !this.state.open })
         this.setState({showReply: !this.state.showReply})
       }
-
+      handleClose = () => this.setState({ open: false })
     scrollTo(selector) {
         setTimeout(() => {
             if (selector) {
@@ -280,6 +285,11 @@ class Navbar extends Component {
                 </div>
             </div>
         );
+        const triggernotification = (
+            <div className=''>
+                <Icon color='yellow' name='alarm' size='large' />
+            </div>
+        );
 
         const Notificationtrigger = (
             <Menu.Item name={'notification'} active={this.state.activeItem === 'notification'}
@@ -292,26 +302,28 @@ class Navbar extends Component {
            
             <Menu.Item name={'dashboard'} active={this.state.activeItem === 'dashboard'}
                 onClick={this.handleItemClick}>Dashboard</Menu.Item>      
-            {(window.location.pathname === '/search' || window.location.pathname === '/dashboard/student' || window.location.pathname === '/profile/student') && this.props.role === 'student' &&
+            {/*(window.location.pathname === '/search' || window.location.pathname === '/dashboard/student' || window.location.pathname === '/profile/student') && this.props.role === 'student' &&*/
                 <Menu.Item name={'search'} active={this.state.activeItem === 'search'} onClick={this.handleItemClick}><Icon color='yellow' name='search' size='large' /></Menu.Item>}
 
             <Menu.Item name={'messages'} active={this.state.activeItem === 'messages'}
-                onClick={this.handleItemClick}> 
-    <Icon color='yellow' name='mail' size='large' >
-      <Label style={{top: "45px", margin: "0 !important",  left:" 55px", padding:" 5px", fontSize:" 10px", background:" #ccc !important" }} floating>22</Label></Icon>
+                onClick={this.handleItemClick}><Image src={speechbubble} style={{ width: '30px',height: 'auto'}} /> 
+   
       
    
  </Menu.Item>
-            <Menu.Item name={'notification'} active={this.state.activeItem === 'notification'}
-                 onClick={this.onClick.bind(this)}><Icon color='yellow' name='alarm' size='large' /></Menu.Item>
-       
-             { this.state.showReply ?   <div id="notificationDiv" className="NotificationDiv">  <Table basic='very'>
-                            <Table.Body keys={key++}>
+            
+            <Dropdown item trigger={triggernotification} pointing='top left' value={this.state.activeItem}
+                className='notification-container'>
+                <Dropdown.Menu>
+                <div id="notificationDiv" className="NotificationDiv">
+                     <Table basic='very'>
+                        <Table.Body keys={key++}>
                             {notificationbar} 
-               
-                            </Table.Body>   
-                        </Table>   </div>: null }  
-          
+                        </Table.Body>   
+                    </Table>  
+                </div> 
+                </Dropdown.Menu>
+            </Dropdown>
             <Dropdown item trigger={trigger} pointing='top left' value={this.state.activeItem}
                 className='menubar-container'>
                 <Dropdown.Menu>
@@ -491,10 +503,11 @@ class Navbar extends Component {
 	$(".menu-container").slideToggle();
 	}
 
- 
+    
 
     render() {
         const { authToken, role } = this.props;
+        const { open } = this.state;
         let menuBar, searchbar,notificationbar;
         let menuRight = (authToken && window.location.pathname !== '/login' && window.location.pathname !== '/' && !window.location.pathname.includes('sign-up')) ? this.getLoggedInMenuItems() : this.getItems();
         let dashboardLink = role === "student" ? '/dashboard/student' : '/dashboard/tutor';
@@ -508,7 +521,7 @@ class Navbar extends Component {
             searchbar = <Menu.Item position='right'> {this.isShowSearchBar()} </Menu.Item>
         }
         return (
-            <div>
+            <div >
                 <Menu borderless className='menubar' size={'large'} fixed={'top'}>
                     <Menu.Item>
                         <a href={isDashboardAccessible} className='navBar-logo'>
@@ -545,4 +558,5 @@ export default connect(mapStateToProps, {
     searchRequested,
     setPresentProfile,
     toggleSearchMode
+
 })(Navbar);

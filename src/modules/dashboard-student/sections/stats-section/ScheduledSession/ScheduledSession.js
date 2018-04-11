@@ -1,7 +1,15 @@
 import React from 'react'
 import Countdown from 'react-countdown-now';
 import { Grid, Icon, Header, Image, Modal, Button, Label, Rating} from 'semantic-ui-react'
+import { history } from '../../../../../redux/store';
+import {Link} from "react-router-dom";
+import moment from 'moment'
 import './styles.css';
+import {connect} from 'react-redux';
+import {
+    sessionRequested,
+   
+  } from '../../../../../redux/actions';
 import defultAvtart from "./../../../../../assets/avatar/default.png"
 class ScheduledSession extends React.Component {
 
@@ -9,15 +17,16 @@ class ScheduledSession extends React.Component {
         super();
         this.state = {
             NotificationList: [
-                {id:1, fullName: 'Mohit kumar', subject: 'php',date:'Mar-2017',time:'6:30PM',totalSpendTime:'23 ',averageRating:"4" },
-               {id:2, fullName: 'Mohit kumar', subject: 'java',date:'Mar-2017',time:'6:30PM',totalSpendTime:'2', averageRating:"4" },
-               {id:6, fullName: 'Maria', subject: 'ror',date:'Mar-2017',time:'6:30PM',totalSpendTime:'8 ',averageRating:"4" },
-               {id:3, fullName: 'Hohny', subject: 'php',date:'Mar-2017',time:'6:30PM',totalSpendTime:'12 ',averageRating:"4" },
-               {id:4, fullName: 'rohit', subject: 'javascrip',date:'Mar-2017',time:'6:30PM',totalSpendTime:'3 ',averageRating:"4" },
-               {id:6, fullName: 'Mohit kumar', subject: 'php',date:'Mar-2017',time:'6:30PM',totalSpendTime:'3 ', averageRating:"4" },
+                {id:1, fullName: 'Jasmine', subject: 'php',date:'Mar-2017',time:'6:30PM',totalSpendTime:'23 ',averageRating:"4",sessiondate:"13 June 2018 03:02:03" },
+               {id:2, fullName: 'Hari kumar', subject: 'java',date:'Mar-2017',time:'6:30PM',totalSpendTime:'2', averageRating:"4", sessiondate:"13 June 2018 03:02:03" },
+               {id:6, fullName: 'Maria', subject: 'ror',date:'Mar-2017',time:'6:30PM',totalSpendTime:'8 ',averageRating:"4", sessiondate:"15 April 2018 03:02:03" },
+               {id:3, fullName: 'Hohny', subject: 'php',date:'Mar-2017',time:'6:30PM',totalSpendTime:'12 ',averageRating:"4", sessiondate:"16 April 2018 03:02:03" },
+               {id:4, fullName: 'rohit', subject: 'javascrip',date:'Mar-2017',time:'6:30PM',totalSpendTime:'3 ',averageRating:"4", sessiondate:"12 April 2018 03:02:03" },
+               {id:6, fullName: 'Mohit kumar', subject: 'php',date:'Mar-2017',time:'6:30PM',totalSpendTime:'3 ', averageRating:"4", sessiondate:"11 April 2018 23:52:03" },
               ],
             limit: 5
         };
+        this.onLoadMore=this.onLoadMore.bind(this);
        
     }
 
@@ -25,19 +34,53 @@ class ScheduledSession extends React.Component {
     componentDidMount() {
         window.scrollTo(0, 0)
     }
-    onLoadMore = (e) => {
+    onLoadMore(e) {
         e.preventDefault();
-        console.log(this.state.limit);
-        this.setState({
-            limit: this.state.limit + 5
-        });
+        const page_no = 1; // default
+        const params = {
+            page_no,
+            
+        };
+        console.log(params);
+        this.props.sessionRequested(params);
     }
     
 
     renderTabs(){
         let nlist=this.state.NotificationList.sort((a, b) => parseFloat(b.id) - parseFloat(a.id));
         console.log(this.state.limit);
+        // Random component
+                const Completionist = () => <span> </span>;
+
+                // Renderer callback with condition
+                const renderer = ({days, hours, minutes, seconds, completed }) => {
+                if (completed) {
+                    // Render a complete state
+                    return <Completionist />;
+                }else if (days>30) {
+                    var months=Math.ceil(days/30);
+                    return <span>{months} months</span>;
+                }else if (days>7) {
+                    var weeks=Math.ceil(days/7);
+                    return <span>{weeks} weeks</span>;
+                }else if (days>0) {
+                    return <span>{days} days</span>;
+                } else if (hours>0) {
+                    return <span>{hours} hours</span>;
+                }else if (minutes>0) {
+                    return <span>{minutes} minutes:{seconds} seconds</span>;
+                }else {
+                    // Render a countdown
+                    
+                    return <span>{minutes} minutes:{seconds} seconds</span>;
+                }
+                };
+                
         return nlist.slice(0,this.state.limit).map((p)=>{
+            var date2= Date.now();
+                var date1 = new Date(p.sessiondate);
+                var diff = Math.abs(date1.getTime() - date2) / 3600000;
+               
             return(
                
                 <Grid.Row width={10} className='custom-row'>
@@ -58,12 +101,10 @@ class ScheduledSession extends React.Component {
                 
                 </div>
                 <div style={{float:'right'}}>
-                    <h4 style={{color:'orange'}}>Schedule</h4>
-                    <h5 className="time-spent"><Icon  name='time' /> <Countdown date={Date.now() + 5000000}>
-                        <p>Go now..</p>
-                    </Countdown>  </h5>
-                   {(p.id/2)===1 ?<Button color='yellow' className="reschedule" >Reschedule</Button>:<Modal trigger={<Button color='yellow' className="join-room" >Join Room</Button>  }>
-                        <Modal.Header> {p.fullName}</Modal.Header>
+                   
+                    <h5 className="time-spent"><Icon  name='time' />  <Countdown date={p.sessiondate}    renderer={renderer}  /></h5>
+                   {diff > 24 ?<Button color='yellow' className="reschedule" >Reschedule</Button>:<Modal trigger={<Button color='yellow' className="join-room" >Join Room</Button>  }>
+                        <Modal.Header>s {p.fullName}</Modal.Header>
                         <Modal.Content image>
                         <Image wrapped size='medium' src={defultAvtart}/>
                         <Modal.Description>
@@ -87,7 +128,7 @@ class ScheduledSession extends React.Component {
             <Grid className='complete-session'>
                 {this.renderTabs()}
                 <div style={{width:'100%'}}>
-                <Button color='yellow' className="load-more-right" >Show More</Button>
+                <Link to="/sessionrequested"><Button color='yellow' className="load-more-right" onClick={this.onLoadMore} >Show More</Button></Link>
                 </div >     
                    
             </Grid>
@@ -96,5 +137,28 @@ class ScheduledSession extends React.Component {
     }
 
 }
+const mapStateToProps = store => {
+  console.log(store)
+  const {id: userId, authToken} = store.auth;
+  const {sessionRequestIndicator, displayMessage, unreadMessageCount} = store.dashboard;
+  const {searchMode, searchResults, loadingSearch} = store.search;
+  return {
+    userId,
+    authToken,
+    sessionRequestIndicator,
+    displayMessage,
+    unreadMessageCount,
+    searchMode,
+    searchResults,
+    loadingSearch,
+    searchMetadata: store.search.metadata
+  }
+};
 
-export default ScheduledSession
+
+
+
+export default connect(mapStateToProps, {
+    sessionRequested
+  
+})(ScheduledSession);

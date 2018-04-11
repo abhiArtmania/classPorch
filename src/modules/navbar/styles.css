@@ -14,7 +14,12 @@ display:none;
 .navBar-logo{
     height: 40px;
 }
-
+.ui.menu .item.notification-container>i.dropdown.icon{
+    display: none !important;
+}
+.ui.active.visible.item.top.left.pointing.dropdown.notification-container {
+    font-weight: 400 !important;
+}
 .search-input{
     width:33em !important;
     border-right: 1px solid rgba(34,36,38,.15);
@@ -102,7 +107,7 @@ display:none;
     
 }
 .pending-message{
-    top: 45px;
+    top: 15px;
     margin: 0 !important;
     left: 40px;
     padding: 5px;

@@ -1,9 +1,7 @@
-
 .chatsContainer {
    padding: 20px 10px !important;
-    margin-bottom : 30px !important;
+    margin-bottom: 30px !important;
 }
-
 
 .chatsHeader {
     font-size: 64px;
@@ -30,15 +28,14 @@
 .chatsContainer .ui.menu .ui.dropdown .menu>.item:hover, .ui.menu .ui.dropdown .menu>.selected.item{
     /*background:orange!important;
     color: #fff !important;*/
-    color: orange !important;
-    font-weight: 700 !important;
+    color: orange !important;;
+    font-weight: 700 !important;;
 }
 .chatsContainer .ui.link.menu .item:hover, .ui.menu .dropdown.item:hover, .ui.menu .link.item:hover, .ui.menu a.item:hover{
-    color: orange !important;
-    font-weight: 700 !important;
+    color: orange !important;;
+    font-weight: 700 !important;;
 
 }
-
 .chatsContainer .searchbar{
     padding: 7px 11px;
 }
