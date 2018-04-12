@@ -59,20 +59,20 @@ class ScheduledSession extends React.Component {
                     return <Completionist />;
                 }else if (days>30) {
                     var months=Math.ceil(days/30);
-                    return <span>{months} months</span>;
+                    return <span>{months} months to start</span>;
                 }else if (days>7) {
                     var weeks=Math.ceil(days/7);
-                    return <span>{weeks} weeks</span>;
+                    return <span>{weeks} weeks to start</span>;
                 }else if (days>0) {
-                    return <span>{days} days</span>;
+                    return <span>{days} days to start</span>;
                 } else if (hours>0) {
-                    return <span>{hours} hours</span>;
+                    return <span>{hours} hours to start</span>;
                 }else if (minutes>0) {
-                    return <span>{minutes} minutes:{seconds} seconds</span>;
+                    return <span>{minutes}:{seconds} to start</span>;
                 }else {
                     // Render a countdown
                     
-                    return <span>{minutes} minutes:{seconds} seconds</span>;
+                    return <span>00 :00 </span>;
                 }
                 };
                 
