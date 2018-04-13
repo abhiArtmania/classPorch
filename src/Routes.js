@@ -36,6 +36,7 @@ import CompletedSession from './modules/completed-sessions/CompletedSession'
 import ScheduledSession from './modules/scheduled-sessions/ScheduledSessions'
 import SubmitTicket from './modules/submit-ticket/SubmitTicket';
 import AboutUs from "./modules/AboutUs/AboutUs"
+import SearchedFaq from './modules/Faq/SearchedFaq'
 import { iWant } from "./modules/IWant/IWant"
 
 
@@ -58,6 +59,7 @@ const Routes = () => {
         <Route exact path="/login" component={LoginRedux} />
         <Route exact path="/search" component={SearchResults} />
         <Route exact path="/faq/:cat" component={Faq} />
+        <Route exact path="/SearchedFaq" component={SearchedFaq} />
         {/* <Route exact path="/faq/Tutor" component={Faq} /> */}
         {/* <Route exact path="/faq/Technical" component={Faq} /> */}
         <Route exact path="/support" component={Support} />

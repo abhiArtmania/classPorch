@@ -29,7 +29,12 @@ import {
   REQUEST_ACCOUNT_LINK_FAILED,
   SET_UNREAD_MESSAGES_COUNT,
   SET_FAQ_SUBJ,
-  // SET_FAQ_CAT,
+  GET_STUDENT_FAQ_SUCCESS,
+  GET_TUTOR_FAQ_SUCCESS,
+  GET_TECHNICAL_FAQ_SUCCESS,
+  GET_SEARCH_FAQ_SUCCESS,
+  SET_SEARCH_FAQ,
+  GET_CATEGORIES
 } from '../actions/types';
 
 
@@ -65,6 +70,12 @@ const INITIAL_STATE = {
   unreadMessageCount: 0,
   searchMode:'normal',
   FAQ:[],
+  STUDENTFAQ:[],
+  TUTORSFAQ:[],
+  TECHNICALFAQ:[],
+  SEARCHFAQ: [],
+  SELECTEDSEARCHFAQ: [],
+  CATEGORIES: [],
   FAQSubj:'',
   // FAQCat: ''
 };
@@ -197,6 +208,45 @@ export default (state = INITIAL_STATE, action) => {
       
       return {...state, FAQ:FAQ,loading: false}
     }
+    case GET_STUDENT_FAQ_SUCCESS: {
+      const STUDENTFAQ = action.payload;
+      
+      return {...state, STUDENTFAQ:STUDENTFAQ,loading: false}
+    }
+    case GET_TUTOR_FAQ_SUCCESS: {
+      const TUTORSFAQ = action.payload;
+      
+      return {...state, TUTORSFAQ:TUTORSFAQ,loading: false}
+    }
+    case GET_TECHNICAL_FAQ_SUCCESS: {
+      const TECHNICALFAQ = action.payload;
+      
+      return {...state, TECHNICALFAQ:TECHNICALFAQ,loading: false}
+    }
+
+    case GET_SEARCH_FAQ_SUCCESS: {
+      const SEARCHFAQ = action.payload;
+      
+      return {...state, SEARCHFAQ:SEARCHFAQ,loading: false}
+    }
+    case SET_SEARCH_FAQ: {
+      const SELECTEDSEARCHFAQ = action.payload;
+      
+      return {...state, SELECTEDSEARCHFAQ:SELECTEDSEARCHFAQ,loading: false}
+    }
+    case GET_CATEGORIES: {
+      const CATEGORIES = action.payload;
+      
+      return {...state, CATEGORIES:CATEGORIES,loading: false}
+    }
+
+
+    
+
+
+
+    
+    
 
     case GET_FAQ_FAIL:
       return {...state, dashboardErrors: action.payload, loading: false}

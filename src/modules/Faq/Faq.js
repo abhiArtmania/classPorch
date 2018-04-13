@@ -5,9 +5,10 @@
  * Date: 1/23/18
  */
 import React, {Component} from 'react';
+import {history} from '../../redux/store';
 import {connect} from 'react-redux';
-import { Accordion, Icon, Pagination, Dimmer, Loader,Segment,Header   } from 'semantic-ui-react'
-import {getFAQ} from '../../redux/actions';
+import { Accordion, Icon, Pagination, Dimmer, Loader,Segment,Header,Search   } from 'semantic-ui-react'
+import {getFAQ,getSearchFAQ,setSearchFAQ} from '../../redux/actions';
 
 import './index.scss';
 
@@ -20,13 +21,45 @@ var styles = {
       margin: '50px',
       fontSize: '50px',
       
-  }
+  },
+  searchbox: {
+    // margin: '0 auto',
+    // marginTop: '2%',
+    // width: '20%',
+    // size: '100'
+    width: '30%',
+    margin: '0 auto',
+    borderRadius: '20px'
+  },
+
+
 }
 
 class Faq extends Component {
   constructor(props){
     super(props);
-    console.log(this.props.match.params.cat)
+
+    this.state = {
+      name: 'React',
+      isLoading: false,
+      value: '',
+      results: [],
+      options: [
+        {
+          title: 'hk',
+          description: 'hkdesc'
+        },
+        
+        {
+        title: 'pk',
+        description: 'pkdesc'
+        }
+      ]
+    };
+
+    this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.resultRenderer = this.resultRenderer.bind(this);
+
   }
 	state=
 	{
@@ -54,7 +87,8 @@ componentDidMount=async() =>
     const newIndex = activeIndex === index ? -1 : index
 
     this.setState({ activeIndex: newIndex })
-  }	
+  }
+  
 
   onPageChanged(e,{activePage})
   {
@@ -66,8 +100,54 @@ componentDidMount=async() =>
 	  
 	 
   }
+
+
+
+  handleSearchChange = (e, { value }) => {
+    // if(value === null){this.props.getFAQ('faq');}
+
+  // this.props.getFAQ(value);
+  // setTimeout(() => {
+  //   this.setState({items:this.props.FAQ})
+  // }, 0.5);
+  
+
+  this.props.getSearchFAQ(value);
+    setTimeout(() => {
+    this.setState({Searchitems:this.props.SEARCHFAQ})
+  }, 0.5);
+  
+    this.setState({ isLoading: true, value })
+
+    setTimeout(() => {
+      const re = new RegExp(this.state.value, 'i');
+      const isMatch = result => re.test(result.question);
+      console.log("Search k wqt ki state: ",this.state.Searchitems)
+      // const results = this.state.options.filter(isMatch).map(result => ({ ...result, key: result.id }));
+      if(this.state.Searchitems.error === "No faq found!"){this.setState({Searchitems: []})}
+      const results = this.state.Searchitems.filter(isMatch).map(result => ({ ...result, key: result.id }));
+
+      this.setState({
+        isLoading: false,
+        results: results,
+      });
+    }, 500)
+    // console.log(this.state.items)
+  }
+
+  resultRenderer({ id, question }) {
+    console.log("Render pr agya")
+    return <span id={id} key={id}>{question}</span>
+  }
+
+  goSearch = (e, { result }) => {
+    this.props.setSearchFAQ(result);
+    history.push("/SearchedFaq")
+  }
+
     render() {
-      
+      const { isLoading, value, results } = this.state
+      console.log(this.props.FAQ)
       
 		const length=this.props.FAQ.length;
 		const {activePage}=this.state;
@@ -79,27 +159,39 @@ componentDidMount=async() =>
 		else items=this.props.FAQ.slice(activePage*10-10,activePage*10)
 		// {console.log("ye items hain",items)}
 		const raws=items.map((item,i) => <div>
-     
 		
-		<Accordion.Title active={this.state.activeIndex === i} index={i} onClick={this.handleClick}>
+		<Accordion.Title active={this.state.activeIndex === i} index={i} onClick={this.handleClick}  style={{backgroundColor:"white"}}>
           <Icon name='dropdown' />
          {item.question}
         </Accordion.Title>
-        <Accordion.Content active={this.state.activeIndex === i}>
+        <Accordion.Content active={this.state.activeIndex === i} style={{backgroundColor:"white"}}>
           <p>
             {item.answer}
           </p>
         </Accordion.Content></div>)
         return <div>
         
-        <div style={{textAlign:"center", fontWeight:"bold",margin:"75px 0", fontSize:"2em", color:"steelblue"}}><span style={{ backgroundColor:"beige"}}>Frequently asked questions <span style={{color:"red"}}>{this.props.FAQSubj}</span>:</span></div> 
+        <div style={{textAlign:"center", fontWeight:"bold",margin:"45px 0", fontSize:"2em", color:"black"}}><span>Frequently Asked Questions <span style={{color:"#F5A623"}}>{this.props.FAQSubj}</span>:</span>
+        
+        </div> 
+        <Search
+        fluid
+        input={{fluid: true,}}
+            style={styles.searchbox}
+              loading={isLoading}
+              resultRenderer={this.resultRenderer}
+              onSearchChange={this.handleSearchChange}
+              results={results}
+              value={value}
+              onResultSelect={this.goSearch}
+            />
         {loading ?  (<Segment> <Dimmer active inverted>
 					<Loader inverted>Loading</Loader>
 				</Dimmer>
       </Segment>
       ):(
         <div className="accord_container">  
-         <Accordion styled>
+         <Accordion styled style={styles.accordion}>
        {raws}
         </Accordion>
          { length>10 && <Pagination defaultActivePage={this.state.activePage} totalPages={totalPages} onPageChange={this.onPageChanged.bind(this)} />}
@@ -111,12 +203,12 @@ componentDidMount=async() =>
 
 
 const mapStateToProps = ({dashboard}) => {
-  const {FAQ, loading,FAQSubj} = dashboard;
-  return {FAQ, loading, FAQSubj}
+  const {FAQ, SEARCHFAQ, loading,FAQSubj} = dashboard;
+  return {FAQ, SEARCHFAQ, loading, FAQSubj}
 };
 
 const mapActionToProps = () => {
-  return {getFAQ}
+  return {getFAQ,getSearchFAQ,setSearchFAQ}
 };
 
 
