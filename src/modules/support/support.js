@@ -278,19 +278,6 @@ class Support extends React.Component {
    
     </Card.Group>
  
- 
-    <Search 
-            // style={styles.searchbox}
-            fluid
-            input={{fluid: true}}
-              loading={isLoading}
-              resultRenderer={this.resultRenderer}
-              onSearchChange={this.handleSearchChange}
-              results={results}
-              value={value}
-              onResultSelect={this.goSearch}
-              size="massive"
-            />
                 </div>
              
     );

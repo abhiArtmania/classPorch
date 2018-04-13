@@ -25,3 +25,15 @@
     height: 20px;
     width: 20px
 }
+.join-room{
+    margin: 0 0;
+}
+.reschedule{
+    margin: 0 0;
+}
+button.ui.yellow.button.reschedule {
+    float: right;
+}
+button.ui.yellow.button.join-room {
+    float: right;
+}

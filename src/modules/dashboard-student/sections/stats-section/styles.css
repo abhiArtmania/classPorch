@@ -58,14 +58,15 @@
 	float:none;
 }
 .complete-session .userName{
-	margin: 20px 0;
+	font-size: 19px;
+    margin: 0 0 10px 0;
 	color: orange;
 }
 .complete-session .complete-lable{
-	margin: 20px 0;
+
 }
 .complete-session .time-spent{
-	margin: 20px 0;
+	color: orange;
 }
 .complete-session .load-more-right{
 	float: right;

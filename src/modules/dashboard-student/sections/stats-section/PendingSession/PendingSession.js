@@ -1,8 +1,9 @@
 import React from 'react'
 import { Grid, Icon, Table} from 'semantic-ui-react'
 import './styles.css';
-
-import { Menu, Dropdown, Image, Input, Button, Rating } from 'semantic-ui-react';
+import Countdown from 'react-countdown-now';
+import moment from 'moment';
+import { Menu, Dropdown, Image, Input, Button, Rating, Label } from 'semantic-ui-react';
 import defultAvtart from "./../../../../../assets/avatar/default.png"
 class PendingSession extends React.Component {
 
@@ -10,12 +11,12 @@ class PendingSession extends React.Component {
         super();
         this.state = {
             NotificationList: [
-                {id:1, fullName: 'Mohit kumar', subject: 'php',date:'Mar-2017',time:'6:30PM',totalSpendTime:'23 hours',averageRating:"4" },
-               {id:2, fullName: 'Mohit kumar', subject: 'java',date:'Mar-2017',time:'6:30PM',totalSpendTime:'2 hours', averageRating:"4" },
-               {id:6, fullName: 'Maria', subject: 'ror',date:'Mar-2017',time:'6:30PM',totalSpendTime:'8 hours',averageRating:"4" },
-               {id:3, fullName: 'Hohny', subject: 'php',date:'Mar-2017',time:'6:30PM',totalSpendTime:'12 hours',averageRating:"4" },
-               {id:4, fullName: 'rohit', subject: 'javascrip',date:'Mar-2017',time:'6:30PM',totalSpendTime:'3 hours',averageRating:"4" },
-               {id:6, fullName: 'Mohit kumar', subject: 'php',date:'Mar-2017',time:'6:30PM',totalSpendTime:'3 hours', averageRating:"4" },
+                {id:1, fullName: 'Mohit kumar', subject: 'php',date:'Mar-2017',time:'6:30PM',totalSpendTime:'23 ',averageRating:"4",sessiondate:"13 Jan 2018 03:02:03" },
+               {id:2, fullName: 'Mohit kumar', subject: 'java',date:'Mar-2017',time:'6:30PM',totalSpendTime:'2', averageRating:"4", sessiondate:"27 Feb 2018 03:02:03" },
+               {id:6, fullName: 'Maria', subject: 'ror',date:'Mar-2017',time:'6:30PM',totalSpendTime:'8 ',averageRating:"4", sessiondate:"15 March 2018 03:02:03" },
+               {id:3, fullName: 'Hohny', subject: 'php',date:'Mar-2017',time:'6:30PM',totalSpendTime:'12 ',averageRating:"4", sessiondate:"16 Dec 2017 03:02:03" },
+               {id:4, fullName: 'rohit', subject: 'javascrip',date:'Mar-2017',time:'6:30PM',totalSpendTime:'3 ',averageRating:"4", sessiondate:"18 March 2018 03:02:03" },
+               {id:6, fullName: 'Mohit kumar', subject: 'php',date:'Mar-2017',time:'6:30PM',totalSpendTime:'3 ', averageRating:"4", sessiondate:"11 April 2018 23:02:03" },
               ],
             limit: 5
         };
@@ -37,27 +38,38 @@ class PendingSession extends React.Component {
 
     renderTabs(){
         let nlist=this.state.NotificationList.sort((a, b) => parseFloat(b.id) - parseFloat(a.id));
-        console.log(this.state.limit);
-        return nlist.slice(0,this.state.limit).map((p)=>{
+               // Random component
+        const pendingdate  = (date) =>{
+                return moment(date).fromNow();
+         };
+        
+        return nlist.slice(0,this.state.limit).map((p,i)=>{
             return(
                
-                <Grid.Row width={14} className='custom-row'>
-                    <Grid.Column width={2} className='profileImage'>
-                        <Image src={defultAvtart} size='medium' circular />
-                    </Grid.Column>
-                    <Grid.Column width={4} className='userInfo'>
-                        <h3 className="userName"><div className="ui green circular label"></div> {p.fullName}</h3>
-                        <h4 className="ui  labels "> {p.subject}  </h4>
-                        <p><span className="start-date">Jan 15 </span> - <span className="end-date">Mar 25</span></p>
+                <Grid.Row width={10} key={i} className='custom-row'>
                     
-                    </Grid.Column>
-                    <Grid.Column width={5} className=""> 
-                        <h4 className="complete-lable">Pending</h4>
-                         </Grid.Column>
-                    <Grid.Column width={5} className="">
-                        <h4 className="time-spent">Total Spent Time {p.totalSpendTime}</h4>
-                    </Grid.Column>
-                </Grid.Row>
+                <Grid.Column width={15} className='userInfo'>
+               
+                    <Image src={defultAvtart} size='medium' circular  className="tutor-img"  />
+               
+                <div style={{float:'left'}}>
+               
+                  
+               
+                    <h4 className="userName"><div className="ui green circular label"></div> {p.fullName}</h4>
+                    <Label  size='small' >  {p.subject}</Label> 
+                   
+                  
+                    <p><span className="start-date"> </span>  <span className="end-date"></span></p>
+                
+                </div>
+                <div style={{float:'right'}}>
+               <h5 className="time-spent"><Icon  name='time' />{pendingdate(p.sessiondate,)}</h5>
+                <Button color='yellow' className="load-more-right" >Cancel</Button>
+                   
+                </div>
+                </Grid.Column>
+            </Grid.Row>
             );
         });
     };
