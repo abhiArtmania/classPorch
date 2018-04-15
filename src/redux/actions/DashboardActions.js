@@ -38,6 +38,7 @@ import {
   GET_SEARCH_FAQ_SUCCESS,
   SET_SEARCH_FAQ,
   GET_CATEGORIES,
+  SUBMIT_TICKET_SUCCESS,
   UNSUBSCRIBE_DASHBOARD} from './types';
 const uuidv1 = require('uuid/v1');
 
@@ -266,6 +267,52 @@ export const getCategories = () => {
       })
   }
 };
+
+
+
+export const submitTicket = (contact_ticket,form) => {
+
+  return (dispatch) => {
+
+    let catApi = 'contact_tickets'
+    console.log(`${apiEndpoints.base}/${catApi}`);
+	  fetch(`${apiEndpoints.base}/${catApi}`, {
+                method: 'POST',
+                body: JSON.stringify(contact_ticket),
+                headers: new Headers({
+                  'Content-Type': 'application/json',
+                  // 'Content-Type': 'multipart/form-data',
+                  'auth-token': 'd3FxhQYWG0FIZqn1X1UN_Q'
+                })
+                
+            })
+	.then(rawRes => {console.log("rawRes",rawRes); return rawRes.json()})
+	.then(res =>{
+      console.log("res for submit ticket api",JSON.stringify(res.response)); 
+        return dispatch({type: SUBMIT_TICKET_SUCCESS, payload: res.response})
+      })
+      // .catch(err => {
+      //   return dispatch({type: GET_FAQ_FAIL, payload: 'error'})
+      // })
+  }
+};
+
+// export const submitTicket = () => {
+//   var data = {
+//     first_name: 'hassaan'
+//   }
+//   let catApi = 'contact_tickets';
+//   fetch(`${apiEndpoints.base}/${catApi}`, {
+//     method: 'POST', // or 'PUT'
+//     body: JSON.stringify(data), // data can be `string` or {object}!
+//     headers: new Headers({
+//       'Content-Type': 'application/json',
+//       'auth-token': 'd3FxhQYWG0FIZqn1X1UN_Q'
+//     })
+//   }).then(res => res.json())
+//   .catch(error => console.error('Error:', error))
+//   .then(response => console.log('Success:', response));
+// }
 
 
 

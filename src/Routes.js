@@ -59,12 +59,13 @@ const Routes = () => {
         <Route exact path="/privacy-policy" component={PrivacyPolicy} />
         <Route exact path="/login" component={LoginRedux} />
         <Route exact path="/search" component={SearchResults} />
+        {/* <Route exact path="/faq" component={Support} /> */}
         <Route exact path="/faq/:cat" component={Faq} />
         <Route exact path="/SearchedFaq" component={SearchedFaq} />
         {/* <Route exact path="/faq/Tutor" component={Faq} /> */}
         {/* <Route exact path="/faq/Technical" component={Faq} /> */}
         <Route exact path="/support" component={Support} />
-        <Route exact path="/submit-ticket" component={SubmitTicket} />
+        {/* <Route exact path="/submit-ticket" component={SubmitTicket} /> */}
         <Route exact path={"/terms-of-service"} component={TermsOfService} />
         <Route exact path={"/terms-of-service/tutor"} component={TosTutor} />
         <Route exact path={"/terms-of-service/student"} component={TosStudent} />
@@ -200,6 +201,17 @@ const Routes = () => {
           render={props =>
             authed || history.isAuth ? (
               <ProfileTutor />
+            ) : (
+                <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+              )
+          }
+        />,
+        <Route
+          exact
+          path={"/submit-ticket"}
+          render={props =>
+            authed || history.isAuth ? (
+              <SubmitTicket />
             ) : (
                 <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
               )

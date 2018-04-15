@@ -34,7 +34,8 @@ import {
   GET_TECHNICAL_FAQ_SUCCESS,
   GET_SEARCH_FAQ_SUCCESS,
   SET_SEARCH_FAQ,
-  GET_CATEGORIES
+  GET_CATEGORIES,
+  SUBMIT_TICKET_SUCCESS
 } from '../actions/types';
 
 
@@ -77,6 +78,7 @@ const INITIAL_STATE = {
   SELECTEDSEARCHFAQ: [],
   CATEGORIES: [],
   FAQSubj:'',
+  SUBMITTEDTICKET: {},
   // FAQCat: ''
 };
 
@@ -240,9 +242,15 @@ export default (state = INITIAL_STATE, action) => {
       return {...state, CATEGORIES:CATEGORIES,loading: false}
     }
 
+    case SUBMIT_TICKET_SUCCESS: {
+      const   SUBMITTEDTICKET = action.payload;
+      
+      return {...state,   SUBMITTEDTICKET:  SUBMITTEDTICKET,loading: false}
+    }
+
 
     
-
+  
 
 
     

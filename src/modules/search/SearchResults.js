@@ -6,7 +6,7 @@ import { SearchSection } from './sections'
 const SearchResults = props => {
     const { loadingSearch, searchResults, authToken } = props
     return (
-        <div className="container">
+        <div style={{marginTop: '25px'}} className="container">
             <div className="option-bar">
                 <div className="row">
                   <div className="col-lg-6 col-md-5 col-sm-5 col-xs-2">

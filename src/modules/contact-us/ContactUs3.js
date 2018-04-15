@@ -77,7 +77,7 @@ class ContactUs3 extends Component {
       showModal = () => this.setState({ modalVisible: true });
     goFAQ()
   {
-	  history.push("/faq")
+	  history.push("/support")
   }
   close = () => this.setState({ modalVisible: false });
     render() {
