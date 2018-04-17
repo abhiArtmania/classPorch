@@ -66,8 +66,8 @@ const Routes = () => {
         <Route exact path={"/terms-of-service"} component={TermsOfService} />
         <Route exact path={"/terms-of-service/tutor"} component={TosTutor} />
         <Route exact path={"/terms-of-service/student"} component={TosStudent} />
-        <Route exact path={"/sign-up/tutor"} component={SignUpTutor} />
-        <Route exact path={"/sign-up/student"} component={SignUpStudent} />
+      
+        
         <Route exact path={"/sessionrequested"} component={SessionRequested} />
         <Route exact path={"/sign-up"} component={SignUpMethods}/>
         {/* <Route exact path={"/completed-sessions"} component={CompletedSession} /> */}
@@ -91,6 +91,25 @@ const Routes = () => {
             ) : (
                 <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
               )
+          }
+        />,
+        <Route
+          exact
+          path="/sign-up/student"
+          render={props =>
+            authed || history.isAuth ?(
+              <Redirect to={{ pathname: "/dashboard", state: { from: props.location } }} />
+            ) : ( <SignUpStudent />) 
+          }
+        />,
+        <Route
+          exact
+          path="/sign-up/tutor"
+          render={props =>
+            authed || history.isAuth ?(
+              <Redirect to={{ pathname: "/dashboard", state: { from: props.location } }} />
+            ) : ( <SignUpTutor />
+            ) 
           }
         />,
         <Route

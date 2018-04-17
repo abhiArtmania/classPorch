@@ -45,7 +45,7 @@ class CompletedSession extends React.Component {
                
                 <Grid.Row width={10} className='custom-row'>
                     
-                    <Grid.Column width={15} className='userInfo'>
+                    <Grid.Column width={16} className='userInfo'>
                    
                         <Image src={defultAvtart} size='medium' circular  className="tutor-img"  />
                    

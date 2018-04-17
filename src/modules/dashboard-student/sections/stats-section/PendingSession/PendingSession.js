@@ -48,7 +48,7 @@ class PendingSession extends React.Component {
                
                 <Grid.Row width={10} key={i} className='custom-row'>
                     
-                <Grid.Column width={15} className='userInfo'>
+                <Grid.Column width={16} className='userInfo'>
                
                     <Image src={defultAvtart} size='medium' circular  className="tutor-img"  />
                
@@ -65,7 +65,7 @@ class PendingSession extends React.Component {
                 </div>
                 <div style={{float:'right'}}>
                <h5 className="time-spent"><Icon  name='time' />{pendingdate(p.sessiondate,)}</h5>
-                <Button color='yellow' className="load-more-right" >Cancel</Button>
+                <Button color='yellow' className="cancel" >Cancel</Button>
                    
                 </div>
                 </Grid.Column>
