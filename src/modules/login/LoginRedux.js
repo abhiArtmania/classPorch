@@ -115,7 +115,7 @@ class LoginRedux extends Component {
         return (
             <Grid className='login-body'>
                 <Grid.Row centered>
-                {this.props.loading &&   <div style={{position:"fixed", top:"0",bottom:"0",left:"0",right:"0"}}><Dimmer active inverted>
+                {this.props.loading &&   <div style={{position:"fixed", top:"0",bottom:"0",left:"0",right:"0",zIndex:'9999'}}><Dimmer active inverted>
 					<Loader inverted>Loading</Loader>
 				</Dimmer>
       </div>}

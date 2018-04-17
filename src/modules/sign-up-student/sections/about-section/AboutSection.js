@@ -1,5 +1,6 @@
 import React from 'react';
 import { Grid, Select, Form } from 'semantic-ui-react';
+import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import './styles.css';
 import { CountryList } from "../../../../helpers/utils";
 import $ from 'jquery';
@@ -22,8 +23,10 @@ export default class AboutSection extends React.Component {
 			password:false,
 			wrongFormat:false,
 			wrongEmail:false,
-			country:"",
-			
+      country:"",
+      phoneCode:"",
+      
+      state: '',
 			wrongPassFormat:false,
 			wrongPass:false,
 			emailErrorsVisible:false,
@@ -50,7 +53,9 @@ export default class AboutSection extends React.Component {
 		};
 
 		this.changeProvince = this.changeProvince.bind(this);
-		this.onSelectChange = this.onSelectChange.bind(this);
+    this.onSelectChange = this.onSelectChange.bind(this);
+    this.emailCheck=this.emailCheck.bind(this);
+    this.passwordValidation=this.passwordValidation.bind(this);
 	}
 
 	componentDidMount() {
@@ -70,7 +75,20 @@ export default class AboutSection extends React.Component {
       return false;
     }
   }
+  passwordValidation() {
+    let pass=document.getElementById("password").value.trim()
+    
 
+    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z0-9!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,]{8,}$/;
+
+    if(re.test(pass)){
+      this.setState({wrongPassFormat:false})
+      
+    } else {
+      this.setState({wrongPassFormat:true});
+      return false;
+    }
+  }
   passwordCheck() {
     let pass=document.getElementById("password").value.trim()
     let confirm=document.getElementById("cpassword").value.trim()
@@ -106,8 +124,16 @@ export default class AboutSection extends React.Component {
 		this.props.onSelectChange({name,value});
   };
 
-	onSelectChange(event,{name,value}) {
-		if(name==="country") this.setState({selectCountry:""})
+	onSelectChange(event) {
+    const name='country';
+    const value=event;
+    this.setState({ selectCountry: event });
+  
+    var index = CountryList.findIndex(p => p.text === event)
+    console.log(index);
+    this.setState({phoneCode:CountryList[index].value})
+
+	//	if(name==="country") this.setState({selectCountry:""})
 		this.setState({[name]:value})
 		this.props.onSelectChange({name,value});
   }
@@ -149,10 +175,22 @@ export default class AboutSection extends React.Component {
     this.setState({value})
     this.props.setPhone(({value}))
   }
+  selectCountry (val) {
+    this.setState({ selectCountry: val });
+  }
 
+  selectRegion (value) {
+    this.setState({ state: value });
+    const name='state';
+    
+   
+		this.setState({[name]:value})
+		this.props.onSelectChange({name,value});
+  }
 	render() {
+    const { selectCountry, state, phoneCode } = this.state;
 		const a=<span style={{color:"red"}}>*</span>
-	 
+    console.log(phoneCode);
 		const parents = ( 
       <Grid.Row centered id="ParentDetails">
         <Grid.Column
@@ -210,26 +248,28 @@ export default class AboutSection extends React.Component {
             {(this.state.showParents || this.props.data.grade<=12) && parents}
             <Grid.Row centered>
               <Grid.Column width={4} textAlign='left'>
-                <span> City</span>{a}
-                <input  type='text' name="city" value={this.props.data.city} fluid placeholder='City' required error label="City"
-                    onChange={this.onChange.bind(this)} />
+                <span> Country</span>{a}
+                 <CountryDropdown name='country' value={selectCountry}  onChange={this.onSelectChange} />
+       
               </Grid.Column>
               <Grid.Column width={4} textAlign='left'>
                 <span>State/Province</span>
-                <input type="text" name="state" fluid error placeholder='Add your state/province' 
-                  onChange={this.onChange.bind(this)} value={this.props.data.state}/>
+               
+                   <RegionDropdown name="state"   country={selectCountry}   value={state}      onChange={this.selectRegion.bind(this)} />
               </Grid.Column>
             </Grid.Row>
             
             <Grid.Row centered>
-              <Grid.Column width={4} textAlign='left'>
-                <span> Country</span>{a}
-                <Select fluid labeled={true} fluid name='country' id="country_container" required onChange={this.onSelectChange} placeholder='Select your country' value={this.props.data.country} options={CountryList} required search />
-                <div style={{color:"red", position:"absolute", left:"15px", bottom:"-20px"}}>{this.state.selectCountry}</div>
+            <Grid.Column width={4} textAlign='left'>
+                <span> City</span>{a}
+                <input  type='text' name="city" value={this.props.data.city} fluid placeholder='City' required error label="City"
+                    onChange={this.onChange.bind(this)} />
               </Grid.Column>
+              
               <Grid.Column width={4} textAlign='left'>
                 <span>Phone</span>
                 <Phone
+                  country={phoneCode}
                   placeholder="Enter phone number"
                   autoComplete="off"
                   displayInitialValueAsLocalNumber={true}
@@ -253,11 +293,11 @@ export default class AboutSection extends React.Component {
               <Grid.Column width={4} textAlign='left'>
                 <span>Confirm Email</span>{a}
                 <input fluid name='email2' id='cmail' value={this.props.data.email2} error placeholder='Confirm Email *' 
-                onChange={this.props.onChange}  required type='email' />
+                onChange={this.props.onChange} onKeyDown={this.emailCheck} required type='email' />
                 <label id='lblCemail' style={{
                   display: "block", float: "right", color: "red", verticalAlign: "top",paddingTop: "5px"
                 }}></label>
-                {this.state.wrongEmail  && <div style={{color:this.state.colorE,position:"absolute", right:"15px", bottom:"-15px"}}> Email and Confirm Email does not match! </div>}
+                {this.state.wrongEmail  && <div style={{color:this.state.colorE,position:"absolute", left:"15px", bottom:"-25px"}}> Email and Confirm Email does not match! </div>}
               </Grid.Column>
             </Grid.Row>
 
@@ -265,7 +305,7 @@ export default class AboutSection extends React.Component {
               <Grid.Column width={4} textAlign='left'>
                 <span> Password</span>{a}
                 <input id='password' name="password" fluid pattern=".{8,}" error type='password' required title="8 characters minimum"
-                  placeholder='Password *' onChange={this.props.onChange}/>
+                  placeholder='Password *' onKeyDown={this.passwordValidation} onChange={this.props.onChange}/>
                 <label id='lblpassword' style={{
                   display: "block", float: "right", color: "red", verticalAlign: "top",paddingTop: "5px"
                   }}>

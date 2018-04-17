@@ -66,7 +66,7 @@ class SearchSection extends React.Component {
             <p>{tutorInfo.bio}</p>
             <div className="wrapper__rating">
               <Rating rate={parseInt(tutorInfo.overall_rating, 10)} name={tutorInfo.id.toString()} /> ({tutorInfo.overall_rating})
-              <strong> {tutorInfo.reviews.length} reviews, {tutorInfo.session_completed_count} completed sessiona</strong>
+              <strong> {tutorInfo.reviews.length} reviews, {tutorInfo.session_completed_count} completed sessions</strong>
             </div>
           </div>
         </div>
