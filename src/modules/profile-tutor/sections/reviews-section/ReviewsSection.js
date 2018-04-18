@@ -11,7 +11,8 @@ class ReviewsSegment extends Component {
     state = {
         allReviews:[],
         displayReviews:[],
-        hiddenReviews:true
+        hiddenReviews:true,
+        reviews:this.props.profile.reviews
     };
 
     componentWillMount(){
@@ -21,9 +22,9 @@ class ReviewsSegment extends Component {
         })
     }
 
-    renderReviews = (reviews) => {
+    renderReviews = () => {
     
-        return reviews.map((review,i) => {
+        return this.state.reviews.map((review,i) => {
             return(
                 <Grid.Row columns={2} centered key={i} centered >
                     <Grid.Column width={2} textAlign='left' >
@@ -31,7 +32,7 @@ class ReviewsSegment extends Component {
                     </Grid.Column>
                     <Grid.Column width={9} textAlign='left'  >
                         <div style={styles.top}>
-                            <span style = {styles.name}> {review.reviewer_name} </span>
+                            <span style = {styles.name}> {review.reviewer.name} </span>
                             <span style = {styles.rating}> 
                                   <ReactStars
                                      value = {review.rating||0}
@@ -61,14 +62,14 @@ class ReviewsSegment extends Component {
     render(){
         const {allReviews,displayReviews,hiddenReviews} = this.state;
         const segmentMessage = allReviews.length? `+${allReviews.length-2} more` : 'No reviews yet';
-
+        console.log(this.props.profile);
         return(
             <Grid padded relaxed style={{width:'100%'}} >
                 <Grid.Row centered >
                     <Grid.Column width={16} textAlign='left' >
                     <h2>Reviews</h2>
                             <div className="total-reviews">
-                                <h3 className="review-count">(3 Reviews)</h3>
+                                <h3 className="review-count">({(this.state.reviews).length} Reviews)</h3>
                             </div> 
                     </Grid.Column>
                 </Grid.Row>
@@ -123,7 +124,7 @@ const styles = {
 };
 
 const mapStateToProps = ({profileState}) => {
-    let {reviews} = profileState;
+    /*let {reviews} = profileState;
      reviews = {
         "0":{
                  "reviewer_name":"Phil Stevens",
@@ -144,7 +145,7 @@ const mapStateToProps = ({profileState}) => {
 	 			"rating": 3
              }
          }
-    return  {reviews}
+    return  {reviews}*/
 };
 
 export default connect(mapStateToProps,{})(ReviewsSegment)

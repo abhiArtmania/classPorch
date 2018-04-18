@@ -84,6 +84,9 @@
 .profile-section .ui.rating .active.icon{
 	color: orange;
 }
+span.rate {
+    float: right;
+}
 .profile-section .ui.green.label, .ui.green.labels .label{
 	display: inline-block;
 }

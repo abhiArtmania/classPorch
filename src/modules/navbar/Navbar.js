@@ -33,6 +33,7 @@ class Navbar extends Component {
         this.isShowSearchBar = this.isShowSearchBar.bind(this);
         this.menuToggle = this.menuToggle.bind(this);
         this.state={
+            isSearchbar:false,
             open: false,
             NotificationList:[
                 {id:6, Date: 'Mar-2018', Notification: 'Hello this is first notification' },
@@ -87,7 +88,7 @@ class Navbar extends Component {
         console.log(history);
         this.setState({ activeItem: name });
         const { role, userId } = this.props;
-
+        (name === 'search'?this.setState({isSearchbar:true}):this.setState({isSearchbar:false}));
         switch (name) {
             case 'messages':
                 history.push('/message');
@@ -423,6 +424,7 @@ class Navbar extends Component {
 
     onSearch = (e) => {
         e && e.preventDefault();
+        
         const { filterGender, filterSkill, searchWord  } = this.state;
         this.props.toggleSearchMode({ mode: 'search' });
         const page_no = 1; // default
@@ -508,6 +510,7 @@ class Navbar extends Component {
     render() {
         const { authToken, role } = this.props;
         const { open } = this.state;
+        console.log(role);
         let menuBar, searchbar,notificationbar;
         let menuRight = (authToken && window.location.pathname !== '/login' && window.location.pathname !== '/' && !window.location.pathname.includes('sign-up')) ? this.getLoggedInMenuItems() : this.getItems();
         let dashboardLink = role === "student" ? '/dashboard/student' : '/dashboard/tutor';
@@ -529,9 +532,9 @@ class Navbar extends Component {
                         </a>
                     </Menu.Item>
                     {menuBar}
-                    {this.props.role === "tutor"?searchbar:''}
+                    {this.props.role === 'tutor' && searchbar}
                     <Button size={'medium'} basic={true} onClick={this.menuToggle}>menu</Button>
-                    {  role === 'tutor' ?searchbar:''}
+                    {  this.state.isSearchbar === true && searchbar}
                     {menuRight}
 
                 </Menu>

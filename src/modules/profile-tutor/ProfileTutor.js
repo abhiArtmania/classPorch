@@ -108,10 +108,11 @@ class ProfileTutor extends React.Component {
 }
 
 const mapStateToProps = ( {auth,profileState,dashboard} ) => {
+	console.log(dashboard);
 	const { id:userId, authToken, role, educations, firstName,skills, lastName,fullname } =  auth;
-	const { presentProfileId, profile,  averageRating, 
+	const { presentProfileId, averageRating, 
 			reviews, mode } = profileState;
-	const { sessionRequestIndicator,displayMessage } = dashboard;
+	const { sessionRequestIndicator,displayMessage,profile } = dashboard;
 	
 
 	return { userId, authToken,role,firstName, lastName, skills, presentProfileId, profile, fullname, educations, averageRating, reviews, mode,
