@@ -29,3 +29,6 @@ button.ui.yellow.button.join-room {
     float: right;
     width: 115px;
 }
+.ui.star.large.disabled.rating {
+    float: none;
+}

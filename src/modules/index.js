@@ -32,3 +32,5 @@ export * from './contact';
 export * from './tutor';
 export * from './Settings';
 export * from './SessionRequested';
+export * from './SessionCompleted';
+export * from './SessionPending';

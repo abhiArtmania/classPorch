@@ -9,23 +9,29 @@ import {
 	
 } from './types'
 
-export const sessionRequested = params => {
+export const requestedSession = (params) => {
 	const store = localStorage.getItem("store");
   const token = store && JSON.parse(store) ? JSON.parse(store).auth.authToken : "";
   
-  const { status, type, page_no } = params;
+ const { status, type, page_no } = params;
 	return async (dispatch) => {
 		try {
 			
-			let rawRes = await fetch(`${apiEndpoints.base}/session_requests?status=scheduled&page_no=1`,{
+			let rawRes = await fetch(`${apiEndpoints.base}/session_requests?status=${status}&page_no=${page_no}`,{
 				headers: {
 					'auth-token': token
 				}
 			});
+
+			
+			if (rawRes.status !== 200) {
+				throw('Request failed. Please try again.')
+			}
 			let res = await rawRes.json();
 			console.log('token');
 			console.log(token);
-			//history.push('/sessionrequested');
+			console.log(res);
+			
 			return dispatch({ type: SESSION_SUCCESS, payload: res.response })
 		} catch (e) {
 			return dispatch({ type: SESSION_FAIL, payload: e })

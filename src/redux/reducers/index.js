@@ -15,7 +15,7 @@ export default {
     profileState: ProfileReducer,
     chatReducer: ChatReducer,
     messageReducer: MessageReducer,
-    session:SessionReducer,
+    SessionReducer:SessionReducer,
     tutors
     
 }

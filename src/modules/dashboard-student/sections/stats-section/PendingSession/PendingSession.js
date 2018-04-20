@@ -1,10 +1,18 @@
 import React from 'react'
 import { Grid, Icon, Table} from 'semantic-ui-react'
+import { history } from '../../../../../redux/store';
 import './styles.css';
 import Countdown from 'react-countdown-now';
+import {connect} from 'react-redux';
+import momentTimezone from 'moment-timezone'
 import moment from 'moment';
+import {Link} from "react-router-dom";
 import { Menu, Dropdown, Image, Input, Button, Rating, Label } from 'semantic-ui-react';
 import defultAvtart from "./../../../../../assets/avatar/default.png"
+import {
+    requestedSession
+   
+  } from '../../../../../redux/actions';
 class PendingSession extends React.Component {
 
     constructor() {
@@ -20,33 +28,40 @@ class PendingSession extends React.Component {
               ],
             limit: 5
         };
-       
+        this.onLoadMore=this.onLoadMore.bind(this);
     }
 
 
     componentDidMount() {
         window.scrollTo(0, 0)
     }
-    onLoadMore = (e) => {
+    onLoadMore(e) {
         e.preventDefault();
-        console.log(this.state.limit);
-        this.setState({
-            limit: this.state.limit + 5
-        });
+        const page_no = 1;
+        const status="scheduled" // default
+        const params = {
+            page_no,
+            status
+        };
+        console.log(params);
+        this.props.requestedSession(params);
+        history.push('/sessionpending');
     }
     
 
-    renderTabs(){
-        let nlist=this.state.NotificationList.sort((a, b) => parseFloat(b.id) - parseFloat(a.id));
-               // Random component
-        const pendingdate  = (date) =>{
-                return moment(date).fromNow();
-         };
-        
-        return nlist.slice(0,this.state.limit).map((p,i)=>{
+    render() {
+        const {page_no, session_requests, status, total_records}= this.props;
+        const renderTabs = session_requests.slice(0,this.state.limit).map((session_request, i)=>{
+            // Random component
+            const start_date = momentTimezone(session_request.start_time);
+            const end_date = momentTimezone(session_request.end_time);
+           const subject =  session_request.tutor.skills.map((subjects) =>{ return <Label  size='small' color='yellow' >  {subjects.name}</Label>}  );
+           const pendingdate  = (date) =>{
+            return moment(date).fromNow();
+     };
             return(
                
-                <Grid.Row width={10} key={i} className='custom-row'>
+                <Grid.Row width={10} key={i++} className='session-row'>
                     
                 <Grid.Column width={16} className='userInfo'>
                
@@ -56,31 +71,28 @@ class PendingSession extends React.Component {
                
                   
                
-                    <h4 className="userName"><div className="ui green circular label"></div> {p.fullName}</h4>
-                    <Label  size='small' >  {p.subject}</Label> 
+                    <h4 className="userName"><div className="ui green circular label"></div> {session_request.tutor.fullname}</h4>
+                    {subject}
                    
                   
-                    <p><span className="start-date"> </span>  <span className="end-date"></span></p>
+                    <p className="full-date"><span className="start-date">{start_date._d.toDateString()} </span> - <span className="end-date">{end_date._d.toDateString()}</span></p>
                 
                 </div>
                 <div style={{float:'right'}}>
-               <h5 className="time-spent"><Icon  name='time' />{pendingdate(p.sessiondate,)}</h5>
-                <Button color='yellow' className="cancel" >Cancel</Button>
                    
+                <h5 className="time-spent"><Icon  name='time' />{pendingdate(start_date._d.toDateString())}</h5>
+                <Button color='yellow' className="cancel" >Cancel</Button>
                 </div>
                 </Grid.Column>
             </Grid.Row>
             );
         });
-    };
-    render() {
-       
 
         return (
             <Grid className='complete-session'>
-                {this.renderTabs()}
+                {renderTabs}
                 <div style={{width:'100%'}}>
-                <Button color='yellow' className="load-more-right" >Show More</Button>
+                <Link to="/sessionrequested"><Button color='yellow' className="load-more-right" onClick={this.onLoadMore} >Show More</Button></Link>
                 </div >     
                    
             </Grid>
@@ -89,5 +101,33 @@ class PendingSession extends React.Component {
     }
 
 }
-
-export default PendingSession
+const mapStateToProps = store => {
+    console.log(store)
+    const {id: userId, authToken} = store.auth;
+    const {sessionRequestIndicator, displayMessage, unreadMessageCount} = store.dashboard;
+    const {searchMode, searchResults, loadingSearch} = store.search;
+    const {page_no, session_requests, status, total_records }=store.SessionReducer;
+    return {
+      userId,
+      authToken,
+      sessionRequestIndicator,
+      displayMessage,
+      unreadMessageCount,
+      searchMode,
+      searchResults,
+      loadingSearch,
+      searchMetadata: store.search.metadata,
+      page_no,
+       session_requests,
+        status,
+         total_records
+    }
+  };
+  
+  
+  
+  
+  export default connect(mapStateToProps, {
+      requestedSession
+    
+  })(PendingSession);

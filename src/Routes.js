@@ -31,7 +31,10 @@ import {
   Tutor,
   Message,
   Settings,
-  SessionRequested
+  SessionRequested,
+  SessionPending,
+  SessionCompleted
+  
 } from "./modules"
 import CompletedSession from './modules/completed-sessions/CompletedSession'
 import ScheduledSession from './modules/scheduled-sessions/ScheduledSessions'
@@ -72,6 +75,39 @@ const Routes = () => {
       
         
         <Route exact path={"/sessionrequested"} component={SessionRequested} />
+        <Route
+          exact
+          path={"/sessionrequested"}
+          render={props =>
+            authed || history.isAuth ? (
+              <SessionRequested />
+            ) : (
+                <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+              )
+          }
+        />
+        <Route
+          exact
+          path={"/sessionpending"}
+          render={props =>
+            authed || history.isAuth ? (
+              <SessionPending />
+            ) : (
+                <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+              )
+          }
+        />
+        <Route
+          exact
+          path={"/sessioncompleted"}
+          render={props =>
+            authed || history.isAuth ? (
+              <SessionCompleted />
+            ) : (
+                <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+              )
+          }
+        />
         <Route exact path={"/sign-up"} component={SignUpMethods}/>
         {/* <Route exact path={"/completed-sessions"} component={CompletedSession} /> */}
         <Route

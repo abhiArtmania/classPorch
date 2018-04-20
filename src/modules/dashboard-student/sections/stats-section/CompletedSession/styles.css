@@ -11,12 +11,16 @@
 .complete-session .ui.small.label, .ui.small.labels .label{
     background-color:orange;
     color:#fff;
-    margin: 5px 0;
+    margin: 5px 5px 5px 0;
 }
 .complete-session .i.orange.icon{
     color: #ffa500!important;
 }
 p.full-date {
     margin: 5px 0 0 0;
+}
+.row.session-row {
+    border-bottom: 1px solid orange;
+    padding: 10px 10px;
 }
 

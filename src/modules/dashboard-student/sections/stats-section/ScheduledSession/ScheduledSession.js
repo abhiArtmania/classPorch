@@ -7,7 +7,7 @@ import moment from 'moment'
 import './styles.css';
 import {connect} from 'react-redux';
 import {
-    sessionRequested,
+    requestedSession
    
   } from '../../../../../redux/actions';
 import defultAvtart from "./../../../../../assets/avatar/default.png"
@@ -30,19 +30,29 @@ class ScheduledSession extends React.Component {
        
     }
 
-
-    componentDidMount() {
-        window.scrollTo(0, 0)
-    }
-    onLoadMore(e) {
-        e.preventDefault();
+    componentWillMount(){
+      
         const page_no = 1; // default
         const params = {
             page_no,
             
         };
+        this.props.requestedSession(params);
+    }
+    componentDidMount() {
+        window.scrollTo(0, 0)
+    }
+    onLoadMore(e) {
+        e.preventDefault();
+        const page_no = 1;
+        const status="scheduled" // default
+        const params = {
+            page_no,
+            status
+        };
         console.log(params);
-        this.props.sessionRequested(params);
+        this.props.requestedSession(params);
+        history.push('/sessionrequested');
     }
     
 
@@ -100,7 +110,7 @@ var b = moment(p.sessiondate);
                console.log(diff);
             return(
                
-                <Grid.Row width={10} key={i} className='custom-row'>
+                <Grid.Row width={10} key={i} className='session-row'>
                     
                 <Grid.Column width={16} className='userInfo'>
                
@@ -148,6 +158,7 @@ const mapStateToProps = store => {
   const {id: userId, authToken} = store.auth;
   const {sessionRequestIndicator, displayMessage, unreadMessageCount} = store.dashboard;
   const {searchMode, searchResults, loadingSearch} = store.search;
+  const {page_no, session_requests, status, total_records }=store.SessionReducer;
   return {
     userId,
     authToken,
@@ -157,7 +168,11 @@ const mapStateToProps = store => {
     searchMode,
     searchResults,
     loadingSearch,
-    searchMetadata: store.search.metadata
+    searchMetadata: store.search.metadata,
+    page_no,
+     session_requests,
+      status,
+       total_records
   }
 };
 
@@ -165,6 +180,6 @@ const mapStateToProps = store => {
 
 
 export default connect(mapStateToProps, {
-    sessionRequested
+    requestedSession
   
 })(ScheduledSession);
