@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { HeaderSection,ProfileSection } from './sections';
-import { Button } from 'semantic-ui-react'
+import { Button, Message } from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import { Notification } from 'react-notification';
 import { profileRequested,getDashboard, toggleProfileMode, onChangeUserInfo,updateProfilePicture,
@@ -46,6 +46,7 @@ class ProfileTutor extends React.Component {
 	};
 
 	onClickSave = () =>  {
+		console.log('test');
 		const { userId, profile, authToken, educations } = this.props;
 		this.props.toggleProfileMode('normal');
 		this.props.updateProfile({ profile,userId,educations,authToken })
@@ -53,12 +54,16 @@ class ProfileTutor extends React.Component {
 
     render(){
 		const { userId,authToken,presentProfileId,role,firstName, profile, educations, lastName ,
-			averageRating, reviews,mode, onChangeEducation, onChangeSkill,skills, fullname } = this.props;
+			averageRating, reviews,mode, onChangeEducation, onChangeSkill,skills, fullname,verified } = this.props;
 			console.log( fullname);
         return (
 			<div style={{padding:'15px'}}>
+				{!verified &&<Message warning>
+    <Message.Header></Message.Header>
+    <p>Your profile is under Review. It typically takes 24*72 hours to be Approved an verified</p>
+  </Message>}
         	<div className="outerProfile-section" style={{width:'100%',display:'flex',flexDirection:'column', alignItems:'center' }} >
-				<HeaderSection userId={userId} skills={skills} fullname={fullname} averageRating={averageRating} authToken={authToken} profile={profile} presentProfileId={presentProfileId}
+				<HeaderSection mode={mode} toggleProfileMode={this.props.toggleProfileMode} onChangeUserInfo={this.props.onChangeUserInfo}  onChangeEducation={onChangeEducation} onChangeSkill={onChangeSkill} userId={userId} skills={skills} fullname={fullname} averageRating={averageRating} authToken={authToken} profile={profile} presentProfileId={presentProfileId}
 								role= {role} lastName = {lastName} firstName={firstName} showMessages={this.props.showMessages}
 								updateProfilePicture={updateProfilePicture} />
 				
@@ -73,7 +78,7 @@ class ProfileTutor extends React.Component {
 								/>
 
 				{ mode==='edit' ? 
-					<Button color='yellow' style={{marginBottom:'100px'}} onClick={this.onClickSave} >
+					<Button color='yellow' style={{marginBottom:'100px'}} onClick={this.onClickSave.bind(this)} >
 						SAVE CHANGES
 					</Button>
 					: 
@@ -99,7 +104,7 @@ class ProfileTutor extends React.Component {
 					onClick={ this.dismissNotificationEdit }
 				/>
 
-
+				
 				
         	</div>
 			</div>
@@ -109,13 +114,13 @@ class ProfileTutor extends React.Component {
 
 const mapStateToProps = ( {auth,profileState,dashboard} ) => {
 	console.log(dashboard);
-	const { id:userId, authToken, role, educations, firstName,skills, lastName,fullname } =  auth;
+	const { id:userId, authToken, role, educations, firstName,skills, lastName,fullname,  } =  auth;
 	const { presentProfileId, averageRating, 
 			reviews, mode } = profileState;
-	const { sessionRequestIndicator,displayMessage,profile } = dashboard;
+	const { sessionRequestIndicator,displayMessage,profile ,verified} = dashboard;
 	
 
-	return { userId, authToken,role,firstName, lastName, skills, presentProfileId, profile, fullname, educations, averageRating, reviews, mode,
+	return { userId, authToken,role,firstName,verified, lastName, skills, presentProfileId, profile, fullname, educations, averageRating, reviews, mode,
 		sessionRequestIndicator, displayMessage  }
 };
 

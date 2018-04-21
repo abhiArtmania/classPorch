@@ -46,7 +46,11 @@ import { iWant } from "./modules/IWant/IWant"
 
 const Routes = () => {
   const token = localStorage.getItem("store")
+  console.log(token);
   const authed = token && JSON.parse(token) && JSON.parse(token).auth.authToken
+  const verified = token && JSON.parse(token) && JSON.parse(token).dashboard.profile.verified
+
+  console.log(verified);
   return (
     <ConnectedRouter history={history}>
       <Switch>

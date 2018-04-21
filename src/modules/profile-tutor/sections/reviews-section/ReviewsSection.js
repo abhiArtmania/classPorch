@@ -69,7 +69,7 @@ class ReviewsSegment extends Component {
                     <Grid.Column width={16} textAlign='left' >
                     <h2>Reviews</h2>
                             <div className="total-reviews">
-                                <h3 className="review-count">({(this.state.reviews).length} Reviews)</h3>
+                                <h3 className="review-count">({this.state.reviews?(this.state.reviews).length:''} Reviews)</h3>
                             </div> 
                     </Grid.Column>
                 </Grid.Row>

@@ -61,7 +61,9 @@ export default (state=INITIAL_STATE,action) => {
             return { ...state, mode:action.payload  };
         
         case CHANGE_FIELD : {
+            
             const { field,value } = action.payload;
+            console.log(...state);
             return { 
                 ...state, 
                 profile:{
