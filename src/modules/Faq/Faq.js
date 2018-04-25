@@ -29,9 +29,16 @@ var styles = {
     // size: '100'
     width: '30%',
     margin: '0 auto',
-    borderRadius: '20px'
+    borderRadius: '20px',
+    marginTop: '-37px'
   },
-
+  accordion: {
+    marginBottom: '40px'
+  },
+  iconLeft: {
+    marginLeft: '30%',
+    color: '#F5A623'
+  }
 
 }
 
@@ -54,7 +61,7 @@ class Faq extends Component {
         title: 'pk',
         description: 'pkdesc'
         }
-      ]
+      ],
     };
 
     this.handleSearchChange = this.handleSearchChange.bind(this);
@@ -174,6 +181,7 @@ componentDidMount=async() =>
         <div style={{textAlign:"center", fontWeight:"bold",margin:"45px 0", fontSize:"2em", color:"black"}}><span>Frequently Asked Questions <span style={{color:"#F5A623"}}>{this.props.FAQSubj}</span>:</span>
         
         </div> 
+        <Icon style={styles.iconLeft} onClick={()=>{history.goBack()}} name='arrow left' size='big' /> 
         <Search
         fluid
         input={{fluid: true,}}
@@ -188,6 +196,8 @@ componentDidMount=async() =>
         {loading ?  (<Segment> <Dimmer active inverted>
 					<Loader inverted>Loading</Loader>
 				</Dimmer>
+        <br/>
+        <br/>
       </Segment>
       ):(
         <div className="accord_container">  

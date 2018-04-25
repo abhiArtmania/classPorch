@@ -12,6 +12,7 @@
     /*position: static;*/
     /*bottom: 0;*/
     background-color: #FBBD08;
+    
 }
 
 .logo{
@@ -48,7 +49,7 @@
 
 .copyright-text{
     color: #FFF;
-    font-family: 'Open Sans';
+    // font-family: 'Open Sans';
     font-size: 12px;
     font-weight: 300;
 }
@@ -66,3 +67,17 @@
     font-size: 12px;
     font-weight: 400;
 }
+
+// .footer-button:hover{
+// color: gray;
+// }
+
+
+.footer-button:hover {
+    // background-color: red;
+    span {
+        color: white !important;
+
+    }
+  
+  }

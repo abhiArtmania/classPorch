@@ -38,6 +38,12 @@ import {
   GET_SEARCH_FAQ_SUCCESS,
   SET_SEARCH_FAQ,
   GET_CATEGORIES,
+  SUBMIT_TICKET_SUCCESS,
+  SUBMIT_REVIEW,
+  SUBMIT_TUTOR_REVIEW,
+  GET_AVAILABILITY,
+  GET_BOOKED_TUTOR,
+  SUBMIT_SESSION,
   UNSUBSCRIBE_DASHBOARD} from './types';
 const uuidv1 = require('uuid/v1');
 
@@ -266,6 +272,175 @@ export const getCategories = () => {
       })
   }
 };
+
+export const getAvailability = (id) => {
+
+  return (dispatch) => {
+
+    let catApi = 'tutor_schedules?tutor_id='+id
+    console.log(`${apiEndpoints.base}/${catApi}`);
+	  fetch(`${apiEndpoints.base}/${catApi}`, {
+                headers: {
+                    'auth-token': 'd3FxhQYWG0FIZqn1X1UN_Q'
+                }
+            })
+	.then(rawRes => {console.log("rawRes",rawRes); return rawRes.json()})
+	.then(res =>{if(res.meta.code=="200")
+      console.log("res for availability api",res); 
+        return dispatch({type: GET_AVAILABILITY, payload: res.response})
+      })
+      .catch(err => {
+        return dispatch({type: GET_FAQ_FAIL, payload: 'error'})
+      })
+  }
+};
+
+
+
+export const submitTicket = (contact_ticket) => {
+
+  return (dispatch) => {
+
+    let catApi = 'contact_tickets'
+    console.log(`${apiEndpoints.base}/${catApi}`);
+	  fetch(`${apiEndpoints.base}/${catApi}`, {
+                method: 'POST',
+                body: JSON.stringify(contact_ticket),
+                headers: new Headers({
+                  'Content-Type': 'application/json',
+                  // 'Content-Type': 'multipart/form-data',
+                  'auth-token': 'd3FxhQYWG0FIZqn1X1UN_Q'
+                })
+                
+            })
+	.then(rawRes => {console.log("rawRes",rawRes); return rawRes.json()})
+	.then(res =>{
+      console.log("res for contact ticket api",JSON.stringify(res.response)); 
+        return dispatch({type: SUBMIT_TICKET_SUCCESS, payload: res.response})
+      })
+      // .catch(err => {
+      //   return dispatch({type: GET_FAQ_FAIL, payload: 'error'})
+      // })
+  }
+};
+
+
+export const submitReview = (submitReview) => {
+
+  return (dispatch) => {
+
+    let catApi = 'reviews'
+    console.log(`${apiEndpoints.base}/${catApi}`);
+	  fetch(`${apiEndpoints.base}/${catApi}`, {
+                method: 'POST',
+                body: JSON.stringify(submitReview),
+                headers: new Headers({
+                  'Content-Type': 'application/json',
+                  // 'Content-Type': 'multipart/form-data',
+                  'auth-token': 'd3FxhQYWG0FIZqn1X1UN_Q'
+                })
+                
+            })
+	.then(rawRes => {console.log("rawRes",rawRes); return rawRes.json()})
+	.then(res =>{
+      console.log("res for review api",JSON.stringify(res.response)); 
+        return dispatch({type: SUBMIT_REVIEW, payload: res.response})
+      })
+      // .catch(err => {
+      //   return dispatch({type: GET_FAQ_FAIL, payload: 'error'})
+      // })
+  }
+};
+
+export const bookedTutor = (tutorInfo) => {
+console.log(tutorInfo);
+  return (dispatch) => {
+    // dispatch({type: GET_BOOKED_TUTOR, payload: true});
+     return dispatch({type: GET_BOOKED_TUTOR, payload: tutorInfo})
+  }
+};
+
+export const sessionRequest = (booked_tutor) => {
+
+
+console.log(JSON.stringify(booked_tutor));
+
+
+  return (dispatch) => {
+console.log("ye jayegi",booked_tutor)
+    let catApi = 'session_requests'
+    console.log(`${apiEndpoints.base}/${catApi}`);
+	  fetch(`${apiEndpoints.base}/${catApi}`, {
+                method: 'POST',
+                Body: JSON.stringify(booked_tutor),
+                headers: new Headers({
+                  'Content-Type': 'application/json',
+                  // 'Content-Type': 'multipart/form-data',
+                  'auth-token': 'd3FxhQYWG0FIZqn1X1UN_Q'
+                })
+                
+            })
+	.then(rawRes => {console.log("rawRes",rawRes); return rawRes.json()})
+	.then(res =>{
+      console.log("res for session requested api",JSON.stringify(res.response)); 
+        return dispatch({type: SUBMIT_SESSION, payload: res.response})
+      })
+      .catch(err => {
+        console.log(err)
+        // return dispatch({type: GET_FAQ_FAIL, payload: 'error'})
+      })
+  }
+};
+
+
+
+export const submitTutorReview = (submitReview) => {
+
+  return (dispatch) => {
+
+    let catApi = 'reviews'
+    console.log(`${apiEndpoints.base}/${catApi}`);
+	  fetch(`${apiEndpoints.base}/${catApi}`, {
+                method: 'POST',
+                body: JSON.stringify(submitReview),
+                headers: new Headers({
+                  'Content-Type': 'application/json',
+                  // 'Content-Type': 'multipart/form-data',
+                  'auth-token': 'd3FxhQYWG0FIZqn1X1UN_Q'
+                })
+                
+            })
+	.then(rawRes => {console.log("rawRes",rawRes); return rawRes.json()})
+	.then(res =>{
+      console.log("res for review api",JSON.stringify(res.response)); 
+        return dispatch({type: SUBMIT_TUTOR_REVIEW, payload: res.response})
+      })
+      // .catch(err => {
+      //   return dispatch({type: GET_FAQ_FAIL, payload: 'error'})
+      // })
+  }
+};
+
+
+
+
+
+// export const submitTicket = () => {
+//   var data = {
+//     first_name: 'hassaan'
+//   }
+//   let catApi = 'contact_tickets';
+//   fetch(`${apiEndpoints.base}/${catApi}`, {
+//     method: 'POST', // or 'PUT'
+//     body: JSON.stringify(data), // data can be `string` or {object}!
+//     headers: new Headers({
+//       'Content-Type': 'application/json',
+//       'auth-token': 'd3FxhQYWG0FIZqn1X1UN_Q'
+//     })
+//   }).then(res => res.json())
+//   .catch(error => console.error('Error:', error))
+//   .then(response => console.log('Success:', response));
+// }
 
 
 

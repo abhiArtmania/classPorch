@@ -87,7 +87,7 @@ class Tutor extends React.Component {
           className="outerProfile-section"
           style={{width:'100%',display:'flex',flexDirection:'column', alignItems:'center' }}
         >
-          <HeaderSection tutorInfo={tutorInfo} />
+          <HeaderSection tutorInfo={tutorInfo} tutorId={this.tutorId} />
           <ProfileSection
             userId={userId}
             authToken={authToken}

@@ -65,25 +65,26 @@ class Footer extends Component {
                                             className='footer-button'
                                             onClick={this.handleItemClick}
                                             name='privacy-policy'>
-                                            Privacy Policy
+                                            
+                                            <span>Privacy Policy</span>
                                         </Menu.Item>
                                         <Menu.Item
                                             className='footer-button'
                                             onClick={this.handleItemClick}
                                             name='terms-of-service'>
-                                            Terms of Service
+                                            <span>Terms of Service</span>
                                         </Menu.Item>
                                         <Menu.Item
                                             className='footer-button'
                                             onClick={this.handleItemClick}
                                             name='contact-us'>
-                                            Contact Us
+                                            <span>Contact Us</span>
                                         </Menu.Item>
                                         <Menu.Item
                                             className='footer-button'
                                             onClick={this.handleItemClick}
                                             name='pricing'>
-                                            Pricing
+                                            <span>Pricing</span>
                                         </Menu.Item>
                                     </Menu.Menu>
                                 </Menu>

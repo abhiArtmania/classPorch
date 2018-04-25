@@ -38,7 +38,10 @@ import ScheduledSession from './modules/scheduled-sessions/ScheduledSessions'
 import SubmitTicket from './modules/submit-ticket/SubmitTicket';
 import AboutUs from "./modules/AboutUs/AboutUs"
 import SearchedFaq from './modules/Faq/SearchedFaq'
+import StudentReview from './modules/review/StudentReview'
+import TutorReview from './modules/review/TutorReview'
 import { iWant } from "./modules/IWant/IWant"
+import SessionBooking from "./modules/session-booking/SessionBooking";
 
 
 const Routes = () => {
@@ -59,12 +62,13 @@ const Routes = () => {
         <Route exact path="/privacy-policy" component={PrivacyPolicy} />
         <Route exact path="/login" component={LoginRedux} />
         <Route exact path="/search" component={SearchResults} />
+        {/* <Route exact path="/faq" component={Support} /> */}
         <Route exact path="/faq/:cat" component={Faq} />
         <Route exact path="/SearchedFaq" component={SearchedFaq} />
         {/* <Route exact path="/faq/Tutor" component={Faq} /> */}
         {/* <Route exact path="/faq/Technical" component={Faq} /> */}
         <Route exact path="/support" component={Support} />
-        <Route exact path="/submit-ticket" component={SubmitTicket} />
+        {/* <Route exact path="/submit-ticket" component={SubmitTicket} /> */}
         <Route exact path={"/terms-of-service"} component={TermsOfService} />
         <Route exact path={"/terms-of-service/tutor"} component={TosTutor} />
         <Route exact path={"/terms-of-service/student"} component={TosStudent} />
@@ -207,10 +211,54 @@ const Routes = () => {
         />,
         <Route
           exact
+          path={"/submit-ticket"}
+          render={props =>
+            authed || history.isAuth ? (
+              <SubmitTicket />
+            ) : (
+                <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+              )
+          }
+        />,
+        <Route
+          exact
+          path={"/student-review"}
+          render={props =>
+            authed || history.isAuth ? (
+              <StudentReview />
+            ) : (
+                <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+              )
+          }
+        />,
+        <Route
+          exact
+          path={"/tutor-review"}
+          render={props =>
+            authed || history.isAuth ? (
+              <TutorReview />
+            ) : (
+                <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+              )
+          }
+        />,
+        <Route
+          exact
           path={"/tutors/:tutorId"}
           render={props =>
             authed || history.isAuth ? (
               <Tutor route={props} />
+            ) : (
+                <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
+              )
+          }
+        />
+        <Route
+          exact
+          path={"/session-booking/:tutorId"}
+          render={props =>
+            authed || history.isAuth ? (
+              <SessionBooking route={props}/>
             ) : (
                 <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
               )

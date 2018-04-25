@@ -35,8 +35,9 @@ export default class Intro extends Component {
     }
 
     goTo(link) {
-        $("html, body").animate({scrollTop: 0}, 1000);
-        history.replace(link);
+        // $("html, body").animate({scrollTop: 0}, 1000);
+        // history.replace(link);
+        history.push('/'+link)
     }
 
     renderLinks(param) {

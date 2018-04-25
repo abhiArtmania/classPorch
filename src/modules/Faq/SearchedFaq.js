@@ -24,17 +24,26 @@ answer: {
     marginBottom: '40px',
 },
 searchbox: {
-    float: 'right'
-    // margin: '0 auto',
-    // marginTop: '2%',
-    // width: '20%',
-    // size: '100'
-    
-  },
+  // margin: '0 auto',
+  // marginTop: '2%',
+  // width: '20%',
+  // size: '100'
+  width: '30%',
+  margin: '0 auto',
+  borderRadius: '20px',
+  marginTop: '-37px'
+},
   segment: {
       boxShadow: 'none',
       backgroundColor: '#F8F8F8',
       border: 'none'
+  },
+  accordion: {
+    marginBottom: '40px'
+  },
+  iconLeft: {
+    marginLeft: '30%',
+    color: '#F5A623'
   }
 }
 
@@ -42,13 +51,16 @@ searchbox: {
 
 
 class SearchedFaq extends Component {
+  state = { activeIndex: 0 }
+
+
     constructor(props){
         super(props);
 
         this.state = {
             name: 'React',
             isLoading: false,
-            value: '',
+            value: this.props.SELECTEDSEARCHFAQ.question,
             results: [],
             options: [
               {
@@ -60,16 +72,24 @@ class SearchedFaq extends Component {
               title: 'pk',
               description: 'pkdesc'
               }
-            ]
+            ],
           };
 
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.resultRenderer = this.resultRenderer.bind(this);
+    
+    
 
         // console.log(this.props.SELECTEDSEARCHFAQ);
     }
 
-
+    handleClick = (e, titleProps) => {
+      const { index } = titleProps
+      const { activeIndex } = this.state
+      const newIndex = activeIndex === index ? -1 : index
+  
+      this.setState({ activeIndex: newIndex })
+    }
 
     handleSearchChange = (e, { value }) => {
         // if(value === null){this.props.getFAQ('faq');}
@@ -112,40 +132,109 @@ class SearchedFaq extends Component {
 
 
     render() {
+        // const { isLoading, value, results } = this.state
+        // // console.log(this.props.SELECTEDSEARCHFAQ.question);
+        // return (
+        //     <div>
+        //     <Grid columns='equal'>
+
+        //     <Grid.Column>
+        //       <Segment style = {styles.segment}>
+        //           <h3 style={styles.question}>{this.props.SELECTEDSEARCHFAQ.question}</h3>
+        //           <p style={styles.answer}>{this.props.SELECTEDSEARCHFAQ.answer}</p>
+
+            
+        //       </Segment>
+        //     </Grid.Column>
+
+        //     <Grid.Column>
+        //       <Segment style = {styles.segment}>
+        //       <Search 
+        //     style={styles.searchbox}
+        //       loading={isLoading}
+        //       resultRenderer={this.resultRenderer}
+        //       onSearchChange={this.handleSearchChange}
+        //       results={results}
+        //       value={value}
+        //       onResultSelect={this.goSearch}
+        //     />
+        //       </Segment>
+        //     </Grid.Column>
+            
+        //   </Grid>
+        //   </div>
+        // );
+
+
+
         const { isLoading, value, results } = this.state
-        // console.log(this.props.SELECTEDSEARCHFAQ.question);
-        return (
-            <div>
-            <Grid columns='equal'>
 
-            <Grid.Column>
-              <Segment style = {styles.segment}>
-                  <h3 style={styles.question}>{this.props.SELECTEDSEARCHFAQ.question}</h3>
-                  <p style={styles.answer}>{this.props.SELECTEDSEARCHFAQ.answer}</p>
+        let faq = [];
+    let singleFaq = {
+      question: this.props.SELECTEDSEARCHFAQ.question,
+      answer: this.props.SELECTEDSEARCHFAQ.answer
+    }
+    faq.push(singleFaq);
 
-            
-              </Segment>
-            </Grid.Column>
+        console.log("akdh",faq)
 
-            <Grid.Column>
-              <Segment style = {styles.segment}>
-              <Search 
-            style={styles.searchbox}
-              loading={isLoading}
-              resultRenderer={this.resultRenderer}
-              onSearchChange={this.handleSearchChange}
-              results={results}
-              value={value}
-              onResultSelect={this.goSearch}
-            />
-              </Segment>
-            </Grid.Column>
-            
-          </Grid>
-
-           
+        const loading=(this.props.loading || this.state.loading)
+      const raws=faq.map((item,i) => <div>
+      
+      <Accordion.Title active={this.state.activeIndex === i} index={i} onClick={this.handleClick}  style={{backgroundColor:"white"}}>
+            <Icon name='dropdown' />
+           {item.question}
+          </Accordion.Title>
+          <Accordion.Content active={this.state.activeIndex === i} style={{backgroundColor:"white"}}>
+            <p>
+              {item.answer}
+            </p>
+          </Accordion.Content></div>)
+          return <div>
+          
+          <div style={{textAlign:"center", fontWeight:"bold",margin:"45px 0", fontSize:"2em", color:"black"}}><span>Frequently Asked Questions</span>
+          
           </div>
-        );
+          <div>
+          <Icon style={styles.iconLeft} onClick={()=>{history.goBack()}} name='arrow left' size='big' /> 
+          <Search
+          fluid
+          input={{fluid: true,}}
+              style={styles.searchbox}
+                loading={isLoading}
+                resultRenderer={this.resultRenderer}
+                onSearchChange={this.handleSearchChange}
+                results={results}
+                value={value}
+                onResultSelect={this.goSearch}
+              />
+          </div>
+          {loading ?  (<Segment> <Dimmer active inverted>
+            <Loader inverted>Loading</Loader>
+          </Dimmer>
+          <br/>
+          <br/>
+        </Segment>
+        ):(
+          <div className="accord_container">  
+           <Accordion styled style={styles.accordion}>
+         {raws}
+          </Accordion>
+          </div>
+          )}
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }
 

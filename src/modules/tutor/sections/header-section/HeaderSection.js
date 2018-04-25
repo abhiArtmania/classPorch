@@ -1,5 +1,8 @@
 import React from 'react';
+import {history} from '../../../../redux/store';
+import {connect} from 'react-redux';
 import { object } from 'prop-types';
+import {bookedTutor} from '../../../../redux/actions';
 import {
   Grid,
   Button,
@@ -12,9 +15,19 @@ import defaultAvatar from '../../../../assets/avatar/default.png'
 
 import { Rating } from '../../../../components/common';
 
-const HeaderSection = props => {
-  const { tutorInfo } = props;
+// const HeaderSection = props => {
+//   const { tutorInfo, tutorId } = props;
+class HeaderSection extends React.Component{
+
+  constructor(props){
+    super(props);
+    
+  }
+
+render(){
+  const { tutorInfo, tutorId } = this.props;
   return (
+    
     <Grid className='profile-section' >
       <Grid.Row width={16}>
         <Grid.Column width={3} className='profileImage'>
@@ -57,12 +70,18 @@ const HeaderSection = props => {
             })}
           </div>
 
-          <Button  className="session-booking-btn">Message Tutor</Button>
+          <Button  className="session-booking-btn">Message Tutor</Button> &nbsp;
+          <Button onClick={()=>{
+            this.props.bookedTutor(tutorInfo);
+            history.push('/session-booking/'+tutorId);
+          }} className="session-booking-btn">Book a Session</Button>
+       
         </Grid.Column>
       </Grid.Row>
       <div className="ui clearing divider"></div>
     </Grid>
   )
+}
 }
 
 HeaderSection.propTypes = {
@@ -73,4 +92,12 @@ HeaderSection.defaultProps = {
   tutorInfo: {},
 }
 
-export default HeaderSection
+const mapActionToProps = () => {
+  return {bookedTutor}
+};
+
+
+
+export default connect(null, mapActionToProps())(HeaderSection)
+
+// export default HeaderSection

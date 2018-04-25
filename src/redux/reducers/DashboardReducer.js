@@ -34,7 +34,13 @@ import {
   GET_TECHNICAL_FAQ_SUCCESS,
   GET_SEARCH_FAQ_SUCCESS,
   SET_SEARCH_FAQ,
-  GET_CATEGORIES
+  GET_CATEGORIES,
+  SUBMIT_TICKET_SUCCESS,
+  SUBMIT_REVIEW,
+  SUBMIT_TUTOR_REVIEW,
+  GET_AVAILABILITY,
+  GET_BOOKED_TUTOR,
+  SUBMIT_SESSION,
 } from '../actions/types';
 
 
@@ -77,6 +83,12 @@ const INITIAL_STATE = {
   SELECTEDSEARCHFAQ: [],
   CATEGORIES: [],
   FAQSubj:'',
+  SUBMITTEDTICKET: {},
+  SUBMITTEDREVIEW: {},
+  SUBMITTEDTUTORREVIEW: {},
+  TUTOR_AVAILABILITY: [],
+  TUTORINFO: [],
+  BOOKEDSESSION: [],
   // FAQCat: ''
 };
 
@@ -240,9 +252,46 @@ export default (state = INITIAL_STATE, action) => {
       return {...state, CATEGORIES:CATEGORIES,loading: false}
     }
 
+    case SUBMIT_TICKET_SUCCESS: {
+      const   SUBMITTEDTICKET = action.payload;
+      
+      return {...state,   SUBMITTEDTICKET:  SUBMITTEDTICKET,loading: false}
+    }
+    case SUBMIT_REVIEW: {
+      const   SUBMITTEDREVIEW = action.payload;
+      
+      return {...state,   SUBMITTEDREVIEW:  SUBMITTEDREVIEW,loading: false}
+    }
+
+    case SUBMIT_TUTOR_REVIEW: {
+      const   SUBMITTEDTUTORREVIEW = action.payload;
+      
+      return {...state,   SUBMITTEDREVIEW:  SUBMITTEDTUTORREVIEW,loading: false}
+    }
+
+    case GET_AVAILABILITY: {
+      const   TUTOR_AVAILABILITY = action.payload;
+      
+      return {...state,   TUTOR_AVAILABILITY:  TUTOR_AVAILABILITY,loading: false}
+    }
+
+    case GET_BOOKED_TUTOR: {
+      const   TUTORINFO = action.payload;
+      
+      return {...state,   TUTORINFO:  TUTORINFO,loading: false}
+    }
+    case SUBMIT_SESSION: {
+      const   BOOKEDSESSION = action.payload;
+      
+      return {...state,   BOOKEDSESSION:  BOOKEDSESSION,loading: false}
+    }
 
     
+    
+   
 
+    
+  
 
 
     

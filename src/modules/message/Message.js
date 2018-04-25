@@ -26,6 +26,8 @@ class Message extends Component {
   componentDidMount() {
     const {loadChats} = this.props;
     loadChats();
+
+    console.log("ye chats",this.props.chats);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -88,6 +90,7 @@ class Message extends Component {
   }
   render = () => {
     const {chats, isLoadingChats} = this.state;
+    console.log(chats);
     const options = [
       { key: 1, text: 'All Read', value: 'read' },
       { key: 2, text: 'Unread', value:'unread' }
