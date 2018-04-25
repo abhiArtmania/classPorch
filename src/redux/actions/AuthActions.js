@@ -76,10 +76,14 @@ export const loginUser = (userReqObject) => {
             console.log(res.data.response)
 
             const userResObject = {...res.data.response};
-
+            console.log(userResObject.role);
+            console.log(userReqObject);
             dispatch({type: LOGIN_USER_SUCCESS, payload: {userResObject}});
             history.isAuth = true;
-            history.push('/dashboard/' + res.data.response.role)
+           
+             history.push('/dashboard/' + res.data.response.role)
+            
+
 
         } catch (e) {
          
@@ -127,7 +131,7 @@ export const signupUser = (parsedForm) => {
 
                 dispatch({type: SIGNUP_SUCCESS, payload: {userResObject}});
                  history.isAuth = true;
-                return history.push('/dashboard/tutor')
+                return history.push('/profile/tutor')
             } else if (role == 'student') {
 				 history.isAuth = true;
                 dispatch({type: SIGNUP_SUCCESS, payload: {userResObject}});

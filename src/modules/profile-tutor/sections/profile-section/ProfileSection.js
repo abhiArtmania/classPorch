@@ -1,6 +1,6 @@
 
 import React, {Component} from 'react'
-import { AboutSegment, EducationSegment, ContactSegment, } from './segments'
+import { AboutSegment, EducationSegment, ContactSegment, RateSegment } from './segments'
 import ReviewsSection from './../reviews-section/ReviewsSection'
 import '../../styles.css'
 
@@ -22,7 +22,9 @@ class ProfileSection extends Component {
                 <EducationSegment educations={educations} presentProfileId={presentProfileId}
                     onChangeEducation={onChangeEducation} toggleProfileMode={toggleProfileMode} mode={mode}
                     userId={userId} />
-                
+                <RateSegment profile={profile} 
+                    mode={this.props.mode} presentProfileId={presentProfileId} userId={userId}
+                    toggleProfileMode={this.props.toggleProfileMode} onChangeUserInfo={this.props.onChangeUserInfo} />
                 
 
                 

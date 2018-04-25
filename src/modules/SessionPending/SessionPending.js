@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import Countdown from 'react-countdown-now';
-import { Grid, Icon, Header, Image, Modal, Button, Label, Rating, Pagination } from 'semantic-ui-react'
+import { Grid, Icon, Header, Image, Modal, Button, Label, Rating, Pagination} from 'semantic-ui-react'
+import momentTimezone from 'moment-timezone'
 import moment from 'moment-timezone'
 import './styles.css';
 import {connect} from 'react-redux';
 import { requestedSession } from '../../redux/actions';
 import defultAvtart from "./../../assets/avatar/default.png"
 
-class SessionRequested extends Component {
+class SessionPending extends Component {
 
   
 
@@ -22,7 +23,7 @@ class SessionRequested extends Component {
   componentDidMount() {
     
     const page_no = 1;
-    const status="scheduled"; // default
+    const status="pending"; // default
         const params = {
             page_no,
             status
@@ -51,41 +52,12 @@ class SessionRequested extends Component {
    
     const renderTabs = session_requests.map((session_request, i)=>{
             // Random component
-            const start_date = moment(session_request.start_time);
-            const end_date = moment(session_request.end_time);
+            const start_date = momentTimezone(session_request.start_time);
+            const end_date = momentTimezone(session_request.end_time);
            const subject =  session_request.tutor.skills.map((subjects) =>{ return <Label  size='small' color='yellow' >  {subjects.name}</Label>}  );
-          /*  
-         const Completionist = () =><span>00:00 </span>;
-            // Renderer callback with condition
-            const renderer = ({days, hours, minutes, seconds, completed }) => {
-            if (completed) {
-                // Render a complete state
-                return <Completionist />;
-            }else if (days>30) {
-                var months=Math.ceil(days/30);
-                return <span>{months} months to start</span>;
-            }else if (days>7) {
-                var weeks=Math.ceil(days/7);
-                return <span>{weeks} weeks to start</span>;
-            }else if (days>0) {
-                return <span>{days} days to start</span>;
-            } else if (hours>0) {
-                return <span>{hours} hours to start</span>;
-            }else if (minutes>0) {
-                return <span>{minutes}:{seconds} to start</span>;
-            }else {
-                // Render a countdown
-                
-                return false
-            }
-            };
-            var date2= Date.now();
-                var date1 = new Date(p.sessiondate);
-                var a = moment(Date.now());//now
-    var b = moment(p.sessiondate);
-    
-                var diff = b.diff(a, 'hours');
-               console.log(diff);*/
+           const pendingdate  = (date) =>{
+            return moment(date).fromNow();
+     };
             return(
                
                 <Grid.Row width={10} key={i++} className='custom-row'>
@@ -107,8 +79,8 @@ class SessionRequested extends Component {
                 </div>
                 <div style={{float:'right'}}>
                    
-                    <h5 className="time-spent"><Icon  name='time' />  </h5>
-                    {/*(diff < 0 )?<ModalModalExample />: (diff<24 && <Button color='yellow' className="reschedule" >Reschedule</Button>)*/}
+                <h5 className="time-spent"><Icon  name='time' />{pendingdate(start_date._d.toDateString())}</h5>
+                <Button color='yellow' className="cancel" >Cancel</Button>
                 </div>
                 </Grid.Column>
             </Grid.Row>
@@ -117,21 +89,21 @@ class SessionRequested extends Component {
    
     console.log(renderTabs);
     return (
-        <Grid className='session-requested-Container' >
-        <Grid.Row width={15} >
-         <Grid.Column width={12} style={{margin:'0 auto'}}>
-         {renderTabs}
-         <Pagination
-   defaultActivePage={1}
-   firstItem={null}
-   lastItem={null}
-   pointing
-   secondary
-   totalPages={3}
- />
-         </Grid.Column>
-       </Grid.Row>
-    </Grid>
+      <Grid className='session-requested-Container' >
+         <Grid.Row width={15} >
+          <Grid.Column width={12} style={{margin:'0 auto'}}>
+          {renderTabs}
+          <Pagination
+    defaultActivePage={1}
+    firstItem={null}
+    lastItem={null}
+    pointing
+    secondary
+    totalPages={3}
+  />
+          </Grid.Column>
+        </Grid.Row>
+     </Grid>
     )
   }
 }
@@ -147,4 +119,4 @@ const mapActionsToProps = () => {
   }
 };
 
-export default connect(mapStateToProps, mapActionsToProps())(SessionRequested);
+export default connect(mapStateToProps, mapActionsToProps())(SessionPending);

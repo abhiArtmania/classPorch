@@ -108,6 +108,8 @@ export default class EducationSection extends React.Component {
             const filename=(file.name)? file.name: null
             const id="embedpollfileinput_"+key;
             const errId="file_error_"+key; 
+           
+            console.log(key);
             return <Grid key={key}>
                       <Grid.Row centered style={{marginTop:"10px"}}>
                         <Grid.Column width={4} textAlign='left'>
@@ -137,12 +139,12 @@ export default class EducationSection extends React.Component {
                          </Grid.Column>
                          <Grid.Column width={4} textAlign='left'>
                            {/* info button */}
-                           <abbr title="Upload verification document(Passport, Driver License etc)" style={{border:"none"}}>
-                             <Button className="circular basic teal" type="button" icon ="warning" style={{padding:"2px",marginTop:"10px"}}/>
+                           <abbr title="Please upload your Driver’s License or Passport document to verify your identity" style={{border:"none"}}>
+                             <Button className="circular basic " type="button" icon ="warning" style={{padding:"2px",marginTop:"10px"}}/>
                            </abbr>
                            {/* upload button */}
                            <Input type="file" name={'verification_document'}  required  class="inputfile" id={id}  onChange={this.onEducationChange.bind(this, key)}/>
-                           <label for={id} class="ui small right floated red button">
+                           <label for={id} class="ui small right floated yellow button">
                              <i class="ui upload icon"></i>
                              Upload Doc
                            </label>
@@ -154,7 +156,7 @@ export default class EducationSection extends React.Component {
                          <Grid.Row centered textAlign="right">
                           <Grid.Column width={8}>
                           
-                            <Button floated="right" size="small" type="button" onClick={this.deleteEducation.bind(this,key)}>Delete Education</Button>
+                           {key>0 && <Button floated="right" size="small" type="button" onClick={this.deleteEducation.bind(this,key)}>Delete Education</Button> } 
                             <Button floated="right" size="small" type="button" onClick={this.addEducation.bind(this,key)}>Add Education</Button>
                              {/* <input fluid name={'finish_education'} type='text' placeholder='(dd/mm/yyyy)'
                                     onFocus={this.onFocusChange} min='1970-01-01' max={moment().format('Y-mm-D')}

@@ -59,7 +59,7 @@
 }
 .complete-session .userName{
 	font-size: 19px;
-    margin: 0 0 10px 0;
+    margin: 0 0 5px 0;
 	color: orange;
 }
 .complete-session .complete-lable{
@@ -70,5 +70,6 @@
 }
 .complete-session .load-more-right{
 	float: right;
-	margin:10px;
+	margin:10px 0;
+	width: 115px;
 }

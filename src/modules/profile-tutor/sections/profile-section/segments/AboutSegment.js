@@ -92,7 +92,7 @@ class AboutSegment extends Component {
                         <div>
                             <Truncate lines={!expanded && lines} ellipsis={(<span>... <a href='#' onClick={this.toggleLines}>{more}</a></span>
                             )}  onTruncate={this.handleTruncate} >
-                                {textv}
+                                {this.props.profile.bio}
                             </Truncate>
                             {!truncated && expanded && (<span> <a href='#' onClick={this.toggleLines}>{less}</a></span>)}
                         </div>

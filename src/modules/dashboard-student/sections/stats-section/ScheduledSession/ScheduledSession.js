@@ -7,7 +7,7 @@ import moment from 'moment'
 import './styles.css';
 import {connect} from 'react-redux';
 import {
-    sessionRequested,
+    requestedSession
    
   } from '../../../../../redux/actions';
 import defultAvtart from "./../../../../../assets/avatar/default.png"
@@ -17,12 +17,12 @@ class ScheduledSession extends React.Component {
         super();
         this.state = {
             NotificationList: [
-                {id:1, fullName: 'Jasmine', subject: 'php',date:'Mar-2017',time:'6:30PM',totalSpendTime:'23 ',averageRating:"4",sessiondate:"13 June 2018 03:02:03" },
-               {id:2, fullName: 'Hari kumar', subject: 'java',date:'Mar-2017',time:'6:30PM',totalSpendTime:'2', averageRating:"4", sessiondate:"13 June 2018 03:02:03" },
-               {id:6, fullName: 'Maria', subject: 'ror',date:'Mar-2017',time:'6:30PM',totalSpendTime:'8 ',averageRating:"4", sessiondate:"15 April 2018 03:02:03" },
+                {id:1, fullName: 'Jasmine', subject: 'php',date:'Mar-2017',time:'6:30PM',totalSpendTime:'23 ',averageRating:"4",sessiondate:"15 June 2018 24:02:03" },
+               {id:2, fullName: 'Hari kumar', subject: 'java',date:'Mar-2017',time:'6:30PM',totalSpendTime:'2', averageRating:"4", sessiondate:"15 June 2018 21:02:03" },
+               {id:5, fullName: 'Maria', subject: 'ror',date:'Mar-2017',time:'6:30PM',totalSpendTime:'8 ',averageRating:"4", sessiondate:"15 April 2018 20:02:03" },
                {id:3, fullName: 'Hohny', subject: 'php',date:'Mar-2017',time:'6:30PM',totalSpendTime:'12 ',averageRating:"4", sessiondate:"16 April 2018 03:02:03" },
-               {id:4, fullName: 'rohit', subject: 'javascrip',date:'Mar-2017',time:'6:30PM',totalSpendTime:'3 ',averageRating:"4", sessiondate:"12 April 2018 03:02:03" },
-               {id:6, fullName: 'Mohit kumar', subject: 'php',date:'Mar-2017',time:'6:30PM',totalSpendTime:'3 ', averageRating:"4", sessiondate:"11 April 2018 23:52:03" },
+               {id:4, fullName: 'rohit', subject: 'javascrip',date:'Mar-2017',time:'6:30PM',totalSpendTime:'3 ',averageRating:"4", sessiondate:"18 April 2018 03:02:03" },
+               {id:6, fullName: 'Mohit kumar', subject: 'php',date:'Mar-2017',time:'6:30PM',totalSpendTime:'3 ', averageRating:"4", sessiondate:"19 April 2018 23:52:03" },
               ],
             limit: 5
         };
@@ -30,62 +30,89 @@ class ScheduledSession extends React.Component {
        
     }
 
-
-    componentDidMount() {
-        window.scrollTo(0, 0)
-    }
-    onLoadMore(e) {
-        e.preventDefault();
+    componentWillMount(){
+      
         const page_no = 1; // default
         const params = {
             page_no,
             
         };
+        this.props.requestedSession(params);
+    }
+    componentDidMount() {
+        window.scrollTo(0, 0)
+    }
+    onLoadMore(e) {
+        e.preventDefault();
+        const page_no = 1;
+        const status="scheduled" // default
+        const params = {
+            page_no,
+            status
+        };
         console.log(params);
-        this.props.sessionRequested(params);
+        this.props.requestedSession(params);
+        history.push('/sessionrequested');
     }
     
 
     renderTabs(){
         let nlist=this.state.NotificationList.sort((a, b) => parseFloat(b.id) - parseFloat(a.id));
         console.log(this.state.limit);
-        // Random component
-                const Completionist = () => <span> </span>;
-
-                // Renderer callback with condition
-                const renderer = ({days, hours, minutes, seconds, completed }) => {
-                if (completed) {
-                    // Render a complete state
-                    return <Completionist />;
-                }else if (days>30) {
-                    var months=Math.ceil(days/30);
-                    return <span>{months} months</span>;
-                }else if (days>7) {
-                    var weeks=Math.ceil(days/7);
-                    return <span>{weeks} weeks</span>;
-                }else if (days>0) {
-                    return <span>{days} days</span>;
-                } else if (hours>0) {
-                    return <span>{hours} hours</span>;
-                }else if (minutes>0) {
-                    return <span>{minutes} minutes:{seconds} seconds</span>;
-                }else {
-                    // Render a countdown
-                    
-                    return <span>{minutes} minutes:{seconds} seconds</span>;
-                }
-                };
+        const ModalModalExample = (e) =>(
+            <Modal trigger={<Button color='yellow' className="join-room">Join Room</Button>}>
+<Modal.Header>Select a Photo</Modal.Header>
+<Modal.Content image>
+<Image wrapped size='medium' src='/assets/images/avatar/large/rachel.png' />
+<Modal.Description>
+  <Header>Default Profile Image</Header>
+  <p>We've found the following gravatar image associated with your e-mail address.</p>
+  <p>Is it okay to use this photo?</p>
+</Modal.Description>
+</Modal.Content>
+</Modal>
+);
                 
-        return nlist.slice(0,this.state.limit).map((p)=>{
+        return nlist.slice(0,this.state.limit).map((p,i)=>{
+            // Random component
+           
+            
+         const Completionist = () =><span>00:00 </span>;
+            // Renderer callback with condition
+            const renderer = ({days, hours, minutes, seconds, completed }) => {
+            if (completed) {
+                // Render a complete state
+                return <Completionist />;
+            }else if (days>30) {
+                var months=Math.ceil(days/30);
+                return <span>{months} months to start</span>;
+            }else if (days>7) {
+                var weeks=Math.ceil(days/7);
+                return <span>{weeks} weeks to start</span>;
+            }else if (days>0) {
+                return <span>{days} days to start</span>;
+            } else if (hours>0) {
+                return <span>{hours} hours to start</span>;
+            }else if (minutes>0) {
+                return <span>{minutes}:{seconds} to start</span>;
+            }else {
+                // Render a countdown
+                
+                return false
+            }
+            };
             var date2= Date.now();
                 var date1 = new Date(p.sessiondate);
-                var diff = Math.abs(date1.getTime() - date2) / 3600000;
-               
+                var a = moment(Date.now());//now
+var b = moment(p.sessiondate);
+
+                var diff = b.diff(a, 'hours');
+               console.log(diff);
             return(
                
-                <Grid.Row width={10} className='custom-row'>
+                <Grid.Row width={10} key={i} className='session-row'>
                     
-                <Grid.Column width={15} className='userInfo'>
+                <Grid.Column width={16} className='userInfo'>
                
                     <Image src={defultAvtart} size='medium' circular  className="tutor-img"  />
                
@@ -97,24 +124,13 @@ class ScheduledSession extends React.Component {
                     <Label  size='small' >  {p.subject}</Label> 
                    
                   
-                    <p><span className="start-date">Jan 15 </span> - <span className="end-date">Mar 25</span></p>
+                    <p className="full-date"><span className="start-date">Jan 15 </span> - <span className="end-date">Mar 25</span></p>
                 
                 </div>
                 <div style={{float:'right'}}>
                    
                     <h5 className="time-spent"><Icon  name='time' />  <Countdown date={p.sessiondate}    renderer={renderer}  /></h5>
-                   {diff > 24 ?<Button color='yellow' className="reschedule" >Reschedule</Button>:<Modal trigger={<Button color='yellow' className="join-room" >Join Room</Button>  }>
-                        <Modal.Header>s {p.fullName}</Modal.Header>
-                        <Modal.Content image>
-                        <Image wrapped size='medium' src={defultAvtart}/>
-                        <Modal.Description>
-                            <Header>Default Profile Image</Header>
-                            <p>We've found the following gravatar image associated with your e-mail address.</p>
-                            <p>Is it okay to use this photo?</p>
-                        </Modal.Description>
-                        </Modal.Content>
-                    </Modal>
-                 }
+                    {(diff < 0 )?<ModalModalExample />: (diff<24 && <Button color='yellow' className="reschedule" >Reschedule</Button>)}
                 </div>
                 </Grid.Column>
             </Grid.Row>
@@ -142,6 +158,7 @@ const mapStateToProps = store => {
   const {id: userId, authToken} = store.auth;
   const {sessionRequestIndicator, displayMessage, unreadMessageCount} = store.dashboard;
   const {searchMode, searchResults, loadingSearch} = store.search;
+  const {page_no, session_requests, status, total_records }=store.SessionReducer;
   return {
     userId,
     authToken,
@@ -151,7 +168,11 @@ const mapStateToProps = store => {
     searchMode,
     searchResults,
     loadingSearch,
-    searchMetadata: store.search.metadata
+    searchMetadata: store.search.metadata,
+    page_no,
+     session_requests,
+      status,
+       total_records
   }
 };
 
@@ -159,6 +180,6 @@ const mapStateToProps = store => {
 
 
 export default connect(mapStateToProps, {
-    sessionRequested
+    requestedSession
   
 })(ScheduledSession);

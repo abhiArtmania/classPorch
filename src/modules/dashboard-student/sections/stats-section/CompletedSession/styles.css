@@ -1,26 +1,3 @@
-#tblNotification {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
-
-#tblNotification td, #tblNotification th {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-#tblNotification tr:nth-child(even){background-color: #f2f2f2;}
-
-#tblNotification tr:hover {background-color: #ddd;}
-
-#tblNotification th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #FBBD08;
-    color: white;
-}
-
 .image{
     height: 20px;
     width: 20px
@@ -34,8 +11,16 @@
 .complete-session .ui.small.label, .ui.small.labels .label{
     background-color:orange;
     color:#fff;
+    margin: 5px 5px 5px 0;
 }
 .complete-session .i.orange.icon{
     color: #ffa500!important;
+}
+p.full-date {
+    margin: 5px 0 0 0;
+}
+.row.session-row {
+    border-bottom: 1px solid orange;
+    padding: 10px 10px;
 }
 

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {NotificationsSection, StatsSection, WeekScheduleSection} from './sections';
 import {connect} from 'react-redux';
 import {Notification} from 'react-notification';
+import {history} from '../../redux/store';
 import {getDashboard, getUnreadMessagesCount} from '../../redux/actions';
 
 class DashboardTutor extends Component {
@@ -10,7 +11,11 @@ class DashboardTutor extends Component {
     isNotificationActive: false,
     unreadMessageCount: 0
   };
-
+  componentWillMount(){
+   if(!this.props.profile.verified){
+    history.push('/profile/tutor');
+   }
+  }
   componentDidMount() {
     const {userId, authToken} = this.props;
     this.props.getDashboard({userId, authToken});
@@ -55,8 +60,8 @@ class DashboardTutor extends Component {
 
 const mapStateToProps = ({auth, dashboard}) => {
   const {id: userId, authToken} = auth;
-  const {sessionRequestIndicator, displayMessage} = dashboard;
-  return {userId, authToken, sessionRequestIndicator, displayMessage}
+  const {sessionRequestIndicator, displayMessage , profile } = dashboard;
+  return {userId, authToken, profile, sessionRequestIndicator, displayMessage}
 };
 
 const mapActionsToProps = () => {

@@ -25,10 +25,11 @@ export default class BottomSection extends React.Component{
         return (
                 <Grid.Row centered>
                     <Grid.Column width={8} textAlign='left'>
-                        <Checkbox name='terms_agreed_check' className='terms-agreed-check'
+                    <Checkbox name='terms_agreed_check' className='terms-agreed-check'
                           checked={isAgreedToTerms} onClick={this.agreedToTerms}
                           required/>
-                        <span style={{fontSize:"12px"}}>
+                        <span style={{fontSize:"12px", position: "relative",  top: "-6px"}}>
+                         
                           I have read and agree to the
                             <Link to={'/privacy-policy'} className='sign-up-bottom-span-links'> Privacy Policy </Link>
                             and
@@ -36,7 +37,7 @@ export default class BottomSection extends React.Component{
                             documents of ClassPorch.
                         </span>
                         <br />
-                          {this.props.agreeMessage && <span style={{color:"red",marginLeft:"35px"}}>You must agree on the terms and conditions of ClassPorch.</span>}
+                          {this.props.agreeMessage && <span style={{color:"red",marginLeft:"35px"}}>You must read and agree to the Privacy Policy and Terms of Service of ClassPorch</span>}
                     </Grid.Column>
                 </Grid.Row>
         );

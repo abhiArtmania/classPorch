@@ -6,7 +6,7 @@ import './assets/_etc.scss'
 export default class App extends React.Component {
   render() {
     return (
-      <section style={{paddingTop: '80px'}}>
+      <section style={{paddingTop: '100px'}}>
         <Navbar/>
         <Routes history={history}/>
         <Footer/>

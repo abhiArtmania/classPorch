@@ -29,3 +29,7 @@ button.ui.yellow.button.join-room {
     float: right;
     width: 115px;
 }
+
+.session-requested-Container .time-spent{
+    color:orange;
+}

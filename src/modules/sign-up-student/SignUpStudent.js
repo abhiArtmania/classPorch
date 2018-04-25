@@ -82,6 +82,7 @@ class SignUpStudent extends React.Component {
         last_name,
         gender,
         country,
+        state,
         city,
         number: mobile,
         parent_first_name,
@@ -120,6 +121,7 @@ class SignUpStudent extends React.Component {
   }
 
   render() {
+    
     return (
       <div>
         {this.props.loading && (

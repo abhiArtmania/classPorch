@@ -50,6 +50,7 @@ class LoginRedux extends Component {
         event.preventDefault();
         this.setState({loading:true})
         const {email, password} = this.props;
+        console.log({email, password});
         this.props.loginUser(this.makeLoginApiRequestBody(email, password, null, null, null))
     }
 
@@ -90,6 +91,14 @@ class LoginRedux extends Component {
     };
 
     makeLoginApiRequestBody(email, password = "", provider = "", access_token = "", secret = "") {
+        console.log( {
+            "user": {
+                "email": email,
+                "password": password,
+                "provider": provider,
+                "access_token": access_token,
+                "secret": secret
+            }});
         return {
             "user": {
                 "email": email,
@@ -115,7 +124,7 @@ class LoginRedux extends Component {
         return (
             <Grid className='login-body'>
                 <Grid.Row centered>
-                {this.props.loading &&   <div style={{position:"fixed", top:"0",bottom:"0",left:"0",right:"0"}}><Dimmer active inverted>
+                {this.props.loading &&   <div style={{position:"fixed", top:"0",bottom:"0",left:"0",right:"0",zIndex:'9999'}}><Dimmer active inverted>
 					<Loader inverted>Loading</Loader>
 				</Dimmer>
       </div>}

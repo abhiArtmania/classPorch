@@ -1,8 +1,14 @@
 import React from 'react'
 import { Grid, Icon, Table} from 'semantic-ui-react'
+import {connect} from 'react-redux';
 import './styles.css';
 import { history } from '../../../../../redux/store';
+import moment from 'moment-timezone'
 import { Menu, Dropdown, Image, Input, Button, Rating, Label } from 'semantic-ui-react';
+import {
+    requestedSession
+   
+  } from '../../../../../redux/actions';
 import defultAvtart from "./../../../../../assets/avatar/default.png"
 class CompletedSession extends React.Component {
 
@@ -22,6 +28,7 @@ class CompletedSession extends React.Component {
             ],
             limit: 5
         };
+        this.onLoadMore=this.onLoadMore.bind(this);
        
     }
 
@@ -29,54 +36,65 @@ class CompletedSession extends React.Component {
     componentDidMount() {
         window.scrollTo(0, 0)
     }
-    onLoadMore = (e) => {
+    onLoadMore(e) {
         e.preventDefault();
-        history.push('/sessionrequested');
+        const page_no = 1;
+        const status="completed" // default
+        const params = {
+            page_no,
+            status
+        };
+        console.log(params);
+        this.props.requestedSession(params);
+        history.push('/sessioncompleted');
     }
     
 
-    renderTabs(){
-        let nlist=this.state.NotificationList.sort((a, b) => parseFloat(b.id) - parseFloat(a.id));
-        console.log(this.state.limit);
+    
+    render() {
         
-        return nlist.slice(0,this.state.limit).map((p)=>{
-                   
-            return(
+        const {page_no, session_requests, status, total_records}= this.props;
+   
+    const renderTabs = session_requests.slice(0,this.state.limit).map((session_request, i)=>{
+            // Random component
+            const start_date = moment(session_request.start_time);
+            const end_date = moment(session_request.end_time);
+           const subject =  session_request.tutor.skills.map((subjects) =>{ return <Label  size='small' color='yellow' >  {subjects.name}</Label>}  );
+                     return(
                
-                <Grid.Row width={10} className='custom-row'>
+                <Grid.Row width={10} key={i++} className='session-row'>
                     
-                    <Grid.Column width={15} className='userInfo'>
+                <Grid.Column width={16} className='userInfo'>
+               
+                    <Image src={defultAvtart} size='medium' circular  className="tutor-img"  />
+               
+                <div style={{float:'left'}}>
+               
+                  
+               
+                    <h4 className="userName"><div className="ui green circular label"></div> {session_request.tutor.fullname}</h4>
+                    {subject}
                    
-                        <Image src={defultAvtart} size='medium' circular  className="tutor-img"  />
-                   
-                    <div style={{float:'left'}}>
-                   
-                      
-                   
-                        <h4 className="userName"><div className="ui green circular label"></div> {p.fullName}</h4>
-                        <Label  size='small' >  {p.subject[0].name}</Label> 
-                       
-                      
-                        <p className="full-date"><span className="start-date">Jan 15 </span> - <span className="end-date">Mar 25</span></p>
-                    
-                    </div>
-                    <div style={{float:'right'}}>
-                    <h5 className="complete-lable">Completed Mar 25</h5>
-                        <Rating icon='star' size='large'  defaultRating={p.averageRating||4} maxRating={5} disabled/>
+                  
+                    <p className="full-date"><span className="start-date">{start_date._d.toDateString()} </span> - <span className="end-date">{end_date._d.toDateString()}</span></p>
                 
-                        <h5 className="time-spent"><Icon  name='time' /> Duration {p.totalSpendTime} hr 20 minutes </h5>
+                </div>
+                <div style={{float:'right'}}>
+                    <h5 className="complete-lable">Completed Mar 25</h5>
+                        <Rating icon='star' size='large'  defaultRating={session_request.averageRating||4} maxRating={5} disabled/>
+                
+                        <h5 className="time-spent"><Icon  name='time' /> Duration 3 hr 20 minutes </h5>
                     </div>
-                    </Grid.Column>
-                </Grid.Row>
+                </Grid.Column>
+            </Grid.Row>
             );
         });
-    };
-    render() {
+   
+    console.log(renderTabs);
        
-
         return (
             <Grid className='complete-session'>
-                {this.renderTabs()}
+                {renderTabs}
                 <div style={{width:'100%'}}>
                 <Button color='yellow' className="load-more-right" onClick={this.onLoadMore} >Show More</Button>
                 </div >     
@@ -87,5 +105,34 @@ class CompletedSession extends React.Component {
     }
 
 }
-
-export default CompletedSession
+const mapStateToProps = store => {
+    console.log(store)
+    const {id: userId, authToken} = store.auth;
+    const {sessionRequestIndicator, displayMessage, unreadMessageCount} = store.dashboard;
+    const {searchMode, searchResults, loadingSearch} = store.search;
+    const {page_no, session_requests, status, total_records }=store.SessionReducer;
+    return {
+      userId,
+      authToken,
+      sessionRequestIndicator,
+      displayMessage,
+      unreadMessageCount,
+      searchMode,
+      searchResults,
+      loadingSearch,
+      searchMetadata: store.search.metadata,
+      page_no,
+       session_requests,
+        status,
+         total_records
+    }
+  };
+  
+  
+  
+  
+  export default connect(mapStateToProps, {
+      requestedSession
+    
+  })(CompletedSession);
+  

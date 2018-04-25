@@ -32,7 +32,7 @@ class StepThree extends React.Component {
     await this.props.sessionRequest(booked_tutor);
         console.log(this.props.BOOKEDSESSION)
         swal("Session Requested!", "Thank You!", "success");
-        // history.push('/dashboard/student')
+        history.push('/dashboard/student')
   }
 
   render () {

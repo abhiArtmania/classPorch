@@ -23,7 +23,7 @@ class DashboardStudent extends React.Component {
     isNotificationActive: false,
     unreadMessageCount: 0
   };
-
+  
   componentDidMount() {
     const {userId, authToken} = this.props;
     this.props.getDashboard({userId, authToken});
@@ -109,7 +109,7 @@ class DashboardStudent extends React.Component {
 const mapStateToProps = store => {
   console.log(store)
   const {id: userId, authToken} = store.auth;
-  const {sessionRequestIndicator, displayMessage, unreadMessageCount} = store.dashboard;
+  const {sessionRequestIndicator, displayMessage, unreadMessageCount, profile} = store.dashboard;
   const {searchMode, searchResults, loadingSearch} = store.search;
   return {
     userId,

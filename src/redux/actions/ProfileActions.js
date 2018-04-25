@@ -210,7 +210,7 @@ export const updateProfile = ({
 	return async dispatch => {
 		try {
 			dispatch({ type: EDIT_PROFILE_START })
-
+			console.log('dfgf');
 			let bodyObject = {
 				user: {
 					educations: educations,
@@ -240,7 +240,7 @@ export const updateProfile = ({
 			if (resRaw.status !== 200) {
 				throw 'failed request'
 			}
-			
+			console.log('dfgf');
 			const res = await resRaw.json()
 			
 			const id = uuidv1()
