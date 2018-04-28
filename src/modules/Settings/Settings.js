@@ -19,16 +19,15 @@ class Settings extends Component {
       loading: false,
       items: [],
       activeIndex: 0,
-      activePage: 1
+      activePage: 1,
+      profile: this.props.profile
 
     };
   componentDidMount = async () => {
-
     this.setState({ loading: true })
     setTimeout(() => this.setState({ loading: false }), 1500);
     await this.props.getFAQ();
     this.setState({ items: this.props.FAQ })
-
   }
 
 
@@ -36,7 +35,7 @@ class Settings extends Component {
   render() {
     const props = this.props;
     const panes = [
-      { menuItem: 'Personal Info', render: () => <Tab.Pane style={{ padding: "0px" }}>{PersonalInfo(this.props.profile)}</Tab.Pane> },
+      { menuItem: 'Personal Info', render: () => <Tab.Pane><PersonalInfo {...this.state.profile} resetProps={this.resetProps} onChange={this.updatePersonInfo} /></Tab.Pane> },
       { menuItem: 'Previous Expenses', render: () => <Tab.Pane>Previous Expenses</Tab.Pane> },
       { menuItem: 'Billing ', render: () => <Tab.Pane>Billing</Tab.Pane> },
       { menuItem: 'Change Password ', render: () => PasswordInfo() },
@@ -48,6 +47,19 @@ class Settings extends Component {
       </div>
     </div>
   }
+
+
+
+  updatePersonInfo = (event) => {
+    const profile = JSON.parse(JSON.stringify(this.state.profile));
+    profile[event.target.name] = event.target.value;
+    this.setState({ profile })
+  }
+
+  resetProps = (data) => {
+    this.setState({ profile: data });
+  }
+
 }
 
 
