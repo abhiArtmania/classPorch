@@ -149,7 +149,7 @@ class SuggestedTutors extends React.Component {
         <Grid.Row centered>
           <Grid.Column width={12} textAlign='left'>
 
-            <p className="suggested-tutors"> Suggested Tutors </p>
+           {displayedTutorProfiles>0 && <p className="suggested-tutors"> Suggested Tutors </p>}
 
             <Card.Group itemsPerRow={5}>
               {this.populateGridColumns(displayedTutorProfiles)}

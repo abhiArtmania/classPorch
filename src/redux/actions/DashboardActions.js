@@ -88,7 +88,7 @@ export const getDashboard = ({userId, authToken}) => {
 
         const weekSchedule = res.response['next_week_url'];
         const nextWeekUrl = '';
-        if(!res.response.user.verified && res.response.user=="tutor" ){
+        if(!res.response.user.verified && res.response.user.role==="tutor" ){
           history.push('/profile/tutor');
         }
         return dispatch({

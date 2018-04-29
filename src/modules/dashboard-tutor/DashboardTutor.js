@@ -27,7 +27,7 @@ class DashboardTutor extends Component {
    if(!this.props.profile.verified){
    
       this.props.profileRequested(userId,authToken);
-     
+      history.push('/profile/tutor');
      }
   }
 
