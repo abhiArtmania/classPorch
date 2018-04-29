@@ -4,7 +4,7 @@ import { Grid, Icon, Header, Image, Modal, Button, Label, Rating, Pagination } f
 import moment from 'moment-timezone'
 import './styles.css';
 import {connect} from 'react-redux';
-import { requestedSession } from '../../redux/actions';
+import { scheduledSession } from '../../redux/actions';
 import defultAvtart from "./../../assets/avatar/default.png"
 
 class SessionRequested extends Component {
@@ -143,7 +143,7 @@ const mapStateToProps = store => {
 
 const mapActionsToProps = () => {
   return {
-    requestedSession
+    scheduledSession
   }
 };
 

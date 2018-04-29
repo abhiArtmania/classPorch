@@ -5,7 +5,7 @@ import momentTimezone from 'moment-timezone'
 import moment from 'moment-timezone'
 import './styles.css';
 import {connect} from 'react-redux';
-import { requestedSession } from '../../redux/actions';
+import { pendingSession } from '../../redux/actions';
 import defultAvtart from "./../../assets/avatar/default.png"
 
 class SessionPending extends Component {
@@ -23,13 +23,13 @@ class SessionPending extends Component {
   componentDidMount() {
     
     const page_no = 1;
-    const status="pending"; // default
+    
         const params = {
             page_no,
-            status
+          
         };
         console.log(params);
-        this.props.requestedSession(params);
+        this.props.pendingSession(params);
         console.log('test');
     
   }
@@ -48,7 +48,7 @@ class SessionPending extends Component {
   }
   
   render(){
-    const {page_no, session_requests, status, total_records}= this.props;
+    const {page_no, session_requests, status, total_records}= this.props.session_pending;
    
     const renderTabs = session_requests.map((session_request, i)=>{
             // Random component
@@ -93,14 +93,7 @@ class SessionPending extends Component {
          <Grid.Row width={15} >
           <Grid.Column width={12} style={{margin:'0 auto'}}>
           {renderTabs}
-          <Pagination
-    defaultActivePage={1}
-    firstItem={null}
-    lastItem={null}
-    pointing
-    secondary
-    totalPages={3}
-  />
+          
           </Grid.Column>
         </Grid.Row>
      </Grid>
@@ -109,13 +102,13 @@ class SessionPending extends Component {
 }
 
 const mapStateToProps = store => {
-  const {page_no, session_requests, status, total_records }=store.SessionReducer;
-  return {page_no, session_requests, status, total_records }
+  const {session_pending }=store.SessionReducer;
+  return {session_pending}
 };
 
 const mapActionsToProps = () => {
   return {
-    requestedSession
+    pendingSession
   }
 };
 

@@ -12,7 +12,7 @@ class ReviewsSegment extends Component {
         allReviews:[],
         displayReviews:[],
         hiddenReviews:true,
-        reviews:this.props.profile.reviews
+        reviews:this.props.profile.reviews|| null
     };
 
     componentWillMount(){
@@ -23,34 +23,38 @@ class ReviewsSegment extends Component {
     }
 
     renderReviews = () => {
-    
-        return this.state.reviews.map((review,i) => {
-            return(
-                <Grid.Row columns={2} centered key={i} centered >
-                    <Grid.Column width={2} textAlign='left' >
-                        <Image src={review.reviewer_profile_picture} size='tiny' shape='circular' />
-                    </Grid.Column>
-                    <Grid.Column width={9} textAlign='left'  >
-                        <div style={styles.top}>
-                            <span style = {styles.name}> {review.reviewer.name} </span>
-                            <span style = {styles.rating}> 
-                                  <ReactStars
-                                     value = {review.rating||0}
-                                     count={5}
-                                     edit={false}
-                                     size={30}
-                                     color2={'#ffd700'} />   
-                            </span>
-                        </div>
-                        <div style = {styles.content}>
-                            {review.review}
-                        </div>
-                    </Grid.Column>
-                    <Grid.Column width={1}>
-                    </Grid.Column>
-                </Grid.Row>
-            )
-        })
+        console.log(this.state);
+        console.log(this.state.reviews);
+        if((this.state.reviews).length>0){
+            return this.state.reviews.map((review,i) => {
+                return(
+                    <Grid.Row columns={2} centered key={i}  >
+                        <Grid.Column width={2} textAlign='left' >
+                            <Image src={review.reviewer_profile_picture} size='tiny' shape='circular' />
+                        </Grid.Column>
+                        <Grid.Column width={9} textAlign='left'  >
+                            <div style={styles.top}>
+                                <span style = {styles.name}> {review.reviewer.name} </span>
+                                <span style = {styles.rating}> 
+                                      <ReactStars
+                                         value = {review.rating||0}
+                                         count={5}
+                                         edit={false}
+                                         size={30}
+                                         color2={'#ffd700'} />   
+                                </span>
+                            </div>
+                            <div style = {styles.content}>
+                                {review.review}
+                            </div>
+                        </Grid.Column>
+                        <Grid.Column width={1}>
+                        </Grid.Column>
+                    </Grid.Row>
+                )
+            })
+        }
+        
     };
 
     onExpandReviews = () => {

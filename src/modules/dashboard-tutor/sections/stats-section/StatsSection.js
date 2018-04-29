@@ -23,44 +23,10 @@ class StatsSection extends React.Component {
       <Grid className='tutor-stats-section'>
         
         <Grid.Row/>
-        <Grid.Row centered style={{cursor: 'pointer'}} onClick={this.onChatsViewed}>
-          <Grid.Column width={12} textAlign='left'>
-            <Image src={unreadMessageCount ? messageIconUnread : messageIcon} size='mini' verticalAlign='middle'/>
-            <span className='dashboard-message-text'> {unreadMessageCount ? unreadMessageCount : 0} new messages</span>
-          </Grid.Column>
-        </Grid.Row>
+        
         <Grid.Row/>
         <Grid.Row/>
-        <Grid.Row centered>
-          <Grid.Column width={3}>
-            <a className='dashboard-stats-container'>
-              <p className='dashboard-stats-text'>
-                {profile['sessions-done-count']} <br/>
-                Sessions done <br/>
-                Today
-              </p>
-            </a>
-          </Grid.Column>
-          <Grid.Column width={3}>
-            <a className='dashboard-stats-container'>
-              <p className='dashboard-stats-text'>
-                {profile['scheduled-sessions-count']} <br/>
-                Scheduled <br/>
-                Sessions
-              </p>
-            </a>
-          </Grid.Column>
-          <Grid.Column width={3}>
-            <a className='dashboard-stats-container'>
-              <p className='dashboard-stats-text'>
-                {profile['unread-messages-count']} <br/>
-                Requested <br/>
-                Sessions
-              </p>
-            </a>
-          </Grid.Column>
-          <Grid.Column width={3}/>
-        </Grid.Row>
+        
       </Grid>
     );
   }

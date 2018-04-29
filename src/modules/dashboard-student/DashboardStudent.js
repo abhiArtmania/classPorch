@@ -111,6 +111,7 @@ const mapStateToProps = store => {
   const {id: userId, authToken} = store.auth;
   const {sessionRequestIndicator, displayMessage, unreadMessageCount, profile} = store.dashboard;
   const {searchMode, searchResults, loadingSearch} = store.search;
+ 
   return {
     userId,
     authToken,

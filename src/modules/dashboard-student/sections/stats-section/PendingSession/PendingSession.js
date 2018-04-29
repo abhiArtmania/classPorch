@@ -10,7 +10,7 @@ import {Link} from "react-router-dom";
 import { Menu, Dropdown, Image, Input, Button, Rating, Label } from 'semantic-ui-react';
 import defultAvtart from "./../../../../../assets/avatar/default.png"
 import {
-    requestedSession
+    pendingSession
    
   } from '../../../../../redux/actions';
 class PendingSession extends React.Component {
@@ -31,7 +31,19 @@ class PendingSession extends React.Component {
         this.onLoadMore=this.onLoadMore.bind(this);
     }
 
-
+    componentWillMount() {
+    
+        const page_no = 1;
+        const status="pending"; // default
+            const params = {
+                page_no,
+                status
+            };
+            
+            this.props.pendingSession(params);
+           
+        
+      }
     componentDidMount() {
         window.scrollTo(0, 0)
     }
@@ -44,13 +56,14 @@ class PendingSession extends React.Component {
             status
         };
         console.log(params);
-        this.props.requestedSession(params);
+        this.props.pendingSession(params);
         history.push('/sessionpending');
     }
     
 
     render() {
-        const {page_no, session_requests, status, total_records}= this.props;
+        const {page_no, session_requests, status, total_records}= this.props.session_pending;
+        console.log(this.props.session_pending);
         const renderTabs = session_requests.slice(0,this.state.limit).map((session_request, i)=>{
             // Random component
             const start_date = momentTimezone(session_request.start_time);
@@ -90,10 +103,10 @@ class PendingSession extends React.Component {
 
         return (
             <Grid className='complete-session'>
-                {renderTabs}
-                <div style={{width:'100%'}}>
-                <Link to="/sessionrequested"><Button color='yellow' className="load-more-right" onClick={this.onLoadMore} >Show More</Button></Link>
-                </div >     
+                 {total_records>0?renderTabs:<p className="no-record">No pending Session </p>}
+               {total_records>5 ?<div style={{width:'100%'}}>
+                <Button color='yellow' className="load-more-right" onClick={this.onLoadMore} >Show More</Button>
+                </div > :''}   
                    
             </Grid>
            
@@ -106,7 +119,7 @@ const mapStateToProps = store => {
     const {id: userId, authToken} = store.auth;
     const {sessionRequestIndicator, displayMessage, unreadMessageCount} = store.dashboard;
     const {searchMode, searchResults, loadingSearch} = store.search;
-    const {page_no, session_requests, status, total_records }=store.SessionReducer;
+    const {session_scheduled,session_pending,session_completed }=store.SessionReducer;
     return {
       userId,
       authToken,
@@ -117,10 +130,7 @@ const mapStateToProps = store => {
       searchResults,
       loadingSearch,
       searchMetadata: store.search.metadata,
-      page_no,
-       session_requests,
-        status,
-         total_records
+      session_scheduled,session_pending,session_completed
     }
   };
   
@@ -128,6 +138,6 @@ const mapStateToProps = store => {
   
   
   export default connect(mapStateToProps, {
-      requestedSession
+    pendingSession
     
   })(PendingSession);

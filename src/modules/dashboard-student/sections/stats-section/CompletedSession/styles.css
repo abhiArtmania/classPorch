@@ -8,6 +8,12 @@
     width: 60px !important;
     margin-right: 20px ;
 }
+p.no-record{
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
+}
 .complete-session .ui.small.label, .ui.small.labels .label{
     background-color:orange;
     color:#fff;

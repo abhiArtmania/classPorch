@@ -6,7 +6,7 @@ import { history } from '../../../../../redux/store';
 import moment from 'moment-timezone'
 import { Menu, Dropdown, Image, Input, Button, Rating, Label } from 'semantic-ui-react';
 import {
-    requestedSession
+   completedSession
    
   } from '../../../../../redux/actions';
 import defultAvtart from "./../../../../../assets/avatar/default.png"
@@ -31,10 +31,22 @@ class CompletedSession extends React.Component {
         this.onLoadMore=this.onLoadMore.bind(this);
        
     }
-
-
+    componentWillMount() {
+    
+        const page_no = 1;
+        const status="completed"; // default
+            const params = {
+                page_no,
+                status
+            };
+            console.log(params);
+            this.props.completedSession(params);
+            console.log('test');
+            
+      }
     componentDidMount() {
-        window.scrollTo(0, 0)
+        window.scrollTo(0, 0);
+       
     }
     onLoadMore(e) {
         e.preventDefault();
@@ -45,7 +57,7 @@ class CompletedSession extends React.Component {
             status
         };
         console.log(params);
-        this.props.requestedSession(params);
+        this.props.completedSession(params);
         history.push('/sessioncompleted');
     }
     
@@ -54,8 +66,12 @@ class CompletedSession extends React.Component {
     render() {
         
         const {page_no, session_requests, status, total_records}= this.props;
-   
-    const renderTabs = session_requests.slice(0,this.state.limit).map((session_request, i)=>{
+        function renderTabs(){
+
+       
+        if(session_requests>0){
+
+        return session_requests.slice(0,this.state.limit).map((session_request, i)=>{
             // Random component
             const start_date = moment(session_request.start_time);
             const end_date = moment(session_request.end_time);
@@ -89,15 +105,17 @@ class CompletedSession extends React.Component {
             </Grid.Row>
             );
         });
-   
-    console.log(renderTabs);
+       }
+    
+    }
+    console.log(renderTabs());
        
         return (
             <Grid className='complete-session'>
-                {renderTabs}
-                <div style={{width:'100%'}}>
+                {total_records>0?renderTabs():<p className="no-record">No completed Session </p>}
+               {total_records>5 ?<div style={{width:'100%'}}>
                 <Button color='yellow' className="load-more-right" onClick={this.onLoadMore} >Show More</Button>
-                </div >     
+                </div > :''}    
                    
             </Grid>
            
@@ -110,7 +128,7 @@ const mapStateToProps = store => {
     const {id: userId, authToken} = store.auth;
     const {sessionRequestIndicator, displayMessage, unreadMessageCount} = store.dashboard;
     const {searchMode, searchResults, loadingSearch} = store.search;
-    const {page_no, session_requests, status, total_records }=store.SessionReducer;
+    const {session_scheduled,session_pending,session_completed}=store.SessionReducer;
     return {
       userId,
       authToken,
@@ -121,10 +139,9 @@ const mapStateToProps = store => {
       searchResults,
       loadingSearch,
       searchMetadata: store.search.metadata,
-      page_no,
-       session_requests,
-        status,
-         total_records
+      session_scheduled,
+      session_pending,
+      session_completed
     }
   };
   
@@ -132,7 +149,7 @@ const mapStateToProps = store => {
   
   
   export default connect(mapStateToProps, {
-      requestedSession
+    completedSession
     
   })(CompletedSession);
   
