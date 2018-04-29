@@ -12,6 +12,8 @@ import { PersonalInfo } from './PersonalInfo';
 import './index.scss';
 import { PasswordInfo } from './PasswordInfo';
 import { NotificationSettings } from './NotificationSettings';
+import { PreviousExpenses } from './PreviousExpenses';
+import { Billing } from './Billing';
 
 class Settings extends Component {
   state =
@@ -36,10 +38,10 @@ class Settings extends Component {
     const props = this.props;
     const panes = [
       { menuItem: 'Personal Info', render: () => <Tab.Pane><PersonalInfo {...this.state.profile} resetProps={this.resetProps} onChange={this.updatePersonInfo} /></Tab.Pane> },
-      { menuItem: 'Previous Expenses', render: () => <Tab.Pane>Previous Expenses</Tab.Pane> },
-      { menuItem: 'Billing ', render: () => <Tab.Pane>Billing</Tab.Pane> },
-      { menuItem: 'Change Password ', render: () => PasswordInfo() },
-      { menuItem: 'Notification Settings ', render: () => NotificationSettings() },
+      { menuItem: 'Previous Expenses', render: () => <Tab.Pane><PreviousExpenses {...this.props.profile} /></Tab.Pane> },
+      { menuItem: 'Billing ', render: () => <Tab.Pane><Billing /> </Tab.Pane> },
+      { menuItem: 'Change Password ', render: () => <PasswordInfo  {...this.props.profile} /> },
+      { menuItem: 'Notification Settings ', render: () => <NotificationSettings /> },
     ]
     return <div style={{ padding: '20px' }}>
       <div className="outer-setting"  >
