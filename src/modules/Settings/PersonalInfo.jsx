@@ -154,7 +154,7 @@ export class PersonalInfo extends Component {
     updateMode = (mode) => {
         if (this.state.mode === 'edit' && mode === 'edit') {
             ///need to call ajax to update info
-
+          
 
 
         } else {
