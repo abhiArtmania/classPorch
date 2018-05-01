@@ -1,15 +1,19 @@
 
 import {
   
-  SESSION_SUCCESS,
+  COMPLETED_SESSION_SUCCESS,
+  PENDING_SESSION_SUCCESS,
+  SCHEDULED_SESSION_SUCCESS,
   SESSION_FAIL,
 }  from '../actions/types'
 
 const INITIAL_STATE = {
-  page_no:'' ,
-  session_requests: [],
-  status: '',
-  total_records: '',
+ 
+  session_pending: [],
+  session_scheduled: [],
+  session_completed: []
+ 
+ 
  
 };
 
@@ -17,10 +21,18 @@ const INITIAL_STATE = {
 export default (state=INITIAL_STATE, action) => {
   switch(action.type){
     
-    case SESSION_SUCCESS:
+    case COMPLETED_SESSION_SUCCESS:
      console.log('dsfsdf');
-      const  { page_no ,  session_requests,   status,  total_records }= action.payload;
-      return { ...state, page_no ,  session_requests,   status,  total_records };
+      const  session_completed = action.payload;
+      return { ...state,   session_completed};
+    case PENDING_SESSION_SUCCESS:
+     console.log('dsfsdf');
+      const  session_pending= action.payload;
+      return { ...state, session_pending };
+    case SCHEDULED_SESSION_SUCCESS:
+     console.log('dsfsdf');
+      const session_scheduled= action.payload;
+      return { ...state, session_scheduled };    
         
       
     case SESSION_FAIL:

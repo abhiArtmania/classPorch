@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import Countdown from 'react-countdown-now';
-import { Grid, Icon, Header, Image, Modal, Button, Label, Rating, Pagination } from 'semantic-ui-react'
+import { Grid, Icon, Header, Image, Modal, Button, Label, Rating, Pagination   } from 'semantic-ui-react'
 import moment from 'moment-timezone'
 import './styles.css';
 import {connect} from 'react-redux';
-import { requestedSession } from '../../redux/actions';
+import { completedSession } from '../../redux/actions';
 import defultAvtart from "./../../assets/avatar/default.png"
 
 class SessionCompleted extends Component {
@@ -19,7 +19,7 @@ class SessionCompleted extends Component {
  
   }
 
-  componentDidMount() {
+  componentWillMount() {
     
     const page_no = 1;
     const status="completed"; // default
@@ -45,7 +45,11 @@ class SessionCompleted extends Component {
   componentWillUnmount() {
     
   }
-  
+  handleChangePage = pageNumber => e => {
+    const { gender, q, type } = this.props.searchMetadata;
+    const page_no = pageNumber;
+    this.props.searchRequested({ type, q, gender, page_no });
+  }
   render(){
     const {page_no, session_requests, status, total_records}= this.props;
    
@@ -90,14 +94,17 @@ class SessionCompleted extends Component {
          <Grid.Row width={15} >
           <Grid.Column width={12} style={{margin:'0 auto'}}>
           {renderTabs}
-          <Pagination
-    defaultActivePage={1}
-    firstItem={null}
-    lastItem={null}
-    pointing
-    secondary
-    totalPages={3}
-  />
+          <div className="container">
+            <div className="row">
+              <div className="col-sm-12">
+                <Pagination
+                  searchMetadata={this.props.searchMetadata}
+                  onChangePage={this.handleChangePage}
+                />
+              </div>
+              </div>
+              </div>
+
           </Grid.Column>
         </Grid.Row>
      </Grid>
@@ -112,7 +119,7 @@ const mapStateToProps = store => {
 
 const mapActionsToProps = () => {
   return {
-    requestedSession
+    completedSession
   }
 };
 

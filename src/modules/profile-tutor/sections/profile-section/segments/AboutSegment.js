@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Grid, Button, Rating} from "semantic-ui-react";
+import {Grid, Button, Rating,Input} from "semantic-ui-react";
 import PropTypes from 'prop-types';
 import '../../../styles.css'
 import Truncate from 'react-truncate';
@@ -43,7 +43,11 @@ class AboutSegment extends Component {
     onChangeField = (field, e, {value}) => {
         this.props.onChangeUserInfo(field, value)
     };
-
+    onChangeBio = (e,{value}) => {
+        this.props.onChangeUserInfo('bio',value );
+        
+    
+    };
     onClickEdit = () => {
         this.props.toggleProfileMode('edit')
     };
@@ -59,7 +63,7 @@ class AboutSegment extends Component {
     };
 
     render() {
-        const {profile} = this.props;
+        const {profile ,mode} = this.props;
 
         const fullName = profile['full-name'];
         const birthdayDate = profile['birthday date'];
@@ -96,6 +100,9 @@ class AboutSegment extends Component {
                             </Truncate>
                             {!truncated && expanded && (<span> <a href='#' onClick={this.toggleLines}>{less}</a></span>)}
                         </div>
+                        { mode === 'edit' ? 
+                            <Input className='profile-rate' value={profile['bio']} onChange={this.onChangeBio.bind(this)} type='text' /> : ''
+                             }
                         </Grid.Column>
                 
                 

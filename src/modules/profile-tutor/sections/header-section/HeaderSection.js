@@ -2,7 +2,9 @@ import React, {Component} from 'react'
 import {history} from '../../../../redux/store';
 import {connect} from 'react-redux'
 import RequestSession from './RequestSession'
-import {  Grid,  Button,  Rating, Image, Label, Input, Icon} from 'semantic-ui-react';
+import SkillSegment from './SkillSegment'
+
+import {  Grid,  Button,  Rating, Image, Label, Input, Icon, Form} from 'semantic-ui-react';
 import './styles.css';
 import profileImg  from '../../../../assets/profile/profile.jpg';
 import {apiEndpoints} from '../../../../ApiEndpoints';
@@ -23,7 +25,14 @@ class HeaderSection extends Component {
     this.props.updateProfilePicture()
   };
   onChangeRate = (e,{value}) => {
-    this.props.onChangeUserInfo('hourly-rate',value )
+    this.props.onChangeUserInfo('hourly_rate',value );
+    
+
+};
+onChangeFullName = (e,{value}) => {
+  this.props.onChangeUserInfo('fullname',value );
+  
+
 };
 
 onClickEdit = () => {
@@ -76,9 +85,9 @@ onClickEdit = () => {
     
   }*/
   render() {
-    const {userId, presentProfileId, profile, fullname, authToken,skills , role,averageRating, toggleProfileMode,mode, onChangeUserInfo} = this.props;
-   console.log(skills);
-   const content = skills.map((post) =>
+    const {userId, presentProfileId, profile, fullname, authToken,onChangeSkill, role,averageRating, toggleProfileMode,mode, onChangeUserInfo} = this.props;
+   console.log(profile.skills);
+   const content = profile.skills.map((post) =>
    <div className="ui label" key={post.id}>{post.name} </div>
  );
     const searchRequested = ( authToken) => {
@@ -103,6 +112,13 @@ console.log(this.state.userStatus);
       <Grid className={'profile-section'}>
                     <Grid.Row width={16} className=''>
                         <Grid.Column width={3} className='profileImage'>
+                        <Form className='profile-picture-form'> 
+                        <Input name="myImage" type="file"
+                             accept=".png,.gif"
+                              placeholder="Change Profile Picture"
+                              className='image-input'
+                              onChange={this.handleChange}/>
+</Form> 
                             <Image src={profileImg} size='medium' circular />
                         </Grid.Column>
                         <Grid.Column width={13} className='userInfo'>
@@ -110,19 +126,22 @@ console.log(this.state.userStatus);
     {(this.state.userStatus==="offline" &&<Label circular color='red' empty  />)}
     {(this.state.userStatus==="away" && <Label circular color='yellow' empty  />) }
     
-     {fullname}
-
-     {profile['hourly-rate']?
-     <span className="rate">${profile['hourly-rate']}/hr</span>:<span className="rate">N/A</span>
+     {profile["fullname"]}
+     { mode === 'edit' ? 
+        <Input className='profile-rate' value={profile["fullname"]} onChange={this.onChangeFullName.bind(this)} type='text' /> : ''
+      }
+     <span className="rate">
+    {(profile.hourly_rate) ? '$'+profile.hourly_rate+'/hr':'N/A' }
+     { mode === 'edit' ? 
+        <Input className='profile-rate' value={profile['hourly-rate']} onChange={this.onChangeRate.bind(this)} type='number' /> : ''
+      }
      
-     }
-      <Icon name='edit' size='large' color='grey' className='edit-icon' onClick={this.onClickEdit} />
+     </span>
+     
+     
+      
             
-     { 
-                            mode === 'edit' ? 
-                            <Input className='profile-rate' value={profile['hourly-rate']} onChange={this.onChangeRate.bind(this)} type='number' /> : 
-                            <div className='profile-rate'> {profile['hourly-rate']} </div> 
-                        }
+     
      
      </h2>
                             <h3>Mphil in Philosophy(Masters)-Glasgow University </h3>
@@ -132,7 +151,10 @@ console.log(this.state.userStatus);
                             </div>
                             <div className="ui  labels subjects">
                             {content}
-                           
+                            { mode === 'edit' ?
+                            <SkillSegment profile={profile} userId={userId} authToken={authToken}  role={role}
+                                presentProfileId = {presentProfileId} onChangeSkill={onChangeSkill} mode={mode}
+                                toggleProfileMode={this.props.toggleProfileMode}  />: ''}
                             </div>
                         
                         </Grid.Column>
@@ -140,7 +162,7 @@ console.log(this.state.userStatus);
                     <div className="ui clearing divider"></div> 
                     <Grid.Row>
                     <Grid.Column width={16} >
-                    { role ==='tutor'?<Button className="save-profile">Edit Profile</Button>:''}
+                    { role ==='tutor'?<Button className="save-profile" onClick={this.onClickEdit}>Edit Profile</Button>:''}
                     <Button  className="session-booking-btn">Message Tutor</Button>
                     </Grid.Column >
                     </Grid.Row>

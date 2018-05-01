@@ -7,7 +7,7 @@ import moment from 'moment'
 import './styles.css';
 import {connect} from 'react-redux';
 import {
-    requestedSession
+    scheduledSession
    
   } from '../../../../../redux/actions';
 import defultAvtart from "./../../../../../assets/avatar/default.png"
@@ -30,15 +30,19 @@ class ScheduledSession extends React.Component {
        
     }
 
-    componentWillMount(){
-      
-        const page_no = 1; // default
-        const params = {
-            page_no,
+    componentWillMount() {
+    
+        const page_no = 1;
+        const status="schedule"; // default
+            const params = {
+                page_no,
+                status
+            };
             
-        };
-        this.props.requestedSession(params);
-    }
+            this.props.scheduledSession(params);
+           
+        
+      }
     componentDidMount() {
         window.scrollTo(0, 0)
     }
@@ -51,101 +55,101 @@ class ScheduledSession extends React.Component {
             status
         };
         console.log(params);
-        this.props.requestedSession(params);
+        this.props.scheduledSession(params);
         history.push('/sessionrequested');
     }
     
 
-    renderTabs(){
-        let nlist=this.state.NotificationList.sort((a, b) => parseFloat(b.id) - parseFloat(a.id));
-        console.log(this.state.limit);
-        const ModalModalExample = (e) =>(
-            <Modal trigger={<Button color='yellow' className="join-room">Join Room</Button>}>
-<Modal.Header>Select a Photo</Modal.Header>
-<Modal.Content image>
-<Image wrapped size='medium' src='/assets/images/avatar/large/rachel.png' />
-<Modal.Description>
-  <Header>Default Profile Image</Header>
-  <p>We've found the following gravatar image associated with your e-mail address.</p>
-  <p>Is it okay to use this photo?</p>
-</Modal.Description>
-</Modal.Content>
-</Modal>
-);
-                
-        return nlist.slice(0,this.state.limit).map((p,i)=>{
-            // Random component
-           
-            
-         const Completionist = () =><span>00:00 </span>;
-            // Renderer callback with condition
-            const renderer = ({days, hours, minutes, seconds, completed }) => {
-            if (completed) {
-                // Render a complete state
-                return <Completionist />;
-            }else if (days>30) {
-                var months=Math.ceil(days/30);
-                return <span>{months} months to start</span>;
-            }else if (days>7) {
-                var weeks=Math.ceil(days/7);
-                return <span>{weeks} weeks to start</span>;
-            }else if (days>0) {
-                return <span>{days} days to start</span>;
-            } else if (hours>0) {
-                return <span>{hours} hours to start</span>;
-            }else if (minutes>0) {
-                return <span>{minutes}:{seconds} to start</span>;
-            }else {
-                // Render a countdown
-                
-                return false
-            }
-            };
-            var date2= Date.now();
-                var date1 = new Date(p.sessiondate);
-                var a = moment(Date.now());//now
-var b = moment(p.sessiondate);
-
-                var diff = b.diff(a, 'hours');
-               console.log(diff);
-            return(
-               
-                <Grid.Row width={10} key={i} className='session-row'>
-                    
-                <Grid.Column width={16} className='userInfo'>
-               
-                    <Image src={defultAvtart} size='medium' circular  className="tutor-img"  />
-               
-                <div style={{float:'left'}}>
-               
-                  
-               
-                    <h4 className="userName"><div className="ui green circular label"></div> {p.fullName}</h4>
-                    <Label  size='small' >  {p.subject}</Label> 
-                   
-                  
-                    <p className="full-date"><span className="start-date">Jan 15 </span> - <span className="end-date">Mar 25</span></p>
-                
-                </div>
-                <div style={{float:'right'}}>
-                   
-                    <h5 className="time-spent"><Icon  name='time' />  <Countdown date={p.sessiondate}    renderer={renderer}  /></h5>
-                    {(diff < 0 )?<ModalModalExample />: (diff<24 && <Button color='yellow' className="reschedule" >Reschedule</Button>)}
-                </div>
-                </Grid.Column>
-            </Grid.Row>
-            );
-        });
-    };
+    
     render() {
-       
-
+        const {page_no, session_requests, status, total_records}= this.props;
+        const renderTabs=()=>{
+            let nlist=this.state.NotificationList.sort((a, b) => parseFloat(b.id) - parseFloat(a.id));
+            console.log(this.state.limit);
+            const ModalModalExample = (e) =>(
+                <Modal trigger={<Button color='yellow' className="join-room">Join Room</Button>}>
+    <Modal.Header>Select a Photo</Modal.Header>
+    <Modal.Content image>
+    <Image wrapped size='medium' src='/assets/images/avatar/large/rachel.png' />
+    <Modal.Description>
+      <Header>Default Profile Image</Header>
+      <p>We've found the following gravatar image associated with your e-mail address.</p>
+      <p>Is it okay to use this photo?</p>
+    </Modal.Description>
+    </Modal.Content>
+    </Modal>
+    );
+                    
+            return nlist.slice(0,this.state.limit).map((p,i)=>{
+                // Random component
+               
+                
+             const Completionist = () =><span>00:00 </span>;
+                // Renderer callback with condition
+                const renderer = ({days, hours, minutes, seconds, completed }) => {
+                if (completed) {
+                    // Render a complete state
+                    return <Completionist />;
+                }else if (days>30) {
+                    var months=Math.ceil(days/30);
+                    return <span>{months} months to start</span>;
+                }else if (days>7) {
+                    var weeks=Math.ceil(days/7);
+                    return <span>{weeks} weeks to start</span>;
+                }else if (days>0) {
+                    return <span>{days} days to start</span>;
+                } else if (hours>0) {
+                    return <span>{hours} hours to start</span>;
+                }else if (minutes>0) {
+                    return <span>{minutes}:{seconds} to start</span>;
+                }else {
+                    // Render a countdown
+                    
+                    return false
+                }
+                };
+                var date2= Date.now();
+                    var date1 = new Date(p.sessiondate);
+                    var a = moment(Date.now());//now
+    var b = moment(p.sessiondate);
+    
+                    var diff = b.diff(a, 'hours');
+                   console.log(diff);
+                return(
+                   
+                    <Grid.Row width={10} key={i} className='session-row'>
+                        
+                    <Grid.Column width={16} className='userInfo'>
+                   
+                        <Image src={defultAvtart} size='medium' circular  className="tutor-img"  />
+                   
+                    <div style={{float:'left'}}>
+                   
+                      
+                   
+                        <h4 className="userName"><div className="ui green circular label"></div> {p.fullName}</h4>
+                        <Label  size='small' >  {p.subject}</Label> 
+                       
+                      
+                        <p className="full-date"><span className="start-date">Jan 15 </span> - <span className="end-date">Mar 25</span></p>
+                    
+                    </div>
+                    <div style={{float:'right'}}>
+                       
+                        <h5 className="time-spent"><Icon  name='time' />  <Countdown date={p.sessiondate}    renderer={renderer}  /></h5>
+                        {(diff < 0 )?<ModalModalExample />: (diff<24 && <Button color='yellow' className="reschedule" >Reschedule</Button>)}
+                    </div>
+                    </Grid.Column>
+                </Grid.Row>
+                );
+            });
+        };
         return (
             <Grid className='complete-session'>
-                {this.renderTabs()}
-                <div style={{width:'100%'}}>
-                <Link to="/sessionrequested"><Button color='yellow' className="load-more-right" onClick={this.onLoadMore} >Show More</Button></Link>
-                </div >     
+                 {total_records>0?renderTabs:<p className="no-record">No scheduled Session </p>}
+               {total_records>5 ?<div style={{width:'100%'}}>
+                <Button color='yellow' className="load-more-right" onClick={this.onLoadMore} >Show More</Button>
+                </div > :''}     
                    
             </Grid>
            
@@ -158,7 +162,7 @@ const mapStateToProps = store => {
   const {id: userId, authToken} = store.auth;
   const {sessionRequestIndicator, displayMessage, unreadMessageCount} = store.dashboard;
   const {searchMode, searchResults, loadingSearch} = store.search;
-  const {page_no, session_requests, status, total_records }=store.SessionReducer;
+  const {session_scheduled,session_pending,session_completed }=store.SessionReducer;
   return {
     userId,
     authToken,
@@ -169,10 +173,9 @@ const mapStateToProps = store => {
     searchResults,
     loadingSearch,
     searchMetadata: store.search.metadata,
-    page_no,
-     session_requests,
-      status,
-       total_records
+    session_scheduled,
+    session_pending,
+    session_completed
   }
 };
 
@@ -180,6 +183,6 @@ const mapStateToProps = store => {
 
 
 export default connect(mapStateToProps, {
-    requestedSession
+    scheduledSession
   
 })(ScheduledSession);

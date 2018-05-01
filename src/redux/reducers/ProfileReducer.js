@@ -91,7 +91,7 @@ export default (state=INITIAL_STATE,action) => {
             return { ...state,
                     profile:{
                         ...state.profile,
-                        'skill-ids': action.payload
+                        'skills': action.payload
                     }
             }
         }

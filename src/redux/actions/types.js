@@ -32,7 +32,9 @@ export const SEARCH_START = 'search_start';
 export const SEARCH_SUCCESS = 'search_success';
 export const SEARCH_FAIL  = 'search_fail';
 
-export const SESSION_SUCCESS = 'SESSION_SUCCESS';
+export const COMPLETED_SESSION_SUCCESS = 'COMPLETED_SESSION_SUCCESS';
+export const PENDING_SESSION_SUCCESS = 'PENDING_SESSION_SUCCESS ';
+export const SCHEDULED_SESSION_SUCCESS = 'SCHEDULED_SESSION_SUCCESS';
 export const SESSION_FAIL  = 'SESSION_FAIL';
 
 export const GET_PROFILE_START = 'get_profile_start';

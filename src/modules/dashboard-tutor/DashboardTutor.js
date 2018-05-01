@@ -3,7 +3,7 @@ import {NotificationsSection, StatsSection, WeekScheduleSection} from './section
 import {connect} from 'react-redux';
 import {Notification} from 'react-notification';
 import {history} from '../../redux/store';
-import {getDashboard, getUnreadMessagesCount} from '../../redux/actions';
+import {getDashboard, getUnreadMessagesCount,profileRequested} from '../../redux/actions';
 
 class DashboardTutor extends Component {
 
@@ -11,15 +11,24 @@ class DashboardTutor extends Component {
     isNotificationActive: false,
     unreadMessageCount: 0
   };
-  componentWillMount(){
-   if(!this.props.profile.verified){
-    history.push('/profile/tutor');
-   }
-  }
-  componentDidMount() {
+  componentWillMount() {
     const {userId, authToken} = this.props;
+    
+   
+      this.props.profileRequested(userId,authToken);
+     
+  }
+  
+  componentDidMount() {
+    const {userId, authToken,presentProfileId} = this.props;
     this.props.getDashboard({userId, authToken});
+    this.props.profileRequested(userId,authToken);
     this.props.getUnreadMessagesCount();
+   if(!this.props.profile.verified){
+   
+      this.props.profileRequested(userId,authToken);
+     
+     }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -38,34 +47,31 @@ class DashboardTutor extends Component {
   };
 
   render() {
-    const {unreadMessageCount} = this.state;
+    const {unreadMessageCount, profile} = this.state;
+    console.log(profile);
     return (
       <div>
-        <StatsSection unreadMessageCount={unreadMessageCount}/>
+        <StatsSection />
         
-        <WeekScheduleSection/>
-        <Notification
-          isActive={this.state.isNotificationActive}
-          message="Notification"
-          action="Dismiss"
-          title={this.props.displayMessage}
-          dismissAfter={5000}
-          onDismiss={this.dismissNotification}
-          onClick={this.dismissNotification}
-        />
+       
+        
       </div>
     );
   }
 }
 
-const mapStateToProps = ({auth, dashboard}) => {
+const mapStateToProps = ({auth,profileState, dashboard}) => {
+  console.log(profileState);
   const {id: userId, authToken} = auth;
-  const {sessionRequestIndicator, displayMessage , profile } = dashboard;
-  return {userId, authToken, profile, sessionRequestIndicator, displayMessage}
+  const {sessionRequestIndicator, displayMessage  } = dashboard;
+  const {presentProfileId, educationalAttributes, averageRating, 
+		reviews, mode,profile } = profileState;
+  return {userId, authToken, profile, sessionRequestIndicator, displayMessage,presentProfileId, educationalAttributes, averageRating, 
+		reviews, mode }
 };
 
 const mapActionsToProps = () => {
-  return {getDashboard, getUnreadMessagesCount}
+  return {getDashboard, getUnreadMessagesCount,profileRequested}
 };
 
 export default connect(mapStateToProps, mapActionsToProps())(DashboardTutor);

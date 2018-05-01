@@ -1,5 +1,6 @@
 import {apiEndpoints} from '../../ApiEndpoints';
 import {browserHistory} from 'react-router';
+import {history} from '../../redux/store';
 
 import {
   GET_UNREAD_MESSAGES_COUNT,
@@ -87,7 +88,9 @@ export const getDashboard = ({userId, authToken}) => {
 
         const weekSchedule = res.response['next_week_url'];
         const nextWeekUrl = '';
-       
+        if(!res.response.user.verified && res.response.user=="tutor" ){
+          history.push('/profile/tutor');
+        }
         return dispatch({
           type: GET_DASHBOARD_SUCCESS,
           payload: {profile, notifications, notificationsNextUrl, suggestedTutors, weekSchedule, nextWeekUrl}

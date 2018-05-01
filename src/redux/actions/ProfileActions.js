@@ -79,9 +79,10 @@ export const profileRequested = (userId, authToken) => {
 					}
 				}
 			)
-            let res = await rawRes.json()
+			let res = await rawRes.json()
+			console.log(res);
 			let tmp=[];
-			res.data.response.educations.forEach(function(item)
+			res.response.educations.forEach(function(item)
 			{
 				
 				let newItem={};
@@ -95,12 +96,12 @@ export const profileRequested = (userId, authToken) => {
 			}
 			)
 			
-			const averageRating = res.data.attributes['average-rating']
-			const profile = res.data.attributes['profile']
+			const averageRating = res.response.overall_rating
+			const profile = res.response;
 			const educations =tmp//res.data.attributes['educations']
 			
 			
-			const reviews = '';// res.data.attributes['reviews']
+			const reviews = res.response.reviews;// res.data.attributes['reviews']
 			   
 			
 			return dispatch({
@@ -213,9 +214,9 @@ export const updateProfile = ({
 			console.log('dfgf');
 			let bodyObject = {
 				user: {
-					educations: educations,
+					hourly_rate: profile['hourly_rate'],
 					role: profile.type,
-					first_name: profile['first_name'],
+					first_name: profile['hourly_rate'],
 					last_name: profile['last_name'],
 					gender: profile.gender,
 					'profile-picture': profile['profile-picture'],
@@ -223,11 +224,12 @@ export const updateProfile = ({
 					city: profile.city,
 					number: profile.phone,
 					email: profile.email,
-					skills: profile['skills']
+					skills: profile['skills'],
+					bio: profile['bio']
 				}
 			}
-
-			
+			console.log(bodyObject );
+			console.log(profile['hourly_rate'] );
 
 			let resRaw = await fetch(`${apiEndpoints.base}/user/${userId}`, {
 				method: 'PUT',
@@ -235,12 +237,12 @@ export const updateProfile = ({
 					'auth-token': authToken,
 					'Content-Type': 'application/json'
 				},
-				
+				body: JSON.stringify(bodyObject)
 			})
 			if (resRaw.status !== 200) {
 				throw 'failed request'
 			}
-			console.log('dfgf');
+			console.log(bodyObject);
 			const res = await resRaw.json()
 			
 			const id = uuidv1()

@@ -5,7 +5,7 @@ import { Button, Message } from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import { Notification } from 'react-notification';
 import { profileRequested,getDashboard, toggleProfileMode, onChangeUserInfo,updateProfilePicture,
-	onChangeEducation,onChangeSkill, updateProfile, ChatActions } from '../../redux/actions';
+	onChangeEducation,onChangeSkill, updateProfile, ChatActions,getSeededSkills } from '../../redux/actions';
 import './styles.css';
 class ProfileTutor extends React.Component {
 
@@ -13,11 +13,24 @@ class ProfileTutor extends React.Component {
 		isNotificationActive:false,
 		isProfileEditedNotificationActive:false,
 	};
-
-	componentDidMount(){
+	componentWillMount(){
+		console.log('sdfs');
 		const {presentProfileId,authToken} = this.props;
 		this.props.profileRequested(presentProfileId,authToken);
 		this.props.toggleProfileMode('normal')
+	}
+	
+	async componentDidMount(){
+		const {presentProfileId,authToken} = this.props;
+		this.props.profileRequested(presentProfileId,authToken);
+		this.props.toggleProfileMode('normal')
+		await this.props.getSeededSkills('d3FxhQYWG0FIZqn1X1UN_Q') 
+		if(this.props.seededSkills) this.setState({ 
+                skills: this.props.seededSkills.map(x => {
+                    return { key:x.id, text:capitalize(x.name), value:x.id }
+                })   
+			})
+    
 	}
 
 	componentWillReceiveProps(nextProps){
@@ -49,13 +62,14 @@ class ProfileTutor extends React.Component {
 		console.log('test');
 		const { userId, profile, authToken, educations } = this.props;
 		this.props.toggleProfileMode('normal');
+		
 		this.props.updateProfile({ profile,userId,educations,authToken })
 	};
 
     render(){
 		const { userId,authToken,presentProfileId,role,firstName, profile, educations, lastName ,
 			averageRating, reviews,mode, onChangeEducation, onChangeSkill,skills, fullname,verified } = this.props;
-			console.log( fullname);
+			console.log( profile);
         return (
 			<div style={{padding:'15px'}}>
 				{!verified &&<Message warning>
@@ -63,9 +77,11 @@ class ProfileTutor extends React.Component {
     <p>Your profile is under Review. It typically takes 24*72 hours to be Approved an verified</p>
   </Message>}
         	<div className="outerProfile-section" style={{width:'100%',display:'flex',flexDirection:'column', alignItems:'center' }} >
-				<HeaderSection mode={mode} toggleProfileMode={this.props.toggleProfileMode} onChangeUserInfo={this.props.onChangeUserInfo}  onChangeEducation={onChangeEducation} onChangeSkill={onChangeSkill} userId={userId} skills={skills} fullname={fullname} averageRating={averageRating} authToken={authToken} profile={profile} presentProfileId={presentProfileId}
+				<HeaderSection mode={mode} onChangeSkill={onChangeSkill} toggleProfileMode={this.props.toggleProfileMode} onChangeUserInfo={this.props.onChangeUserInfo}  onChangeEducation={onChangeEducation} onChangeSkill={onChangeSkill} userId={userId} fullname={fullname} averageRating={averageRating} authToken={authToken} profile={profile} presentProfileId={presentProfileId}
 								role= {role} lastName = {lastName} firstName={firstName} showMessages={this.props.showMessages}
-								updateProfilePicture={updateProfilePicture} />
+								updateProfilePicture={updateProfilePicture}  educations={educations} updateProfile={this.props.updateProfile}
+								 reviews = {reviews} 
+								 />
 				
               
 
@@ -111,22 +127,28 @@ class ProfileTutor extends React.Component {
         	);
     }
 }
-
+function capitalize(str = '') {
+	if (!str) return;
+	return str.trim().split('')
+		.map((char, i) => i === 0 ? char.toUpperCase() : char)
+		.reduce((final, char) => final += char, '')
+}
 const mapStateToProps = ( {auth,profileState,dashboard} ) => {
-	console.log(dashboard);
+	console.log(profileState);
 	const { id:userId, authToken, role, educations, firstName,skills, lastName,fullname,  } =  auth;
-	const { presentProfileId, averageRating, 
-			reviews, mode } = profileState;
-	const { sessionRequestIndicator,displayMessage,profile ,verified} = dashboard;
+	const {presentProfileId, profile, educationalAttributes, averageRating, 
+		reviews, mode,seededSkills } = profileState;
+	const { sessionRequestIndicator,displayMessage} = dashboard;
 	
 
-	return { userId, authToken,role,firstName,verified, lastName, skills, presentProfileId, profile, fullname, educations, averageRating, reviews, mode,
+	return { userId, authToken,role,firstName,seededSkills, lastName, skills, presentProfileId, profile, fullname, educations, averageRating, reviews, mode,
 		sessionRequestIndicator, displayMessage  }
 };
 
 export default connect(mapStateToProps, { 
 	profileRequested,
 	getDashboard, 
+	getSeededSkills,
 	toggleProfileMode, 
 	onChangeUserInfo,
 	onChangeSkill,
