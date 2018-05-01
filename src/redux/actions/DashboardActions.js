@@ -360,19 +360,17 @@ console.log(tutorInfo);
   }
 };
 
+
+
 export const sessionRequest = (booked_tutor) => {
 
-
-console.log(JSON.stringify(booked_tutor));
-
-
   return (dispatch) => {
-console.log("ye jayegi",booked_tutor)
+
     let catApi = 'session_requests'
     console.log(`${apiEndpoints.base}/${catApi}`);
 	  fetch(`${apiEndpoints.base}/${catApi}`, {
                 method: 'POST',
-                Body: JSON.stringify(booked_tutor),
+                body: JSON.stringify(booked_tutor),
                 headers: new Headers({
                   'Content-Type': 'application/json',
                   // 'Content-Type': 'multipart/form-data',
@@ -382,15 +380,45 @@ console.log("ye jayegi",booked_tutor)
             })
 	.then(rawRes => {console.log("rawRes",rawRes); return rawRes.json()})
 	.then(res =>{
-      console.log("res for session requested api",JSON.stringify(res.response)); 
+      console.log("res for contact ticket api",JSON.stringify(res.response)); 
         return dispatch({type: SUBMIT_SESSION, payload: res.response})
       })
-      .catch(err => {
-        console.log(err)
-        // return dispatch({type: GET_FAQ_FAIL, payload: 'error'})
-      })
+      // .catch(err => {
+      //   return dispatch({type: GET_FAQ_FAIL, payload: 'error'})
+      // })
   }
 };
+// export const sessionRequest = (booked_tutor) => {
+
+
+// console.log(JSON.stringify(booked_tutor));
+
+
+//   return (dispatch) => {
+// console.log("ye jayegi",booked_tutor)
+//     let catApi = 'session_requests'
+//     console.log(`${apiEndpoints.base}/${catApi}`);
+// 	  fetch(`${apiEndpoints.base}/${catApi}`, {
+//                 method: 'POST',
+//                 Body: JSON.stringify(booked_tutor),
+//                 headers: new Headers({
+//                   'Content-Type': 'application/json',
+//                   // 'Content-Type': 'multipart/form-data',
+//                   'auth-token': 'd3FxhQYWG0FIZqn1X1UN_Q'
+//                 })
+                
+//             })
+// 	.then(rawRes => {console.log("rawRes",rawRes); return rawRes.json()})
+// 	.then(res =>{
+//       console.log("res for session requested api",JSON.stringify(res.response)); 
+//         return dispatch({type: SUBMIT_SESSION, payload: res.response})
+//       })
+//       .catch(err => {
+//         console.log(err)
+//         // return dispatch({type: GET_FAQ_FAIL, payload: 'error'})
+//       })
+//   }
+// };
 
 
 

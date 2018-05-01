@@ -58,9 +58,9 @@ class SessionBooking extends React.Component {
   render() {
     console.log(this.props.TUTORINFO);
     const steps = [
-      {name: 'StepOne', component: <StepOne tutorSkills={this.props.TUTORINFO.skills}/>},
-      {name: 'StepTwo', component: <StepTwo tutorId={this.state.tutorId}/>},
-      {name: 'StepThree', component: <StepThree/>},
+      {name: 'Subject', component: <StepOne tutorSkills={this.props.TUTORINFO.skills}/>},
+      {name: 'Date & Time', component: <StepTwo tutorId={this.state.tutorId}/>},
+      {name: 'Confirm', component: <StepThree/>},
       // {name: 'StepFour', component: <StepFour/>}
     ]
       return (
@@ -221,14 +221,16 @@ class MultiStep extends React.Component {
               {this.renderSteps()}
             </ol>
             {this.props.steps[this.state.compState].component}
+            <div className="prevNextButtons">
             <div style={this.props.showNavigation ? {} : this.hidden}>
-              <Button style={this.state.showPreviousBtn ? {} : this.hidden}
-                      className="session-booking-btn"
+              <Button disabled={this.state.showPreviousBtn ? false : true} 
+                      className="next-btn"
                       onClick={this.previous}>Previous</Button>
                       &nbsp; 
-              <Button floated='right' style={this.state.showNextBtn ? {} : this.hidden}
-                      className="session-booking-btn"
+              <Button floated='right' disabled={this.state.showNextBtn ? false : true} 
+                      className="next-btn"
                       onClick={this.next}>Next</Button>
+            </div>
             </div>
           </div>
         </Card.Content >

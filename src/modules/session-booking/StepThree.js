@@ -41,7 +41,7 @@ class StepThree extends React.Component {
         <Grid centered columns={2}>
           <Grid.Column>
             <Button size='huge' onClick={this.appoint} className="appoint-btn" icon labelPosition='right'>
-              Appoint
+              Confirm
               <Icon name='right arrow' />
             </Button>
             {/* <Button className="appoint-btn">Appoint</Button> &nbsp; */}

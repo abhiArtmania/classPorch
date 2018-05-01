@@ -98,27 +98,50 @@ class StepTwo extends React.Component {
     let selectedDay = this.state.days[this.state.date.getDay()];
     // this.setState({selectedDay: selectedDay});
 
-    if(this.props.TUTOR_AVAILABILITY) {
-      // let hourlySchedule = [];
-      // let s = this.props.TUTOR_AVAILABILITY[selectedDay];
-      // console.log("s",s);
-      // s.forEach(element => {
-      //   let start = element.start_time.substring(0, 2);
-      //   start = Number(start)
-      //   let end = element.end_time.substring(0, 2);
-      //   end = Number(end)
-      //   console.log(start)
-      //   let timeArray = [];
-      //   for (let i = start; i <= end; i++) {
-      //     timeArray.push(i)
-      //   }
-      //   console.log(timeArray);
-      // });
-
+    // if(this.props.TUTOR_AVAILABILITY && selectedDay !== "saturday" && selectedDay !== "sunday") {
+      if(this.props.TUTOR_AVAILABILITY[selectedDay].length !== 0) {
+ 
+// console.log("ye hai availability: ",this.props.TUTOR_AVAILABILITY[selectedDay])
 
       this.setState({ schedule: this.props.TUTOR_AVAILABILITY[selectedDay] }, ()=>{
       this.setState({loading: false})
+
+      console.log("sch",this.state.schedule)
+
+      var start_time = Number(this.props.TUTOR_AVAILABILITY[selectedDay][0].start_time.substring(0,2));
+      var end_time = Number(this.props.TUTOR_AVAILABILITY[selectedDay][0].end_time.substring(0,2));
+
+      var newTimeArray = [];
+
+      for (let i = start_time; i <= end_time; i++){
+        // newTimeObj
+        if(i == end_time){
+            break;
+        }
+        // console.log(i,i+1)
+        // console.log(newTimeObj["start_time"])
+        let newTimeObj = {
+            id: '',
+            start_time: '',
+            end_time: ''
+        };
+        newTimeObj["id"] = this.props.TUTOR_AVAILABILITY[selectedDay][0].id;
+        newTimeObj["start_time"] = i+":00";
+        newTimeObj["end_time"] = i+1+":00";
+    
+        newTimeArray.push(newTimeObj);
+    
+    }
+
+    // console.log("ye aayega ab: ",newTimeArray);
+    this.setState({schedule: newTimeArray})
+
     })
+
+    
+  } else {
+    this.setState({schedule: []})
+    this.setState({loading: false})
   }
 
   })
@@ -142,10 +165,11 @@ class StepTwo extends React.Component {
 
       // {
 
-        (this.state.loading) ? 
-        (<Dimmer active inverted> <Loader inverted>Searching</Loader></Dimmer>) : 
+        (this.state.schedule.length === 0) ? 
+        (<div>No Result Found!</div>) : 
         (
           this.state.schedule.map((time)=>{
+            
           return <Grid.Column style={{marginBottom: '20px'}} width={3}>
           <Segment name = "time-segment" onClick={this.setTime.bind(this,time.start_time,time.end_time,time.id)}>{time.start_time} {time.end_time}</Segment>
         </Grid.Column>

@@ -12,6 +12,21 @@
 	 background: orange !important;
      transition: all ease .3s;
  }
+ .next-btn{
+  /* margin-left: 30px;  */
+
+color: white !important;
+margin: 15px 0 !important;
+padding: 15px 30px !important;
+background: orange !important;
+transition: all ease .3s;
+/* margin-left: 0 auto; */
+}
+.prevNextButtons{
+  width: 50%;
+  margin: 0 auto;
+  /* background-color: red; */
+}
  .appoint-btn{
     color: white !important;
      margin: 15px 0 !important;
