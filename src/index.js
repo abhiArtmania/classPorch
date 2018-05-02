@@ -9,11 +9,11 @@ import App from "./App"
 const rootEl = document.getElementById("root");
 const renderApp = () =>
   render(
-    <StripeProvider apiKey="pk_test_9QPuYWOs5fSjGmRCNWCgAYHL">
+    <StripeProvider apiKey="pk_test_8Zkzbkqqge6JznxYfqF34wby">
       <Provider store={store}>
         <App />
       </Provider>
-    </StripeProvider>,
+    </StripeProvider >,
     rootEl,
   )
 

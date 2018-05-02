@@ -49,11 +49,11 @@ export class PersonalInfo extends Component {
                 <Grid padded columns={3} >
                     <Grid.Row columns={16}>
                         <Grid.Column width={4}>
-                            <Header size='medium'>Personal Information</Header>
+                            <Header as='h2'>Personal Information</Header>
                         </Grid.Column>
                         <Grid.Column textAlign="right" width={12}>
                             <Button.Group>
-                                <Button icon='edit' onClick={() => this.updateMode('edit')} content={state.mode === 'edit' ? 'Update' : 'Edit'} />
+                                <Button icon='edit' className='saveUpdate' onClick={() => this.updateMode('edit')} content={state.mode === 'edit' ? 'Update' : 'Edit'} />
                                 {state.mode === 'edit' && <Button.Or />}
                                 {state.mode === 'edit' && <Button icon='close' labelPosition='right' onClick={() => this.updateMode('view')} content={'Cancel'} />}
                             </Button.Group>
@@ -61,6 +61,7 @@ export class PersonalInfo extends Component {
 
                         </Grid.Column>
                     </Grid.Row>
+                    <Divider />
 
                     {/* Personal Information */}
                     <Grid.Row>
@@ -143,6 +144,8 @@ export class PersonalInfo extends Component {
                                         : <h4>{props.state}</h4>
                                     }
                                 </Form.Field>
+                                <Form.Field>
+                                </Form.Field>
                             </Form.Group>
                         </Grid.Column>
                     </Grid.Row >
@@ -151,10 +154,10 @@ export class PersonalInfo extends Component {
         );
     }
 
-    updateMode = (mode) => {
+    updateMode = async (mode) => {
         if (this.state.mode === 'edit' && mode === 'edit') {
             ///need to call ajax to update info
-          
+
 
 
         } else {

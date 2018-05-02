@@ -1,6 +1,38 @@
 import React, { Component } from 'react';
 import { Grid, Divider, Header, Select, Form, Label, Card, Button, Modal } from 'semantic-ui-react';
+import {
+    CardElement,
+    CardNumberElement,
+    CardExpiryElement,
+    CardCVCElement,
+    PostalCodeElement,
+    PaymentRequestButtonElement,
+    StripeProvider,
+    Elements,
+    injectStripe
+} from 'react-stripe-elements';
 
+import CardForm from '../add-credits/checkout-sections/CardForm';
+
+
+const createOptions = (fontSize) => {
+    return {
+        style: {
+            base: {
+                fontSize,
+                color: '#424770',
+                letterSpacing: '0.025em',
+                fontFamily: 'Source Code Pro, monospace',
+                '::placeholder': {
+                    color: '#aab7c4',
+                },
+            },
+            invalid: {
+                color: '#9e2146',
+            },
+        },
+    };
+};
 
 export class Billing extends Component {
 
@@ -10,10 +42,15 @@ export class Billing extends Component {
 
 
     render() {
+        const card = <Elements>
+            <CardForm />
+
+        </Elements>;
         return (
             <Grid padding columns={16} padded>
                 <Grid.Row>
                     <Grid.Column width={16}>
+
                         <p>  <Header as='h2'> Billing And Payment Processing </Header></p>
                     </Grid.Column>
                 </Grid.Row>
@@ -44,6 +81,7 @@ export class Billing extends Component {
                         <Button onClick={() => { this.setState({ open: true }) }} >
                             Add Billing Method
                         </Button>
+                        {card}
 
                     </Grid.Column>
 
@@ -53,7 +91,13 @@ export class Billing extends Component {
                         Add Your Billing Method / Credit Card
                      </Modal.Header>
                     <Modal.Content>
-                        Card Details
+                        <label>
+                            Card number
+                            <CardForm
+
+                            />
+
+                        </label>
                     </Modal.Content>
                     <Modal.Actions>
                         <Button negative>

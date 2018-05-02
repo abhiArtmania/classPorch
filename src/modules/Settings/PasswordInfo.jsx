@@ -22,7 +22,7 @@ export class PasswordInfo extends Component {
                 <Grid padding columns={16} padded>
                     <Grid.Row>
                         <Grid.Column width={16}>
-                            <p>  <Header as='h3'> Password</Header></p>
+                            <p>  <Header as='h2'> Password</Header></p>
                         </Grid.Column>
                     </Grid.Row>
                     <Divider />
