@@ -108,6 +108,7 @@ class SessionBooking extends React.Component {
 
 
 class MultiStep extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -235,7 +236,48 @@ class MultiStep extends React.Component {
     ));
   }
 
+  
+
   render() {
+
+    let styless = {
+      firstNext: {
+        color: 'white',
+        margin: '15px 0',
+        padding: '15px 30px',
+        background: 'orange',
+        transition: 'all ease .3s',
+        marginRight: '115px',
+        // marginTop: '15px'
+      },
+      secondPrev: {
+        color: 'white',
+        margin: '15px 0',
+        padding: '15px 30px',
+        background: 'orange',
+        transition: 'all ease .3s',
+        marginLeft: '50px',
+        // marginTop: '-20px'
+      },
+      secondNext: {
+        color: 'white',
+        margin: '15px 0',
+        padding: '15px 30px',
+        background: 'orange',
+        transition: 'all ease .3s',
+        marginRight: '60px',
+        // marginTop: '-12px'
+      },
+      thirdPrev: {
+        color: 'white',
+        margin: '15px 0',
+        padding: '15px 30px',
+        background: 'orange',
+        transition: 'all ease .3s',
+        marginLeft: '105px',
+        
+      }
+    }
 
     return (
 
@@ -245,10 +287,29 @@ class MultiStep extends React.Component {
          <div className="container" onKeyDown={this.handleKeyDown}>
             <ol className="progtrckr">
               {this.renderSteps()}
+
+              {
+                (this.state.subjValidity) ? (
+                  <Message warning style={{marginTop: '53px'}}>
+                        <Message.Header>You must select the subject before proceeding!</Message.Header>
+                      </Message>
+                ) : (<div></div>)
+              }
+              {
+
+                (this.state.timeValidity && this.state.compState === 1) ? (
+                  <Message warning style={{marginTop: '53px'}}>
+                        <Message.Header>You must select the time slot before proceeding!</Message.Header>
+                      </Message>
+                ) : (<div></div>)
+              }
+
             </ol>
             {this.props.steps[this.state.compState].component}
 
-            <div className="prevNextButtons">
+
+              {/* ye wala hai */}
+            {/* <div className="prevNextButtons">
             <div style={this.props.showNavigation ? {} : this.hidden}>
               <Button 
               style={this.state.showPreviousBtn ? {} : { display: 'none' }}
@@ -260,26 +321,35 @@ class MultiStep extends React.Component {
                       className="next-btn"
                       onClick={this.next}>Next</Button>
             </div>
+            </div> */}
+
+            <div className="prevNextButtons">
+            <div style={this.props.showNavigation ? {} : this.hidden}>
+              <Button 
+              style={this.state.showPreviousBtn && this.state.compState === 1 ? styless.secondPrev :  { display: 'none' }}
+                      // className="next-btn"
+                      onClick={this.previous}>Previous</Button>
+                      &nbsp; 
+              <Button floated='right' 
+              style={this.state.showNextBtn && this.state.compState === 0 ? styless.firstNext : this.state.showNextBtn && this.state.compState === 1 ? styless.secondNext : { display: 'none' }}
+                      // className="next-btn"
+                      onClick={this.next}>Next</Button>
+              
+              {
+
+              (this.state.showPreviousBtn && this.state.compState === 2) ? (
+                <Button size='medium' color='red' onClick={this.previous} style={{marginLeft: '90px'}} icon labelPosition='left'>
+              Previous
+              <Icon name='left arrow' />
+            </Button>
+              ) : (<div></div>)
+              }
+
+
+            </div>
             </div>
 
-{
-  (this.state.subjValidity) ? (
-    <Message warning style={{marginTop: '53px'}}>
-          <Message.Header>You must select the subject before proceeding!</Message.Header>
-        </Message>
-  ) : (<div></div>)
-}
 
-
-
-{
-
-  (this.state.timeValidity && this.state.compState === 1) ? (
-    <Message warning style={{marginTop: '53px'}}>
-          <Message.Header>You must select the time slot before proceeding!</Message.Header>
-        </Message>
-  ) : (<div></div>)
-}
             
 
 
