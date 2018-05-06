@@ -41,8 +41,11 @@ class StepTwo extends React.Component {
         { start_time: '13:00 PM', end_time: '18:00 PM' },
         
       ]
+
+
         
     }
+    localStorage.setItem("start_time",JSON.stringify(null))
     this.handleEmailChanged = this.handleEmailChanged.bind(this);
     this.handleEmailConfirmChanged = this.handleEmailConfirmChanged.bind(this);
   }
@@ -57,7 +60,11 @@ class StepTwo extends React.Component {
     
   }
 
+
   setTime = (start_time, end_time, tutor_schedule_id,e) => {
+
+    //setting for validity
+    localStorage.setItem("start_time",JSON.stringify(start_time))
     let skill_id = JSON.parse(localStorage.getItem("skill_id"));
     let body = {
       tutor_id: this.props.tutorId,
@@ -80,6 +87,7 @@ class StepTwo extends React.Component {
     e.target.style.color = 'white'
     e.target.style.border = 'inset'
     localStorage.setItem("booked-tutor", JSON.stringify(body));
+
   }
 
 
@@ -155,6 +163,7 @@ class StepTwo extends React.Component {
       <Calendar
             onChange={this.onChange}
             value={this.state.date}
+            minDate={new Date()}
             />
       </Grid.Column>
 
@@ -163,7 +172,6 @@ class StepTwo extends React.Component {
       
     { (this.state.startSearchingAvailability) ? (
 
-      // {
 
         (this.state.schedule.length === 0) ? 
         (<div>No Result Found!</div>) : 
@@ -177,13 +185,42 @@ class StepTwo extends React.Component {
       )
      
         
-      // }
     ) : (<div></div>)
 
     }
       </Grid.Row>
 
     </Grid>
+
+
+//     <Grid columns='equal'>
+//     <Grid.Column width={10} style={{marginLeft: '40px'}}>
+//     <Calendar
+//             onChange={this.onChange}
+//             value={this.state.date}
+//             />
+//     </Grid.Column>
+//     <Grid.Column width={4}>
+//     { (this.state.startSearchingAvailability) ? (
+
+//     (this.state.schedule.length === 0) ? 
+//     (<div>No Result Found!</div>) : 
+//     (
+//       this.state.schedule.map((time,i)=>{
+        
+//       return <Grid.Column style={{marginBottom: '20px'}} style={{width: '20px'}}>
+//       <Segment name = "time-segment" onClick={this.setTime.bind(this,time.start_time,time.end_time,time.id)}>{time.start_time} {time.end_time}</Segment>
+//     </Grid.Column>
+
+//     })
+//   )
+ 
+    
+// ) : (<div></div>)
+
+// }
+//     </Grid.Column>
+//   </Grid>
 
 
     )

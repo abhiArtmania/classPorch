@@ -1,6 +1,6 @@
 // 'use strict'
 import React, { Component } from 'react';
-import { Icon, Step, Button, Card } from 'semantic-ui-react'
+import { Icon, Step, Button, Card, Message } from 'semantic-ui-react'
 import {connect} from 'react-redux';
 // import MultiStep from 'react-multistep';
 // import { steps } from './src/index.js'
@@ -114,7 +114,9 @@ class MultiStep extends React.Component {
       showPreviousBtn: false,
       showNextBtn: true,
       compState: 0,
-      navState: this.getNavStates(0, this.props.steps.length)
+      navState: this.getNavStates(0, this.props.steps.length),
+      subjValidity: false,
+      timeValidity: false,
     };
     this.hidden = {
       display: 'none'
@@ -187,7 +189,31 @@ class MultiStep extends React.Component {
   }
 
   next() {
-    this.setNavState(this.state.compState + 1)
+
+    //For First Step
+    if(this.state.compState === 0){
+      let subj = JSON.parse(localStorage.getItem("skill_id"));
+      console.log(subj);
+      if(subj.length === 0){
+        this.setState({subjValidity: true})
+      } else {
+        this.setState({subjValidity: false})
+        this.setNavState(this.state.compState + 1)
+      }
+    }
+
+    //For Second Step
+    if(this.state.compState === 1){
+      let tutor = JSON.parse(localStorage.getItem("start_time"));
+      if(tutor !== null){
+        this.setState({timeValidity: false})
+        this.setNavState(this.state.compState + 1)
+      } else {
+        this.setState({timeValidity: true})
+        
+      }
+    }
+    
   }
 
   previous() {
@@ -221,17 +247,42 @@ class MultiStep extends React.Component {
               {this.renderSteps()}
             </ol>
             {this.props.steps[this.state.compState].component}
+
             <div className="prevNextButtons">
             <div style={this.props.showNavigation ? {} : this.hidden}>
-              <Button disabled={this.state.showPreviousBtn ? false : true} 
+              <Button 
+              style={this.state.showPreviousBtn ? {} : { display: 'none' }}
                       className="next-btn"
                       onClick={this.previous}>Previous</Button>
                       &nbsp; 
-              <Button floated='right' disabled={this.state.showNextBtn ? false : true} 
+              <Button floated='right' 
+              style={this.state.showNextBtn ? {} : { display: 'none' }}
                       className="next-btn"
                       onClick={this.next}>Next</Button>
             </div>
             </div>
+
+{
+  (this.state.subjValidity) ? (
+    <Message warning style={{marginTop: '53px'}}>
+          <Message.Header>You must select the subject before proceeding!</Message.Header>
+        </Message>
+  ) : (<div></div>)
+}
+
+
+
+{
+
+  (this.state.timeValidity && this.state.compState === 1) ? (
+    <Message warning style={{marginTop: '53px'}}>
+          <Message.Header>You must select the time slot before proceeding!</Message.Header>
+        </Message>
+  ) : (<div></div>)
+}
+            
+
+
           </div>
         </Card.Content >
         <Card.Content extra>
