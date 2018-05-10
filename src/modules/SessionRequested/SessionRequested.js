@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Countdown from 'react-countdown-now';
 import { Grid, Icon, Image, Label, Pagination } from 'semantic-ui-react'
 import moment from 'moment-timezone'
 import { connect } from 'react-redux';
