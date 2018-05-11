@@ -26,7 +26,8 @@ class PendingSession extends React.Component {
                {id:4, fullName: 'rohit', subject: 'javascrip',date:'Mar-2017',time:'6:30PM',totalSpendTime:'3 ',averageRating:"4", sessiondate:"18 March 2018 03:02:03" },
                {id:6, fullName: 'Mohit kumar', subject: 'php',date:'Mar-2017',time:'6:30PM',totalSpendTime:'3 ', averageRating:"4", sessiondate:"11 April 2018 23:02:03" },
               ],
-            limit: 5
+            limit: 5,
+            startRendering: false,
         };
         this.onLoadMore=this.onLoadMore.bind(this);
     }
@@ -63,9 +64,10 @@ class PendingSession extends React.Component {
 
     render() {
         const {page_no, session_requests, status, total_records}= this.props.session_pending;
-        console.log(this.props.session_pending);
+        console.log("ye requests,",session_requests);
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
         function renderTabs(){
-
+            
         
         if(session_requests>0){
             return session_requests.slice(0,this.state.limit).map((session_request, i)=>{
@@ -108,13 +110,67 @@ class PendingSession extends React.Component {
        
     }
         return (
-            <Grid className='complete-session'>
-                 {total_records>0?renderTabs():<p className="no-record">No pending Session </p>}
-               {total_records>5 ?<div style={{width:'100%'}}>
-                <Button color='yellow' className="load-more-right" onClick={this.onLoadMore} >Show More</Button>
-                </div > :''}   
+            // <Grid className='complete-session'>
+            //      {
+            //          (total_records>0) ?renderTabs():<p className="no-record">No pending Session </p>
+
+            //      }
+            //    {total_records>5 ? <div style={{width:'100%'}}>
+            //     <Button color='yellow' className="load-more-right" onClick={this.onLoadMore} >Show More</Button>
+            //     </div > :''}   
                    
-            </Grid>
+            // </Grid>
+
+            <Grid className='complete-session'>
+            
+            {
+                session_requests.slice(0,this.state.limit).map((session_request, i)=>{
+                    // Random component
+                    const start_date = momentTimezone(session_request.start_time);
+                    const end_date = momentTimezone(session_request.end_time);
+                    const subject =  session_request.tutor.skills.map((subjects) =>{ return <Label  size='small' color='yellow' >  {subjects.name}</Label>}  );
+                   const pendingdate  = (date) =>{
+                    return moment(date).fromNow();
+             };
+                    return(
+                        
+                        <Grid.Row width={10} key={i++} className='session-row'>
+                            
+                        <Grid.Column width={16} className='userInfo'>
+                       
+                            <Image src={defultAvtart} size='medium' circular  className="tutor-img"  />
+                       
+                        <div style={{float:'left'}}>
+                       
+                          
+                       
+                            <h4 className="userName"><div className="ui green circular label"></div> {session_request.tutor.fullname}</h4>
+                            {subject}
+                           
+                          
+                            <p className="full-date"><span className="start-date">{start_date._d.toDateString()} </span> - <span className="end-date">{end_date._d.toDateString()}</span></p>
+                        
+                        </div>
+                        <div style={{float:'right'}}>
+                           
+                        <h5 className="time-spent"><Icon  name='time' />{pendingdate(start_date._d.toDateString())}</h5>
+                        <Button color='yellow' className="cancel" >Cancel</Button>
+                        </div>
+                        </Grid.Column>
+                    </Grid.Row>
+    
+    
+                 
+                    );
+                    
+                })
+            }
+            <div style={{width:'100%'}}>
+            <Button color='yellow' className="load-more-right" onClick={this.onLoadMore}>Show More</Button>
+            </div >
+            </Grid>    
+           
+
            
         )
     }
