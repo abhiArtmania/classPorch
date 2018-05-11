@@ -13,10 +13,6 @@ import {
 } from '../../redux/actions';
 import {SearchResults} from '../search'
 
-import { Pagination } from "../../components/common";
-
-
-
 class DashboardStudent extends React.Component {
 
   state = {
@@ -55,11 +51,7 @@ class DashboardStudent extends React.Component {
     this.props.toggleSearchMode('normal')
   };
 
-  handleChangePage = pageNumber => e => {
-    const { gender, q, type } = this.props.searchMetadata;
-    const page_no = pageNumber;
-    this.props.searchRequested({ type, q, gender, page_no });
-  }
+  
 
   render() {
     const {unreadMessagesCount} = this.state;
@@ -83,22 +75,11 @@ class DashboardStudent extends React.Component {
         </div>
         :
         <div>
-          
           <SearchResults
             authToken={this.props.authToken}
             loadingSearch={this.props.loadingSearch}
             searchResults={this.props.searchResults}
           />
-          <div className="container">
-            <div className="row">
-              <div className="col-sm-12">
-                <Pagination
-                  searchMetadata={this.props.searchMetadata}
-                  onChangePage={this.handleChangePage}
-                />
-              </div>
-            </div>
-          </div>
         </div>
       }
       </div>

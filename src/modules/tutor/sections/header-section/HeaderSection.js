@@ -1,12 +1,15 @@
 import React from 'react';
-import {history} from '../../../../redux/store';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { object } from 'prop-types';
-import {bookedTutor} from '../../../../redux/actions';
 import {
   Grid,
   Button,
+  Modal,
+  TextArea,
 } from 'semantic-ui-react';
+
+import { history } from '../../../../redux/store';
+import { bookedTutor, MessageActions } from '../../../../redux/actions';
 import './styles.css';
 
 // import defaultAvatar  from '../../../assets/avatar/default.png';
@@ -17,71 +20,95 @@ import { Rating } from '../../../../components/common';
 
 // const HeaderSection = props => {
 //   const { tutorInfo, tutorId } = props;
-class HeaderSection extends React.Component{
+class HeaderSection extends React.Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
-    
+    this.state = { showTutorMessageModal: false, message: '' };
+    this.handleMessageChange = this.handleMessageChange.bind(this);
+    this.handleMessageSendClick = this.handleMessageSendClick.bind(this);
   }
-
-render(){
-  const { tutorInfo, tutorId } = this.props;
-  return (
-    
-    <Grid className='profile-section' >
-      <Grid.Row width={16}>
-        <Grid.Column width={3} className='profileImage'>
-          <img
-            src={tutorInfo.image ? tutorInfo.image : defaultAvatar}
-            alt="Tutor Avatar"
-          />
-        </Grid.Column>
-        <Grid.Column width={13} className='userInfo'>
-          <h2 className="userName">
-            <div class={`userName__status ${tutorInfo.online_status}`}></div>
-            <span>{tutorInfo.fullname}</span>
-            <span className="pull-right">
-              {tutorInfo.hourly_rate ? `$${tutorInfo.hourly_rate}/hr` : "N/A"}
-            </span>
-          </h2>
-          {tutorInfo.educations && tutorInfo.educations.map(item => {
-            return (
-              <h3 className="university__text">{item.university_name}</h3>
-            )
-          })}
-
-          <div>
-            <div className="ui small label">
-              {tutorInfo.overall_rating ? tutorInfo.overall_rating : 0}
-            </div> 
-            <Rating rate={tutorInfo.overall_rating} name={tutorInfo.id} />
-          </div>
-
-          <div className="ui labels subjects">
-            {tutorInfo.skills && tutorInfo.skills.map(skill => {
+  handleMessageChange = (e, { value }) => {
+    console.log(value);
+    this.setState({ message: value });
+  }
+  handleMessageSendClick = (e) => {
+    e.preventDefault();
+    this.props.sendMessage(this.state.message);
+    this.setState({ message: '', showTutorMessageModal: false });
+  }
+  render() {
+    const { tutorInfo, tutorId } = this.props;
+    return (
+      <Grid className='profile-section' >
+        <Grid.Row width={16}>
+          <Grid.Column width={3} className='profileImage'>
+            <img
+              src={tutorInfo.image ? tutorInfo.image : defaultAvatar}
+              alt="Tutor Avatar"
+            />
+          </Grid.Column>
+          <Grid.Column width={13} className='userInfo'>
+            <h2 className="userName">
+              <div class={`userName__status ${tutorInfo.online_status}`}></div>
+              <span>{tutorInfo.fullname}</span>
+              <span className="pull-right">
+                {tutorInfo.hourly_rate ? `$${tutorInfo.hourly_rate}/hr` : "N/A"}
+              </span>
+            </h2>
+            {tutorInfo.educations && tutorInfo.educations.map(item => {
               return (
-                <span
-                  key={`skill_${skill.id}`}
-                  className="ui label"
-                >
-                  {skill.name}
-                </span>
+                <h3 className="university__text">{item.university_name}</h3>
               )
             })}
-          </div>
 
-          <Button  className="session-booking-btn">Message Tutor</Button> &nbsp;
-          <Button onClick={()=>{
-            this.props.bookedTutor(tutorInfo);
-            history.push('/session-booking/'+tutorId);
-          }} className="session-booking-btn">Book a Session</Button>
-       
-        </Grid.Column>
-      </Grid.Row>
-      <div className="ui clearing divider"></div>
-    </Grid>
-  )
-}
+            <div>
+              <div className="ui small label">
+                {tutorInfo.overall_rating ? tutorInfo.overall_rating : 0}
+              </div>
+              <Rating rate={tutorInfo.overall_rating} name={tutorInfo.id} />
+            </div>
+
+            <div className="ui labels subjects">
+              {tutorInfo.skills && tutorInfo.skills.map(skill => {
+                return (
+                  <span
+                    key={`skill_${skill.id}`}
+                    className="ui label"
+                  >
+                    {skill.name}
+                  </span>
+                )
+              })}
+            </div>
+
+            <Button className="session-booking-btn" onClick={() => this.setState({ showTutorMessageModal: true })}>Message Tutor</Button>
+            <Modal size={'small'} open={this.state.showTutorMessageModal}>
+              <Modal.Header>Enter message</Modal.Header>
+              <Modal.Content>
+                <Modal.Description>
+                  <p><TextArea onChange={this.handleMessageChange} rows={10} style={{ minHeight: 100 }} placeholder='Enter message...' /></p>
+                </Modal.Description>
+              </Modal.Content>
+              <Modal.Actions>
+                <Button onClick={() => this.setState({ showTutorMessageModal: false })}>
+                  Cancel
+                </Button>
+                <Button onClick={this.handleMessageSendClick}>
+                  Send
+                </Button>
+              </Modal.Actions>
+            </Modal> &nbsp;
+            <Button onClick={() => {
+              this.props.bookedTutor(tutorInfo);
+              history.push('/session-booking/' + tutorId);
+            }} className="session-booking-btn">Book a Session</Button>
+          </Grid.Column>
+        </Grid.Row>
+        <div className="ui clearing divider"></div>
+      </Grid>
+    )
+  }
 }
 
 HeaderSection.propTypes = {
@@ -93,7 +120,7 @@ HeaderSection.defaultProps = {
 }
 
 const mapActionToProps = () => {
-  return {bookedTutor}
+  return { bookedTutor, sendMessage: MessageActions.sendMessage }
 };
 
 
