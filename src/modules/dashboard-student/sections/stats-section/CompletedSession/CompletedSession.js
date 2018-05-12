@@ -38,10 +38,10 @@ class CompletedSession extends React.Component {
                             <div style={{ float: 'left' }}>
                                 <h4 className="userName"><div className="ui green circular label"></div> {session_request.tutor.fullname}</h4>
                                 {subject}
-                                <p className="full-date"><span className="start-date">{start_date._d.toDateString()} </span> - <span className="end-date">{end_date._d.toDateString()}</span></p>
+                                <p className="full-date"><span className="start-date">{start_date.format('MMM DD')} </span> - <span className="end-date">{end_date.format('MMM DD')}</span></p>
                             </div>
                             <div style={{ float: 'right' }}>
-                                <h5 className="complete-lable">Completed Mar 25</h5>
+                                <h5 className="complete-lable">Completed {end_date.format('MMM DD')}</h5>
                                 <Rating icon='star' size='large' defaultRating={session_request.averageRating || 4} maxRating={5} disabled />
                                 <h5 className="time-spent"><Icon name='time' /> Duration 3 hr 20 minutes </h5>
                             </div>

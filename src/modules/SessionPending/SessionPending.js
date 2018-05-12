@@ -4,6 +4,7 @@ import { Grid, Icon,Image, Button, Label, Pagination } from 'semantic-ui-react'
 import momentTimezone from 'moment-timezone';
 
 import './styles.css';
+import {history} from '../../redux/store';
 import { pendingSession } from '../../redux/actions';
 import defultAvtart from "./../../assets/avatar/default.png"
 
@@ -54,7 +55,7 @@ class SessionPending extends Component {
             <div style={{ float: 'left' }}>
               <h4 className="userName"><div className="ui green circular label"></div> {session_request.tutor.fullname}</h4>
               {subject}
-              <p className="full-date"><span className="start-date">{start_date._d.toDateString()} </span> - <span className="end-date">{end_date._d.toDateString()}</span></p>
+              <p className="full-date"><span className="start-date">{start_date.format('MMM DD')} </span> - <span className="end-date">{end_date.format('MMM DD')}</span></p>
             </div>
             <div style={{ float: 'right' }}>
               <h5 className="time-spent"><Icon name='time' />{this.pendingdate(start_date._d.toDateString())}</h5>
@@ -66,17 +67,20 @@ class SessionPending extends Component {
     });
     return (
       <Grid className='session-requested-Container' >
-        <Grid.Row width={15} >
-          <Grid.Column width={12} style={{ margin: '0 auto' }}>
+        <Grid.Row width={15}>
+          <Grid.Column width={10} style={{ margin: '0 auto' }}>
             {renderTabs}
             <div className="container">
               <div className="row">
-                <div className="col-sm-12">
+                <div className="col-sm-10">
                   <Pagination
                     activePage={activePage}
                     totalPages={Math.ceil(total_records/recordsPerPage)}
                     onPageChange={this.handlePaginationChange}
                   />
+                </div>
+                <div className="col-sm-2">
+                  <Button onClick={(e) => { e.preventDefault(); history.push('/dashboard/student'); }}>&lt; Back</Button>
                 </div>
               </div>
             </div>
