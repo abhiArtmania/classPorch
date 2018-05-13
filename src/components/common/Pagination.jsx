@@ -8,16 +8,17 @@ const Pagination = props => {
   const prevPage = pageActive - 1;
   const nextPage = pageActive + 1;
   const totalCount = parseInt(props.searchMetadata.total_count, 10);
-  const perPage = parseInt(props.searchMetadata.per_page, 10);
+  const perPage = parseInt(props.searchMetadata.per_page || 10, 10);
 
-  const maxPage = Math.ceil(totalCount/perPage);
+  const maxPage = Math.ceil(totalCount / perPage);
 
   const paginationEls = [];
-  if(pageActive <= maxPage) {
-    for(let i = pageActive; i <= maxPage; i++) {
-      if(i  >= pageActive + maxPageShowing) break;
+
+  if (pageActive <= maxPage) {
+    for (let i = 1; i <= maxPage; i++) {
+      if (i >= pageActive + maxPageShowing) break;
       else {
-        paginationEls.push(
+        paginationEls.push(          
           <li key={`pagination_${i}`} className={i === pageActive ? "active" : ""}>
             <a onClick={props.onChangePage(i)}>{i}</a>
           </li>

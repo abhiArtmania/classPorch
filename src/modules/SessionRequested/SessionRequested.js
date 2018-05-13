@@ -1,42 +1,24 @@
 import React, { Component } from 'react';
-import { Grid, Icon, Image, Label, Pagination, Button, Modal, Header } from 'semantic-ui-react'
+import { Grid, Icon, Image, Label, Button, Modal, Header } from 'semantic-ui-react'
 import moment from 'moment-timezone'
 import { connect } from 'react-redux';
 import Countdown from 'react-countdown-now';
 
 import './styles.css';
-import {history} from '../../redux/store';
+import { history } from '../../redux/store';
 import { scheduledSession } from '../../redux/actions';
 import defultAvtart from "./../../assets/avatar/default.png"
-
-const recordsPerPage = 5;
+import { Pagination } from "../../components/common";
 
 class SessionRequested extends Component {
-    state = { activePage: 1 }
-
-    constructor(props) {
-        super(props);
-        this.handlePaginationChange = this.handlePaginationChange.bind(this);
-    }
-    handlePaginationChange = (e, { activePage }) => {
-        this.setState({ activePage });
-    }
     componentDidMount() {
-        const page_no = 1;
-        const status = "scheduled"; // default
-        const params = {
-            page_no,
-            status
-        };
-        this.props.scheduledSession(params);
+        this.props.scheduledSession({ page_no: 1 });
+    }
+    handleChangePage = page_no => e => {
+        this.props.scheduledSession({ page_no });
     }
     render() {
-        const { session_requests, total_records } = this.props.session_scheduled;
-
-        const { activePage } = this.state
-
-        let startIndex = activePage === 1 ? (activePage - 1) : (activePage - 1) * recordsPerPage;
-        let endIndex = startIndex + recordsPerPage;
+        const { session_requests, total_records, page_no } = this.props.session_scheduled;
 
         const ModalModalExample = (e) => (
             <Modal trigger={<Button color='yellow' className="join-room">Join Room</Button>}>
@@ -56,7 +38,6 @@ class SessionRequested extends Component {
 
         const renderer = ({ days, hours, minutes, seconds, completed }) => {
             if (completed) {
-                console.log('completed', completed);
                 return <Completionist />;
             } else if (days > 30) {
                 var months = Math.ceil(days / 30);
@@ -75,7 +56,7 @@ class SessionRequested extends Component {
             }
         };
 
-        const renderTabs = session_requests.slice(startIndex, endIndex).map((session_request, i) => {
+        const renderTabs = session_requests.map((session_request, i) => {
             const start_date = moment(session_request.start_time);
             const end_date = moment(session_request.end_time);
             const diff = start_date.diff(end_date, 'hours');
@@ -91,7 +72,6 @@ class SessionRequested extends Component {
                             <p className="full-date"><span className="start-date">{start_date.format('MMM DD')} </span> - <span className="end-date">{end_date.format('MMM DD')}</span></p>
                         </div>
                         <div style={{ float: 'right' }}>
-                            {/* <h5 className="time-spent"><Icon name='time' />  </h5> */}
                             <h5 className="time-spent"><Icon name='time' />  <Countdown date={session_request.start_time} renderer={renderer} /></h5>
                             {(diff < 0) ? <ModalModalExample /> : (diff < 24 && sessionMinutesDiff >= 30 && <Button color='yellow' className="reschedule" >Reschedule</Button>)}
                             {sessionMinutesDiff < 30 && <Button color='yellow' className="reschedule" >Join Room</Button>}
@@ -109,9 +89,11 @@ class SessionRequested extends Component {
                             <div className="row">
                                 <div className="col-sm-10">
                                     <Pagination
-                                        activePage={activePage}
-                                        totalPages={Math.ceil(total_records / recordsPerPage)}
-                                        onPageChange={this.handlePaginationChange}
+                                        searchMetadata={{
+                                            page_no,
+                                            total_count: total_records,
+                                        }}
+                                        onChangePage={this.handleChangePage}
                                     />
                                 </div>
                                 <div className="col-sm-2">
