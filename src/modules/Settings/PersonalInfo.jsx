@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import { Card, Grid, Header, Feed, Divider, Button, Label, Form, Field, Select } from 'semantic-ui-react';
 import Phone from 'react-phone-number-input';
-import { CountryList } from "../../helpers/utils";
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 
-export class PersonalInfo extends Component {
+import { CountryList } from "../../helpers/utils";
 
+export class PersonalInfo extends Component {
     state = {
         mode: 'view',
         selectCountry: undefined,
-        state: undefined,
         phoneCode: '+1',
         gradesList: [
             { key: 'Grade 1', value: '1', text: 'Grade 1' },
@@ -28,59 +27,100 @@ export class PersonalInfo extends Component {
             { key: 'Year 2', value: '14', text: 'Year 2' },
             { key: 'Year 3', value: '15', text: 'Year 3' },
             { key: 'Year 4', value: '16', text: 'Year 4' },
-
         ],
         grade: this.props.grade,
         showParents: this.props.grade ? (this.props.grade > 12 ? false : true) : true,
         state: this.props.state,
         initialProfile: this.props
     }
-
     componentWillReceiveProps(newProps) {
-        console.log(newProps);
         this.setState({ state: newProps.state, selectCountry: newProps.country, grade: newProps.grade, showParents: newProps.grade ? (newProps.grade > 12 ? false : true) : true });
     }
+    updateMode = async (mode) => {
+        if (this.state.mode === 'edit' && mode === 'edit') {
+            this.props.onSubmitForm();
+            this.setState({ mode: 'view' });
 
+        } else {
+            this.setState({ mode: mode }, () => this.props.resetProps && this.props.resetProps(this.state.initialProfile));
+        }
+    }
+    setPhone = (value) => {
+        const e = { target: { name: 'number', value: value } }
+        this.setState({ value }, () => this.props.onChange && this.props.onChange(e));
+    }
+    selectRegion = (value) => {
+        this.setState({ state: value });
+        const name = 'state';
+        this.setState({ [name]: value })
+        const e = { target: { name: name, value: value } };
+        this.props.onChange && this.props.onChange(e);
+    }
+    onSelectChange = (event) => {
+        const name = 'country';
+        const value = event;
+        const e = { target: { name: name, value: event } };
+        this.setState({ [name]: value, selectCountry: event }, () => this.props.onChange && this.props.onChange(e));
+    }
+    onchangeGrade = (e, { name, value }) => {
+        e.target.name = name;
+        e.target.value = value;
+        if (value <= 12) {
+            this.setState({ showParents: true, grade: value });
+        } else {
+            this.setState({ showParents: false, grade: value });
+        }
+        this.props.onChange && this.props.onChange(e);
+    }
     render() {
         const props = this.props;
         const state = this.state;
+
         return (
-            <Form >
-                <Grid padded columns={3} >
+            <Form encType='application/json' onSubmit={this.onFormSubmitted}>
+                <Grid padded columns={'equal'} >
                     <Grid.Row columns={16}>
                         <Grid.Column width={4}>
                             <Header as='h2'>Personal Information</Header>
                         </Grid.Column>
                         <Grid.Column textAlign="right" width={12}>
                             <Button.Group>
-                                <Button icon='edit' className='saveUpdate' onClick={() => this.updateMode('edit')} content={state.mode === 'edit' ? 'Update' : 'Edit'} />
+                                <Button icon='edit' className='saveUpdate' type={'submit'} onClick={() => this.updateMode('edit')} content={state.mode === 'edit' ? 'Update' : 'Edit'} />
                                 {state.mode === 'edit' && <Button.Or />}
                                 {state.mode === 'edit' && <Button icon='close' labelPosition='right' onClick={() => this.updateMode('view')} content={'Cancel'} />}
                             </Button.Group>
-
-
                         </Grid.Column>
                     </Grid.Row>
                     <Divider />
-
-                    {/* Personal Information */}
                     <Grid.Row>
                         <Grid.Column width={14}>
                             <Form.Group widths='equal'>
                                 <Form.Field>
                                     <label>Full Name</label>
                                     {state.mode === 'edit' ?
-                                        <input placeholder='Full Name' type='text' name='fullname' value={props.fullname} onChange={props.onChange} />
+                                        <input placeholder='First Name' type='text' name='first_name' value={props.first_name} onChange={props.onChange} />
                                         : <h4>{props.fullname}</h4>
                                     }
                                 </Form.Field>
+                                {state.mode === 'edit' &&
+                                    <Form.Field>
+                                        <label>Last Name</label>
+                                        <input placeholder='Last Name' type='text' name='last_name' value={props.last_name} onChange={props.onChange} />
+                                    </Form.Field>
+                                }
                                 {state.showParents &&
                                     <Form.Field>
                                         <label>Parent's Full Name</label>
                                         {state.mode === 'edit' ?
-                                            <input placeholder='Full Name' type='text' name='parent_fullname' value={props.parent_fullname} onChange={props.onChange} />
+                                            <input placeholder='Parent First Name' type='text' name='parent_first_name' value={props.parent_first_name} onChange={props.onChange} />
                                             : <h4>{props.parent_first_name} {props.parent_last_name}</h4>
                                         }
+                                    </Form.Field>
+                                }
+                                {state.mode === 'edit' && state.showParents &&
+                                    <Form.Field>
+                                        <label>Parent's Last Name</label>
+                                        <input placeholder='Parent Last Name' type='text' name='parent_last_name' value={props.parent_last_name} onChange={props.onChange} />
                                     </Form.Field>
                                 }
                                 <Form.Field>
@@ -153,51 +193,4 @@ export class PersonalInfo extends Component {
             </Form>
         );
     }
-
-    updateMode = async (mode) => {
-        if (this.state.mode === 'edit' && mode === 'edit') {
-            ///need to call ajax to update info
-
-
-
-        } else {
-            this.setState({ mode: mode }, () => this.props.resetProps && this.props.resetProps(this.state.initialProfile));
-        }
-    }
-
-    setPhone = (value) => {
-        const e = { target: { name: 'number', value: value } }
-        this.setState({ value }, () => this.props.onChange && this.props.onChange(e));
-
-    }
-
-    selectRegion = (value) => {
-        this.setState({ state: value });
-        const name = 'state';
-        this.setState({ [name]: value })
-        const e = { target: { name: name, value: value } };
-        this.props.onChange && this.props.onChange(e);
-
-    }
-
-    onSelectChange = (event) => {
-        const name = 'country';
-        const value = event;
-        const e = { target: { name: name, value: event } };
-        this.setState({ [name]: value, selectCountry: event }, () => this.props.onChange && this.props.onChange(e));
-    }
-
-
-    onchangeGrade = (e, { name, value }) => {
-        e.target.name = name;
-        e.target.value = value;
-
-
-        if (value <= 12) {
-            this.setState({ showParents: true, grade: value });
-        } else {
-            this.setState({ showParents: false, grade: value });
-        }
-        this.props.onChange && this.props.onChange(e);
-    };
 }
