@@ -29,9 +29,19 @@ class Settings extends Component {
   submitPersonalInfo = () => {
     this.props.updatePersonalInfo({ "user": this.state.profile });
   }
+  updatePersonInfo = (event) => {
+    const { name, value } = event.target;
+    this.setState(prevState => ({
+      profile: {
+        ...prevState.profile,
+        [name]: value
+      }
+    }));
+  }
+  resetProps = (data) => {
+    this.setState({ profile: data });
+  }
   render() {
-    const props = this.props;
-
     const panes = [
       { menuItem: 'Personal Info', render: () => <Tab.Pane><PersonalInfo {...this.state.profile} resetProps={this.resetProps} onChange={this.updatePersonInfo} onSubmitForm={this.submitPersonalInfo} /></Tab.Pane> },
       { menuItem: 'Previous Expenses', render: () => <Tab.Pane><PreviousExpenses {...this.props.profile} /></Tab.Pane> },
@@ -44,14 +54,6 @@ class Settings extends Component {
         <Tab menu={{ fluid: true, vertical: true, tabular: 'right' }} panes={panes} />
       </div>
     </div>
-  }
-  updatePersonInfo = (event) => {
-    const profile = JSON.parse(JSON.stringify(this.state.profile));
-    profile[event.target.name] = event.target.value;
-    this.setState({ profile })
-  }
-  resetProps = (data) => {
-    this.setState({ profile: data });
   }
 }
 
