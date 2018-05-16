@@ -110,6 +110,11 @@ export const GET_BOOKED_TUTOR = 'GET_BOOKED_TUTOR';
 export const SUBMIT_SESSION = 'SUBMIT_SESSION';
 
 
+//For Messages
+export const SEND_MESSAGE = 'SEND_MESSAGE';
+
+
+
 
 
 

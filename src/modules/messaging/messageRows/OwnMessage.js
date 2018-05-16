@@ -8,9 +8,11 @@ class OwnMessage extends Component {
     super(props);
     this.renderImageMessage = this.renderImageMessage.bind(this);
     this.renderTextMessage = this.renderTextMessage.bind(this);
+    console.log("Agyaa Own May")
   }
 
   renderImageMessage = (message) => {
+    console.log("Ye image");
     return (
       <div>
         <Image src={message.text} size={'medium'} as={'a'} target={'_blank'} href={message.text}/>
@@ -22,6 +24,7 @@ class OwnMessage extends Component {
   };
 
   renderTextMessage = (message) => {
+    console.log("Ye text");
     return (
       <div>
         <p style={{fontSize: 13, color: '#333'}}>{message.text}</p>
@@ -33,6 +36,7 @@ class OwnMessage extends Component {
   };
 
   render() {
+    console.log("Msg print krne aya hn ownMessage . . . ")
     const {message} = this.props;
     const cornerRadius = 8;
     const wrapperStyle = {

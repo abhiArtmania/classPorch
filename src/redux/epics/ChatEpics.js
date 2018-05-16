@@ -8,8 +8,9 @@ export const loadChats = (action$, state, {auth, firestore}) => action$.ofType(C
     
     return verifyFirebaseAuth({auth}).switchMap(() => {
       return Rx.Observable.create(observer => {
+        console.log("this role",currentState.role);
         firestore.collection('chats')
-          .where( currentState.role === 'student' ? 'student.id' : 'tutor.id', '==', currentState.id)
+          // .where( currentState.role === 'student' ? 'student.id' : 'tutor.id', '==', currentState.id)
           .orderBy('lastMessageCreatedAt', 'desc')
           .onSnapshot(snapshot => {
             observer.next(snapshot);
