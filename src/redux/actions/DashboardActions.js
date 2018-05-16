@@ -45,9 +45,9 @@ import {
   GET_AVAILABILITY,
   GET_BOOKED_TUTOR,
   SUBMIT_SESSION,
-  UNSUBSCRIBE_DASHBOARD} from './types';
+  UNSUBSCRIBE_DASHBOARD
+} from './types';
 const uuidv1 = require('uuid/v1');
-
 
 
 export const getUnreadMessagesCount = () => ({

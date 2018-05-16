@@ -7,6 +7,7 @@ import ChatReducer from './ChatReducer';
 import MessageReducer from './MessageReducer';
 import SessionReducer from './SessionReducer';
 import tutors from './tutor';
+import MyMessageReducer from './MyMessageReducer';
 
 export default {
     auth: AuthReducer,
@@ -16,6 +17,7 @@ export default {
     chatReducer: ChatReducer,
     messageReducer: MessageReducer,
     SessionReducer:SessionReducer,
-    tutors
+    tutors,
+    MyMessageReducer
     
 }
