@@ -326,7 +326,7 @@ class MultiStep extends React.Component {
             <div className="prevNextButtons">
             <div style={this.props.showNavigation ? {} : this.hidden}>
               <Button 
-              style={this.state.showPreviousBtn && this.state.compState === 1 ? styless.secondPrev :  { display: 'none' }}
+              style={this.state.showPreviousBtn && this.state.compState === 1 ? styless.secondPrev : this.state.showPreviousBtn && this.state.compState === 2 ? styless.thirdPrev  :  { display: 'none' }}
                       // className="next-btn"
                       onClick={this.previous}>Previous</Button>
                       &nbsp; 
@@ -335,15 +335,17 @@ class MultiStep extends React.Component {
                       // className="next-btn"
                       onClick={this.next}>Next</Button>
               
-              {
+              {/* {
 
               (this.state.showPreviousBtn && this.state.compState === 2) ? (
-                <Button size='medium' color='red' onClick={this.previous} style={{marginLeft: '90px'}} icon labelPosition='left'>
-              Previous
-              <Icon name='left arrow' />
-            </Button>
+            //     <Button size='medium' color='red' onClick={this.previous} style={{marginLeft: '90px'}} icon labelPosition='left'>
+            //   Previous
+            //   <Icon name='left arrow' />
+            // </Button>
+            <Button  className="next-btn" style={{marginLeft: '10px'}}
+                      onClick={this.previous}>Previous</Button>
               ) : (<div></div>)
-              }
+              } */}
 
 
             </div>

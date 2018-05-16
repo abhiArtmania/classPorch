@@ -8,6 +8,7 @@ class OtherMessage extends Component {
     super(props);
     this.renderImageMessage = this.renderImageMessage.bind(this);
     this.renderTextMessage = this.renderTextMessage.bind(this);
+    console.log("Agyaa Own May")
   }
 
   renderImageMessage = (message) => {

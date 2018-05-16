@@ -1,50 +1,48 @@
 import React from 'react';
 import { array, object, func } from 'prop-types';
-import {NotificationsSection, StatsSection, SuggestedTutors} from './sections';
-import {connect} from 'react-redux';
-import { Icon } from 'semantic-ui-react'
+import { connect } from 'react-redux';
+import { Notification } from 'react-notification';
 
-import {Notification} from 'react-notification';
+import { NotificationsSection, StatsSection, SuggestedTutors } from './sections';
 import {
   searchRequested,
   getDashboard,
   getUnreadMessagesCount,
   toggleSearchMode
 } from '../../redux/actions';
-import {SearchResults} from '../search'
+import { SearchResults } from '../search'
+import { Pagination } from "../../components/common";
 
 class DashboardStudent extends React.Component {
-
   state = {
     isNotificationActive: false,
     unreadMessageCount: 0
   };
-  
+
   componentDidMount() {
-    const {userId, authToken} = this.props;
-    this.props.getDashboard({userId, authToken});
+    const { userId, authToken } = this.props;
+    this.props.getDashboard({ userId, authToken });
     this.props.getUnreadMessagesCount();
     this.props.toggleSearchMode('normal')
-    
   }
 
-  componentWillUnmount(){
-    this.props.toggleSearchMode('normal')    
+  componentWillUnmount() {
+    this.props.toggleSearchMode('normal')
   }
 
   componentWillReceiveProps(nextProps) {
-    const {userId, authToken, unreadMessageCount} = this.props;
+    const { userId, authToken, unreadMessageCount } = this.props;
 
     if (this.props.sessionRequestIndicator !== nextProps.sessionRequestIndicator) {
-      this.setState({isNotificationActive: true});
-      this.props.getDashboard({userId, authToken})
+      this.setState({ isNotificationActive: true });
+      this.props.getDashboard({ userId, authToken })
     }
 
-    this.setState({unreadMessageCount: unreadMessageCount});
+    this.setState({ unreadMessageCount: unreadMessageCount });
   }
 
   dismissNotification = () => {
-    this.setState({isNotificationActive: false})
+    this.setState({ isNotificationActive: false })
   };
 
   onCancelSearch = () => {
@@ -54,34 +52,43 @@ class DashboardStudent extends React.Component {
   
 
   render() {
-    const {unreadMessagesCount} = this.state;
+    const { unreadMessagesCount } = this.state;
     return (
       <div>
-      { 
-        this.props.searchMode === 'normal'?
-        <div>
-          <StatsSection/>
-          
-          <SuggestedTutors/>
-          <Notification
-            isActive={this.state.isNotificationActive}
-            message="Notification"
-            action="Dismiss"
-            title={this.props.displayMessage}
-            dismissAfter={5000}
-            onDismiss={this.dismissNotification}
-            onClick={this.dismissNotification}
-          />
-        </div>
-        :
-        <div>
-          <SearchResults
-            authToken={this.props.authToken}
-            loadingSearch={this.props.loadingSearch}
-            searchResults={this.props.searchResults}
-          />
-        </div>
-      }
+        {
+          this.props.searchMode === 'normal' ?
+            <div>
+              <StatsSection />
+              <SuggestedTutors />
+              <Notification
+                isActive={this.state.isNotificationActive}
+                message="Notification"
+                action="Dismiss"
+                title={this.props.displayMessage}
+                dismissAfter={5000}
+                onDismiss={this.dismissNotification}
+                onClick={this.dismissNotification}
+              />
+            </div>
+            :
+            <div>
+              <SearchResults
+                authToken={this.props.authToken}
+                loadingSearch={this.props.loadingSearch}
+                searchResults={this.props.searchResults}
+              />
+              <div className="container">
+                <div className="row">
+                  <div className="col-sm-12">
+                    <Pagination
+                      searchMetadata={this.props.searchMetadata}
+                      onChangePage={this.handleChangePage}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+        }
       </div>
     );
   }
@@ -89,10 +96,10 @@ class DashboardStudent extends React.Component {
 
 const mapStateToProps = store => {
   console.log(store)
-  const {id: userId, authToken} = store.auth;
-  const {sessionRequestIndicator, displayMessage, unreadMessageCount, profile} = store.dashboard;
-  const {searchMode, searchResults, loadingSearch} = store.search;
- 
+  const { id: userId, authToken } = store.auth;
+  const { sessionRequestIndicator, displayMessage, unreadMessageCount, profile } = store.dashboard;
+  const { searchMode, searchResults, loadingSearch } = store.search;
+
   return {
     userId,
     authToken,

@@ -51,6 +51,8 @@ componentDidUpdate()
   }
 
   createMessageRows = (messages) => {
+    console.log("Ye msgs",messages);
+    if(messages){
     let messageRows = messages.map(message => {
       if (this.props.currentUser.role === message.sentBy) {
         return <OwnMessage key={message.key} message={message} />;
@@ -59,6 +61,7 @@ componentDidUpdate()
       }
     });
     this.setState({ messages: messageRows });
+  }
   };
 onKeyPress(e){
 	if(e.key=="Enter"){
@@ -84,6 +87,7 @@ onKeyPress(e){
 
   render() {
     const { messages, isUploadingFile } = this.state;
+    console.log("Ye msgs prop",this.props.messages)
     const profilePicture =  this.props.otherUser ? this.props.otherUser.pictureUrl : `http://via.placeholder.com/300?text=r`;
     return (
       <div>

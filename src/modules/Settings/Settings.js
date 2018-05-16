@@ -1,13 +1,8 @@
-
-/**
- * Created by raffi.
- * User: raffi
- * Date: 1/23/18
- */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Tab, Card, Feed, Grid, Button, Icon, Label, Header, Segment, Divider } from 'semantic-ui-react'
-import { getFAQ } from '../../redux/actions';
+import { Tab } from 'semantic-ui-react'
+
+import { getFAQ, updatePersonalInfo } from '../../redux/actions';
 import { PersonalInfo } from './PersonalInfo';
 import './index.scss';
 import { PasswordInfo } from './PasswordInfo';
@@ -31,13 +26,24 @@ class Settings extends Component {
     await this.props.getFAQ();
     this.setState({ items: this.props.FAQ })
   }
-
-
-
+  submitPersonalInfo = () => {
+    this.props.updatePersonalInfo({ "user": this.state.profile });
+  }
+  updatePersonInfo = (event) => {
+    const { name, value } = event.target;
+    this.setState(prevState => ({
+      profile: {
+        ...prevState.profile,
+        [name]: value
+      }
+    }));
+  }
+  resetProps = (data) => {
+    this.setState({ profile: data });
+  }
   render() {
-    const props = this.props;
     const panes = [
-      { menuItem: 'Personal Info', render: () => <Tab.Pane><PersonalInfo {...this.state.profile} resetProps={this.resetProps} onChange={this.updatePersonInfo} /></Tab.Pane> },
+      { menuItem: 'Personal Info', render: () => <Tab.Pane><PersonalInfo {...this.state.profile} resetProps={this.resetProps} onChange={this.updatePersonInfo} onSubmitForm={this.submitPersonalInfo} /></Tab.Pane> },
       { menuItem: 'Previous Expenses', render: () => <Tab.Pane><PreviousExpenses {...this.props.profile} /></Tab.Pane> },
       { menuItem: 'Billing ', render: () => <Tab.Pane><Billing /> </Tab.Pane> },
       { menuItem: 'Change Password ', render: () => <PasswordInfo  {...this.props.profile} /> },
@@ -49,35 +55,16 @@ class Settings extends Component {
       </div>
     </div>
   }
-
-
-
-  updatePersonInfo = (event) => {
-    const profile = JSON.parse(JSON.stringify(this.state.profile));
-    profile[event.target.name] = event.target.value;
-    this.setState({ profile })
-  }
-
-  resetProps = (data) => {
-    this.setState({ profile: data });
-  }
-
 }
 
-
-
-
-const mapStateToProps = ({ dashboard }) => {
+const mapStateToProps = ({ dashboard, auth }) => {
   const { FAQ, loading, FAQSubj, profile } = dashboard;
-  return { FAQ, loading, FAQSubj, profile }
+  const { personalInfoUpdating, personalInfoUpdated } = auth;
+  return { FAQ, loading, FAQSubj, profile, personalInfoUpdating, personalInfoUpdated }
 };
-
-
 
 const mapActionToProps = () => {
-  return { getFAQ }
+  return { getFAQ, updatePersonalInfo }
 };
-
-
 
 export default connect(mapStateToProps, mapActionToProps())(Settings);
