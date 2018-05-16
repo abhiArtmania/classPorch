@@ -21,6 +21,7 @@ import {
     UPDATE_PERSONAL_INFO,
     UPDATE_PERSONAL_INFO_SUCCESS,
     UPDATE_PERSONAL_INFO_ERROR,
+    GET_DASHBOARD_SUCCESS,
 } from './types'
 export const initialLogin = () => {
     return {
@@ -179,11 +180,7 @@ export const updatePersonalInfo = (data) => {
             if (res.status !== 200) {
                 throw new Error('Please check your internet connection. A mouse may be chewing the wire.')
             }
-            if (res.data.meta.code !== 201) {
-                const err = (res.data.response.error) ? res.data.response.error : "error"
-                throw (err)
-            }
-
+            dispatch({ type: GET_DASHBOARD_SUCCESS, payload: { profile: res.data.response } });
             dispatch({ type: UPDATE_PERSONAL_INFO_SUCCESS, payload: { userResObject: res.data.response } });
         }).catch((e) => {
             return dispatch({ type: UPDATE_PERSONAL_INFO_ERROR, payload: { errorMessage: e } })
