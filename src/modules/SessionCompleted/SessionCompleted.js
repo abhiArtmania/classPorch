@@ -1,33 +1,25 @@
 import React, { Component } from 'react';
-import { Grid, Icon, Image, Label, Rating, Pagination } from 'semantic-ui-react'
+import { Grid, Icon, Image, Label, Rating, Button } from 'semantic-ui-react'
+import { connect } from 'react-redux';
 import moment from 'moment-timezone'
 
 import './styles.css';
-import { connect } from 'react-redux';
+import { history } from '../../redux/store';
 import { completedSession } from '../../redux/actions';
 import defultAvtart from "./../../assets/avatar/default.png"
+import { Pagination } from "../../components/common";
 
-const recordsPerPage = 5;
-  
 class SessionCompleted extends Component {
-  state = { activePage: 1 }
-
-  constructor(props) {
-    super(props);
-    this.handlePaginationChange = this.handlePaginationChange.bind(this);
+  componentDidMount() {
+    this.props.completedSession({ page_no: 1 });
   }
-  handlePaginationChange = (e, { activePage }) => {
-    this.setState({ activePage });
+  handleChangePage = page_no => e => {
+    this.props.completedSession({ page_no });
   }
   render() {
-    const { session_requests, total_records } = this.props.session_completed;
+    const { session_requests, total_records, page_no } = this.props.session_completed;
 
-    const { activePage } = this.state
-
-    let startIndex = activePage === 1 ? (activePage - 1) : (activePage - 1) * recordsPerPage;
-    let endIndex = startIndex + recordsPerPage;
-
-    const renderTabs = session_requests.slice(startIndex, endIndex).map((session_request, i) => {
+    const renderTabs = session_requests.map((session_request, i) => {
       const start_date = moment(session_request.start_time);
       const end_date = moment(session_request.end_time);
       const subject = session_request.tutor.skills.map((subjects) => { return <Label size='small' color='yellow' >  {subjects.name}</Label> });
@@ -38,10 +30,10 @@ class SessionCompleted extends Component {
             <div style={{ float: 'left' }}>
               <h4 className="userName"><div className="ui green circular label"></div> {session_request.tutor.fullname}</h4>
               {subject}
-              <p className="full-date"><span className="start-date">{start_date._d.toDateString()} </span> - <span className="end-date">{end_date._d.toDateString()}</span></p>
+              <p className="full-date"><span className="start-date">{start_date.format('MMM DD')}</span> - <span className="end-date">{end_date.format('MMM DD')}</span></p>
             </div>
             <div style={{ float: 'right' }}>
-              <h5 className="complete-lable">Completed Mar 25 {startIndex} {endIndex}</h5>
+              <h5 className="complete-lable">Completed {end_date.format('MMM DD')}</h5>
               <Rating icon='star' size='large' defaultRating={session_request.averageRating || 4} maxRating={5} disabled />
               <h5 className="time-spent"><Icon name='time' /> Duration 3 hr 20 minutes </h5>
             </div>
@@ -57,12 +49,17 @@ class SessionCompleted extends Component {
             {renderTabs}
             <div className="container">
               <div className="row">
-                <div className="col-sm-12">
+                <div className="col-sm-10">
                   <Pagination
-                    activePage={activePage}
-                    totalPages={Math.ceil(total_records/recordsPerPage)}
-                    onPageChange={this.handlePaginationChange}
+                    searchMetadata={{
+                      page_no,
+                      total_count: total_records,
+                    }}
+                    onChangePage={this.handleChangePage}
                   />
+                </div>
+                <div className="col-sm-2">
+                  <Button onClick={(e) => { e.preventDefault(); history.push('/dashboard/student'); }}>&lt; Back</Button>
                 </div>
               </div>
             </div>
@@ -75,7 +72,10 @@ class SessionCompleted extends Component {
 
 const mapStateToProps = store => {
   const { session_completed } = store.SessionReducer;
-  return { session_completed }
+
+  return {
+    session_completed,
+  }
 };
 
 const mapActionsToProps = () => {

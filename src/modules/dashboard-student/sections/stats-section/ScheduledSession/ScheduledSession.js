@@ -89,22 +89,25 @@ class ScheduledSession extends React.Component {
             var date2 = Date.now();
             var date1 = new Date(p.sessiondate);
 
-            var a = moment(Date.now());//now
+            var a = moment(new Date());//now
             var b = moment(p.sessiondate);
 
             var diff = b.diff(a, 'hours');
+            const sessionMinutesDiff = b.diff(a, 'minutes');
+            const skills = p.tutor.skills.map((subjects) => { return <Label size='small' color='yellow' >  {subjects.name}</Label> });
             return (
                 <Grid.Row width={10} key={i} className='session-row'>
                     <Grid.Column width={16} className='userInfo'>
                         <Image src={defultAvtart} size='medium' circular className="tutor-img" />
                         <div style={{ float: 'left' }}>
-                            <h4 className="userName"><div className="ui green circular label"></div> {p.fullName}</h4>
-                            <Label size='small' >  {p.subject}</Label>
-                            <p className="full-date"><span className="start-date">Jan 15 </span> - <span className="end-date">Mar 25</span></p>
+                            <h4 className="userName"><div className="ui green circular label"></div> {p.tutor.fullname}</h4>
+                            {skills}
+                            <p className="full-date"><span className="start-date">{moment(p.start_time).format('MMM DD')} </span> - <span className="end-date">{moment(p.end_time).format('MMM DD')}</span></p>
                         </div>
                         <div style={{ float: 'right' }}>
                             <h5 className="time-spent"><Icon name='time' />  <Countdown date={p.start_time} renderer={renderer} /></h5>
-                            {(diff < 0) ? <ModalModalExample /> : (diff < 24 && <Button color='yellow' className="reschedule" >Reschedule</Button>)}
+                            {(diff < 0) ? <ModalModalExample /> : (diff < 24 && sessionMinutesDiff >= 30 && <Button color='yellow' className="reschedule" >Reschedule</Button>)}
+                            {sessionMinutesDiff < 30 && <Button color='yellow' className="reschedule" >Join Room</Button>}
                         </div>
                     </Grid.Column>
                 </Grid.Row>
