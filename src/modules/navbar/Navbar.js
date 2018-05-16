@@ -462,7 +462,9 @@ class Navbar extends Component {
         if (this.props.role !== 'student') {
             return null
         }
-        if (window.location.pathname === '/search' || window.location.pathname === '/dashboard/student' || window.location.pathname === '/profile/student') {
+        if (window.location.pathname === '/search' ||
+            window.location.pathname === '/dashboard/student' ||
+            window.location.pathname === '/profile/student') {
             return (
                 <AccordionContent>
                     <Menu.Item>
@@ -537,11 +539,11 @@ class Navbar extends Component {
                     {menuBar}
                     {this.props.role === 'tutor' && searchbar}
                     <Button size={'medium'} basic={true} onClick={this.menuToggle}>menu</Button>
-                    {this.state.isSearchbar === true &&
+                    {/* {this.state.isSearchbar === true &&
                         <Accordion as={Menu} vertical>
                             {searchbar}
                         </Accordion>
-                    }
+                    } */}
                     {menuRight}
                 </Menu>
                 <div className="menu-container">
