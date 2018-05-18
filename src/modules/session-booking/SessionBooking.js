@@ -256,7 +256,7 @@ class MultiStep extends React.Component {
         padding: '15px 30px',
         background: 'orange',
         transition: 'all ease .3s',
-        marginLeft: '50px',
+        // marginLeft: '50px',
         // marginTop: '-20px'
       },
       secondNext: {
@@ -265,7 +265,8 @@ class MultiStep extends React.Component {
         padding: '15px 30px',
         background: 'orange',
         transition: 'all ease .3s',
-        marginRight: '60px',
+        marginRight: '30%'
+        // marginRight: '60px',
         // marginTop: '-12px'
       },
       thirdPrev: {

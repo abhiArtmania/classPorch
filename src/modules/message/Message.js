@@ -12,6 +12,12 @@ import Files from 'react-files'
 import "./styles.css";
 import JSEMOJI from 'emoji-js';
 
+const styles = {
+  emoji: {
+    marginBottom: '200%'
+  }
+}
+
 class Message extends Component {
 
   // state = {chats: [],name: '', submittedName: '' };
@@ -229,7 +235,7 @@ jsemoji.replace_mode = 'unified';
 
 <List divided  relaxed>
 
-
+{this.state.isEmoji?<EmojiPicker onEmojiClick={this.setEmoji.bind(this)} /> :''}
   {messages}
 
 
@@ -239,11 +245,13 @@ jsemoji.replace_mode = 'unified';
 
 
 <Grid.Row>
+  
 <Grid.Column width={8}>
+
 <div style={{margin:'10px 0px'}}>
     <Form onSubmit={this.handleSubmit}>
         <Input className="message-input" name="message" value={this.state.message} onChange={this.handleChange} icon={<div className="inner-content"><Icon name='smile' size='large' link onClick={this.showEmoji}/><Files name={'selectedFile'} control={'input'} type='file' accept={'.jpg, .jpeg'} onChange={this.startUploading.bind(this)} className="file-attachment"><Icon name='attach' size='large' link/></Files></div>}   placeholder='Type...'  />
-      {this.state.isEmoji?<EmojiPicker  onEmojiClick={this.setEmoji.bind(this)} /> :''}
+      {/* {this.state.isEmoji?<EmojiPicker  onEmojiClick={this.setEmoji.bind(this)} /> :''} */}
        
         
         <Form.Button content='Submit' onClick={this.sendNewMessage} />
