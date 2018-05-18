@@ -15,7 +15,7 @@ export class PreviousExpenses extends Component {
     };
     componentDidMount = async () => {
         try {
-            const resRaw = await fetch(apiEndpoints.previousExpenses, {
+            const resRaw = await fetch(`${apiEndpoints.previousExpenses}?start_date=${this.state.startDate}&end_date=${this.state.endDate}`, {
                 method: 'GET',
                 headers: {
                     'auth_token': this.props.auth_token,
