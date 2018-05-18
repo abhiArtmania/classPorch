@@ -49,7 +49,11 @@ class DashboardStudent extends React.Component {
     this.props.toggleSearchMode('normal')
   };
 
-  
+  handleChangePage = pageNumber => e => {
+    const { gender, q, type } = this.props.searchMetadata;
+    const page_no = pageNumber;
+    this.props.searchRequested({ type, q, gender, page_no });
+  }
 
   render() {
     const { unreadMessagesCount } = this.state;

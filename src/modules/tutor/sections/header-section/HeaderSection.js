@@ -10,7 +10,7 @@ import {
 } from 'semantic-ui-react';
 
 import { history } from '../../../../redux/store';
-import { bookedTutor, MessageActions } from '../../../../redux/actions';
+// import { bookedTutor, MessageActions } from '../../../../redux/actions';
 import './styles.css';
 import Msg2 from '../../../../assets/contact/envelope3.png'
 
@@ -201,7 +201,12 @@ render(){
           <div className="ui labels subjects">
             {tutorInfo.skills && tutorInfo.skills.map(skill => {
               return (
-                <h3 className="university__text">{item.university_name}</h3>
+                <span
+                  key={`skill_${skill.id}`}
+                  className="ui label"
+                >
+                  {skill.name}
+                </span>
               )
             })}
           </div>
@@ -260,16 +265,12 @@ HeaderSection.defaultProps = {
 }
 
 const mapActionToProps = () => {
-<<<<<<< HEAD
-  return { bookedTutor, sendMessage: MessageActions.sendMessage }
-=======
   return {
     bookedTutor,
     sendMessage: MessageActions.sendMessage,
     findChat: MessageActions.findChat,
     createChatForMessageTutor: ChatActions.createChatForMessageTutor,
   }
->>>>>>> 2d8aa622e865c5fd53db68edc448ba14d931863a
 };
 const mapStateToProps = ({ messageReducer, auth }) => {
   console.log("Message Reducer: ",messageReducer)
