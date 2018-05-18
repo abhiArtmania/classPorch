@@ -2,12 +2,12 @@ import React from 'react';
 import {history} from '../../../../redux/store';
 import {connect} from 'react-redux';
 import { object } from 'prop-types';
-import {bookedTutor,MessageActions} from '../../../../redux/actions';
+import {bookedTutor,MessageActions,ChatActions} from '../../../../redux/actions';
 // import {sendMessage} from '../../../../redux/actions/MyMessageActions';
 // import {} from '../../../../redux/actions/MessageActions';
 import {
   Grid,
-  Button, Modal, Image, Header, Form, Input, TextArea, Dropdown
+  Button, Modal, Image, Header, Form, Input, TextArea, Dropdown, Segment,Dimmer,Loader
 } from 'semantic-ui-react';
 import './styles.css';
 import Msg2 from '../../../../assets/contact/envelope3.png'
@@ -17,6 +17,7 @@ import defaultAvatar from '../../../../assets/avatar/default.png'
 
 
 import { Rating } from '../../../../components/common';
+import { setInterval } from 'timers';
 
 // const HeaderSection = props => {
 //   const { tutorInfo, tutorId } = props;
@@ -103,6 +104,7 @@ class HeaderSection extends React.Component{
       stateOptions: [ { key: 'AL', value: 'AL', text: 'Alabama' } ],
       skills: [],
       selected_skill_name: '',
+      sendingMessageLoading: false,
     }
 
   }
@@ -114,14 +116,30 @@ class HeaderSection extends React.Component{
   })
   }
   sendMessage = () => {
+    this.setState({sendingMessageLoading: true})
+    console.log(this.props.tutorInfo);
+    var otherUser = {
+      id: this.props.tutorInfo.id,
+      name: this.props.tutorInfo.fullname,
+      role: 'tutor',
+    }
+    this.props.createChatForMessageTutor(this.props.currentUser,otherUser);
     var msgObj = {
       message: this.state.message,
       subject: this.state.selected_skill_name,
     }
     console.log("Sending Message . . .",msgObj);
-    this.props.sendMessage(msgObj.message);
+    
     this.props.findChat();
+    
+    setTimeout(() => {
+      this.props.sendMessage(msgObj.message);
+      // this.setState({sendingMessageLoading: false}
+    }, 1500);
+    // this.props.sendMessage(msgObj.message);
     this.setState({modalVisible: false, message: '', selected_skill_name: ''})
+
+    
   }
 
   componentWillReceiveProps(nextProps) {
@@ -221,11 +239,14 @@ render(){
                     <Form.Field name="message" id='form-textarea-control-opinion' value={this.state.message} onChange={this.handleChange} style={{height: '230px',width: '114%'}} control={TextArea} label='Message' placeholder='Message' />
                     <Button style={styles.btnCancel} onClick={this.sendMessage} >Send</Button>
                     <Button style={styles.btnSubmit} onClick={this.close}>Cancel</Button>
-                    </Form>
+                    </Form>  
 
                 </Modal.Description>
                 </Modal.Content>
                 </Modal>
+
+                
+                
 
 
     </div>
@@ -246,17 +267,17 @@ const mapActionToProps = () => {
     bookedTutor,
     sendMessage: MessageActions.sendMessage,
     findChat: MessageActions.findChat,
+    createChatForMessageTutor: ChatActions.createChatForMessageTutor,
   }
 };
-const mapStateToProps = ({ messageReducer }) => {
-  console.log("Message Reducer",messageReducer)
-  return {
-
-  }
+const mapStateToProps = ({ messageReducer, auth }) => {
+  console.log("Message Reducer: ",messageReducer)
+  const {id, role, firstName, lastName} = auth;
+  return {currentUser: {id, role, firstName, lastName}};
 }
 
 
 
-export default connect(null, mapActionToProps())(HeaderSection)
+export default connect(mapStateToProps, mapActionToProps())(HeaderSection)
 
 // export default HeaderSection

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {List, Image} from 'semantic-ui-react';
+import {List, Image,Icon} from 'semantic-ui-react';
 import moment from 'moment';
 
 class OtherMessage extends Component {
@@ -11,30 +11,43 @@ class OtherMessage extends Component {
     console.log("Agyaa Own May")
   }
 
-  renderImageMessage = (message) => {
+  renderImageMessage = (message,otherUser) => {
     return (
-      <div>
-        <Image src={message.text} size={'medium'} as={'a'} target={'_blank'} href={message.text}/>
-        <p style={{fontSize: 10, textAlign: 'right', color: '#AAA', marginTop: 8}}>
-          {moment(message.createdAt).fromNow()}
-        </p>
-      </div>
+      // <div>
+      //   <Image src={message.text} size={'medium'} as={'a'} target={'_blank'} href={message.text}/>
+      //   <p style={{fontSize: 10, textAlign: 'right', color: '#AAA', marginTop: 8}}>
+      //     {moment(message.createdAt).fromNow()}
+      //   </p>
+      // </div>
+      <List.Item className="message-row">
+              <List.Content>
+                <List.Header> <Icon name='user' size='large' /> {otherUser.name} </List.Header>
+                <Image src={message.text} size={'medium'} as={'a'} target={'_blank'} href={message.text}/>
+              </List.Content>
+            </List.Item>
     )
   };
 
-  renderTextMessage = (message) => {
+  renderTextMessage = (message,otherUser) => {
     return (
-      <div>
-        <p style={{fontSize: 13}}>{message.text}</p>
-        <p style={{fontSize: 10, textAlign: 'left', color: '#AAA'}}>
-          {moment(message.createdAt).fromNow()}
-        </p>
-      </div>
+      // <div>
+      //   <p style={{fontSize: 13}}>{message.text}</p>
+      //   <p style={{fontSize: 10, textAlign: 'left', color: '#AAA'}}>
+      //     {moment(message.createdAt).fromNow()}
+      //   </p>
+      // </div>
+      <List.Item className="message-row">
+              <List.Content>
+                <List.Header> <Icon name='user' size='large' />{otherUser.name}</List.Header>
+                {message.text}
+              </List.Content>
+            </List.Item>
     )
   };
 
   render() {
-    const {message} = this.props;
+    const {message,otherUser} = this.props;
+    
     const cornerRadius = 8;
     const wrapperStyle = {
       padding: 16,
@@ -42,16 +55,28 @@ class OtherMessage extends Component {
       borderTopLeftRadius: cornerRadius,
       borderTopRightRadius: cornerRadius,
       borderBottomRightRadius: cornerRadius,
-      float: 'left',
+      // float: 'left',
       maxWidth: '40%'
     };
 
     return (
       <List.Item>
-        <div>
+        {/* <div>
           <div style={wrapperStyle}>
             {message.type === 'FILE' ? this.renderImageMessage(message) : this.renderTextMessage(message) }
           </div>
+        </div> */}
+        <div>
+          {
+            (message.type === 'FILE') ? 
+            (<div style={wrapperStyle}>
+              {message.type === 'FILE' ? this.renderImageMessage(message,otherUser) : this.renderTextMessage(message,otherUser) }
+            </div>) :
+            (<div>
+              {message.type === 'FILE' ? this.renderImageMessage(message,otherUser) : this.renderTextMessage(message,otherUser) }
+            </div>)
+          }
+
         </div>
       </List.Item>
     )

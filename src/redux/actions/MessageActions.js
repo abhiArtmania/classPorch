@@ -35,6 +35,7 @@ const MessageActions = {
     message,
     messageType
   }),
+  
   messageSent: () => ({
     type: MessageActions.MESSAGE_SENT
   }),

@@ -10,6 +10,7 @@ import { MessageActions } from '../../redux/actions';
 import {history} from '../../redux/store';
 import Files from 'react-files'
 import "./styles.css";
+import JSEMOJI from 'emoji-js';
 
 class Message extends Component {
 
@@ -24,6 +25,9 @@ class Message extends Component {
     message: '',
     isUploadingFile: false
    }
+
+   
+
     this.showEmoji = this.showEmoji.bind(this);
     this.createChatsFromResponse = this.createChatsFromResponse.bind(this);
     this.createMessageRows = this.createMessageRows.bind(this);
@@ -66,7 +70,7 @@ class Message extends Component {
         return <OwnMessage key={message.key} message={message} />;
       } else {
         console.log("Other Message")
-        return <OtherMessage key={message.key} message={message} />;
+        return <OtherMessage otherUser={this.props.otherUser} key={message.key} message={message} />;
       }
     });
     this.setState({ messages: messageRows });
@@ -87,7 +91,9 @@ class Message extends Component {
   };
 
   onChatSelected = (chat) => {
-    console.log(this.props.currentUser);
+    console.log("chat",chat);
+    console.log("Current User",this.props.currentUser);
+    console.log("Other User",this.props.otherUser);
     const otherUserRole = this.props.currentUser.role === 'student' ? 'tutor' : 'student';
     // const otherUserRole = this.props.role === 'student' ? 'tutor' : 'student';
     this.props.showMessages(this.props.currentUser, {...chat.user, role: otherUserRole}, chat.key);
@@ -115,8 +121,22 @@ class Message extends Component {
       }
      
   }
-  setEmoji(emoji) {
-    this.setState({emoji: emoji})
+  setEmoji(emoji,e) {
+
+    var jsemoji = new JSEMOJI();
+    // jsemoji.img_set = 'emojione';
+// set the storage location for all emojis
+jsemoji.img_sets.emojione.path = 'https://cdn.jsdelivr.net/emojione/assets/3.0/png/32/';
+
+// some more settings...
+// jsemoji.supports_css = false;
+// jsemoji.allow_native = false;
+jsemoji.replace_mode = 'unified';
+
+    console.log(e);
+    let emojiPic = jsemoji.replace_colons(`:${e.name}:`)
+    this.setState({message: this.state.message +  emojiPic});
+    // this.setState({emoji: emoji})
   }
   onFilesChange(files){
     console.log(files)
@@ -130,7 +150,7 @@ class Message extends Component {
   //msging
   sendNewMessage = () => {
     const newMessage = this.state.message;
-    console.log(newMessage);
+    console.log(this.state.emoji);
     if (!newMessage.trim()) { return }
     this.props.sendMessage(newMessage);
     this.setState({
@@ -223,7 +243,7 @@ class Message extends Component {
 <div style={{margin:'10px 0px'}}>
     <Form onSubmit={this.handleSubmit}>
         <Input className="message-input" name="message" value={this.state.message} onChange={this.handleChange} icon={<div className="inner-content"><Icon name='smile' size='large' link onClick={this.showEmoji}/><Files name={'selectedFile'} control={'input'} type='file' accept={'.jpg, .jpeg'} onChange={this.startUploading.bind(this)} className="file-attachment"><Icon name='attach' size='large' link/></Files></div>}   placeholder='Type...'  />
-      {this.state.isEmoji?<EmojiPicker onSelect={this.setEmoji} query={this.state.emoji} />:''}
+      {this.state.isEmoji?<EmojiPicker  onEmojiClick={this.setEmoji.bind(this)} /> :''}
        
         
         <Form.Button content='Submit' onClick={this.sendNewMessage} />
