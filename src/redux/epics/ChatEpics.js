@@ -8,9 +8,14 @@ export const loadChats = (action$, state, {auth, firestore}) => action$.ofType(C
     
     return verifyFirebaseAuth({auth}).switchMap(() => {
       return Rx.Observable.create(observer => {
-        console.log("this role",currentState.role);
+        console.log("CHAT EPICS currentState:",currentState);
+        let stT_id = currentState.role === 'student' ? 'student.id' : 'tutor.id';
+        
         firestore.collection('chats')
-          // .where( currentState.role === 'student' ? 'student.id' : 'tutor.id', '==', currentState.id)
+          // .where( currentState.role === 'student' ? 'student.id' : 'tutor.id', '==', currentState.id) old
+          // .where("student.id", "==", currentState.id) perfect
+          .where(stT_id, "==", currentState.id)
+
           .orderBy('lastMessageCreatedAt', 'desc')
           .onSnapshot(snapshot => {
             observer.next(snapshot);
