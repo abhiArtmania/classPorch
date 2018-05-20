@@ -13,8 +13,6 @@ class DashboardTutor extends Component {
   };
   componentWillMount() {
     const {userId, authToken} = this.props;
-    
-   
       this.props.profileRequested(userId,authToken);
      
   }
@@ -22,11 +20,11 @@ class DashboardTutor extends Component {
   componentDidMount() {
     const {userId, authToken,presentProfileId} = this.props;
     this.props.getDashboard({userId, authToken});
-    this.props.profileRequested(userId,authToken);
+    
     this.props.getUnreadMessagesCount();
    if(!this.props.profile.verified){
    
-      this.props.profileRequested(userId,authToken);
+      //this.props.profileRequested(userId,authToken);
       history.push('/profile/tutor');
      }
   }
@@ -48,7 +46,7 @@ class DashboardTutor extends Component {
 
   render() {
     const {unreadMessageCount, profile} = this.state;
-    console.log(profile);
+    console.log(this.state);
     return (
       <div>
         <StatsSection />

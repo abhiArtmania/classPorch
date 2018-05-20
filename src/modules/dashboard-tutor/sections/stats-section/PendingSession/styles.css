@@ -1,0 +1,8 @@
+.image{
+    height: 20px;
+    width: 20px
+}
+button.ui.yellow.button.cancel {
+    width: 115px;
+    height: 35px;
+}

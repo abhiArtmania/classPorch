@@ -43,7 +43,7 @@ class StatsSection extends React.Component {
     const CompleteSessionCount='';
     const panes = [
     { menuItem: `Completed Sessions(${session_completed.total_records})`, render: () => <Tab.Pane attached={false}>{<CompletedSession CompleteSessionCount={CompleteSessionCount}/>}</Tab.Pane> },
-      { menuItem:`Scheduled Sessions(${session_scheduled.total_records})`, render: () => <Tab.Pane attached={false}>{<ScheduledSession/>}</Tab.Pane> },
+    { menuItem:`Scheduled Sessions(${session_scheduled.total_records})`, render: () => <Tab.Pane attached={false}>{<ScheduledSession/>}</Tab.Pane> },
     { menuItem: `Pending Sessions(${session_pending.total_records})`, render: () => <Tab.Pane attached={false}>{<PendingSession/>}</Tab.Pane> },
     ]
     

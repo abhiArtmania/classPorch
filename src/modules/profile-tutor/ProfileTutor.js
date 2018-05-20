@@ -15,21 +15,21 @@ class ProfileTutor extends React.Component {
 	};
 	componentWillMount(){
 		console.log('sdfs');
-		const {presentProfileId,authToken} = this.props;
-		this.props.profileRequested(presentProfileId,authToken);
-		this.props.toggleProfileMode('normal')
+		const {userId, authToken,presentProfileId} = this.props;
+		this.props.profileRequested(userId,authToken);
+		
 	}
 	
-	async componentDidMount(){
-		const {presentProfileId,authToken} = this.props;
-		this.props.profileRequested(presentProfileId,authToken);
+	componentDidMount(){
+		const {userId, authToken,presentProfileId} = this.props;
+		this.props.profileRequested(userId,authToken);
 		this.props.toggleProfileMode('normal')
-		await this.props.getSeededSkills('d3FxhQYWG0FIZqn1X1UN_Q') 
+		/*await this.props.getSeededSkills('d3FxhQYWG0FIZqn1X1UN_Q') 
 		if(this.props.seededSkills) this.setState({ 
                 skills: this.props.seededSkills.map(x => {
                     return { key:x.id, text:capitalize(x.name), value:x.id }
                 })   
-			})
+			})*/
     
 	}
 
@@ -69,7 +69,7 @@ class ProfileTutor extends React.Component {
     render(){
 		const { userId,authToken,presentProfileId,role,firstName, profile, educations, lastName ,
 			averageRating, reviews,mode, onChangeEducation, onChangeSkill,skills, fullname,verified } = this.props;
-			console.log( profile);
+			console.log( this.props);
         return (
 			<div style={{padding:'15px'}}>
 				{!verified &&<Message warning>
@@ -77,7 +77,7 @@ class ProfileTutor extends React.Component {
     <p>Your profile is under Review. It typically takes 24*72 hours to be Approved an verified</p>
   </Message>}
         	<div className="outerProfile-section" style={{width:'100%',display:'flex',flexDirection:'column', alignItems:'center' }} >
-				<HeaderSection mode={mode} onChangeSkill={onChangeSkill} toggleProfileMode={this.props.toggleProfileMode} onChangeUserInfo={this.props.onChangeUserInfo}  onChangeEducation={onChangeEducation} onChangeSkill={onChangeSkill} userId={userId} fullname={fullname} averageRating={averageRating} authToken={authToken} profile={profile} presentProfileId={presentProfileId}
+				<HeaderSection mode={mode} skills={skills} onChangeSkill={onChangeSkill} toggleProfileMode={this.props.toggleProfileMode} onChangeUserInfo={this.props.onChangeUserInfo}  onChangeEducation={onChangeEducation} onChangeSkill={onChangeSkill} userId={userId} fullname={fullname} averageRating={averageRating} authToken={authToken} profile={this.props.profile} presentProfileId={presentProfileId}
 								role= {role} lastName = {lastName} firstName={firstName} showMessages={this.props.showMessages}
 								updateProfilePicture={updateProfilePicture}  educations={educations} updateProfile={this.props.updateProfile}
 								 reviews = {reviews} 

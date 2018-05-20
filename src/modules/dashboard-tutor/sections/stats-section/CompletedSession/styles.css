@@ -1,0 +1,32 @@
+.image{
+    height: 20px;
+    width: 20px
+}
+.complete-session .tutor-img{
+    display: inline-block;
+    float: left;
+    width: 60px !important;
+    margin-right: 20px ;
+}
+p.no-record{
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
+}
+.complete-session .ui.small.label, .ui.small.labels .label{
+    background-color:orange;
+    color:#fff;
+    margin: 5px 5px 5px 0;
+}
+.complete-session .i.orange.icon{
+    color: #ffa500!important;
+}
+p.full-date {
+    margin: 5px 0 0 0;
+}
+.row.session-row {
+    border-bottom: 1px solid orange;
+    padding: 10px 10px;
+}
+
