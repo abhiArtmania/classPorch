@@ -12,6 +12,7 @@ import speechbubble from '../../assets/speech-bubble.svg';
 import searchicon from '../../assets/searchicon.svg';
 import notificationIcon from '../../assets/ring.svg';
 import compass from '../../assets/n.png';
+import { Accordion, AccordionContent } from 'semantic-ui-react';
 
 
 class Navbar extends Component {
@@ -32,20 +33,20 @@ class Navbar extends Component {
         this.onSearch = this.onSearch.bind(this);
         this.isShowSearchBar = this.isShowSearchBar.bind(this);
         this.menuToggle = this.menuToggle.bind(this);
-        this.state={
-            isSearchbar:false,
+        this.state = {
+            isSearchbar: false,
             open: false,
-            NotificationList:[
-                {id:6, Date: 'Mar-2018', Notification: 'Hello this is first notification' },
-                {id:7, Date: 'Mar-2018', Notification: 'Hello this is second notification' },
-                {id:8, Date: 'Mar-2018', Notification: 'Hello this is third notification' },
-                {id:9, Date: 'Apr-2018', Notification: 'Hello this is forth notification' },
-                {id:10, Date: 'Apr-2018', Notification: 'Hello this is five notification' },
-                {id:2, Date: 'Jan-2018', Notification: 'Hello this is first notification' },
-                {id:1, Date: 'Jan-2018', Notification: 'Hello this is second notification' },
-                {id:3, Date: 'Feb-2018', Notification: 'Hello this is third notification' },
-                {id:4, Date: 'Feb-2018', Notification: 'Hello this is forth notification' },
-                {id:5, Date: 'Feb-2018', Notification: 'Hello this is five notification' },
+            NotificationList: [
+                { id: 6, Date: 'Mar-2018', Notification: 'Hello this is first notification' },
+                { id: 7, Date: 'Mar-2018', Notification: 'Hello this is second notification' },
+                { id: 8, Date: 'Mar-2018', Notification: 'Hello this is third notification' },
+                { id: 9, Date: 'Apr-2018', Notification: 'Hello this is forth notification' },
+                { id: 10, Date: 'Apr-2018', Notification: 'Hello this is five notification' },
+                { id: 2, Date: 'Jan-2018', Notification: 'Hello this is first notification' },
+                { id: 1, Date: 'Jan-2018', Notification: 'Hello this is second notification' },
+                { id: 3, Date: 'Feb-2018', Notification: 'Hello this is third notification' },
+                { id: 4, Date: 'Feb-2018', Notification: 'Hello this is forth notification' },
+                { id: 5, Date: 'Feb-2018', Notification: 'Hello this is five notification' },
             ],
             showReply: false,
             searchWord: '',
@@ -88,7 +89,7 @@ class Navbar extends Component {
         console.log(history);
         this.setState({ activeItem: name });
         const { role, userId } = this.props;
-        (name === 'search'?this.setState({isSearchbar:true}):this.setState({isSearchbar:false}));
+        (name === 'search' ? this.setState({ isSearchbar: true }) : this.setState({ isSearchbar: false }));
         switch (name) {
             case 'messages':
                 history.push('/message');
@@ -109,7 +110,7 @@ class Navbar extends Component {
                 this.scrollTo();
                 return role === 'tutor' ? history.push('/profile/tutor') : history.push('/profile/student');
             case 'notification':
-				this.setState({showReply: false})
+                this.setState({ showReply: false })
                 history.push('/notification');
                 return;
 
@@ -145,13 +146,13 @@ class Navbar extends Component {
                 break;
             case 'dashboard':
                 history.push('/dashboard');
-                break;   
+                break;
             case 'settings':
                 history.push('/settings');
-                break; 
+                break;
             case 'support':
                 history.push('/support');
-                break;               
+                break;
             case 'search':
                 this.onSearch();
                 break;
@@ -162,13 +163,13 @@ class Navbar extends Component {
     };
 
 
-    onClick(e){
+    onClick(e) {
         e.preventDefault();
         console.log(this.state.showReply)
         this.setState({ open: !this.state.open })
-        this.setState({showReply: !this.state.showReply})
-      }
-      handleClose = () => this.setState({ open: false })
+        this.setState({ showReply: !this.state.showReply })
+    }
+    handleClose = () => this.setState({ open: false })
     scrollTo(selector) {
         setTimeout(() => {
             if (selector) {
@@ -230,8 +231,8 @@ class Navbar extends Component {
         ];
 
         let filteredMenuItems = [];
-        const hiddenFromTutorItems = ['add-credits', 'previous-expenses','settings'];
-        const hiddenFromStudentItems = ['profile','previous-expenses','request-money', 'link-account'];
+        const hiddenFromTutorItems = ['add-credits', 'previous-expenses', 'settings'];
+        const hiddenFromStudentItems = ['profile', 'previous-expenses', 'request-money', 'link-account'];
 
         if (this.props.role === "tutor") {
             filteredMenuItems = hiddenFromTutorItems.reduce((final, itemKey) => {
@@ -243,7 +244,7 @@ class Navbar extends Component {
             }, loggedInMenuItems)
         }
         let menuItems = filteredMenuItems.map((item, i) => {
-         
+
             return (
                 <Dropdown.Item
                     key={item.key}
@@ -255,23 +256,23 @@ class Navbar extends Component {
             );
         });
 
-       
-        let notificationiteam=this.state.NotificationList.map((item,j) =>{
-          
-         //   console.log('item',item);
+
+        let notificationiteam = this.state.NotificationList.map((item, j) => {
+
+            //   console.log('item',item);
             return
-             (
-                 <div>
-                {item.Date}
-                {item.Notification}
-                 </div>
-            //     <Dropdown.Item
-            //     key={item.Date}
-            //     name={item.Notification}
-            //     onClick={this.handleItemClick}
-            //     active={this.state.activeItem === ''}>
-            //     {item.Date}
-            //  </Dropdown.Item>
+            (
+                <div>
+                    {item.Date}
+                    {item.Notification}
+                </div>
+                //     <Dropdown.Item
+                //     key={item.Date}
+                //     name={item.Notification}
+                //     onClick={this.handleItemClick}
+                //     active={this.state.activeItem === ''}>
+                //     {item.Date}
+                //  </Dropdown.Item>
             )
         })
 
@@ -282,7 +283,7 @@ class Navbar extends Component {
 
                 <div className='trigger-content'>
                     <div className='username-text'> {this.capitalize(firstName)} {this.capitalize(lastName)} </div>
-                    <div className='user-credits'> {`$${this.props.profile.credits ?this.props.profile.credits:'0' }`} </div>
+                    <div className='user-credits'> {`$${this.props.profile.credits ? this.props.profile.credits : '0'}`} </div>
                 </div>
             </div>
         );
@@ -297,32 +298,32 @@ class Navbar extends Component {
                 onClick={this.handleItemClick}>Show all notifications</Menu.Item>
         );
 
-       let notificationbar=this.renderNotificationtems(Notificationtrigger)
-       let key=1;
+        let notificationbar = this.renderNotificationtems(Notificationtrigger)
+        let key = 1;
         return (<Menu.Menu position='right'>
-           
+
             <Menu.Item name={'dashboard'} active={this.state.activeItem === 'dashboard'}
-                onClick={this.handleItemClick}>Dashboard</Menu.Item>      
+                onClick={this.handleItemClick}>Dashboard</Menu.Item>
             {/*(window.location.pathname === '/search' || window.location.pathname === '/dashboard/student' || window.location.pathname === '/profile/student') && this.props.role === 'student' &&*/
                 <Menu.Item name={'search'} active={this.state.activeItem === 'search'} onClick={this.handleItemClick}><Icon color='yellow' name='search' size='large' /></Menu.Item>}
 
             <Menu.Item name={'messages'} active={this.state.activeItem === 'messages'}
-                onClick={this.handleItemClick}><Image src={speechbubble} style={{ width: '30px',height: 'auto'}} /> 
-   
-      
-   
- </Menu.Item>
-            
+                onClick={this.handleItemClick}><Image src={speechbubble} style={{ width: '30px', height: 'auto' }} />
+
+
+
+            </Menu.Item>
+
             <Dropdown item trigger={triggernotification} pointing='top left' value={this.state.activeItem}
                 className='notification-container'>
                 <Dropdown.Menu>
-                <div id="notificationDiv" className="NotificationDiv">
-                     <Table basic='very'>
-                        <Table.Body keys={key++}>
-                            {notificationbar} 
-                        </Table.Body>   
-                    </Table>  
-                </div> 
+                    <div id="notificationDiv" className="NotificationDiv">
+                        <Table basic='very'>
+                            <Table.Body keys={key++}>
+                                {notificationbar}
+                            </Table.Body>
+                        </Table>
+                    </div>
                 </Dropdown.Menu>
             </Dropdown>
             <Dropdown item trigger={trigger} pointing='top left' value={this.state.activeItem}
@@ -377,20 +378,20 @@ class Navbar extends Component {
     }
 
     renderNotificationtems(all) {
-    
-        let menuItems = this.state.NotificationList.slice(0,5).map((item) => {
+
+        let menuItems = this.state.NotificationList.slice(0, 5).map((item) => {
             return (
                 <Table.Row keys={item.id}>
-                  <Table.Cell>
-                   <a href="#" className="notification-link"> {item.Notification}</a>
+                    <Table.Cell>
+                        <a href="#" className="notification-link"> {item.Notification}</a>
                     </Table.Cell>
                 </Table.Row>
-                   
+
             );
         });
         return (<div position={'right'}> {menuItems}{all} </div>)
     }
-    
+
 
     getItems() {
         const items = [
@@ -424,8 +425,8 @@ class Navbar extends Component {
 
     onSearch = (e) => {
         e && e.preventDefault();
-        
-        const { filterGender, filterSkill, searchWord  } = this.state;
+
+        const { filterGender, filterSkill, searchWord } = this.state;
         this.props.toggleSearchMode({ mode: 'search' });
         const page_no = 1; // default
         const params = {
@@ -457,68 +458,72 @@ class Navbar extends Component {
             { key: 'female', text: 'Female', value: 'female' },
         ]
         const optsGenderSelected = optsGender.filter(item => item.value === this.state.filterGender)
-        
+
         if (this.props.role !== 'student') {
             return null
         }
-        if (window.location.pathname === '/search' || window.location.pathname === '/dashboard/student' || window.location.pathname === '/profile/student') {
+        if (window.location.pathname === '/search' ||
+            window.location.pathname === '/dashboard/student' ||
+            window.location.pathname === '/profile/student') {
             return (
-                <form className='search-form None-border' onSubmit={this.onSearch}>
-                    <Input
-                        size='large'
-                        placeholder='Enter tutor name'
-                        className='search-input'
-                        action='Search'
-                        onChange={this.onSearchWordChange}
-                    />
-                    <div className="searchFilters">
-                        <Dropdown
-                            floating
-                            options={optsGender}
-                            text={this.state.filterGender === '' ? 'Gender' : optsGenderSelected.text}
-                            onChange={this.onChangeFilter}
-                            name='filterGender'
-                            value={this.state.filterGender}
-                            className="searchFilters__filter"
-                        />
-                        <Dropdown
-                            floating
-                            options={optsSkill}
-                            text={this.state.filterSkill === '' ? 'Skill' : optsSkillSelected.text}
-                            onChange={this.onChangeFilter}
-                            name='filterSkill'
-                            value={this.state.filterSkill}
-                            className="searchFilters__filter"
-                        />
-                    </div>
-                </form>
+                <AccordionContent>
+                    <Menu.Item>
+                        <form className='search-form None-border' onSubmit={this.onSearch}>
+                            <Input
+                                size='large'
+                                placeholder='Enter tutor name'
+                                className='search-input'
+                                action='Search'
+                                onChange={this.onSearchWordChange}
+                            />
+                            <div className="searchFilters">
+                                <Dropdown
+                                    floating
+                                    options={optsGender}
+                                    text={this.state.filterGender === '' ? 'Gender' : optsGenderSelected.text}
+                                    onChange={this.onChangeFilter}
+                                    name='filterGender'
+                                    value={this.state.filterGender}
+                                    className="searchFilters__filter"
+                                />
+                                <Dropdown
+                                    floating
+                                    options={optsSkill}
+                                    text={this.state.filterSkill === '' ? 'Skill' : optsSkillSelected.text}
+                                    onChange={this.onChangeFilter}
+                                    name='filterSkill'
+                                    value={this.state.filterSkill}
+                                    className="searchFilters__filter"
+                                />
+                            </div>
+                        </form>
+                    </Menu.Item>
+                </AccordionContent>
             )
         }
         return null
     };
-  	menuToggle(e)
-	{
-		
-	if(e.target.innerText=="menu▼") e.target.innerText="menu▲";
-	else e.target.innerText="menu▼";
-	
-	$(".menu-container").slideToggle();
-	}
+    menuToggle(e) {
 
-    
+        if (e.target.innerText == "menu▼") e.target.innerText = "menu▲";
+        else e.target.innerText = "menu▼";
+
+        $(".menu-container").slideToggle();
+    }
+
+
 
     render() {
         const { authToken, role } = this.props;
         const { open } = this.state;
         console.log(role);
-        let menuBar, searchbar,notificationbar;
+        let menuBar, searchbar, notificationbar;
         let menuRight = (authToken && window.location.pathname !== '/login' && window.location.pathname !== '/' && !window.location.pathname.includes('sign-up')) ? this.getLoggedInMenuItems() : this.getItems();
         let dashboardLink = role === "student" ? '/dashboard/student' : '/dashboard/tutor';
         let isDashboardAccessible = authToken ? dashboardLink : '/';
-
         if (!authToken) {
             menuBar = this.renderCenterItems()
-           
+
         }
         if (authToken) {
             searchbar = <Menu.Item position='right'> {this.isShowSearchBar()} </Menu.Item>
@@ -534,15 +539,16 @@ class Navbar extends Component {
                     {menuBar}
                     {this.props.role === 'tutor' && searchbar}
                     <Button size={'medium'} basic={true} onClick={this.menuToggle}>menu</Button>
-                    {  this.state.isSearchbar === true && searchbar}
+                    {/* {this.state.isSearchbar === true &&
+                        <Accordion as={Menu} vertical>
+                            {searchbar}
+                        </Accordion>
+                    } */}
                     {menuRight}
-
                 </Menu>
                 <div className="menu-container">
                     <Menu stackable borderless className='menubar2' size={'large'} fixed={'top'} ref="slideMenu">
-                   
                         {menuBar}
-
                     </Menu>
                 </div>
             </div>

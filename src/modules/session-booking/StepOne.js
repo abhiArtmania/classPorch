@@ -17,7 +17,8 @@ export class StepOne extends React.Component {
       firstName: '', 
       lastName: '',
       skills: '',
-      selected_skill_id: '',
+      showError: false,
+      selected_skill_id: [],
       friendOptions: [
           {
             text: 'HTML',
@@ -37,6 +38,9 @@ export class StepOne extends React.Component {
         }
        
     }
+
+    localStorage.setItem("skill_id",JSON.stringify(this.state.selected_skill_id))
+
     this.handleFirstNameChanged = this.handleFirstNameChanged.bind(this);
     this.handleLastNameChanged = this.handleLastNameChanged.bind(this);
   }
@@ -57,6 +61,7 @@ export class StepOne extends React.Component {
 
   componentDidMount(){
     console.log(this.props.tutorSkills)
+    console.log("ye hain steps props: ",this.props.subjVal)
     if(this.props.tutorSkills) this.setState({ 
       skills: this.props.tutorSkills.map(x => {
           return { key:x.id, text:x.name, value:x.id }
@@ -64,12 +69,21 @@ export class StepOne extends React.Component {
   })
   }
 
+  componentWillUnmount(){
+    if(this.state.selected_skill_id.length === 0){
+      this.setState({showError: true})
+    } else {
+      console.log(this.state.selected_skill_id)
+    }
+    
+  }
+
   render () {
     return (
       <div style={styles.container}>
   
             <h4>Please Select the Subject</h4>
-            <Dropdown style={styles.dropdown} onChange={this.setValue.bind(this)} value={this.state.seletcted_skill_id}  placeholder='Category' fluid search selection multiple options={this.state.skills}/>
+            <Dropdown error={this.state.showError} style={styles.dropdown} onChange={this.setValue.bind(this)} value={this.state.seletcted_skill_id}  placeholder='Category' fluid search selection multiple options={this.state.skills}/>
       </div>
     )
   }

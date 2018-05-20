@@ -11,6 +11,7 @@ const MessageActions = {
   FILE_UPLOADED: 'FILE_UPLOADED_MESSAGING',
   UPLOAD_PROGRESS: 'UPLOAD_PROGRESS_MESSAGING',
   UNSUBSCRIBE_MESSAGING: 'UNSUBSCRIBE_MESSAGING',
+  
   findChat: () => ({
     type: MessageActions.FIND_CHAT
   }),
@@ -34,6 +35,7 @@ const MessageActions = {
     message,
     messageType
   }),
+  
   messageSent: () => ({
     type: MessageActions.MESSAGE_SENT
   }),
@@ -56,3 +58,24 @@ const MessageActions = {
 };
 
 export default MessageActions;
+
+
+//starts mine
+
+// export const sendMessage = (msgObj) =>{
+//   return(
+//       {
+//           type: 'SEND_MESSAGE',
+//           payload: msgObj
+//       }
+//   )
+// }
+
+// export const delTask = (itemId) =>{
+//   return(
+//       {
+//           type: 'del_task',
+//           payload: itemId
+//       }
+//   )
+// }

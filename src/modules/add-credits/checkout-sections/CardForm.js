@@ -1,7 +1,7 @@
 import React from 'react';
 
-import {StripeProps} from 'react-stripe-elements';
-import { Input } from 'semantic-ui-react'
+import { StripeProps } from 'react-stripe-elements';
+import { Input, FormField, Form } from 'semantic-ui-react'
 import '../styles.css'
 
 import {
@@ -46,37 +46,41 @@ const createOptions = (fontSize) => {
 
 class _CardForm extends React.Component {
 
-  state={
-    amount:'',
-    paymentType:'wallet add'
+  state = {
+    amount: '',
+    paymentType: 'wallet add'
   };
 
   onFocusAmount = (e) => {
     e.target.click()
   };
 
-  onAmountChange = (e,{value}) => {
-    this.setState({ amount:value })
+  onAmountChange = (e, { value }) => {
+    this.setState({ amount: value })
   };
 
   handleSubmit = ev => {
     ev.preventDefault();
-    if(!this.state.amount){
+    if (!this.state.amount) {
       return
     }
     this.props.stripe.createToken().then(resToken => {
-      console.log(JSON.stringify(resToken,null,4));
-      this.props.addMoneyToWallet({ 
-        userId : this.props.userId,
+      console.log(JSON.stringify(resToken, null, 4));
+      this.props.addMoneyToWallet({
+        userId: this.props.userId,
         authToken: this.props.authToken,
-        amountToBeAdded : parseFloat(this.state.amount),
-        stripeToken: resToken.token.id, 
-        paymentType : this.state.paymentType
+        amountToBeAdded: parseFloat(this.state.amount),
+        stripeToken: resToken.token.id,
+        paymentType: this.state.paymentType
       });
-      this.setState({ amount:'' })
+      this.setState({ amount: '' })
     })
   };
   render() {
+
+    const cardInfo = <CardElement
+      {...createOptions(this.props.fontSize)}
+    />
     return (
       <form onSubmit={this.handleSubmit} className='cardform-container' >
         <label>
@@ -86,17 +90,17 @@ class _CardForm extends React.Component {
           />
         </label>
         <label>
-          Amount <br/>
-            <Input 
-              type='number' 
-              value={this.state.amount} 
-              className='input-amount-style' 
-              onFocus={this.onFocusAmount}
-              onChange={this.onAmountChange}
-            />
+          Amount <br />
+          <Input
+            type='number'
+            value={this.state.amount}
+            className='input-amount-style'
+            onFocus={this.onFocusAmount}
+            onChange={this.onAmountChange}
+          />
         </label>
-        <br/>
-        <button className='stripe-button' > { this.props.addingMoney? 'Adding Credits ...' :  'Add Credits' }</button>
+        <br />
+        <button className='stripe-button' > {this.props.addingMoney ? 'Adding Credits ...' : 'Add Credits'}</button>
       </form>
     );
   }

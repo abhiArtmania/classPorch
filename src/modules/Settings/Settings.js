@@ -1,64 +1,70 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Tab } from 'semantic-ui-react'
 
-/**
- * Created by raffi.
- * User: raffi
- * Date: 1/23/18
- */
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import { Tab  } from 'semantic-ui-react'
-import {getFAQ} from '../../redux/actions';
-
+import { getFAQ, updatePersonalInfo } from '../../redux/actions';
+import { PersonalInfo } from './PersonalInfo';
 import './index.scss';
+import { PasswordInfo } from './PasswordInfo';
+import { NotificationSettings } from './NotificationSettings';
+import { PreviousExpenses } from './PreviousExpenses';
+import { Billing } from './Billing';
 
 class Settings extends Component {
-	state=
-	{
-		loading:false,
-		items:[],
-		activeIndex: 0,
-		activePage:1
-		
-	};
-componentDidMount=async() => 
-{
-		
-	this.setState({loading:true})
-	setTimeout(()=>this.setState({loading:false}), 1500);	
-	await this.props.getFAQ();
-	this.setState({items:this.props.FAQ})
-			
+  state =
+    {
+      loading: false,
+      items: [],
+      activeIndex: 0,
+      activePage: 1,
+      profile: this.props.profile
+
+    };
+  componentDidMount = async () => {
+    this.setState({ loading: true })
+    setTimeout(() => this.setState({ loading: false }), 1500);
+    await this.props.getFAQ();
+    this.setState({ items: this.props.FAQ })
+  }
+  submitPersonalInfo = () => {
+    this.props.updatePersonalInfo({ "user": this.state.profile });
+  }
+  updatePersonInfo = (event) => {
+    const { name, value } = event.target;
+    this.setState(prevState => ({
+      profile: {
+        ...prevState.profile,
+        [name]: value
+      }
+    }));
+  }
+  resetProps = (data) => {
+    this.setState({ profile: data });
+  }
+  render() {
+    const panes = [
+      { menuItem: 'Personal Info', render: () => <Tab.Pane><PersonalInfo {...this.state.profile} resetProps={this.resetProps} onChange={this.updatePersonInfo} onSubmitForm={this.submitPersonalInfo} /></Tab.Pane> },
+      { menuItem: 'Previous Expenses', render: () => <Tab.Pane><PreviousExpenses {...this.props.profile} /></Tab.Pane> },
+      { menuItem: 'Billing ', render: () => <Tab.Pane><Billing /> </Tab.Pane> },
+      { menuItem: 'Change Password ', render: () => <PasswordInfo  {...this.props.profile} /> },
+      { menuItem: 'Notification Settings ', render: () => <NotificationSettings /> },
+    ]
+    return <div style={{ padding: '20px' }}>
+      <div className="outer-setting"  >
+        <Tab menu={{ fluid: true, vertical: true, tabular: 'right' }} panes={panes} />
+      </div>
+    </div>
+  }
 }
 
-
-  
-    render() {
-		
-        const panes = [
-          { menuItem: 'Personal Info', render: () => <Tab.Pane>Personal Info</Tab.Pane> },
-          { menuItem: 'Previous Expenses', render: () => <Tab.Pane>Previous Expenses</Tab.Pane> },
-          { menuItem: 'Billing ', render: () => <Tab.Pane>Billing</Tab.Pane> },
-          { menuItem: 'Change Password ', render: () => <Tab.Pane>Change Password</Tab.Pane> },
-          { menuItem: 'Notification Settings ', render: () => <Tab.Pane>Notification Settings</Tab.Pane> },
-        ]
-        return <div style={{padding:'20px'}}>
-        <div className="outer-setting"  >
-          <Tab menu={{ fluid: true, vertical: true, tabular: 'right' }} panes={panes} />
-        </div>
-        </div>
-    }
-}
-
-
-const mapStateToProps = ({dashboard}) => {
-  const {FAQ, loading,FAQSubj} = dashboard;
-  return {FAQ, loading, FAQSubj}
+const mapStateToProps = ({ dashboard, auth }) => {
+  const { FAQ, loading, FAQSubj, profile } = dashboard;
+  const { personalInfoUpdating, personalInfoUpdated } = auth;
+  return { FAQ, loading, FAQSubj, profile, personalInfoUpdating, personalInfoUpdated }
 };
 
 const mapActionToProps = () => {
-  return {getFAQ}
+  return { getFAQ, updatePersonalInfo }
 };
-
-
 
 export default connect(mapStateToProps, mapActionToProps())(Settings);

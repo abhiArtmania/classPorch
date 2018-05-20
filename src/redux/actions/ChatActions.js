@@ -4,6 +4,8 @@ const ChatActions = {
   SHOW_ERROR_IN_CHATS: 'SHOW_ERROR_IN_CHATS',
   UNSUBSCRIBE_CHATS: 'UNSUBSCRIBE_CHATS',
   SHOW_MESSAGES: 'SHOW_MESSAGES',
+  CREATE_CHAT_FOR_MESSAGE_TUTOR: 'CREATE_CHAT_FOR_MESSAGE_TUTOR',
+
   loadChats: () => ({
     type: ChatActions.LOAD_CHATS
   }),
@@ -23,6 +25,11 @@ const ChatActions = {
     currentUser,
     otherUser,
     chatId
+  }),
+  createChatForMessageTutor: (currentUser, otherUser) => ({
+    type: ChatActions.CREATE_CHAT_FOR_MESSAGE_TUTOR,
+    currentUser,
+    otherUser,
   })
 };
 

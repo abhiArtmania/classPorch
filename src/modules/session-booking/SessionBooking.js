@@ -1,6 +1,6 @@
 // 'use strict'
 import React, { Component } from 'react';
-import { Icon, Step, Button, Card } from 'semantic-ui-react'
+import { Icon, Step, Button, Card, Message } from 'semantic-ui-react'
 import {connect} from 'react-redux';
 // import MultiStep from 'react-multistep';
 // import { steps } from './src/index.js'
@@ -58,9 +58,9 @@ class SessionBooking extends React.Component {
   render() {
     console.log(this.props.TUTORINFO);
     const steps = [
-      {name: 'StepOne', component: <StepOne tutorSkills={this.props.TUTORINFO.skills}/>},
-      {name: 'StepTwo', component: <StepTwo tutorId={this.state.tutorId}/>},
-      {name: 'StepThree', component: <StepThree/>},
+      {name: 'Subject', component: <StepOne tutorSkills={this.props.TUTORINFO.skills}/>},
+      {name: 'Date & Time', component: <StepTwo tutorId={this.state.tutorId}/>},
+      {name: 'Confirm', component: <StepThree/>},
       // {name: 'StepFour', component: <StepFour/>}
     ]
       return (
@@ -108,13 +108,16 @@ class SessionBooking extends React.Component {
 
 
 class MultiStep extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
       showPreviousBtn: false,
       showNextBtn: true,
       compState: 0,
-      navState: this.getNavStates(0, this.props.steps.length)
+      navState: this.getNavStates(0, this.props.steps.length),
+      subjValidity: false,
+      timeValidity: false,
     };
     this.hidden = {
       display: 'none'
@@ -187,7 +190,31 @@ class MultiStep extends React.Component {
   }
 
   next() {
-    this.setNavState(this.state.compState + 1)
+
+    //For First Step
+    if(this.state.compState === 0){
+      let subj = JSON.parse(localStorage.getItem("skill_id"));
+      console.log(subj);
+      if(subj.length === 0){
+        this.setState({subjValidity: true})
+      } else {
+        this.setState({subjValidity: false})
+        this.setNavState(this.state.compState + 1)
+      }
+    }
+
+    //For Second Step
+    if(this.state.compState === 1){
+      let tutor = JSON.parse(localStorage.getItem("start_time"));
+      if(tutor !== null){
+        this.setState({timeValidity: false})
+        this.setNavState(this.state.compState + 1)
+      } else {
+        this.setState({timeValidity: true})
+        
+      }
+    }
+    
   }
 
   previous() {
@@ -209,7 +236,49 @@ class MultiStep extends React.Component {
     ));
   }
 
+  
+
   render() {
+
+    let styless = {
+      firstNext: {
+        color: 'white',
+        margin: '15px 0',
+        padding: '15px 30px',
+        background: 'orange',
+        transition: 'all ease .3s',
+        marginRight: '115px',
+        // marginTop: '15px'
+      },
+      secondPrev: {
+        color: 'white',
+        margin: '15px 0',
+        padding: '15px 30px',
+        background: 'orange',
+        transition: 'all ease .3s',
+        // marginLeft: '50px',
+        // marginTop: '-20px'
+      },
+      secondNext: {
+        color: 'white',
+        margin: '15px 0',
+        padding: '15px 30px',
+        background: 'orange',
+        transition: 'all ease .3s',
+        marginRight: '30%'
+        // marginRight: '60px',
+        // marginTop: '-12px'
+      },
+      thirdPrev: {
+        color: 'white',
+        margin: '15px 0',
+        padding: '15px 30px',
+        background: 'orange',
+        transition: 'all ease .3s',
+        marginLeft: '105px',
+        
+      }
+    }
 
     return (
 
@@ -219,17 +288,74 @@ class MultiStep extends React.Component {
          <div className="container" onKeyDown={this.handleKeyDown}>
             <ol className="progtrckr">
               {this.renderSteps()}
+
+              {
+                (this.state.subjValidity) ? (
+                  <Message warning style={{marginTop: '53px'}}>
+                        <Message.Header>You must select the subject before proceeding!</Message.Header>
+                      </Message>
+                ) : (<div></div>)
+              }
+              {
+
+                (this.state.timeValidity && this.state.compState === 1) ? (
+                  <Message warning style={{marginTop: '53px'}}>
+                        <Message.Header>You must select the time slot before proceeding!</Message.Header>
+                      </Message>
+                ) : (<div></div>)
+              }
+
             </ol>
             {this.props.steps[this.state.compState].component}
+
+
+              {/* ye wala hai */}
+            {/* <div className="prevNextButtons">
             <div style={this.props.showNavigation ? {} : this.hidden}>
-              <Button style={this.state.showPreviousBtn ? {} : this.hidden}
-                      className="session-booking-btn"
+              <Button 
+              style={this.state.showPreviousBtn ? {} : { display: 'none' }}
+                      className="next-btn"
                       onClick={this.previous}>Previous</Button>
                       &nbsp; 
-              <Button floated='right' style={this.state.showNextBtn ? {} : this.hidden}
-                      className="session-booking-btn"
+              <Button floated='right' 
+              style={this.state.showNextBtn ? {} : { display: 'none' }}
+                      className="next-btn"
                       onClick={this.next}>Next</Button>
             </div>
+            </div> */}
+
+            <div className="prevNextButtons">
+            <div style={this.props.showNavigation ? {} : this.hidden}>
+              <Button 
+              style={this.state.showPreviousBtn && this.state.compState === 1 ? styless.secondPrev : this.state.showPreviousBtn && this.state.compState === 2 ? styless.thirdPrev  :  { display: 'none' }}
+                      // className="next-btn"
+                      onClick={this.previous}>Previous</Button>
+                      &nbsp; 
+              <Button floated='right' 
+              style={this.state.showNextBtn && this.state.compState === 0 ? styless.firstNext : this.state.showNextBtn && this.state.compState === 1 ? styless.secondNext : { display: 'none' }}
+                      // className="next-btn"
+                      onClick={this.next}>Next</Button>
+              
+              {/* {
+
+              (this.state.showPreviousBtn && this.state.compState === 2) ? (
+            //     <Button size='medium' color='red' onClick={this.previous} style={{marginLeft: '90px'}} icon labelPosition='left'>
+            //   Previous
+            //   <Icon name='left arrow' />
+            // </Button>
+            <Button  className="next-btn" style={{marginLeft: '10px'}}
+                      onClick={this.previous}>Previous</Button>
+              ) : (<div></div>)
+              } */}
+
+
+            </div>
+            </div>
+
+
+            
+
+
           </div>
         </Card.Content >
         <Card.Content extra>

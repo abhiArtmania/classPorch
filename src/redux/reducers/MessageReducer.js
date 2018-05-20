@@ -44,6 +44,13 @@ const MessageReducer = ( state = initState, action) => {
         chatId: action.chatId,
         error: null
       };
+      case ChatActions.CREATE_CHAT_FOR_MESSAGE_TUTOR:
+      return {
+        ...state,
+        currentUser: action.currentUser,
+        otherUser: action.otherUser,
+        chatId: null,
+      };
     case ChatActions.SHOW_ERROR_IN_MESSAGES:
       return {
         ...state,

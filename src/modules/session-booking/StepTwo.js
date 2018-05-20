@@ -32,17 +32,26 @@ class StepTwo extends React.Component {
       startSearchingAvailability: false,
 
       response: [
-        { start_time: '13:00 PM', end_time: '18:00 PM' },
-        { start_time: '13:00 PM', end_time: '18:00 PM' },
-        { start_time: '13:00 PM', end_time: '18:00 PM' },
-        { start_time: '13:00 PM', end_time: '18:00 PM' },
-        { start_time: '13:00 PM', end_time: '18:00 PM' },
-        { start_time: '13:00 PM', end_time: '18:00 PM' },
-        { start_time: '13:00 PM', end_time: '18:00 PM' },
+        { start_time: '13:00', end_time: '18:00' },
+        { start_time: '13:00', end_time: '18:00' },
+        { start_time: '13:00', end_time: '18:00' },
+        { start_time: '13:00', end_time: '18:00' },
+        { start_time: '13:00', end_time: '18:00' },
+        { start_time: '13:00', end_time: '18:00' },
+        { start_time: '13:00', end_time: '18:00' },
+        { start_time: '13:00', end_time: '18:00' },
+        { start_time: '13:00', end_time: '18:00' },
+        { start_time: '13:00', end_time: '18:00' },
+        { start_time: '13:00', end_time: '18:00' },
+        { start_time: '13:00', end_time: '18:00' },
+        { start_time: '13:00', end_time: '18:00' },
         
       ]
+
+
         
     }
+    localStorage.setItem("start_time",JSON.stringify(null))
     this.handleEmailChanged = this.handleEmailChanged.bind(this);
     this.handleEmailConfirmChanged = this.handleEmailConfirmChanged.bind(this);
   }
@@ -57,7 +66,11 @@ class StepTwo extends React.Component {
     
   }
 
+
   setTime = (start_time, end_time, tutor_schedule_id,e) => {
+
+    //setting for validity
+    localStorage.setItem("start_time",JSON.stringify(start_time))
     let skill_id = JSON.parse(localStorage.getItem("skill_id"));
     let body = {
       tutor_id: this.props.tutorId,
@@ -73,13 +86,26 @@ class StepTwo extends React.Component {
     // let timeSegment = document.getElementById("time-segment");
     // timeSegment.style.backgroundColor = '#FFA500';
     let timeSegment = document.getElementsByName("time-segment");
+    console.log("Ye element !!!", timeSegment)
     timeSegment.forEach(element => {
       element.removeAttribute("style");
     });
+    console.log(e);
+    if(e.target.className === "time-segment-div"){
     e.target.style.backgroundColor = '#FFA500'
     e.target.style.color = 'white'
-    e.target.style.border = 'inset'
+    // e.target.style.border = 'inset'
+    
+    } else if (e.target.className === "time-segment-text")
+    {
+
+      let p = e.target.parentNode;
+      p.style.backgroundColor = '#FFA500'
+      p.style.color = 'white'
+    }
+
     localStorage.setItem("booked-tutor", JSON.stringify(body));
+
   }
 
 
@@ -98,27 +124,50 @@ class StepTwo extends React.Component {
     let selectedDay = this.state.days[this.state.date.getDay()];
     // this.setState({selectedDay: selectedDay});
 
-    if(this.props.TUTOR_AVAILABILITY) {
-      // let hourlySchedule = [];
-      // let s = this.props.TUTOR_AVAILABILITY[selectedDay];
-      // console.log("s",s);
-      // s.forEach(element => {
-      //   let start = element.start_time.substring(0, 2);
-      //   start = Number(start)
-      //   let end = element.end_time.substring(0, 2);
-      //   end = Number(end)
-      //   console.log(start)
-      //   let timeArray = [];
-      //   for (let i = start; i <= end; i++) {
-      //     timeArray.push(i)
-      //   }
-      //   console.log(timeArray);
-      // });
-
+    // if(this.props.TUTOR_AVAILABILITY && selectedDay !== "saturday" && selectedDay !== "sunday") {
+      if(this.props.TUTOR_AVAILABILITY[selectedDay].length !== 0) {
+ 
+// console.log("ye hai availability: ",this.props.TUTOR_AVAILABILITY[selectedDay])
 
       this.setState({ schedule: this.props.TUTOR_AVAILABILITY[selectedDay] }, ()=>{
       this.setState({loading: false})
+
+      console.log("sch",this.state.schedule)
+
+      var start_time = Number(this.props.TUTOR_AVAILABILITY[selectedDay][0].start_time.substring(0,2));
+      var end_time = Number(this.props.TUTOR_AVAILABILITY[selectedDay][0].end_time.substring(0,2));
+
+      var newTimeArray = [];
+
+      for (let i = start_time; i <= end_time; i++){
+        // newTimeObj
+        if(i == end_time){
+            break;
+        }
+        // console.log(i,i+1)
+        // console.log(newTimeObj["start_time"])
+        let newTimeObj = {
+            id: '',
+            start_time: '',
+            end_time: ''
+        };
+        newTimeObj["id"] = this.props.TUTOR_AVAILABILITY[selectedDay][0].id;
+        newTimeObj["start_time"] = i+":00";
+        newTimeObj["end_time"] = i+1+":00";
+    
+        newTimeArray.push(newTimeObj);
+    
+    }
+
+    // console.log("ye aayega ab: ",newTimeArray);
+    this.setState({schedule: newTimeArray})
+
     })
+
+    
+  } else {
+    this.setState({schedule: []})
+    this.setState({loading: false})
   }
 
   })
@@ -126,40 +175,36 @@ class StepTwo extends React.Component {
   render () {
     console.log(this.props.TUTOR_AVAILABILITY)
     return (
-  
-    <Grid centered columns={2}>
-      <Grid.Column>
-      <Calendar
+
+    <Grid columns='equal'>
+    <Grid.Column width={8} style={{marginLeft: '40px'}}>
+    <Calendar
             onChange={this.onChange}
             value={this.state.date}
+            minDate={new Date()}
             />
-      </Grid.Column>
-
-      <Grid.Row centered columns={6}>
-
-      
+    </Grid.Column>
+    <Grid.Column className="ulCol" width={6}>
     { (this.state.startSearchingAvailability) ? (
 
-      // {
-
-        (this.state.loading) ? 
-        (<Dimmer active inverted> <Loader inverted>Searching</Loader></Dimmer>) : 
-        (
-          this.state.schedule.map((time)=>{
-          return <Grid.Column style={{marginBottom: '20px'}} width={3}>
-          <Segment name = "time-segment" onClick={this.setTime.bind(this,time.start_time,time.end_time,time.id)}>{time.start_time} {time.end_time}</Segment>
-        </Grid.Column>
-        })
-      )
-     
+    (this.state.schedule.length === 0) ? 
+    (<div>No Result Found!</div>) : 
+    (
+      this.state.schedule.map((time,i)=>{
         
-      // }
-    ) : (<div></div>)
+      return <Grid.Column className="liCol" style={{width: '25px', marginBottom: '10px',}}>
+      <div name="time-segment" className="time-segment-div" onClick={this.setTime.bind(this,time.start_time,time.end_time,time.id)}> <span className="time-segment-text">{time.start_time} {time.end_time}</span></div>
+    </Grid.Column>
 
-    }
-      </Grid.Row>
+    })
+  )
+ 
+    
+) : (<div></div>)
 
-    </Grid>
+}
+    </Grid.Column>
+  </Grid>
 
 
     )

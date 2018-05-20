@@ -10,11 +10,13 @@ const baseUrl = 'https://classporch-staging-backend.herokuapp.com/api/v1';
 
 const apiEndpoints = {
     base: baseUrl,
-    auth:{
+    auth: {
         signIn: baseUrl + '/auth/sign_in',
         signUp: baseUrl + '/auth'
     },
-    
+    previousExpenses: baseUrl + '/user/expenses',
+    changePassword: (userid) => { return baseUrl + `/user/${userid}/change_password` }
+
 };
 
-export {apiEndpoints};
+export { apiEndpoints };
