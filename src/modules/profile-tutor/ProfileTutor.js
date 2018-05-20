@@ -13,7 +13,7 @@ class ProfileTutor extends React.Component {
 		isNotificationActive:false,
 		isProfileEditedNotificationActive:false,
 	};
-	componentWillMount(){
+	componentDidMount(){
 		console.log('sdfs');
 		const {presentProfileId,authToken} = this.props;
 		this.props.profileRequested(presentProfileId,authToken);
@@ -133,8 +133,8 @@ function capitalize(str = '') {
 		.map((char, i) => i === 0 ? char.toUpperCase() : char)
 		.reduce((final, char) => final += char, '')
 }
-const mapStateToProps = ( {auth,profileState,dashboard} ) => {
-	console.log(profileState);
+const mapStateToProps = ( {auth,profileState,dashboard,profileReducer} ) => {
+	console.log("profileReducer: ",profileReducer);
 	const { id:userId, authToken, role, educations, firstName,skills, lastName,fullname,  } =  auth;
 	const {presentProfileId, profile, educationalAttributes, averageRating, 
 		reviews, mode,seededSkills } = profileState;

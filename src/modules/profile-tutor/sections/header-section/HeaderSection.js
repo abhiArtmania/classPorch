@@ -86,7 +86,7 @@ onClickEdit = () => {
   }*/
   render() {
     const {userId, presentProfileId, profile, fullname, authToken,onChangeSkill, role,averageRating, toggleProfileMode,mode, onChangeUserInfo} = this.props;
-   console.log(profile.skills);
+   console.log("props",this.props);
    const content = profile.skills.map((post) =>
    <div className="ui label" key={post.id}>{post.name} </div>
  );
@@ -185,13 +185,15 @@ const styles = {
   }
 };
 
-// const mapStateToProps = ({auth,profileState}) => {
-//     const role = auth.userObject.user.role
+const mapStateToProps = ({auth,profileState}) => {
+    // const role = auth.userObject.user.role
+    // const {profile} = profileState
+    console.log("mapStateToProps",profileState,auth)
 
-//     return  {role}
-// }
+    return  {}
+}
 
-export default connect(null, {})(HeaderSection)
+export default connect(null, mapStateToProps)(HeaderSection)
 
 
 
