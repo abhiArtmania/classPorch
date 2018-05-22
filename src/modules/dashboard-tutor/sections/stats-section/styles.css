@@ -2,14 +2,25 @@
 	margin-top: 40px!important;
 	margin-bottom: 40px!important;
 }
-
+.tutor-stats-section .ui.secondary.pointing.menu .active.item {
+   
+    border-color: orange ;
+    font-weight: 700;
+    color: orange;
+}
 .tutor-greeting{
 	font-size: 40px;
 	font-weight: 300;
 	margin-bottom: 0.3em!important;
 	line-height: 1!important;
 }
-
+.complete-session .custom-row{
+	border-bottom: 1px solid orange;
+    padding: 10px 10px;
+}
+.complete-session .custom-row .userInfo span.time-spent{
+	float: right;
+}
 .tutor-greeting2{
 	font-size: 13px;
 	color: #AAA;
@@ -33,6 +44,8 @@
 .dashboard-stats-container :hover{
 	background: #F6A623;
 	color: #FFF;
+	border:1px #F6A623 solid;
+	border-radius: 10px;
 }
 
 .dashboard-stats-text{
@@ -40,4 +53,23 @@
 	vertical-align: middle;
 	color: #F6A623;
 	font-size: 24px;
+}
+.complete-session .rating{
+	float:none;
+}
+.complete-session .userName{
+	font-size: 19px;
+    margin: 0 0 5px 0;
+	color: orange;
+}
+.complete-session .complete-lable{
+
+}
+.complete-session .time-spent{
+	color: orange;
+}
+.complete-session .load-more-right{
+	float: right;
+	margin:10px 0;
+	width: 115px;
 }

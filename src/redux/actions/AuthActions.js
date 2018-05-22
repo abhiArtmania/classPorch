@@ -17,11 +17,15 @@ import {
     INITIAL_LOGIN,
     SIGNUP_FAIL,
     LOGOUT_USER_SUCCESS,
+
+    GET_PROFILE_SUCCESS,
+
     UPLOAD_PROFILE_PICTURE,
     UPDATE_PERSONAL_INFO,
     UPDATE_PERSONAL_INFO_SUCCESS,
     UPDATE_PERSONAL_INFO_ERROR,
     GET_DASHBOARD_SUCCESS,
+
 } from './types'
 export const initialLogin = () => {
     return {
@@ -86,7 +90,43 @@ export const loginUser = (userReqObject) => {
             dispatch({ type: LOGIN_USER_SUCCESS, payload: { userResObject } });
             history.isAuth = true;
 
+            let tmp=[];
+			res.data.response.educations.forEach(function(item)
+			{
+				
+				let newItem={};
+				for(let key in item){
+					let newKey=key.replace("-","_");
+					
+				if(key!="current-status") newItem[newKey]=item[key]
+				else newItem[key]=item[key]
+				}
+				tmp.push(newItem)
+			}
+			)
+        if(!res.data.response.verified && res.data.response.role==="tutor" ){
+        
+          const averageRating = res.data.response.overall_rating
+			    const profile = res.data.response;
+			    const educations =tmp//res.data.attributes['educations']
+			
+			
+			    const reviews = res.data.response.reviews;// res.data.attributes['reviews']*/
+			   
+                history.push('/profile/tutor');
+          return dispatch({
+            type: GET_PROFILE_SUCCESS,
+            payload: {
+              averageRating,
+              educations,
+              profile,
+              reviews
+            }
+          })
+        }else{
             history.push('/dashboard/' + res.data.response.role)
+        }
+           
 
 
 

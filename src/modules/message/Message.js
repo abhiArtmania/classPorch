@@ -165,11 +165,12 @@ jsemoji.replace_mode = 'unified';
   };
 
   //files
-  startUploading = (event) => {
+  startUploading = (files) => {
     this.setState({ isUploadingFile: true });
-    console.log("files",event[0]);
-    this.props.uploadFile(event[0], { contentType: 'image/jpeg' });
-    // event.target.value = null;
+    console.log("files",files[0]);
+    this.props.uploadFile(files[0], { contentType: 'image/jpeg' });
+    // files = null;
+    // console.log("files",files[0])
   };
   render = () => {
     const {chats, isLoadingChats} = this.props;
@@ -206,7 +207,12 @@ jsemoji.replace_mode = 'unified';
                     return <List.Item onClick={()=>{this.onChatSelected(chat)}}>
                     <List.Icon name='user ' size='large' verticalAlign='middle' />
                     <List.Content>
-                      <List.Header as='a'>{chat.user.name}</List.Header>
+                      {/* <List.Header as='a'>{chat.user.name}</List.Header> */}
+                      {
+                        (this.props.currentUser.role === 'student') ?
+                        (<List.Header as='a'>{chat.user.name}</List.Header>) : 
+                        (<List.Header as='a'>{chat.user.firstName} {chat.user.lastName}</List.Header>)
+                      }
                       <List.Description as='a'>{chat.lastMessage}</List.Description>
                     </List.Content>
                   </List.Item>
@@ -225,7 +231,12 @@ jsemoji.replace_mode = 'unified';
 {(this.state.loadMessageState)?(<Grid.Column textAlign='left' width={12} className="right-tab">
 
 <Grid.Row className="header-message">
-    <Link to="tutors/88"><h2> <Icon name='user' size='large' />{this.props.otherUser.name}</h2></Link>
+{
+  (this.props.currentUser.role === 'student') ?
+  (<Link to="tutors/88"><h2> <Icon name='user' size='large' />{this.props.otherUser.name}</h2></Link>) : 
+  (<Link to="tutors/88"><h2> <Icon name='user' size='large' />{this.props.otherUser.firstName} {this.props.otherUser.lastName}</h2></Link>)
+}
+    {/* // <Link to="tutors/88"><h2> <Icon name='user' size='large' />{this.props.otherUser.firstName}</h2></Link> */}
 </Grid.Row>
   
 
@@ -250,7 +261,7 @@ jsemoji.replace_mode = 'unified';
 
 <div style={{margin:'10px 0px'}}>
     <Form onSubmit={this.handleSubmit}>
-        <Input className="message-input" name="message" value={this.state.message} onChange={this.handleChange} icon={<div className="inner-content"><Icon name='smile' size='large' link onClick={this.showEmoji}/><Files name={'selectedFile'} control={'input'} type='file' accept={'.jpg, .jpeg'} onChange={this.startUploading.bind(this)} className="file-attachment"><Icon name='attach' size='large' link/></Files></div>}   placeholder='Type...'  />
+        <Input className="message-input" name="message" value={this.state.message} onChange={this.handleChange} icon={<div className="inner-content"><Icon name='smile' size='large' link onClick={this.showEmoji}/><Files name={'selectedFile'} id="file" control={'input'} type='file' accept={'.jpg, .jpeg'} onChange={this.startUploading.bind(this)} onError={this.onFilesError} className="file-attachment"><Icon name='attach' size='large' link/></Files></div>}   placeholder='Type...'  />
       {/* {this.state.isEmoji?<EmojiPicker  onEmojiClick={this.setEmoji.bind(this)} /> :''} */}
        
         

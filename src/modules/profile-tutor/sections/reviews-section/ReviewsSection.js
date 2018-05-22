@@ -12,7 +12,7 @@ class ReviewsSegment extends Component {
         allReviews:[],
         displayReviews:[],
         hiddenReviews:true,
-        reviews:this.props.profile.reviews|| null
+        reviews:this.props.reviews|| null
     };
 
     componentWillMount(){

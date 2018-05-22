@@ -21,7 +21,12 @@ class OtherMessage extends Component {
       // </div>
       <List.Item className="message-row">
               <List.Content>
-                <List.Header> <Icon name='user' size='large' /> {otherUser.name} </List.Header>
+                {/* <List.Header> <Icon name='user' size='large' /> {otherUser.name} </List.Header> */}
+                {
+                        (otherUser.role === 'student') ?
+                        (<List.Header> <Icon name='user' size='large' /> {otherUser.firstName} {otherUser.lastName} </List.Header>) : 
+                        (<List.Header> <Icon name='user' size='large' /> {otherUser.name} </List.Header>)
+                      }
                 <Image src={message.text} size={'medium'} as={'a'} target={'_blank'} href={message.text}/>
               </List.Content>
             </List.Item>
@@ -38,7 +43,12 @@ class OtherMessage extends Component {
       // </div>
       <List.Item className="message-row">
               <List.Content>
-                <List.Header> <Icon name='user' size='large' />{otherUser.name}</List.Header>
+                {/* <List.Header> <Icon name='user' size='large' />{otherUser.name}</List.Header> */}
+                {
+                        (otherUser.role === 'student') ?
+                        (<List.Header> <Icon name='user' size='large' /> {otherUser.firstName} {otherUser.lastName} </List.Header>) : 
+                        (<List.Header> <Icon name='user' size='large' /> {otherUser.name} </List.Header>)
+                      }
                 {message.text}
               </List.Content>
             </List.Item>

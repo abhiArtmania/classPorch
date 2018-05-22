@@ -45,8 +45,10 @@ import {
   GET_AVAILABILITY,
   GET_BOOKED_TUTOR,
   SUBMIT_SESSION,
-  UNSUBSCRIBE_DASHBOARD
-} from './types';
+
+  UNSUBSCRIBE_DASHBOARD,
+  GET_PROFILE_SUCCESS} from './types';
+
 const uuidv1 = require('uuid/v1');
 
 
@@ -88,9 +90,7 @@ export const getDashboard = ({userId, authToken}) => {
 
         const weekSchedule = res.response['next_week_url'];
         const nextWeekUrl = '';
-        if(!res.response.user.verified && res.response.user.role==="tutor" ){
-          history.push('/profile/tutor');
-        }
+        
         return dispatch({
           type: GET_DASHBOARD_SUCCESS,
           payload: {profile, notifications, notificationsNextUrl, suggestedTutors, weekSchedule, nextWeekUrl}

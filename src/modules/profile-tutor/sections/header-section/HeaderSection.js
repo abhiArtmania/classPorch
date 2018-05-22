@@ -85,9 +85,9 @@ onClickEdit = () => {
     
   }*/
   render() {
-    const {userId, presentProfileId, profile, fullname, authToken,onChangeSkill, role,averageRating, toggleProfileMode,mode, onChangeUserInfo} = this.props;
-   console.log("props",this.props);
-   const content = profile.skills.map((post) =>
+    const {userId, presentProfileId,skills, profile, fullname, authToken,onChangeSkill, role,averageRating, toggleProfileMode,mode, onChangeUserInfo} = this.props;
+   console.log(skills);
+   const content = skills.map((post) =>
    <div className="ui label" key={post.id}>{post.name} </div>
  );
     const searchRequested = ( authToken) => {

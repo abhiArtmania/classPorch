@@ -1,0 +1,18 @@
+.image{
+    height: 20px;
+    width: 20px
+}
+.join-room{
+    margin: 0 0;
+}
+.reschedule{
+    margin: 0 0;
+}
+button.ui.yellow.button.reschedule {
+    float: right;
+    width: 115px;
+}
+button.ui.yellow.button.join-room {
+    float: right;
+    width: 115px;
+}
