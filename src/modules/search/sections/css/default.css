@@ -270,9 +270,24 @@ input[type=checkbox]:checked + label:before {
     color: #fac219;
 }
 
+.agent-box-list .agent-content{
+  float:right;
+  width:80%;
+}
+
 .agent-box-list .agent-content h1 a:hover{
     color: #fac219;
 }
+
+.agent-box-list{
+  margin:auto;
+}
+
+.agent-box-list:hover{
+  box-shadow: 1px 0px 18px 4px #d4d4d4;
+  z-index: 999999;
+}
+
 .form-content-box .footer span a {
     color: #fac219;
 }
