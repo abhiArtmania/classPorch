@@ -137,4 +137,3 @@ export default connect(mapStateToProps, {
   getUnreadMessagesCount,
   toggleSearchMode
 })(DashboardStudent);
-

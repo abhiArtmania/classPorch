@@ -32,11 +32,11 @@ class SearchSection extends React.Component {
           className="agent-box-list clearfix wow fadeInUp delay-03s"
           style={{ visibility: "hidden" }}
         >
-          <div className="col-lg-1 col-md-1 col-sm-1  agent-box-theme-2">
+          <div className="agent-box-theme-2">
             <img src={tutorInfo.image ? tutorInfo.image : defaultAvatar} alt="team-2" className="img-responsive" />
             <div className={`status ${className}`} />
           </div>
-          <div className="col-lg-11 col-md-11 col-sm-11 agent-content">
+          <div className="agent-content">
             <h1 className="title clearfix">
               <span className="pull-left text-orange">{tutorInfo.fullname}</span>
               <span className="pull-right text-orange">{tutorInfo.hourly_rate ? tutorInfo.hourly_rate: "Not Vefiried"}</span>

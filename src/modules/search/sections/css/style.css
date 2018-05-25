@@ -2225,7 +2225,10 @@ footer ul {
 .agent-box-list .agent-box-theme-2 {
     margin: 0 auto;
     text-align: center;
-    padding: 0
+    padding: 0;
+    float:left;
+    width:20%;
+    position:relative;
 }
 
 .agent-box-list .agent-box-theme-2 img {
@@ -2414,8 +2417,7 @@ footer ul {
 .option-bar {
     background: #fff;
     border-radius: 3px;
-    height: 50px;
-    margin-bottom: 30px
+    padding: 20px
 }
 
 .option-bar .heading-icon,.option-bar h4 {
@@ -5276,7 +5278,7 @@ table.manage-table .title-container .title span {
     height: 222px
 }
 .status {
-  width: 16px;height: 16px;background-color:#aaa;border-radius:50%;position: absolute;top: 85px;right: 7px;border: 3px solid #FFF;
+  width: 16px;height: 16px;background-color:#aaa;border-radius:50%;position: inherit;top: 45px;right: 18px;border: 3px solid #FFF; display: inline-block;
 }
 .status.online { background-color:#390; }
 
@@ -5294,4 +5296,14 @@ table.manage-table .title-container .title span {
 
 .wrapper__rating .rating {
     margin-top: -1px;
+}
+
+.tutor-search-container{
+  width:64%;
+  margin:0 auto;
+  box-shadow: 0px 0px 20px 2px #e1e1e1
+}
+
+.container.first-pagination{
+  margin-top: 30px;
 }
