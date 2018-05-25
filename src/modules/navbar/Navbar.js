@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logoDark from '../../assets/logo_dark.png';
 import { history } from '../../redux/store';
 import './styles.css';
-import { Menu, Dropdown, Image, Input, Button, Grid, Icon, Table, Label, TransitionablePortal } from 'semantic-ui-react';
+import { Menu, Dropdown, Image, Input, Button, Grid, Icon, Table, Label, TransitionablePortal,Popup } from 'semantic-ui-react';
 import faker from 'faker'
 import { connect } from 'react-redux';
 import { logoutUserRequested, searchRequested, setPresentProfile, toggleSearchMode } from '../../redux/actions';
@@ -13,6 +13,9 @@ import searchicon from '../../assets/searchicon.svg';
 import notificationIcon from '../../assets/ring.svg';
 import compass from '../../assets/n.png';
 import { Accordion, AccordionContent } from 'semantic-ui-react';
+import { Snackbar } from 'react-md';
+
+
 
 
 class Navbar extends Component {
@@ -20,8 +23,12 @@ class Navbar extends Component {
     state = {
         activeItem: '',
         searchWord: '',
-        avatar: faker.internet.avatar()
+        avatar: faker.internet.avatar(),
+        
     };
+    
+
+      
 
     constructor(props) {
         super(props);
@@ -51,7 +58,7 @@ class Navbar extends Component {
             showReply: false,
             searchWord: '',
             filterGender: '',
-            filterSkill: ''
+            filterSkill: '',
         }
 
     }
@@ -59,6 +66,7 @@ class Navbar extends Component {
     componentWillMount() {
         this.setState({ activeItem: '' })
     }
+
 
     componentDidMount() {
         $(window).on('scroll', () => {
@@ -84,15 +92,30 @@ class Navbar extends Component {
             }
         })
     }
+
+
+
+
     handleClose = () => this.setState({ open: false })
     handleItemClick = (e, { name }) => {
+
+
         console.log(history);
         this.setState({ activeItem: name });
         const { role, userId } = this.props;
         (name === 'search' ? this.setState({ isSearchbar: true }) : this.setState({ isSearchbar: false }));
         switch (name) {
             case 'messages':
+            if(this.props.role === 'tutor'){
+                if(this.props.profile.verified === true){
+                    history.push('/message'); } else {
+                        console.log("not Verified tutor")
+
+                    }
+            } else {
                 history.push('/message');
+            }
+            
                 return;
             case 'log-in':
                 this.scrollTo();
@@ -117,9 +140,17 @@ class Navbar extends Component {
             case 'add-credits':
                 return history.push('/add-credits');
             case 'request-money':
-                return history.push('/request-money');
+            if(this.props.profile.verified === true){
+                history.push('/request-money'); } else {
+                    // localStorage.setItem("RESTRICT",JSON.stringify(true));
+                }
+                return ;
             case 'link-account':
-                return history.push('/link-account');
+            if(this.props.profile.verified === true){
+                history.push('/link-account'); } else {
+                    // localStorage.setItem("RESTRICT",JSON.stringify(true));
+                }
+                return ;
             case 'previous-expenses':
                 return history.push('/previous-expenses');
             case 'search-tutors':
@@ -151,7 +182,14 @@ class Navbar extends Component {
                 history.push('/settings');
                 break;
             case 'support':
-                history.push('/support');
+            if(this.props.role === 'tutor'){
+                if(this.props.profile.verified === true ){
+                history.push('/support'); } else {
+                    console.log("Not Verified Tutor")
+                }} else {
+                    history.push('/support');
+                }
+            
                 break;
             case 'search':
                 this.onSearch();
@@ -559,7 +597,8 @@ class Navbar extends Component {
 const mapStateToProps = store => {
     const { authToken, id: userId, role, firstName, lastName, loggedIn } = store.auth;
     const { profile } = store.dashboard;
-    return { authToken, userId, role, firstName, lastName, loggedIn, profile }
+    const { RESTRICT } = store.profileState;
+    return { authToken, userId, role, firstName, lastName, loggedIn, profile, RESTRICT }
 };
 
 export default connect(mapStateToProps, {

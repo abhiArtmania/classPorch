@@ -11,6 +11,7 @@ import {history} from '../../redux/store';
 import Files from 'react-files'
 import "./styles.css";
 import JSEMOJI from 'emoji-js';
+import $ from 'jquery'
 
 const styles = {
   emoji: {
@@ -80,6 +81,7 @@ class Message extends Component {
       }
     });
     this.setState({ messages: messageRows });
+    
   };
 
   createChatsFromResponse = (chats) => {
@@ -162,6 +164,7 @@ jsemoji.replace_mode = 'unified';
     this.setState({
       message: ''
     })
+    
   };
 
   //files
@@ -244,7 +247,7 @@ jsemoji.replace_mode = 'unified';
 
 
 
-<List divided  relaxed>
+<List divided  relaxed id="chat">
 
 {this.state.isEmoji?<EmojiPicker onEmojiClick={this.setEmoji.bind(this)} /> :''}
   {messages}

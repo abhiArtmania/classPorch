@@ -62,7 +62,7 @@ class OwnMessage extends Component {
     };
 
     return (
-      <List.Item>
+      <List.Item id="liChat">
         {/* <div>
           <div style={wrapperStyle}>
             {message.type === 'FILE' ? this.renderImageMessage(message) : this.renderTextMessage(message) }
@@ -80,6 +80,7 @@ class OwnMessage extends Component {
           }
 
         </div>
+
       </List.Item>
     )
   }

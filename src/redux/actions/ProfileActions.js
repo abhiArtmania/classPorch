@@ -16,7 +16,8 @@ import {
 	UPLOAD_PROFILE_PICTURE_COMPLETE,
 	UPLOAD_PROFILE_PICTURE_ERROR,
 	GET_SEEDED_SKILLS_SUCCESS,
-	GET_SEEDED_SKILLS_FAIL
+	GET_SEEDED_SKILLS_FAIL,
+	GET_RESTRICTIONS
 } from './types'
 import { apiEndpoints } from '../../ApiEndpoints'
 
@@ -59,7 +60,7 @@ export const getSeededSkills = (authToken) => {
 			
 
 			return dispatch({
-				type: GET_SEEDED_SKILLS_SUCCESS,
+				type: GET_RESTRICTIONS,
 				payload: res.response
 			})
 		} catch (e) {
@@ -67,6 +68,19 @@ export const getSeededSkills = (authToken) => {
 		}
 	}
 }
+
+export const profileRestrict = (restrict) => {
+	
+	return async dispatch => {
+	
+			return dispatch({
+				type: GET_RESTRICTIONS,
+				payload: restrict
+			})
+		
+	}
+}
+
 export const profileRequested = (userId, authToken) => {
 	return async dispatch => {
 		try {

@@ -14,7 +14,8 @@ import {
     CHANGE_SKILLS,
     CHANGE_PICTURE,
     GET_SEEDED_SKILLS_SUCCESS,
-	GET_SEEDED_SKILLS_FAIL
+    GET_SEEDED_SKILLS_FAIL,
+    GET_RESTRICTIONS
 } from '../actions/types'
 
 const INITIAL_STATE = {
@@ -28,7 +29,8 @@ const INITIAL_STATE = {
     editingProfile:false,
     editProfileMessage:'',
     profileEditedIndicator:null,
-    skills:[]
+    skills:[],
+    RESTRICT: true,
 };
 
 export default (state=INITIAL_STATE,action) => {
@@ -49,6 +51,9 @@ export default (state=INITIAL_STATE,action) => {
         }
         case GET_SEEDED_SKILLS_FAIL:
             return { ...state, skills:[] };
+        
+            case GET_RESTRICTIONS:
+            return { ...state, RESTRICT:action.payload };
 
 
         case SET_PROFILE_ID:

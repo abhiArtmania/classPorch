@@ -41,7 +41,7 @@ class OtherMessage extends Component {
       //     {moment(message.createdAt).fromNow()}
       //   </p>
       // </div>
-      <List.Item className="message-row">
+      <List.Item className="message-row" id="liChat">
               <List.Content>
                 {/* <List.Header> <Icon name='user' size='large' />{otherUser.name}</List.Header> */}
                 {
