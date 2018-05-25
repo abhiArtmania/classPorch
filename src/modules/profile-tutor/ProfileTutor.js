@@ -92,10 +92,6 @@ class ProfileTutor extends React.Component {
 			console.log("RESTRICT",RESTRICT);
         return (
 			<div style={{padding:'15px'}}>
-				
-			{!RESTRICT && <Message warning>
-					<Message.Header>You cannot access this feature until you are verified</Message.Header>
-				</Message>}
 
 				{!verified && <Message warning>
 					<Message.Header></Message.Header>
