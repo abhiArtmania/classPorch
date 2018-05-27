@@ -93,6 +93,8 @@ class ProfileTutor extends React.Component {
         return (
 			<div style={{padding:'15px'}}>
 
+	
+
 				{!verified && <Message warning>
 					<Message.Header></Message.Header>
 					<p>Your profile is under Review. It typically takes 24*72 hours to be Approved an verified</p>

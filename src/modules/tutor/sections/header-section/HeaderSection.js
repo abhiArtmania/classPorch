@@ -169,6 +169,7 @@ render(){
   console.log("ye skills hain abi render may",tutorInfo.skills)
   return (
     <div>
+      
     <Grid className='profile-section' >
       <Grid.Row width={16}>
         <Grid.Column width={3} className='profileImage'>

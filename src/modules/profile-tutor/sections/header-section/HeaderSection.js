@@ -3,7 +3,8 @@ import {history} from '../../../../redux/store';
 import {connect} from 'react-redux'
 import RequestSession from './RequestSession'
 import SkillSegment from './SkillSegment'
-
+import { profileRequested,getDashboard, toggleProfileMode, onChangeUserInfo,updateProfilePicture,
+	onChangeEducation,onChangeSkill, updateProfile, ChatActions,getSeededSkills,profileRestrict } from '../../../../redux/actions';
 import {  Grid,  Button,  Rating, Image, Label, Input, Icon, Form} from 'semantic-ui-react';
 import './styles.css';
 import profileImg  from '../../../../assets/profile/profile.jpg';
@@ -13,10 +14,14 @@ let status;
 class HeaderSection extends Component {
   constructor(props) {
     super(props);
-    this.state = { userStatus: this.props.profile.online_status};
+    this.state = { 
+      userStatus: this.props.profile.online_status,
+      fullnameEditMode: false,
+      rateEditMode: false,
+    };
   }
   
-  state = {}
+  // state = {}
   startUploading = (event) => {
     // this.setState({isUploadingFile: true});
     // this.props.uploadFile(event.target.files[0], {contentType: 'image/jpeg'});
@@ -84,6 +89,35 @@ onClickEdit = () => {
     await this.setStateAsync({status: rult.response.online_status})
     
   }*/
+
+  onFullNameEdit = () => {
+    this.setState({
+      fullnameEditMode: !this.state.fullnameEditMode
+    })
+  }
+  onFullNameEditdone = () => {
+    this.setState({fullnameEditMode: false})
+    console.log("Profile Done Edit");
+
+      const { userId, profile, authToken, educations } = this.props;
+      console.log("Edit krte wqt profile:",profile)
+		this.props.updateProfile({ profile,userId,educations,authToken })
+
+    
+  }
+  onRateEdit = () => {
+    this.setState({
+      rateEditMode: !this.state.rateEditMode
+    })
+  }
+  onRateEditdone = () => {
+    this.setState({rateEditMode: false})
+    console.log("Profile Done Edit");
+
+      const { userId, profile, authToken, educations } = this.props;
+      console.log("Edit krte wqt profile:",profile)
+		this.props.updateProfile({ profile,userId,educations,authToken })
+  }
   render() {
     const {userId, presentProfileId,skills, profile, fullname, authToken,onChangeSkill, role,averageRating, toggleProfileMode,mode, onChangeUserInfo} = this.props;
    console.log(skills);
@@ -126,17 +160,19 @@ console.log(this.state.userStatus);
     {(this.state.userStatus==="offline" &&<Label circular color='red' empty  />)}
     {(this.state.userStatus==="away" && <Label circular color='yellow' empty  />) }
     
-     {profile["fullname"]}
-     { mode === 'edit' ? 
-        <Input className='profile-rate' value={profile["fullname"]} onChange={this.onChangeFullName.bind(this)} type='text' /> : ''
+     <span id="fullNameDiv">{profile["fullname"]} <i class="pencil icon" onClick={this.onFullNameEdit}></i> </span> 
+     { this.state.fullnameEditMode === true ? 
+        <span><Input className='profile-rate' value={profile["fullname"]} onChange={this.onChangeFullName.bind(this)} type='text' /><Icon size="large" onClick={this.onFullNameEditdone} name='check' /></span> : ''
       }
-     <span className="rate">
-    {(profile.hourly_rate) ? '$'+profile.hourly_rate+'/hr':'N/A' }
-     { mode === 'edit' ? 
-        <Input className='profile-rate' value={profile['hourly-rate']} onChange={this.onChangeRate.bind(this)} type='number' /> : ''
+     <span className="rate" id="rateDiv">
+     <i class="pencil icon" onClick={this.onRateEdit}></i>
+    {  (profile.hourly_rate) ? '$'+profile.hourly_rate+'/hr':'N/A' }
+     { this.state.rateEditMode === true ? 
+        <span><Input className='profile-rate' value={profile['hourly-rate']} onChange={this.onChangeRate.bind(this)} type='number' /><Icon size="large" onClick={this.onRateEditdone} name='check' /></span> : ''
       }
+      </span>
      
-     </span>
+     
      
      
       
@@ -185,18 +221,40 @@ const styles = {
   }
 };
 
-const mapStateToProps = ({auth,profileState}) => {
-    // const role = auth.userObject.user.role
-    // const {profile} = profileState
-    console.log("mapStateToProps",profileState,auth)
+// const mapStateToProps = ({auth,profileState}) => {
+//     // const role = auth.userObject.user.role
+//     // const {profile} = profileState
+//     console.log("mapStateToProps",profileState,auth)
 
-    return  {}
-}
+//     return  {}
+// }
 
-export default connect(null, mapStateToProps)(HeaderSection)
+// export default connect(null, mapStateToProps)(HeaderSection)
+const mapStateToProps = ( {auth,profileState,dashboard} ) => {
+	console.log("profileState: ",profileState);
+	// console.log("profileReducer",profileReducer)
+	const { id:userId, authToken, role, educations, firstName,skills, lastName,fullname,  } =  auth;
+	const {presentProfileId, profile, educationalAttributes, averageRating, 
+		reviews, mode,seededSkills } = profileState;
 
+	
 
+	return { userId, authToken,role,firstName,seededSkills, lastName, skills, presentProfileId, profile, fullname, educations, averageRating, reviews, mode,   }
+};
 
+export default connect(mapStateToProps, { 
+	profileRequested,
+	profileRestrict,
+	getDashboard, 
+	getSeededSkills,
+	toggleProfileMode, 
+	onChangeUserInfo,
+	onChangeSkill,
+	onChangeEducation,
+	updateProfile,
+	updateProfilePicture,
+	showMessages: ChatActions.showMessages
+})(HeaderSection);
 
 
                 

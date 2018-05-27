@@ -225,13 +225,18 @@ export const updateProfile = ({
 	return async dispatch => {
 		try {
 			dispatch({ type: EDIT_PROFILE_START })
-			console.log('dfgf');
+			var fullname = profile['fullname'];
+			var fn,ln;
+				// Split on the plus.
+				var result = fullname.split(" ");
+
 			let bodyObject = {
 				user: {
 					hourly_rate: profile['hourly_rate'],
 					role: profile.type,
-					first_name: profile['hourly_rate'],
-					last_name: profile['last_name'],
+					first_name: result[0],
+					last_name: result[1],
+					// fullname: profile['fullname'],
 					gender: profile.gender,
 					'profile-picture': profile['profile-picture'],
 					country: profile.country,

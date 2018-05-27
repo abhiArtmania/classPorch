@@ -97,6 +97,7 @@ class Navbar extends Component {
 
 
     handleClose = () => this.setState({ open: false })
+
     handleItemClick = (e, { name }) => {
 
 
@@ -110,7 +111,6 @@ class Navbar extends Component {
                 if(this.props.profile.verified === true){
                     history.push('/message'); } else {
                         console.log("not Verified tutor")
-
                     }
             } else {
                 history.push('/message');

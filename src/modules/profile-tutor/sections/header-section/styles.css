@@ -1,3 +1,19 @@
+/* editing */
+
+#fullNameDiv i{
+	visibility:hidden;
+  }
+  #fullNameDiv:hover i{
+   visibility:visible;
+  }
+  #rateDiv i{
+	visibility:hidden;
+  }
+  #rateDiv:hover i{
+   visibility:visible;
+  }
+  
+
 
 .message-box{
 	height: 30px;

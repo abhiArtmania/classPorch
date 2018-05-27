@@ -1,8 +1,11 @@
 import React, {Component} from 'react'
-import {Grid, Button, Rating,Input} from "semantic-ui-react";
+import {Grid, Button, Rating,Input,Icon} from "semantic-ui-react";
 import PropTypes from 'prop-types';
 import '../../../styles.css'
 import Truncate from 'react-truncate';
+import {connect} from 'react-redux'
+import { profileRequested,getDashboard, toggleProfileMode, onChangeUserInfo,updateProfilePicture,
+	onChangeEducation,onChangeSkill, updateProfile, ChatActions,getSeededSkills,profileRestrict } from '../../../../../redux/actions';
 
 
 class AboutSegment extends Component {
@@ -13,7 +16,8 @@ class AboutSegment extends Component {
             count: 5,
             defaultCount: 5,
             expanded: false,
-            truncated: false
+            truncated: false,
+            descEditMode: false,
         };
         this.data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 6, 4, 3, 2, 1, 5];
         this.handleTruncate = this.handleTruncate.bind(this);
@@ -62,6 +66,20 @@ class AboutSegment extends Component {
         }
     };
 
+    onDescEdit = () => {
+        this.setState({
+            descEditMode: !this.state.descEditMode
+          })
+    }
+    onDescEditdone = () => {
+        this.setState({descEditMode: false})
+        console.log("Profile Done Edit");
+    
+          const { userId, profile, authToken, educations } = this.props;
+          console.log("Edit krte wqt profile:",profile)
+            this.props.updateProfile({ profile,userId,educations,authToken })
+    }
+
     render() {
         const {profile ,mode} = this.props;
 
@@ -91,7 +109,7 @@ class AboutSegment extends Component {
             <Grid padded relaxed style={{width: '100%', paddingTop: 30}}>
             <Grid.Column width={16} >
                         
-                        <h2>About Me</h2>
+                        <h2 id="fullNameDiv">About Me <i size="small" class="pencil icon" onClick={this.onDescEdit} ></i> </h2>
                         
                         <div>
                             <Truncate lines={!expanded && lines} ellipsis={(<span>... <a href='#' onClick={this.toggleLines}>{more}</a></span>
@@ -100,8 +118,8 @@ class AboutSegment extends Component {
                             </Truncate>
                             {!truncated && expanded && (<span> <a href='#' onClick={this.toggleLines}>{less}</a></span>)}
                         </div>
-                        { mode === 'edit' ? 
-                            <Input className='profile-rate' value={profile['bio']} onChange={this.onChangeBio.bind(this)} type='text' /> : ''
+                        { this.state.descEditMode === true ? 
+                            <span><Input className='profile-rate' value={profile['bio']} onChange={this.onChangeBio.bind(this)} type='text' /><Icon size="big" onClick={this.onDescEditdone} name='check' /></span> : ''
                              }
                         </Grid.Column>
                 
@@ -153,4 +171,29 @@ AboutSegment.propTypes = {
                     <Grid.Column width={8} textAlign='left'/>
                 </Grid.Row>
 */
-export default AboutSegment;
+
+const mapStateToProps = ( {auth,profileState,dashboard} ) => {
+	console.log("profileState: ",profileState);
+	// console.log("profileReducer",profileReducer)
+	const { id:userId, authToken, role, educations, firstName,skills, lastName,fullname,  } =  auth;
+	const {presentProfileId, profile, educationalAttributes, averageRating, 
+		reviews, mode,seededSkills } = profileState;
+
+	
+
+	return { userId, authToken,role,firstName,seededSkills, lastName, skills, presentProfileId, profile, fullname, educations, averageRating, reviews, mode,   }
+};
+
+export default connect(mapStateToProps, { 
+	profileRequested,
+	profileRestrict,
+	getDashboard, 
+	getSeededSkills,
+	toggleProfileMode, 
+	onChangeUserInfo,
+	onChangeSkill,
+	onChangeEducation,
+	updateProfile,
+	updateProfilePicture,
+	showMessages: ChatActions.showMessages
+})(AboutSegment);
